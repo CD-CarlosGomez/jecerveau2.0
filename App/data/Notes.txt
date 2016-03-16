@@ -1,0 +1,2 @@
+13.3.13->adaptar para que lea el .ini
+	->Adaptar patrón de diseño singleton
