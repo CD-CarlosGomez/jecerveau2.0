@@ -50,8 +50,7 @@ class LayoutHTML implements iLayout{
 	public function getDebugBody(){
         $this->outputBody="<body>\n";
         $this->outputBody .="<section>\n";
-        $this->outputBody .="Hello World\n";
-        //$this->outputBody .=$this->nav();
+        $this->outputBody .="Hello World iBrain 2.0\n";
 		$this->outputBody .="</section>\n";
         $this->outputBody .="";
 		return $this->_outputBody;
@@ -63,7 +62,7 @@ class LayoutHTML implements iLayout{
         $this->outputFooter .="</html>\n";
 		return $this->_outputFooter;
         }        
-    public function Menu($tipo,$lista){
+    public function getMainNavigation($tipo,$lista){
         $resultado="<$tipo>\n";
         foreach ($lista as $elemento)
             $resultado.="<li>$elemento</li>\n";

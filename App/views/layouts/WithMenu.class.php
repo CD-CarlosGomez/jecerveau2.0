@@ -16,18 +16,10 @@ class WithMenu extends LayoutDecorator{
 	public $poutputHeader="";
 	public $poutputBody="";
 	public $poutputFooter="";
-	public $pMenu=
-	"<ul>
-		<li>1</li>
-		<li>2</li>
-		<li>3</li>
-	</ul>";
+	public $pMenu="";
 //PROPIEDADES########################################
 //MÉTODOS ABSTRACTOS#################################
 //MÉTODOS PÚBLICOS###################################
-	public function getMenu(){
-		return $this->pMenu;
-	}
 	public function render(){
 		printf(self::getDebugHeader());
 		printf(self::getDebugBody());
@@ -36,24 +28,40 @@ class WithMenu extends LayoutDecorator{
 	public function getDebugHeader(){
 		return $this->_layout->getDebugHeader();
 	}
-	public function getDebugBody(){
-		
-        $this->poutputBody .="<body>\n";
-		$this->poutputBody .="<div id='base_head'>\n";
-		$this->poutputBody .="<div id='menustop'>".self::getMenu()."</div>\n";
-		$this->poutputBody .="<a href=\"#top-of-page\" id=\"top-of-page\" class=\"sr-only\">Top of page</a>\n";
-		$this->poutputBody .="<div id=\"contenido\" class=\"container\">\n";
-		$this->poutputBody .="<section>\n";
-        $this->poutputBody .="Hello World\n";
-		$this->poutputBody .=self::getMenu();
-		$this->poutputBody .="</section>\n";
-        $this->poutputBody .="";
-		return $this->poutputBody;
-		//return $this->_layout->getDebugBody();
+	public function getDebugBody(){ ?>
+    <body>
+		<div id="wrapper">
+				<? self::getMainNavigation();?>
+			<div id="page-wrapper" class="gray-bg dashbard-1">
+			<div class="row border-bottom">
+				<? self::getMinorNavigation();?>
+			</div>
+				<? self::getTitleTemplate(); ?>
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="wrapper wrapper-content">
+				<? self::getMainTemplate();?> 
+					</div>
+			<?php
+    }
 	}
 	public function getDebugFooter(){
 		return $this->_layout->getDebugFooter();
 	}
+	public function getMainNavigation(){
+		
+	}
+	public function getMinorNavigation(){
+		
+	}
+	public function getTitleTemplate(){
+		
+	}
+	public function getMainTemplate(){
+		
+	}
+	
+	
 //MÉTODOS PRIVADOS###################################
 //EVENTOS############################################
 //CONTROLES##########################################
