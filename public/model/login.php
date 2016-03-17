@@ -50,18 +50,16 @@ class Login extends dal{
 	}
 	 
 	public function Acceder(){
-		$mySQLiQuery="SELECT * FROM usuarios WHERE nombre='".$this->_nombreUsuario."';";
+		echo $mySQLiQuery="SELECT username,pwd FROM ibuser WHERE username='".$this->_nombreUsuario."';";
 		$mySQLiResultSet=parent::ejecutar($mySQLiQuery);
 		if($row = $mySQLiResultSet->fetch_array()){
-			if($row["contrasena"] === $this->_contrasenaUsuario){
+			if($row["pwd"] === $this->_contrasenaUsuario){
 				return true;
-				//$Acceder="Bienvenido! " . $_SESSION['username']."Has sido logueado correctamente.";
 			}else{
 				return false;
-				//$Acceder='Password incorrecto';
 			}
 		}else{
-		return false; //$Acceder='Usuario no existente en la base de datos';
+		return false; 
 		}
 	}
 	

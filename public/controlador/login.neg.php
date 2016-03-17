@@ -29,7 +29,7 @@ session_start();
 //EVENTOS############################################
 //CONTROLES##########################################
 //MAIN###############################################
-echo $_POST['btn'];
+$_POST['btn'];
 switch($_POST['btn']){
 	case "Guardar":
 		guardar();
@@ -50,8 +50,8 @@ switch($_POST['btn']){
 			$_SESSION["nombreUsuario"]=$acceso;
 			$_SESSION['loggedin'] = true;
 			$_SESSION['start'] = time();
-			$_SESSION['expire'] = $_SESSION['start'] + (5 * 60) ;
-			header("Location:../vista/inicio.php");
+			$_SESSION['expire'] = $_SESSION['start'] + (20 * 60) ;
+			header("Location:../../private/home");
 			}
 		else header("Location:../index.php");
 	break; 

@@ -36,7 +36,7 @@
 		
 			<fieldset> 
 				<legend>Log-In</legend> 
-				<form action="controlador/login.neg.php" method="post">
+				<form action="public/controlador/login.neg.php" method="post">
 				<table width="80%">
 				<tr>
 				<td class="span-7">Usuario:</td>

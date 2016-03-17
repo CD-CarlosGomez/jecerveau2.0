@@ -22,10 +22,39 @@ Class LayoutCSS extends LayoutHTML{
 	public $poutputHeader=false;
 	public $poutputBody=false;
 	public $poutputFooter=false;
+	private $_sesionUsuario;
 //PROPIEDADES########################################
+	public function __set($var,$value){
+		if(property_exists(__CLASS__,$var))
+			$this->$var=$value;
+		else
+			echo "Atributo no existe".$var;
+	}
+	public function __get($var){
+		if(property_exists(__CLASS__,$_sesionUsuario))
+			return $this->$var;
+		else
+			return NULL;
+	}
 //MÉTODOS ABSTRACTOS#################################
 //MÉTODOS PÚBLICOS###################################
 	public function __construct(){
+		session_start();
+		$this->_sesionUsuario=$_SESSION["nombreUsuario"];
+		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
+			else{
+				echo "Esta pagina es solo para usuarios registrados.<br>";
+			echo "<a href='http://localhost:8012/ibrain2.0'>Login Here!</a>";
+			exit;
+		}
+		$now = time(); 
+		if($now > $_SESSION['expire']){
+		session_destroy();
+		echo "Su sesion a terminado, <a href='http://localhost:8012/ibrain2.0'>
+			  Necesita Hacer Login</a>";
+		exit;
+		}
+		$contador=0;
 		self::getDebugHeader();
 		self::getDebugBody();
 		self::getDebugFooter();
@@ -36,7 +65,7 @@ Class LayoutCSS extends LayoutHTML{
 		<html>
 			<head>
 					<meta charset="utf-8">
-					<meta name="viewport" content="<? echo $this-pviewport?>">
+					<meta name="viewport" content="<? echo $this->pviewport?>">
 					<meta http-equiv="X-UA-Compatible" content="IE=edge">
 					<title><?php echo $this->ptitle ?></title>
 					<link href="http://localhost:8012/ibrain2.0/App/web/css/bootstrap.min.css" rel="stylesheet">
@@ -62,7 +91,7 @@ Class LayoutCSS extends LayoutHTML{
                             <img alt="image" class="img-circle" src="img/profile_small.jpg" />
                              </span>
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">David Williams</strong>
+                            <span class="clear"> <span class="block m-t-xs"><?php echo $this->_sesionUsuario;?> <strong class="font-bold"></strong>
                              </span> <span class="text-muted text-xs block">Art Director <b class="caret"></b></span> </span> </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
                                 <li><a href="profile.html">Profile</a></li>
