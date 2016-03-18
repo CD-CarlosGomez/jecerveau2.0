@@ -4,6 +4,9 @@
 // | @date 17/03/2016
 // | @Version 1.0
 // +----------------------------------------------
+// +---------------------------Comentarios de versión
+#El logout está siendo invocado desde un archivo externo
+#sería óptimo llamar la función logout de este mismo archivo
 namespace App\Models;
 defined("APPPATH") OR die("Access denied");
 
@@ -26,37 +29,46 @@ class CurrentUser {
 		$firstLevels[]=$this->getFirstLevelMenu($pkiBUser);
 		foreach($firstLevels as $firstLevel){
 			$this->pMainMenu .="<li class='active'>";
-			$this->pMainMenu .="<a href='#'><i class='fa fa-sitemap'></i>"; 
-			$this->pMainMenu .="<span class='nav-label'>".$firstLevel["ibFunctionGroupModulo"]."</span>";
-			$this->pMainMenu .="<span class='fa arrow'></span></a>";
-			$this->pMainMenu .="<ul class='nav nav-second-level collapse'>";
+			$this->pMainMenu .=		"<a href='#'>"; 
+			$this->pMainMenu .=			"<span class='nav-label'>".$firstLevel["ibFunctionGroupModulo"]."</span>";
+			$this->pMainMenu .=			"<span class='fa arrow'></span></a>";
+			$this->pMainMenu .="		<ul class='nav nav-second-level collapse'>";
 				$secondlevels[]=$this->getSecondLevelMenu($pkiBUser,$firstLevel['pkiBFunctionGroup']);
 				foreach($secondlevels as $secondlevel){
-					$this->pMainMenu .="<li>";
-					$this->pMainMenu .="<a href='#'>".$secondlevel['iBFunctionName']."<span class='fa arrow'></span></a>";
-					$this->pMainMenu .="<ul class='nav nav-third-level'>";
+					$this->pMainMenu .=		"<li>";
+					$this->pMainMenu .="		<a href='#'>".$secondlevel['iBFunctionName']."<span class='fa arrow'></span></a>";
+					$this->pMainMenu .="		<ul class='nav nav-third-level'>";
 					$thirdLevels[]=$this->getThirdLevelMenu($pkiBUser,$secondlevel['pkiBFunction']);
 					foreach($thirdLevels as $thirdLevel){
-						$this->pMainMenu .="<li>";
-						$this->pMainMenu .="<a href='#'>".$thirdLevel['iBFunctionDetailName']."</a>";
-						$this->pMainMenu .="</li>";
+						$this->pMainMenu .=			"<li>";
+						$this->pMainMenu .=				"<a href='#'>".$thirdLevel['iBFunctionDetailName']."</a>";
+						$this->pMainMenu .=			"</li>";
 					}	
-					$this->pMainMenu .="</ul>";	
-					$this->pMainMenu .="</li>";		
+					$this->pMainMenu .=			"</ul>";	
+					$this->pMainMenu .=		"</li>";		
 				}
-				$this->pMainMenu .="</ul>";	
+				$this->pMainMenu .=		"</ul>";	
 				$this->pMainMenu .="</li>";	
+				$this->pMainMenu .="<li>";
+				$this->pMainMenu .="<a href='http://localhost:8012/iBrain2.0/App/controllers/logout.php'>";
+				$this->pMainMenu .="<span class='nav-label'>Logout</span></span></a>";
+				$this->pMainMenu .="</li>";
 		}
 		return $this->pMainMenu;
 	}
 //MÉTODOS ABSTRACTOS#################################
 //MÉTODOS PÚBLICOS###################################
+	public function setLogout(){
+		session_start();
+		session_destroy();
+		header("Location:../../private/home");
+	}
 	public function getFirstLevelMenu($pkibuser_p) {
         try {
             $PDOcnn = Database::instance();
             $PDOQuery = "SELECT DISTINCT
 							pkiBFunctionGroup,ibFunctionGroupModulo 
-						FROM ibuser ib 
+						FROM ibuser ib
 							inner join ibuserprofile 
 								on fkibuserprofile=pkiBUserProfile 
 							inner join ibuserprofile_has_ibfunction ibfg 
@@ -117,7 +129,7 @@ class CurrentUser {
 								on pkibfunctiongroup= ibf.iBFunctionGroup_pkiBFunctionGroup
 							inner join ibfunctiondetail ibd 
 								on ibd.iBFunction_pkiBFunction=ibf.pkiBFunction
-						where pkiBuser=? and Active=1 and pkiBFunction=?";
+						where pkiBuser=? and Active=1 and pkiBFunction=?;";
             $PDOquery = $PDOcnn->prepare($PDOQuery);
             $PDOquery->bindParam(1, $pkiBUser_p, \PDO::PARAM_INT);
             $PDOquery->bindParam(2, $secondLevel_p, \PDO::PARAM_INT);

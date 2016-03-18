@@ -58,7 +58,7 @@ switch($_POST['btn']){
 			$_SESSION['expire'] = $_SESSION['start'] + (20 * 60) ;
 			header("Location:../../private/home");
 			}
-		else header("Location:../index.php");
+		else header("Location:../../index.php");
 	break; 
 	}
 ?>
