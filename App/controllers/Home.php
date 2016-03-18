@@ -35,8 +35,9 @@ private $_sesionpkiBUser;
 			  Necesita Hacer Login</a>";
 		exit;
 		}
-		$currentUserMenu=CurrentUser::getMainMenu($this->_sesionpkiBUser);
-		View::set("mainMenu", $currentUsuario);
+		$currentUser=new CurrentUser;
+		$currentMainMenu=$currentUser->getMainMenu($this->_sesionpkiBUser);
+		View::set("currentMainMenu", $currentMainMenu);
 		View::set("user", "Ing. Gómez");
         View::set("title", "Custom MVC");
         View::render("home");

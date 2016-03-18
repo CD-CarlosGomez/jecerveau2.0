@@ -10,29 +10,35 @@ defined("APPPATH") OR die("Access denied");
 use \Core\Database;
 
 class CurrentUser {
-	public $pMainMenu="";
 //CONSTANTES#########################################
 //ATRIBUTOS##########################################
+	public $pMainMenu="";
+	public $ppkiBUser_p="1";
 //PROPIEDADES########################################
-//MÉTODOS ABSTRACTOS#################################
-//MÉTODOS PÚBLICOS###################################
-	public static function getMainMenu($pkiBUser_p){
-		$firstLevels=self::getFirstLevelMenu($pkiBUser_p);
+	public function setppkiBUser_p($value){
+		$this->ppkiBUser_p=$value;
+	}
+	public function &getppkIBUser_p(){
+		return $this->ppkiBUser_p;
+	}
+	
+	public function getMainMenu($pkiBUser){
+		$firstLevels[]=$this->getFirstLevelMenu($pkiBUser);
 		foreach($firstLevels as $firstLevel){
-			$this->pMainMenu .="<li class='active>";
+			$this->pMainMenu .="<li class='active'>";
 			$this->pMainMenu .="<a href='#'><i class='fa fa-sitemap'></i>"; 
-			$this->pMainMenu .="<span class='nav-label'>$firstLevel['ibfunctiongroupModulo']</span>";
+			$this->pMainMenu .="<span class='nav-label'>".$firstLevel["ibFunctionGroupModulo"]."</span>";
 			$this->pMainMenu .="<span class='fa arrow'></span></a>";
 			$this->pMainMenu .="<ul class='nav nav-second-level collapse'>";
-				$secondlevels=self::getSecondLevelMenu($pkiBUser_p,$firstLevel['pkiBFunctionGroup']);
+				$secondlevels[]=$this->getSecondLevelMenu($pkiBUser,$firstLevel['pkiBFunctionGroup']);
 				foreach($secondlevels as $secondlevel){
 					$this->pMainMenu .="<li>";
-					$this->pMainMenu .="<a href='#'>Third Level <span class='fa arrow'></span></a>";
+					$this->pMainMenu .="<a href='#'>".$secondlevel['iBFunctionName']."<span class='fa arrow'></span></a>";
 					$this->pMainMenu .="<ul class='nav nav-third-level'>";
-				$thirdLevels=self::getThirdLevelMenu($pkiBUser_p);
+					$thirdLevels[]=$this->getThirdLevelMenu($pkiBUser,$secondlevel['pkiBFunction']);
 					foreach($thirdLevels as $thirdLevel){
 						$this->pMainMenu .="<li>";
-						$this->pMainMenu .="<a href='#'>Third Level Item</a>";
+						$this->pMainMenu .="<a href='#'>".$thirdLevel['iBFunctionDetailName']."</a>";
 						$this->pMainMenu .="</li>";
 					}	
 					$this->pMainMenu .="</ul>";	
@@ -43,11 +49,13 @@ class CurrentUser {
 		}
 		return $this->pMainMenu;
 	}
-	public static function getFirstLevelMenu($pkibuser_p) {
+//MÉTODOS ABSTRACTOS#################################
+//MÉTODOS PÚBLICOS###################################
+	public function getFirstLevelMenu($pkibuser_p) {
         try {
             $PDOcnn = Database::instance();
             $PDOQuery = "SELECT DISTINCT
-							pkiBFunctionGroup,ibfunctiongroupModulo 
+							pkiBFunctionGroup,ibFunctionGroupModulo 
 						FROM ibuser ib 
 							inner join ibuserprofile 
 								on fkibuserprofile=pkiBUserProfile 
@@ -67,12 +75,12 @@ class CurrentUser {
             print "Error!: " . $e->getMessage();
         }
     }
-    public static function getSecondLevelMenu($pkiBUser_p,$firstLevel_p){
+    public function getSecondLevelMenu($pkiBUser_p,$firstLevel_p){
 		 try {
             $PDOcnn = Database::instance();
             $PDOQuery = "SELECT 
-							ibfunctiongroupModulo,
-							ibfunctionName 
+							pkiBFunction,
+							iBFunctionName 
 						FROM ibuser ib 
 							inner join ibuserprofile 
 								on fkibuserprofile=pkiBUserProfile 
@@ -93,11 +101,11 @@ class CurrentUser {
             print "Error!: " . $e->getMessage();
         }
     }
-    public static function getThirdLevelMenu($pkiBUser_p,$secondLevel_p){
+    public function getThirdLevelMenu($pkiBUser_p,$secondLevel_p){
 		try {
             $PDOcnn = Database::instance();
             $PDOQuery = "SELECT 
-							ibfunctiondetalledescripcion
+							iBFunctionDetailName
 						FROM ibuser ib 
 							inner join ibuserprofile 
 								on fkibuserprofile=pkiBUserProfile 

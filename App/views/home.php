@@ -15,9 +15,8 @@
 					<link href="http://localhost:8012/ibrain2.0/App/web/css/style.css" rel="stylesheet">
 			</head>
 			<body>
-				<div id="wrapper">
-					<?php echo $mainMenu; ?>
-					<!--nav class="navbar-default navbar-static-side" role="navigation">
+				
+					<nav class="navbar-default navbar-static-side" role="navigation">
 						<div class="sidebar-collapse">
 							<ul class="nav metismenu" id="side-menu">
 								<li class="nav-header">
@@ -39,36 +38,10 @@
 										IN+
 									</div>
 								</li>
-								<li class="active">
-									<a href="#"><i class="fa fa-sitemap"></i> 
-									<span class="nav-label">Menu Levels </span>
-									<span class="fa arrow"></span></a>
-									<ul class="nav nav-second-level collapse">
-										<li>
-											<a href="#">Third Level <span class="fa arrow"></span></a>
-											<ul class="nav nav-third-level">
-												<li>
-													<a href="#">Third Level Item</a>
-												</li>
-												<li>
-													<a href="#">Third Level Item</a>
-												</li>
-												<li>
-													<a href="#">Third Level Item</a>
-												</li>
-
-											</ul>
-										</li>
-										<li><a href="#">Second Level Item</a></li>
-										<li>
-											<a href="#">Second Level Item</a></li>
-										<li>
-											<a href="#">Second Level Item</a></li>
-									</ul>
-								</li>
+								<?php echo $currentMainMenu;?>
 							</ul>
 						</div>
-					</nav-->
+					</nav>
 					
 					<div id="page-wrapper" class="gray-bg dashbard-1">
 					<div class="row border-bottom">
