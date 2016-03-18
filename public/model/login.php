@@ -11,9 +11,21 @@ class Login extends dal{
 //ATRIBUTOS##########################################
 	private $_nombreUsuario;
 	private $_contrasenaUsuario;
-	private $_menu;
+	private $_pkiBUser;
 	private $_loggedin;
 //PROPIEDADES########################################
+	public function __set($var,$value){
+		if(property_exists(__CLASS__,$var))
+			$this->$var=$value;
+		else
+			echo "Atributo no existe".$var;
+	}
+	public function __get($var){
+		if(property_exists(__CLASS__,$var))
+			return $this->$var;
+		else
+			return NULL;
+	}
 	public function setNombreUsuario($valor)
 	{$this->_nombreUsuario=$valor;}
 
@@ -26,18 +38,17 @@ class Login extends dal{
 	public function getContrasenaUsuario()
 	{return $this->_contrasenaUsuario;}
 	 
-	public function setMenu($valor)
-	{$this->_menu=$valor;}
+	public function setpkiBUser($valor)
+	{$this->_pkiBUser=$valor;}
 	
-	public function getMenu()
-	{return $this->_menu;}
+	public function getpkiBUser()
+	{return $this->_pkiBUser;}
 //MÉTODOS ABSTRACTOS#################################
 //MÉTODOS PÚBLICOS###################################
 	public function __construct(){
 	parent:: dal();
 	$this->_nombreUsuario="";
 	$this->_contrasenaUsuario="";
-	$this->_menu="";
 	$this->_loggedin=false;
 	}
 	
@@ -50,13 +61,14 @@ class Login extends dal{
 	}
 	 
 	public function Acceder(){
-		echo $mySQLiQuery="SELECT username,pwd FROM ibuser WHERE username='".$this->_nombreUsuario."';";
+		$mySQLiQuery="SELECT pkiBUser,username,pwd FROM ibuser WHERE username='".$this->_nombreUsuario."';";
 		$mySQLiResultSet=parent::ejecutar($mySQLiQuery);
 		if($row = $mySQLiResultSet->fetch_array()){
 			if($row["pwd"] === $this->_contrasenaUsuario){
-				return true;
+				$this->_pkiBUser=$row["pkiBUser"];
+				return $this->_pkiBUser;
 			}else{
-				return false;
+				return NULL;
 			}
 		}else{
 		return false; 

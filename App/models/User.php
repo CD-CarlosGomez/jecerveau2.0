@@ -5,11 +5,11 @@ defined("APPPATH") OR die("Access denied");
 use \Core\Database;
 use \App\Interfaces\iCrud;
 
-class User implements iCrud{
+class Users implements iCrud{
     public static function getAll(){
         try {
 			$connection = Database::instance();
-			$sql = "SELECT * from usuarios";
+			$sql = "SELECT * from ibuser";
 			$query = $connection->prepare($sql);
 			$query->execute();
 			return $query->fetchAll();
@@ -23,7 +23,7 @@ class User implements iCrud{
     public static function getById($id) {
         try {
             $connection = Database::instance();
-            $sql = "SELECT * from usuarios WHERE id = ?";
+            $sql = "SELECT * from ibuser WHERE pkibuser = ?";
             $query = $connection->prepare($sql);
             $query->bindParam(1, $id, \PDO::PARAM_INT);
             $query->execute();

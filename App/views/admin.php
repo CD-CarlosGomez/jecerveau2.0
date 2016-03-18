@@ -19,12 +19,11 @@
             </thead>
             <tbody>
                 <?php
-                foreach ($users as $user)
-                {
+                foreach ($users as $user){
                 ?>
                 <tr>
-                    <td><?php echo $user["id"] ?></td>
-                    <td><?php echo $user["nombre"] ?></td>
+                    <td><?php echo $user["pkiBUser"] ?></td>
+                    <td><?php echo $user["username"] ?></td>
                 </tr>
                 <?php
                 }

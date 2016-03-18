@@ -6,20 +6,40 @@
 // +-----------------------------------------------
 namespace App\Controllers;
 defined("APPPATH") OR die("Access denied");
-use \Core\View,
-    \App\Models\User as Users,
-	\App\Models\Layout\LayoutCSS as Layouts,
-    \Core\Controller;
+use \Core\View;
+use \App\Models\CurrentUser as CurrentUser;
+use \Core\Controller;
+	
 class Home extends Controller{
 //CONSTANTES#########################################
 //ATRIBUTOS##########################################
+private $_sesionUsuario;
+private $_sesionpkiBUser;
 //PROPIEDADES########################################
 //MÉTODOS ABSTRACTOS#################################
 //MÉTODOS PÚBLICOS###################################
 	public function __construct(){
+		session_start();
+		$this->_sesionUsuario=$_SESSION["nombreUsuario"];
+		$this->_sesionpkiBUser=$_SESSION['pkiBUser_p'];
+		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
+		else{
+				echo "Esta pagina es solo para usuarios registrados.<br>";
+			echo "<a href='http://localhost:8012/ibrain2.0'>Login Here!</a>";
+			exit;
+		}
+		$now = time(); 
+		if($now > $_SESSION['expire']){
+		session_destroy();
+		echo "Su sesion a terminado, <a href='http://localhost:8012/ibrain2.0'>
+			  Necesita Hacer Login</a>";
+		exit;
+		}
+		$currentUserMenu=CurrentUser::getMainMenu($this->_sesionpkiBUser);
+		View::set("mainMenu", $currentUsuario);
 		View::set("user", "Ing. Gómez");
         View::set("title", "Custom MVC");
-        View::render("layout");
+        View::render("home");
 	}
 	/**
      * [index]
