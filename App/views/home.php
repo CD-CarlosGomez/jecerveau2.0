@@ -1,3 +1,21 @@
+<?php
+	
+		$_SESSION["nombreUsuario"];
+		$_SESSION['pkiBUser_p'];
+		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
+		else{
+				echo "Esta pagina es solo para usuarios registrados.<br>";
+			echo "<a href='http://localhost:8012/ibrain2.0'>Login Here!</a>";
+			exit;
+		}
+		$now = time(); 
+		if($now > $_SESSION['expire']){
+		session_destroy();
+		echo "Su sesion a terminado, <a href='http://localhost:8012/ibrain2.0'>
+			  Necesita Hacer Login</a>";
+		exit;
+		}
+?>
 <!DOCTYPE html>
 		<html>
 			<head>
@@ -38,7 +56,19 @@
 										IN+
 									</div>
 								</li>
-								<?php echo $currentMainMenu;?>
+								<?php print_r($currentMainMenu);?>
+								<!--li class="active">
+									<a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span> <span class="fa arrow"></span></a>
+										<ul class="nav nav-second-level">
+										<li class="active"><a href="index.html">Dashboard v.1</a>
+											<ul class="nav nav-third-level">
+												<li>
+													<a href="#">Third Level Item</a>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li-->		
 							</ul>
 						</div>
 					</nav>

@@ -5,7 +5,7 @@ defined("APPPATH") OR die("Access denied");
 use \Core\Database;
 use \App\Interfaces\iCrud;
 
-class Users implements iCrud{
+class Company implements iCrud{
     public static function getAll(){
         try {
 			$connection = Database::instance();

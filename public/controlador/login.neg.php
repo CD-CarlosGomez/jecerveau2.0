@@ -5,6 +5,8 @@ require('../model/login.php');
 // | @date Miércoles 5 de diciembre de 2012
 // | @Version 1.0
 // +-----------------------------------------------
+// +---------------------------Comentarios de versión
+#Agregar seguridad al momento de hacer el login
 session_start();
 $pkiBCurrentUser="";
 //CONSTANTES#########################################
