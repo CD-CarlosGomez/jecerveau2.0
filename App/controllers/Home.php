@@ -37,11 +37,12 @@ private $_sesionpkiBUser;
 		}
 		$currentUser=new CurrentUser;
 		$currentMainMenu=$currentUser->getMainMenu($this->_sesionpkiBUser);
+		$this->_sesionMenu=$currentMainMenu;
+		$_SESSION['mainMenu']=$currentMainMenu;
 		View::set("currentMainMenu", $currentMainMenu);
-		View::set("user", "Ing. Gómez");
+		View::set("user", $this->_sesionUsuario);
         View::set("title", "Custom MVC");
-        View::render("home");
-	}
+        View::render("home");}
 	/**
      * [index]
     */

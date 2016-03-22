@@ -8,6 +8,8 @@ namespace App\Controllers;
 defined("APPPATH") OR die("Access denied");
 use \Core\View;
 use \App\Models\Users as User;
+use \App\Models\Companies as Company;
+use \App\Models\BranchOffices as BO;
 use \Core\Controller;
 	
 class EnterpriseGroup extends Controller{
@@ -15,13 +17,15 @@ class EnterpriseGroup extends Controller{
 //ATRIBUTOS##########################################
 private $_sesionUsuario;
 private $_sesionpkiBUser;
+private $_sesionMenu;
 //PROPIEDADES########################################
 //MÉTODOS ABSTRACTOS#################################
 //MÉTODOS PÚBLICOS###################################
 	public function __construct(){
-		session_start();
+		//session_start();
 		$this->_sesionUsuario=$_SESSION["nombreUsuario"];
 		$this->_sesionpkiBUser=$_SESSION['pkiBUser_p'];
+		$this->_sesionMenu=$_SESSION['mainMenu'];
 		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
 		else{
 				echo "Esta pagina es solo para usuarios registrados.<br>";
@@ -36,9 +40,9 @@ private $_sesionpkiBUser;
 		exit;
 		}
 		//$currentUser=new CurrentUser;
-		//$currentMainMenu=$currentUser->getMainMenu($this->_sesionpkiBUser);
+		$currentMainMenu=$this->_sesionMenu;
 		//View::set("currentMainMenu", $currentMainMenu);
-		View::set("user", "Ing. Gómez");
+		View::set("currentMainMenu", $currentMainMenu);
         View::set("title", "Custom MVC");
         View::render("EnterpriseGroup");
 	}
@@ -49,46 +53,7 @@ private $_sesionpkiBUser;
 	//$layout=new WithSiteMap(new WithTemplate(new WithMenu(new LayoutCSS())));
 	//$layout= Layouts::render();
 	}
-	/**
-     * [login]
-	 *
-     */
-	public function login(){
-		
-	}
-    /**
-     * [test description]
-     * @param  [type] $user [description]
-     * @param  [type] $age  [description]
-     * @return [type]       [description]
-     */
-    public function test($user, $age){
-        View::set("user", $user);
-        View::set("title", "Custom MVC");
-        View::render("home");
-    }
-    public function admin($name){
-        $users = Users::getAll();
-        View::set("users", $users);
-        View::set("title", "Custom MVC");
-        View::render("admin");
-    }
-	//public function user($id = 1){
-      //  $user = Users::getById($id);
-       // print_r($user);
-    //}
-	public function saludo($nombre){
-		$user=$nombre;
-		View::set("user",$user);
-		View::set("title","Custom MVC");
-		View::render("home");
-	}
-	public function users(){//Esta clase no existe!
-		$users=Users::getAll();
-		print_r($users);
-	}
-	
-	}
+}
 //MÉTODOS PRIVADOS###################################
 //EVENTOS############################################
 //CONTROLES##########################################
@@ -111,26 +76,74 @@ private $_sesionpkiBUser;
 		}
 		
 	switch(@$_POST['btn_toDo_h']){
-		case "Add":
-			Create();
+		case "AddCompany":
+			CreateCompany();
 		break;
-			case "Buscar":
-			Read();
+			case "AddBO":
+			CreateBO();
 		break;
-		case "Modificar":
-			Update();
+		case "AddUser":
+			CreateUser();
 		break;
 		case "Eliminar":
 			Delete();
 		break;
  	}
-		
-	function Create(){
+	function CreateCompany(){
+	$c=new Company;
+	$c->setpkCompany($c->getNextId("pkCompany","Company"));
+	$c->setfkiBUserProfile(0);
+	$c->setCommercialName();
+	$c->setTaxId();
+	$c-> setLogoFile();
+	$c->setStreet();
+	$c->setExtNumber();
+	$c->setIntNumber();
+	$c->setRegion();
+	$c->setZone();
+	$c->setProvince();
+	$c->setZipCode();
+	$c->setCreated();
+	$c->setCreatedBy();
+	$c->setModified();
+	$c->setModifiedBy();
+	$c->setActive();
+	$c->setfkEnterpriseGroup();
+	}
+	function CreateBO(){
+	$bo=new BO;
+	$bo->setpkBO($bo->getNextId("pkBranchOffice","BranchOffice"));
+	$bo->setfkCompany();
+	$bo->setBOName();
+	$bo->setBOStreet();
+	$bo->setBOExtNumber();
+	$bo->setBOIntNumber();
+	$bo->setBORegion();
+	$bo->setBOZone();
+	$bo->setBOProvince();
+	$bo->setBOZipCode();
+	$bo->setCreated();
+	$bo->setCreatedBy();
+	$bo->setModified();
+	$bo->setModifiedBy();
+	$bo->setActive();
+	}
+	function CreateUser(){
 		$u=new User;
-		$u->setpkiBUser(6);
+		$nextId=$u->getNextId("pkiBUser","ibuser");
+		$u->setpkiBUser($nextId);
+		$u->setfkiBUserProfile();
 		$u->setUserName($_POST['txt_userName_h']);
 		$u->setPWD($_POST['txt_password_h']);
+		$u->setPwdTmp($_POST['txt_password_h']);
+		$u->setRealName($_POST['txt_password_h']);
+		$u->setEmail($_POST['txt_password_h']);
+		$u->setDefaultF();
 		$u->setActive('1');
+		$u->setCreated('1');
+		$u->setCreatedBy('1');
+		$u->setModified('1');
+		$u->setModifiedBy('1');
 		if ($u->insertData('ibuser')){
 			$destinatario=$emailint1;
 			$asunto="Bienvenido a iBrain 2.0";
@@ -167,7 +180,7 @@ private $_sesionpkiBUser;
 			}
 		}	
 		else
-			echo "Error,no se puedeeliminar";
-		View::render("EnterpriseGroup");
+			echo "Error,no se puedeeliminar ";
+		//View::render("EnterpriseGroup");
 	}
-
+?>
