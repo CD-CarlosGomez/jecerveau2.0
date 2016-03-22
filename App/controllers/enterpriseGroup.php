@@ -4,6 +4,7 @@
 // | @date 5 de Marzo del 2016
 // | @Version 1.0
 // +-----------------------------------------------
+#16.3.22 Agregar validación del lado del servidor
 namespace App\Controllers;
 defined("APPPATH") OR die("Access denied");
 use \Core\View;
@@ -93,13 +94,14 @@ private $_sesionMenu;
 	$c=new Company;
 	$c->setpkCompany($c->getNextId("pkCompany","Company"));
 	$c->setfkiBUserProfile(0);
-	$c->setCommercialName();
-	$c->setTaxId();
-	$c-> setLogoFile();
-	$c->setStreet();
-	$c->setExtNumber();
-	$c->setIntNumber();
-	$c->setRegion();
+	$c->setLegalName($_POST['txt_legalName_h']);
+	$c->setCommercialName($_POST["txt_commercialName_h"]);
+	$c->setTaxId("No definido");
+	$c-> setLogoFile("No definido");
+	$c->setStreet($_POST["txt_street_h"]);
+	$c->setExtNumber($_POST["txt_extNumber_h"]);
+	$c->setIntNumber($_POST["txt_intNumber_h"]);
+	$c->setRegion($_POST["txt_region_h"]);
 	$c->setZone();
 	$c->setProvince();
 	$c->setZipCode();

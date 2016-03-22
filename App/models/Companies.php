@@ -29,9 +29,9 @@ class Companies implements iCrud{
 	public static function setpkCompany($valor){self::$_pkCompany_p=$valor;}
 	public static function getpkCompany() {return self::$_pkCompany_p;}
 
-	public static function setfkiBUserProfile($valor){self::$_legalName_p=$valor;}
-	public static function getfkiBUserProfile() {return self::$_legalName_p;}
-
+	public static function setLegalName($valor){self::$_legalName_p=$valor;}
+	public static function getLegalName(){return self::$_legalName_p;}
+	
 	public static function setCommercialName($valor){self::$_commercialName_p=$valor;}
 	public static function getCommercialName(){return self::$_commercialName_p;}
 	
@@ -139,7 +139,6 @@ class Companies implements iCrud{
         catch(\PDOException $e){
             print "Error!: " . $e->getMessage();
         }
-    }
     }
     public static function updateById($user){
     }

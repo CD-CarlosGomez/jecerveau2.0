@@ -48,8 +48,10 @@ use \Core\Controller;
     </style>
 
 </head>
-
-<body>
+<body class="pace-done"><div class="pace  pace-inactive"><div data-progress="99" data-progress-text="100%" style="transform: translate3d(100%, 0px, 0px);" class="pace-progress">
+  <div class="pace-progress-inner"></div>
+</div>
+<div class="pace-activity"></div></div>
     <div id="wrapper">
 		<nav class="navbar-default navbar-static-side" role="navigation">
 			<div class="sidebar-collapse">
@@ -58,7 +60,7 @@ use \Core\Controller;
 							<ul class="nav metismenu" id="side-menu">
 								<li class="nav-header">
 									<div class="dropdown profile-element"> <span>
-										<img alt="image" class="img-circle" src="img/profile_small.jpg" />
+										<img alt="image" class="img-circle" src="img/profile_small.jpg">
 										 </span>
 										<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 										<span class="clear"> <span class="block m-t-xs"><strong class="font-bold"></strong>
@@ -67,14 +69,13 @@ use \Core\Controller;
 										</ul>
 									</div>
 								</li>
-								<?php print_r($currentMainMenu);?>
-						</ul>
-					</div>
+								<li><a href="#"><span class="nav-label">Customizing</span><span class="fa arrow"></span></a>		<ul class="nav nav-second-level collapse"><li>		<a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Enterprise Group<span class="fa arrow"></span></a>		<ul class="nav nav-third-level collapse"><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/#">Master Account</a></li><li><a href="http://localhost:8012/ibrain2.0/">Branch Office</a></li></ul></li><li>		<a href="http://localhost:8012/ibrain2.0/#">Profiles<span class="fa arrow"></span></a>		<ul class="nav nav-third-level collapse"><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/#">Master Account</a></li><li><a href="http://localhost:8012/ibrain2.0/">Branch Office</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li></ul></li><li>		<a href="http://localhost:8012/ibrain2.0/#">Functions<span class="fa arrow"></span></a>		<ul class="nav nav-third-level collapse"><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/#">Master Account</a></li><li><a href="http://localhost:8012/ibrain2.0/">Branch Office</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li></ul></li><li><a href="#"><span class="nav-label">Service Orders</span><span class="fa arrow"></span></a>		<ul class="nav nav-second-level collapse"><li>		<a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Enterprise Group<span class="fa arrow"></span></a>		<ul class="nav nav-third-level collapse"><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/#">Master Account</a></li><li><a href="http://localhost:8012/ibrain2.0/">Branch Office</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/#">Master Account</a></li><li><a href="http://localhost:8012/ibrain2.0/">Branch Office</a></li></ul></li><li>		<a href="http://localhost:8012/ibrain2.0/#">Profiles<span class="fa arrow"></span></a>		<ul class="nav nav-third-level collapse"><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/#">Master Account</a></li><li><a href="http://localhost:8012/ibrain2.0/">Branch Office</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/#">Master Account</a></li><li><a href="http://localhost:8012/ibrain2.0/">Branch Office</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li></ul></li><li>		<a href="http://localhost:8012/ibrain2.0/#">Functions<span class="fa arrow"></span></a>		<ul class="nav nav-third-level collapse"><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/#">Master Account</a></li><li><a href="http://localhost:8012/ibrain2.0/">Branch Office</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/#">Master Account</a></li><li><a href="http://localhost:8012/ibrain2.0/">Branch Office</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li></ul></li><li>		<a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Enterprise Group<span class="fa arrow"></span></a>		<ul class="nav nav-third-level collapse"><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/#">Master Account</a></li><li><a href="http://localhost:8012/ibrain2.0/">Branch Office</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/#">Master Account</a></li><li><a href="http://localhost:8012/ibrain2.0/">Branch Office</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/#">Master Account</a></li><li><a href="http://localhost:8012/ibrain2.0/">Branch Office</a></li></ul></li><li><a href="#"><span class="nav-label">Settings</span><span class="fa arrow"></span></a>		<ul class="nav nav-second-level collapse"><li>		<a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Enterprise Group<span class="fa arrow"></span></a>		<ul class="nav nav-third-level collapse"><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/#">Master Account</a></li><li><a href="http://localhost:8012/ibrain2.0/">Branch Office</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/#">Master Account</a></li><li><a href="http://localhost:8012/ibrain2.0/">Branch Office</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/#">Master Account</a></li><li><a href="http://localhost:8012/ibrain2.0/">Branch Office</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/#">Master Account</a></li><li><a href="http://localhost:8012/ibrain2.0/">Branch Office</a></li></ul></li><li>		<a href="http://localhost:8012/ibrain2.0/#">Profiles<span class="fa arrow"></span></a>		<ul class="nav nav-third-level collapse"><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/#">Master Account</a></li><li><a href="http://localhost:8012/ibrain2.0/">Branch Office</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/#">Master Account</a></li><li><a href="http://localhost:8012/ibrain2.0/">Branch Office</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/#">Master Account</a></li><li><a href="http://localhost:8012/ibrain2.0/">Branch Office</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/#">Master Account</a></li><li><a href="http://localhost:8012/ibrain2.0/">Branch Office</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li></ul></li><li>		<a href="http://localhost:8012/ibrain2.0/#">Functions<span class="fa arrow"></span></a>		<ul class="nav nav-third-level collapse"><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/#">Master Account</a></li><li><a href="http://localhost:8012/ibrain2.0/">Branch Office</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/#">Master Account</a></li><li><a href="http://localhost:8012/ibrain2.0/">Branch Office</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/#">Master Account</a></li><li><a href="http://localhost:8012/ibrain2.0/">Branch Office</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/#">Master Account</a></li><li><a href="http://localhost:8012/ibrain2.0/">Branch Office</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li></ul></li><li>		<a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Enterprise Group<span class="fa arrow"></span></a>		<ul class="nav nav-third-level collapse"><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/#">Master Account</a></li><li><a href="http://localhost:8012/ibrain2.0/">Branch Office</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/#">Master Account</a></li><li><a href="http://localhost:8012/ibrain2.0/">Branch Office</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/#">Master Account</a></li><li><a href="http://localhost:8012/ibrain2.0/">Branch Office</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/#">Master Account</a></li><li><a href="http://localhost:8012/ibrain2.0/">Branch Office</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/#">Master Account</a></li><li><a href="http://localhost:8012/ibrain2.0/">Branch Office</a></li></ul></li><li>		<a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Enterprise Group<span class="fa arrow"></span></a>		<ul class="nav nav-third-level collapse"><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/#">Master Account</a></li><li><a href="http://localhost:8012/ibrain2.0/">Branch Office</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/#">Master Account</a></li><li><a href="http://localhost:8012/ibrain2.0/">Branch Office</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/#">Master Account</a></li><li><a href="http://localhost:8012/ibrain2.0/">Branch Office</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/#">Master Account</a></li><li><a href="http://localhost:8012/ibrain2.0/">Branch Office</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/#">Master Account</a></li><li><a href="http://localhost:8012/ibrain2.0/">Branch Office</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/#">Master Account</a></li><li><a href="http://localhost:8012/ibrain2.0/">Branch Office</a></li></ul></li><li>		<a href="http://localhost:8012/ibrain2.0/#">Profiles<span class="fa arrow"></span></a>		<ul class="nav nav-third-level collapse"><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/#">Master Account</a></li><li><a href="http://localhost:8012/ibrain2.0/">Branch Office</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/#">Master Account</a></li><li><a href="http://localhost:8012/ibrain2.0/">Branch Office</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/#">Master Account</a></li><li><a href="http://localhost:8012/ibrain2.0/">Branch Office</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/#">Master Account</a></li><li><a href="http://localhost:8012/ibrain2.0/">Branch Office</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/#">Master Account</a></li><li><a href="http://localhost:8012/ibrain2.0/">Branch Office</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li><li><a href="http://localhost:8012/ibrain2.0/#">Master Account</a></li><li><a href="http://localhost:8012/ibrain2.0/">Branch Office</a></li><li><a href="http://localhost:8012/ibrain2.0/private/enterpriseGroup">Company</a></li></ul></li></ul></li><li><a href="http://localhost:8012/ibrain2.0//App/controllers/logout.php"><span class="nav-label">Logout</span></a></li>						</ul>
+					</li></ul></li></ul></div>
 				</nav>
 			</div>
 		</nav>
 
-        <div id="page-wrapper" class="gray-bg">
+        <div style="min-height: 827px;" id="page-wrapper" class="gray-bg">
 			<div class="row border-bottom">
             </div>
             <div class="row wrapper border-bottom white-bg page-heading">
@@ -92,125 +93,90 @@ use \Core\Controller;
                             <h5>Customazing</h5>
                         </div>
                         <div class="ibox-content">
-                            <h2>
-                                Enterprise Group
-                            </h2>
-						<form id="form" action="http://localhost:8012/iBrain2.0/private/enterpriseGroup" method="POST" class="wizard-big">
-								<h1>Master Account</h1>
+							<div id="Wzd_Customazing" class="wizard clearfix vertical">
+								<h3>Master Account</h3>
+							<section>
+								<p>
 									<fieldset>
-									<!--form id="formCompany" action="http://localhost:8012/iBrain2.0/private/enterpriseGroup" method="POST" class=""-->
-										<h2>Master Account Information</h2>
-											<div class="row">
-											
-											</div>
+										<form id="formCompany" action="http://localhost:8012/iBrain2.0/private/enterpriseGroup" method="POST" class="">
+											<div class="row"></div>
 											<div class="row">
 												<div class="col-lg-6">
 													<div class="form-group">
 														<label>Legal Name*</label>
-														<input type="text" id="txt_legalName_h" class="form-control required" name="txt_userName_h">
-														<input id="" name="btn_toDo_h" type="hidden" class="" value="AddCompany">
+														<label for="txt_legalName_h" class="error" id="txt_legalName_h-error">This field is required.</label><input aria-invalid="true" aria-required="true" id="txt_legalName_h" class="form-control required error" name="txt_userName_h" type="text">
+														<input id="" name="btn_toDo_h" class="" value="AddCompany" type="hidden">
 													</div>
 													<div class="form-group">
 														<label>Commercial Name*</label>
-														<input type="text" id="txt_commercialName_h" class="form-control required" name="txt_commercialName_h">
+														<label for="txt_commercialName_h" class="error" id="txt_commercialName_h-error">This field is required.</label><input aria-required="true" id="txt_commercialName_h" class="form-control required error" name="txt_commercialName_h" type="text">
 													</div>
 													<div class="form-group">
 														<label>Street*</label>
-														<input type="text" id="txt_Street_h" class="form-control required" name="txt_Street_h"/>
+														<label for="txt_Street_h" class="error" id="txt_Street_h-error">This field is required.</label><input aria-required="true" id="txt_Street_h" class="form-control required error" name="txt_Street_h" type="text">
 													</div>
 													<div class="form-group">
 														<label>Ext Number*</label>
-														<input type="text" id="txt_ExtNumber_h" class="form-control required" name="txt_ExtNumber_h"/>
+														<label for="txt_ExtNumber_h" class="error" id="txt_ExtNumber_h-error">This field is required.</label><input aria-required="true" id="txt_ExtNumber_h" class="form-control required error" name="txt_ExtNumber_h" type="text">
 													</div>
 													<div class="form-group">
 														<label>Int Number*</label>
-														<input type="text" id="txt_IntNumber_h" class="form-control required" name="txt_IntNumber_h"/>
+														<label for="txt_IntNumber_h" class="error" id="txt_IntNumber_h-error">This field is required.</label><input aria-required="true" id="txt_IntNumber_h" class="form-control required error" name="txt_IntNumber_h" type="text">
 													</div>
 												</div>
 												<div class="col-lg-6">
 													<div class="form-group">
 														<label>Region*</label>
-														<input type="text" id="txt_Region_h" class="form-control required" name="txt_Region_h">
-														<input id="" name="btn_toDo_h" type="hidden" class="" value="AddCompany">
+														<label for="txt_Region_h" class="error" id="txt_Region_h-error">This field is required.</label><input aria-required="true" id="txt_Region_h" class="form-control required error" name="txt_Region_h" type="text">
+														<input id="" name="btn_toDo_h" class="" value="AddCompany" type="hidden">
 													</div>
 													<div class="form-group">
 														<label>Zone*</label>
-														<input type="text" id="txt_Zone_h" class="form-control required" name="txt_Zone_h">
+														<label for="txt_Zone_h" class="error" id="txt_Zone_h-error">This field is required.</label><input aria-required="true" id="txt_Zone_h" class="form-control required error" name="txt_Zone_h" type="text">
 													</div>
 													<div class="form-group">
 														<label>Province*</label>
-														<input type="text" id="txt_Province_h" class="form-control required" name="txt_Province_h"/>
+														<label for="txt_Province_h" class="error" id="txt_Province_h-error">This field is required.</label><input aria-required="true" id="txt_Province_h" class="form-control required error" name="txt_Province_h" type="text">
 													</div>
 													<div class="form-group">
 														<label>Zip Code*</label>
-														<input type="text" id="txt_ZipCode_h" class="form-control required" name="txt_ZipCode_h"/>
+														<label for="txt_ZipCode_h" class="error" id="txt_ZipCode_h-error">This field is required.</label><input aria-required="true" id="txt_ZipCode_h" class="form-control required error" name="txt_ZipCode_h" type="text">
+													</div>
+													<div class="form-group">
+														<button type="submit" id="" class="btn btn-primary" name="txt_ZipCode_h">Add Company</button>
 													</div>
 												</div>
 											</div>
-										<!--/form-->
+										</form>
 									</fieldset>
-							
-							   <h1>Branch Office</h1>
-								<fieldset>
-								<!--form id="frmBO" action="http://localhost:8012/iBrain2.0/private/enterpriseGroup" method="POST" class=""-->
-									<h2>Branch Office Information</h2>
-									<div class="row"></div>
-									<div class="row">
-											<div class="col-lg-6">
-												<div class="form-group">
-													<label>First name *</label>
-													<input id="name" name="name" type="text" class="form-control required">
-												</div>
-												<div class="form-group">
-													<label>Last name *</label>
-													<input id="surname" name="surname" type="text" class="form-control required">
-												</div>
-											</div>
-											<div class="col-lg-6">
-												<div class="form-group">
-													<label>Email *</label>
-													<input id="email" name="email" type="text" class="form-control required email">
-												</div>
-												<div class="form-group">
-													<label>Address *</label>
-													<input id="address" name="address" type="text" class="form-control">
-												</div>
-											</div>
-										</div>
-									<!--/form-->
-									</fieldset>
-								
-                                <h1>Users</h1>
-							    <fieldset>
-								<!--form id="frmUser" action="http://localhost:8012/iBrain2.0/private/enterpriseGroup" method="POST" class=""-->
-								<h2>Users Information</h2>
-                                 <div class="row"></div>
-										<div class="row">
-											<div class="col-lg-6">
-												<div class="form-group">
-													<label>First name *</label>
-													<input id="name" name="name" type="text" class="form-control required">
-												</div>
-												<div class="form-group">
-													<label>Last name *</label>
-													<input id="surname" name="surname" type="text" class="form-control required">
-												</div>
-											</div>
-											<div class="col-lg-6">
-												<div class="form-group">
-													<label>Email *</label>
-													<input id="email" name="email" type="text" class="form-control required email">
-												</div>
-												<div class="form-group">
-													<label>Address *</label>
-													<input id="address" name="address" type="text" class="form-control">
-												</div>
-											</div>
-										</div>
-                                <!--/form-->
-								</fieldset>
-						</form>
-                        </div>
+								</p>
+									
+									<p>(*) Mandatory</p>
+								</section>
+								<h3 class="title" tabindex="-1" id="Wzd_Customazing-h-1">Branch Office</h3>
+								<section aria-hidden="true" style="display: none;" class="body" aria-labelledby="Wzd_Customazing-h-1" role="tabpanel" id="Wzd_Customazing-p-1">
+									<p>
+										<label for="position-3">Position (zero-based) *</label><br>
+										<input id="position-3" type="text"><br>
+										<label for="title2-3">HTML Title *</label><br>
+										<input id="title2-3" type="text"><br>
+										<label for="text2-3">HTML Content *</label><br>
+										<textarea id="text2-3" rows="5"></textarea>
+									</p>
+									<p><a href="javascript:void(0);" onclick="$('#wizard-4').steps('insert', Number($('#position-3').val()), { title: $('#title2-3').val(), content: $('#text2-3').val() });">Insert</a></p>
+									<p>(*) Mandatory</p>
+								</section>
+								<h3 class="title" tabindex="-1" id="Wzd_Customazing-h-2">Users</h3>
+								<section aria-hidden="true" style="display: none;" class="body" aria-labelledby="Wzd_Customazing-h-2" role="tabpanel" id="Wzd_Customazing-p-2">
+									<p>
+										<label for="position2-3">Position (zero-based) *</label><br>
+										<input id="position2-3" type="text">
+									</p>
+									<p><a href="javascript:void(0);" onclick="$('#wizard-4').steps('remove', Number($('#position2-3').val()));">Remove</a></p>
+									<p>(*) Mandatory</p>
+								</section>
+							</div></div>
+						</div>
                     </div>
                 </div>
             </div>
@@ -219,7 +185,7 @@ use \Core\Controller;
             <div class="pull-right">
             </div>
             <div>
-                <strong>Copyright</strong> Example Company &copy; 2014-2015
+                <strong>Copyright</strong> Example Company © 2014-2015
             </div>
         </div>
 
@@ -247,70 +213,16 @@ use \Core\Controller;
 
     <script>
         $(document).ready(function(){
-            $("#wizard").steps();
-            $("#form").steps({
-                bodyTag: "fieldset",
-                onStepChanging: function (event, currentIndex, newIndex) {
-                    // Always allow going backward even if the current step contains invalid fields!
-                    if (currentIndex > newIndex){
-                        return true;
-                    }
-
-                    // Forbid suppressing "Warning" step if the user is to young
-                    if (newIndex === 3 && Number($("#age").val()) < 18) {
-                        return false;
-                    }
-
-                    var form = $(this);
-
-                    // Clean up if user went backward before
-                    if (currentIndex < newIndex)
-                    {
-                        // To remove error styles
-                        $(".body:eq(" + newIndex + ") label.error", form).remove();
-                        $(".body:eq(" + newIndex + ") .error", form).removeClass("error");
-                    }
-
-                    // Disable validation on fields that are disabled or hidden.
-                    form.validate().settings.ignore = ":disabled,:hidden";
-
-                    // Start validation; Prevent going forward if false
-                    return form.valid();
-					//Submit of the page
-					form.submit();
-                },
-                onStepChanged: function (event, currentIndex, priorIndex){
-                    // Suppress (skip) "Warning" step if the user is old enough.
-                    if (currentIndex === 2 && Number($("#age").val()) >= 18)
-                    {
-                        $(this).steps("next");
-                    }
-
-                    // Suppress (skip) "Warning" step if the user is old enough and wants to the previous step.
-                    if (currentIndex === 2 && priorIndex === 3)
-                    {
-                        $(this).steps("previous");
-                    }
-                },
-                onFinishing: function (event, currentIndex) {
-                    var form = $(this);
-
-                    // Disable validation on fields that are disabled.
-                    // At this point it's recommended to do an overall check (mean ignoring only disabled fields)
-                    form.validate().settings.ignore = ":disabled";
-
-                    // Start validation; Prevent form submission if false
-                    return form.valid();
-                },
-                onFinished: function (event, currentIndex)
-                {
-                    var form = $(this);
-
-                    // Submit form input
-                    form.submit();
-                }
-            }).validate({
-                        errorPlacement: function (error, element)
+            $("#Wzd_Customazing").steps({
+				headerTag: "h3",
+				bodyTag: "section",
+				enableAllSteps: true,
+				enablePagination: false,
+				transitionEffect: "slideLeft",
+				stepsOrientation: "vertical"
+			});
+			$("#formCompany").validate({
+				errorPlacement: function (error, element)
                         {
                             element.before(error);
                         },
@@ -319,9 +231,12 @@ use \Core\Controller;
                                 equalTo: "#password"
                             }
                         }
-                    });
-       });
+			});
+		});
     </script>
+
+
+
 
 </body>
 
