@@ -4,19 +4,20 @@ $bodyMessage="<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \
 <head>
     <title>Bienevenido</title>
      <style>
-         p
-         { font-size:20px;
-         	}
+         p{
+			font-family:\"Arial Narrow\",Arial,sans-serif;
+			font-size:20px;
+			color:#535353;
+		 }
         body
         {
         	margin:0;
         	padding:0;
-        	font-family:Arial;
-        	background:#F4F4F4;
+        	font-family:\"Arial Narrow\", Arial, sans-serif;
         	max-width:1338px;
+			background:#fff;
         }
-        h1
-        {
+        h1{
         	font-size:25px;
         	color:#000;
         	font-weight:bold;
@@ -37,55 +38,72 @@ $bodyMessage="<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \
         	color:#FFF;
         	padding:5px;
         }
-        table table
-        {
+        table table{
             background:#ececec;
-            border-radius: 10px;	
+            border-radius: 20px;	
             width:100%;
             margin:0 auto; 
          }
-         table table td
-         {
-            border:0 0;
-            color:#ececec;
-            
-         }
-         table table td span
-         {
+         table table td{
             border-radius: 10px;
+            background:#ECECEC;
+         }
+         table table td span{
+			font-family:\"Arial Narrow\", Arial, sans-serif;
             display:block;
-            background:	#F4F4F4;
             text-align:center;
+			font-size:30px;
             color:#000;
          }
-         
+		.span{
+			font-family:\"Arial Narrow\", Arial, sans-serif;
+			font-size:30px;
+			color:#535353;
+			background:#fff;
+			border-radius: 10px;
+		}         
         a
         {
-        	color:#428BCA;
+        	color:#517ebb;
         	}
         ul
         {
-        	list-style-image:url('../App_Themes/Default/Imagenes/bineta.jpg');
+        	list-style-image:url('http://localhost:8012/ibrain2.0/App/web/img/vineta.png');
         	margin-left:30px;
-        	}
+			color:#535353;
+			font-family:\"Arial Narrow\", Arial, sans-serif;
+        }
     </style>
 </head>
 <body>
 <table cellspacing=\"0\" cellpadding=\"0\">
+	<tr>
+		
+		<td style=\"width:20%; height: 5px; background:#ececec; border-radius: 10px;\" colspan=\"2\">&nbsp;</td>
+		
+	</tr>
     <tr>
-        <td style=\"border-top:#ececec; border-bottom:#ececec; border-radius: 10px; solid 20px\">
-            <img src=\"../../web/img/gallery/LOGOBIENVENIDA.jpg\" />
+		
+        <td>
+            <img src=\"http://localhost:8012/ibrain2.0/App/web/img/gallery/LOGOBIENVENIDA.jpg\" />
         </td>
-		<td style=\"border-top:#ececec; border-bottom:#ececec; border-radius: 10px; solid 20px\">
+		<td>
             <h1>
-			Bienvenido.
+			¡Bienvenido!
 			</h1>
         </td>
+		
     </tr>
+	<tr>
+		
+		<td style=\"width:20%; background:#ececec; border-radius: 10px;\" colspan=\"2\">&nbsp;</td>
+	
+	</tr>
     <tr>
+		
         <td style=\"border-right:#517ebb solid 4px; width:60%;\">
         <h2>
-		Hola _usuario_.
+		HOLA _usuario_.
         </h2>
         <p>
 			¡Felicidades!<br/>
@@ -112,25 +130,25 @@ $bodyMessage="<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \
        </p>
         </td>
         <td>
-        <h1>
+        <h2>
         INFORMACIÓN DE TU NUEVA CUENTA
-        </h1>
+        </h2>
 		<p>Aquí tienes los datos de acceso a tu portal:<br/><b>https://www.ibrain.mx/tuportal/app</b></p>
         <table cellspacing=\"0\" cellpadding=\"0\">
             <tr>
                 <td>
-                 Usuario
+                 <span>Usuario</span>
                 </td>
                 <td>
-                <span>[usuario]</span>
+                <span class=\"span\">[usuario]</span>
                 </td>
             </tr>
             <tr>
                 <td>
-                Contraseña
+                <span>Contraseña</span>
                 </td>
                 <td>
-                <span>[contraseña]</span>
+                <span class=\"span\">[contraseña]</span>
                 </td>
             </tr>
         </table>
@@ -155,16 +173,22 @@ $bodyMessage="<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \
          <strong>Soporte: </strong>  <br /> (998) 206 1968 <br /> (998) 206 2117 <br /><br />  <a href=\"mailto:soporte@consultoriadual.com\" >soporte@consultoriadual.com </a> 
         </p>
         </td>
+		
         </tr>
-         <tr>
-        <td style=\"border-top:#517ebb; solid 20px; border-radius: 10px\" colspan=\"2\">
+		<tr>
+			
+			<td style=\"width:20%; background:#517ebb; border-radius: 10px;\" colspan=\"2\">&nbsp;</td>
+			
+		</tr>
+        <tr>
+		 		 
+        <td colspan=\"2\">
              <p>
        Este correo se generó de forma automática, no es necesario  responder. Si tienes alguna duda, por favor contáctenos en:  <a href=\"mailto:soporte@consultoriadual.com\" >soporte@consultoriadual.com </a> 
        </p>
         </td>
        
     </tr>
-    
 </table>
 </body>
 </html>";

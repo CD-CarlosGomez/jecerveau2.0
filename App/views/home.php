@@ -1,5 +1,7 @@
 <?php
-	
+namespace Core;
+defined("APPPATH") OR die("Access denied");
+
 		$_SESSION["nombreUsuario"];
 		$_SESSION['pkiBUser_p'];
 		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
@@ -49,6 +51,9 @@
 									<div class="logo-element">
 										IN+
 									</div>
+								</li>
+								<li>
+								<?php echo APPPATH;?>
 								</li>
 								<?php print_r($currentMainMenu);?>
 							</ul>

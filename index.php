@@ -1,3 +1,3 @@
 <?php
-require ('public/vista/index.php');
+require ('public/vista/login.php');
 ?>
