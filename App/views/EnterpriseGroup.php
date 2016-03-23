@@ -1,4 +1,5 @@
 <?php
+#Agregar los select de las llaves foráneas
 namespace App\View\EnterpriseGroup;
 defined("APPPATH") OR die("Access denied");
 use \Core\View;
@@ -22,16 +23,14 @@ use \Core\Controller;
 
 		}
 ?>
-
 <!DOCTYPE html>
 <html>
-
 <head>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>INSPINIA | Wizards</title>
+    <title>iBrain 2.0</title>
 
     <link href="http://localhost:8012/iBrain2.0/App/web/css/bootstrap.min.css" rel="stylesheet">
     <link href="http://localhost:8012/iBrain2.0/App/web/font-awesome/css/font-awesome.css" rel="stylesheet">
@@ -39,12 +38,8 @@ use \Core\Controller;
     <link href="http://localhost:8012/iBrain2.0/App/web/css/plugins/steps/jquery.steps.css" rel="stylesheet">
     <link href="http://localhost:8012/iBrain2.0/App/web/css/animate.css" rel="stylesheet">
     <link href="http://localhost:8012/iBrain2.0/App/web/css/style.css" rel="stylesheet">
-
-
     <style>
-
         .wizard > .content > .body  position: relative; }
-
     </style>
 
 </head>
@@ -86,7 +81,7 @@ use \Core\Controller;
                 </div>
             </div>
         <div class="wrapper wrapper-content animated fadeInRight">
-             <div class="row">
+            <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox">
                         <div class="ibox-title">
@@ -95,92 +90,171 @@ use \Core\Controller;
                         <div class="ibox-content">
 							<div id="Wzd_Customazing" class="wizard clearfix vertical">
 								<h3>Master Account</h3>
-							<section>
-								<p>
-									<fieldset>
-										<form id="formCompany" action="http://localhost:8012/iBrain2.0/private/enterpriseGroup" method="POST" class="">
-											<div class="row"></div>
-											<div class="row">
-												<div class="col-lg-6">
-													<div class="form-group">
-														<label>Legal Name*</label>
-														<label for="txt_legalName_h" class="error" id="txt_legalName_h-error">This field is required.</label><input aria-invalid="true" aria-required="true" id="txt_legalName_h" class="form-control required error" name="txt_userName_h" type="text">
-														<input id="" name="btn_toDo_h" class="" value="AddCompany" type="hidden">
+								<section>
+									<p>
+										<fieldset>
+											<form id="formCompany" action="http://localhost:8012/iBrain2.0/private/enterpriseGroup" method="POST" class="">
+												<div class="row"></div>
+												<div class="row">
+													<div class="col-lg-6">
+														<div class="form-group">
+															<label>Legal Name*</label>
+															<input id="txt_legalName_h" class="form-control required" name="txt_legalName_h" type="text">
+															<input id="" name="hdn_toDo_h" class="" value="AddCompany" type="hidden">
+														</div>
+														<div class="form-group">
+															<label>Commercial Name*</label>
+															<input id="txt_commercialName_h" class="form-control required" name="txt_commercialName_h" type="text">
+														</div>
+														<div class="form-group">
+															<label>Street*</label>
+															<input id="txt_street_h" class="form-control required" name="txt_street_h" type="text">
+														</div>
+														<div class="form-group">
+															<label>Ext Number*</label>
+															<input id="txt_extNumber_h" class="form-control required" name="txt_extNumber_h" type="text">
+														</div>
+														<div class="form-group">
+															<label>Int Number*</label>
+															<input id="txt_intNumber_h" class="form-control required" name="txt_intNumber_h" type="text">
+														</div>
 													</div>
-													<div class="form-group">
-														<label>Commercial Name*</label>
-														<label for="txt_commercialName_h" class="error" id="txt_commercialName_h-error">This field is required.</label><input aria-required="true" id="txt_commercialName_h" class="form-control required error" name="txt_commercialName_h" type="text">
-													</div>
-													<div class="form-group">
-														<label>Street*</label>
-														<label for="txt_Street_h" class="error" id="txt_Street_h-error">This field is required.</label><input aria-required="true" id="txt_Street_h" class="form-control required error" name="txt_Street_h" type="text">
-													</div>
-													<div class="form-group">
-														<label>Ext Number*</label>
-														<label for="txt_ExtNumber_h" class="error" id="txt_ExtNumber_h-error">This field is required.</label><input aria-required="true" id="txt_ExtNumber_h" class="form-control required error" name="txt_ExtNumber_h" type="text">
-													</div>
-													<div class="form-group">
-														<label>Int Number*</label>
-														<label for="txt_IntNumber_h" class="error" id="txt_IntNumber_h-error">This field is required.</label><input aria-required="true" id="txt_IntNumber_h" class="form-control required error" name="txt_IntNumber_h" type="text">
+													<div class="col-lg-6">
+														<div class="form-group">
+															<label>Region*</label>
+															<input id="txt_region_h" class="form-control required" name="txt_region_h" type="text">
+															<input id="" name="btn_toDo_h" class="" value="AddCompany" type="hidden">
+														</div>
+														<div class="form-group">
+															<label>Zone*</label>
+															<input id="txt_zone_h" class="form-control required" name="txt_zone_h" type="text">
+														</div>
+														<div class="form-group">
+															<label>Province*</label>
+															<input  id="txt_province_h" class="form-control required" name="txt_province_h" type="text">
+														</div>
+														<div class="form-group">
+															<label>Zip Code*</label>
+															<input  id="txt_zipCode_h" class="form-control required" name="txt_zipCode_h" type="text">
+														</div>
+														<div class="form-group">
+															<button type="submit" id="" class="btn btn-primary" name="btn-AddCompany">Add Company</button>
+														</div>
 													</div>
 												</div>
-												<div class="col-lg-6">
-													<div class="form-group">
-														<label>Region*</label>
-														<label for="txt_Region_h" class="error" id="txt_Region_h-error">This field is required.</label><input aria-required="true" id="txt_Region_h" class="form-control required error" name="txt_Region_h" type="text">
-														<input id="" name="btn_toDo_h" class="" value="AddCompany" type="hidden">
+											</form>
+										</fieldset>
+									</p>
+									<p>(*) Mandatory</p>
+								</section>
+								<h3>Branch Office</h3>
+								<section>
+									<p>
+										<fieldset>
+											<form id="formBO" action="http://localhost:8012/iBrain2.0/private/enterpriseGroup" method="POST" class="">
+													<div class="row"></div>
+												<div class="row">
+													<div class="col-lg-6">
+														<div class="form-group">
+															<label>Branch Office Name*</label>
+															<input id="txt_BOName_h" class="form-control required" name="txt_BOName_h" type="text">
+															<input id="" name="hdn_toDo_h" class="" value="AddBO" type="hidden">
+														</div>
+														<div class="form-group">
+															<label>Branch Office Street*</label>
+															<input id="txt_BOStreet_h" class="form-control required" name="txt_BOStreet_h" type="text">
+														</div>
+														<div class="form-group">
+															<label>Branch Office Ext Number*</label>
+															<input id="txt_BOExtNumber_h" class="form-control required" name="txt_BOExtNumber_h" type="text">
+														</div>
+														<div class="form-group">
+															<label>Branch Office Int Number*</label>
+															<input id="txt_BOIntNumber_h" class="form-control required" name="txt_BOIntNumber_h" type="text">
+														</div>
 													</div>
-													<div class="form-group">
-														<label>Zone*</label>
-														<label for="txt_Zone_h" class="error" id="txt_Zone_h-error">This field is required.</label><input aria-required="true" id="txt_Zone_h" class="form-control required error" name="txt_Zone_h" type="text">
-													</div>
-													<div class="form-group">
-														<label>Province*</label>
-														<label for="txt_Province_h" class="error" id="txt_Province_h-error">This field is required.</label><input aria-required="true" id="txt_Province_h" class="form-control required error" name="txt_Province_h" type="text">
-													</div>
-													<div class="form-group">
-														<label>Zip Code*</label>
-														<label for="txt_ZipCode_h" class="error" id="txt_ZipCode_h-error">This field is required.</label><input aria-required="true" id="txt_ZipCode_h" class="form-control required error" name="txt_ZipCode_h" type="text">
-													</div>
-													<div class="form-group">
-														<button type="submit" id="" class="btn btn-primary" name="txt_ZipCode_h">Add Company</button>
+													<div class="col-lg-6">
+														<div class="form-group">
+															<label>Region*</label>
+															<input id="txt_BORegion_h" class="form-control required" name="txt_BORegion_h" type="text">
+															<input id="" name="btn_toDo_h" class="" value="AddCompany" type="hidden">
+														</div>
+														<div class="form-group">
+															<label>Zone*</label>
+															<input id="txt_BOZone_h" class="form-control required" name="txt_BOZone_h" type="text">
+														</div>
+														<div class="form-group">
+															<label>Province*</label>
+															<input  id="txt_BOProvince_h" class="form-control required" name="txt_BOProvince_h" type="text">
+														</div>
+														<div class="form-group">
+															<label>Zip Code*</label>
+															<input  id="txt_BOZipCode_h" class="form-control required" name="txt_BOZipCode_h" type="text">
+														</div>
+														<div class="form-group">
+															<button type="submit" id="" class="btn btn-primary" name="btn-AddBO">Add Branch Office</button>
+														</div>
 													</div>
 												</div>
-											</div>
-										</form>
-									</fieldset>
-								</p>
-									
-									<p>(*) Mandatory</p>
-								</section>
-								<h3 class="title" tabindex="-1" id="Wzd_Customazing-h-1">Branch Office</h3>
-								<section aria-hidden="true" style="display: none;" class="body" aria-labelledby="Wzd_Customazing-h-1" role="tabpanel" id="Wzd_Customazing-p-1">
-									<p>
-										<label for="position-3">Position (zero-based) *</label><br>
-										<input id="position-3" type="text"><br>
-										<label for="title2-3">HTML Title *</label><br>
-										<input id="title2-3" type="text"><br>
-										<label for="text2-3">HTML Content *</label><br>
-										<textarea id="text2-3" rows="5"></textarea>
+											</form>
+										</fieldset>
 									</p>
-									<p><a href="javascript:void(0);" onclick="$('#wizard-4').steps('insert', Number($('#position-3').val()), { title: $('#title2-3').val(), content: $('#text2-3').val() });">Insert</a></p>
 									<p>(*) Mandatory</p>
 								</section>
-								<h3 class="title" tabindex="-1" id="Wzd_Customazing-h-2">Users</h3>
-								<section aria-hidden="true" style="display: none;" class="body" aria-labelledby="Wzd_Customazing-h-2" role="tabpanel" id="Wzd_Customazing-p-2">
+								<h3>Users</h3>
+								<section>
 									<p>
-										<label for="position2-3">Position (zero-based) *</label><br>
-										<input id="position2-3" type="text">
+										<fieldset>
+											<form id="formUser" action="http://localhost:8012/iBrain2.0/private/enterpriseGroup" method="POST" class="">
+												<div class="row"></div>
+												<div class="row">
+													<div class="col-lg-6">
+														<div class="form-group">
+															<label>User Name*</label>
+															<input id="txt_userName_h" class="form-control required" name="txt_userName_h" type="text">
+															<input id="" name="hdn_toDo_h" class="" value="AddUser" type="hidden">
+														</div>
+														<div class="form-group">
+															<label>Real Name*</label>
+															<input id="txt_realName_h" class="form-control required" name="txt_realName_h" type="text">
+														</div>
+														<div class="form-group">
+															<label>E-mail</label>
+															<input id="txt_email_h" class="form-control required" name="txt_email_h" type="text">
+														</div>
+														<div class="form-group">
+															<label>Pasword*</label>
+															<input id="txt_password_h" class="form-control required" name="txt_password_h" type="text">
+														</div>
+														<div class="form-group">
+																<label>Profile*</label>
+																<input id="txt_fkiUserPRofile_h" class="form-control required" name="txt_fkiUserPRofile_h" type="text">
+															</div>
+														<div class="form-group">
+																<label>Start Page*</label>
+																<input id="txt_defaultFunction_h" class="form-control required" name="txt_defaultFunction_h" type="text">
+															</div>
+														</div>
+														<div class="form-group">
+															<button type="submit" id="" class="btn btn-primary" name="btn-AddBO">Add User</button>
+														</div>
+													<div class="col-lg-6">
+														
+													</div>
+												</div>
+											</form>
+										</fieldset>
 									</p>
-									<p><a href="javascript:void(0);" onclick="$('#wizard-4').steps('remove', Number($('#position2-3').val()));">Remove</a></p>
-									<p>(*) Mandatory</p>
+									<p>(*)Mandatory
+									</p>
 								</section>
-							</div></div>
+							</div>
 						</div>
-                    </div>
+					</div>
                 </div>
             </div>
         </div>
+		</div>
         <div class="footer">
             <div class="pull-right">
             </div>

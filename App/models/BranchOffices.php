@@ -17,10 +17,10 @@ class BranchOffices implements iCrud{
 	private static $_BOzone_p;
 	private static $_BOprovince_p;
 	private static $_BOzipCode_p;
-	private static $_created;
-	private static $_createdBy;
-	private static $_modified;
-	private static $_modifiedBy;
+	private static $_created_p;
+	private static $_createdBy_p;
+	private static $_modified_p;
+	private static $_modifiedBy_p;
 	private static $_active_p;
 	
 	public static function setpkBO($valor){self::$_pkBranchOffice_p=$valor;}
@@ -47,14 +47,14 @@ class BranchOffices implements iCrud{
 	public static function setBORegion($valor){self::$_BOregion_p=$valor;}
 	public static function getBORegion(){return self::$_BOregion_p;}
 
-	public static function setBOZone($valor){self::$_zone_p=$valor;}
-	public static function getBOZone(){return self::$_zone_p;}
+	public static function setBOZone($valor){self::$_BOzone_p=$valor;}
+	public static function getBOZone(){return self::$_BOzone_p;}
 
-	public static function setBOProvince($valor){self::$_province_p=$valor;}
-	public static function getBOProvince(){return self::$_province_p;}
+	public static function setBOProvince($valor){self::$_BOprovince_p=$valor;}
+	public static function getBOProvince(){return self::$_BOprovince_p;}
 
-	public static function setBOZipCode($valor){self::$_zipCode_p=$valor;}
-	public static function getBOZipCode(){return self::$_zipCode_p;}
+	public static function setBOZipCode($valor){self::$_BOzipCode_p=$valor;}
+	public static function getBOZipCode(){return self::$_BOzipCode_p;}
 
 	public static function setCreated($valor){self::$_created_p=$valor;}
 	public static function getCreated()	{return self::$_created_p;}
@@ -126,12 +126,11 @@ class BranchOffices implements iCrud{
 			$query->bindParam(14, self::$_modifiedBy_p, \PDO::PARAM_STR);
             $query->bindParam(15, self::$_active_p, \PDO::PARAM_STR);
 			$query->execute();
-            return $query->fetch();
+            return true;
         }
         catch(\PDOException $e){
             print "Error!: " . $e->getMessage();
         }
-    }
     }
     public static function updateById($user){
     }
@@ -152,10 +151,6 @@ class BranchOffices implements iCrud{
 		try {
 				$cnn=Database::instance();
 				$PDOQuery = "SELECT MAX($column) AS Maximo FROM $table;";
-				//$dso=$cnn->prepare($PDOQuery);
-				//$dso->bindParam(1,$column,\PDO::PARAM_INT);
-				//$dso->bindParam(2,$table,\PDO::PARAM_INT);
-				//$dso->execute();
 				$dso=$cnn->query($PDOQuery);
 				$ultimo=$dso->fetch();
 				$plusid=$ultimo['Maximo'];

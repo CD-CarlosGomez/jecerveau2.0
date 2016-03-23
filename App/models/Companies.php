@@ -19,12 +19,11 @@ class Companies implements iCrud{
 	private static $_zone_p;
 	private static $_province_p;
 	private static $_zipCode_p;
-	private static $_created;
-	private static $_createdBy;
-	private static $_modified;
-	private static $_modifiedBy;
+	private static $_created_p;
+	private static $_createdBy_p;
+	private static $_modified_p;//Agregar método
+	private static $_modifiedBy_p;//Agregar método
 	private static $_active_p;
-	private static $_fkEnterpriseGroup_p;
 	
 	public static function setpkCompany($valor){self::$_pkCompany_p=$valor;}
 	public static function getpkCompany() {return self::$_pkCompany_p;}
@@ -77,9 +76,6 @@ class Companies implements iCrud{
 	public static function setActive($valor){self::$_active_p=$valor;}
 	public static function getActive()	{return self::$_active_p;}
 	
-	public static function setfkEnterpriseGroup($valor){self::$_fkEnterpriseGroup_p=$valor;}
-	public static function getEnterpriseGroup()	{return self::$_fkEnterpriseGroup_p;}
-	
 	public function __construct(){
 	//Inicializar los atributos
 	}
@@ -113,17 +109,17 @@ class Companies implements iCrud{
 		try {
             $connection = Database::instance();
 			//self::setpkiBUser(self::getNextId("pkiBUser","ibuser"));
-            $sql = "INSERT INTO $data VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+            $sql = "INSERT INTO $data VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
             $query = $connection->prepare($sql);
             $query->bindParam(1, self::$_pkCompany_p, \PDO::PARAM_INT);
-			$query->bindParam(2, self::$_legalName_p, \PDO::PARAM_INT);
+			$query->bindParam(2, self::$_legalName_p, \PDO::PARAM_STR);
 			$query->bindParam(3, self::$_commercialName_p, \PDO::PARAM_STR);
 			$query->bindParam(4, self::$_taxId_p, \PDO::PARAM_STR);
-            $query->bindParam(5, self::$_logoFile_p, \PDO::PARAM_INT);
+            $query->bindParam(5, self::$_logoFile_p, \PDO::PARAM_STR);
 			$query->bindParam(6, self::$_street_p, \PDO::PARAM_STR);
 			$query->bindParam(7, self::$_extNumber_p, \PDO::PARAM_STR);
 			$query->bindParam(8, self::$_intNumber_p, \PDO::PARAM_STR);
-            $query->bindParam(9, self::$_region_p, \PDO::PARAM_INT);
+            $query->bindParam(9, self::$_region_p, \PDO::PARAM_STR);
 			$query->bindParam(10, self::$_zone_p, \PDO::PARAM_STR);
 			$query->bindParam(11, self::$_province_p, \PDO::PARAM_STR);
 			$query->bindParam(12, self::$_zipCode_p, \PDO::PARAM_STR);
@@ -132,9 +128,8 @@ class Companies implements iCrud{
 			$query->bindParam(15, self::$_modified_p, \PDO::PARAM_STR);
 			$query->bindParam(16, self::$_modifiedBy_p, \PDO::PARAM_STR);
             $query->bindParam(17, self::$_active_p, \PDO::PARAM_STR);
-			$query->bindParam(18, self::$_fkEnterpriseGroup_p, \PDO::PARAM_INT);
 			$query->execute();
-            return $query->fetch();
+            return true;
         }
         catch(\PDOException $e){
             print "Error!: " . $e->getMessage();

@@ -12,6 +12,7 @@ use \App\Models\Users as User;
 use \App\Models\Companies as Company;
 use \App\Models\BranchOffices as BO;
 use \Core\Controller;
+use \App\web\lib\Mailer\PHPMailer;
 	
 class EnterpriseGroup extends Controller{
 //CONSTANTES#########################################
@@ -60,8 +61,8 @@ private $_sesionMenu;
 //CONTROLES##########################################
 //MAIN###############################################
 		session_start();
-		$_SESSION["nombreUsuario"];
-		$_SESSION['pkiBUser_p'];
+		$userName=$_SESSION["nombreUsuario"];
+		$pkiBUser=$_SESSION['pkiBUser_p'];
 		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
 		else{
 				echo "Esta pagina es solo para usuarios registrados.<br>";
@@ -76,7 +77,7 @@ private $_sesionMenu;
 		exit;
 		}
 		
-	switch(@$_POST['btn_toDo_h']){
+	switch(@$_POST['hdn_toDo_h']){
 		case "AddCompany":
 			CreateCompany();
 		break;
@@ -93,7 +94,6 @@ private $_sesionMenu;
 	function CreateCompany(){
 	$c=new Company;
 	$c->setpkCompany($c->getNextId("pkCompany","Company"));
-	$c->setfkiBUserProfile(0);
 	$c->setLegalName($_POST['txt_legalName_h']);
 	$c->setCommercialName($_POST["txt_commercialName_h"]);
 	$c->setTaxId("No definido");
@@ -102,87 +102,100 @@ private $_sesionMenu;
 	$c->setExtNumber($_POST["txt_extNumber_h"]);
 	$c->setIntNumber($_POST["txt_intNumber_h"]);
 	$c->setRegion($_POST["txt_region_h"]);
-	$c->setZone();
-	$c->setProvince();
-	$c->setZipCode();
-	$c->setCreated();
-	$c->setCreatedBy();
-	$c->setModified();
-	$c->setModifiedBy();
-	$c->setActive();
-	$c->setfkEnterpriseGroup();
+	$c->setZone($_POST["txt_zone_h"]);
+	$c->setProvince($_POST["txt_province_h"]);
+	$c->setZipCode($_POST["txt_zipCode_h"]);
+	$c->setCreated("null");
+	$c->setCreatedBy("1");
+	$c->setModified("null");
+	$c->setModifiedBy("null");
+	$c->setActive("1");
+	$c->insertData("Company");
+	
+	
 	}
 	function CreateBO(){
 	$bo=new BO;
 	$bo->setpkBO($bo->getNextId("pkBranchOffice","BranchOffice"));
-	$bo->setfkCompany();
-	$bo->setBOName();
-	$bo->setBOStreet();
-	$bo->setBOExtNumber();
-	$bo->setBOIntNumber();
-	$bo->setBORegion();
-	$bo->setBOZone();
-	$bo->setBOProvince();
-	$bo->setBOZipCode();
-	$bo->setCreated();
-	$bo->setCreatedBy();
-	$bo->setModified();
-	$bo->setModifiedBy();
-	$bo->setActive();
+	$bo->setfkCompany(1);
+	$bo->setBOName($_POST["txt_BOName_h"]);
+	$bo->setBOStreet($_POST["txt_BOStreet_h"]);
+	$bo->setBOExtNumber($_POST["txt_BOExtNumber_h"]);
+	$bo->setBOIntNumber($_POST["txt_BOIntNumber_h"]);
+	$bo->setBORegion($_POST["txt_BORegion_h"]);
+	$bo->setBOZone($_POST["txt_BOZone_h"]);
+	$bo->setBOProvince($_POST["txt_BOProvince_h"]);
+	$bo->setBOZipCode($_POST["txt_BOZipCode_h"]);
+	$bo->setCreated("null");
+	$bo->setCreatedBy("1");
+	$bo->setModified("null");
+	$bo->setModifiedBy("null");
+	$bo->setActive("1");
+	$bo->insertData("branchoffice");
 	}
+	
 	function CreateUser(){
 		$u=new User;
 		$nextId=$u->getNextId("pkiBUser","ibuser");
 		$u->setpkiBUser($nextId);
-		$u->setfkiBUserProfile();
+		$u->setfkiBUserProfile(1);
 		$u->setUserName($_POST['txt_userName_h']);
 		$u->setPWD($_POST['txt_password_h']);
 		$u->setPwdTmp($_POST['txt_password_h']);
-		$u->setRealName($_POST['txt_password_h']);
-		$u->setEmail($_POST['txt_password_h']);
-		$u->setDefaultF();
-		$u->setActive('1');
-		$u->setCreated('1');
-		$u->setCreatedBy('1');
-		$u->setModified('1');
-		$u->setModifiedBy('1');
+		$u->setRealName($_POST['txt_realName_h']);
+		$u->setEmail($_POST['txt_email_h']);
+		$u->setDefaultF("null");
+		$u->setActive("2");
+		$u->setCreated($_SESSION['pkiBUser_p']);
+		$u->setCreatedBy('null');
+		$u->setModified('null');
+		$u->setModifiedBy('null');
 		if ($u->insertData('ibuser')){
-			$destinatario=$emailint1;
+			$destinatario=$u->getEmail();
 			$asunto="Bienvenido a iBrain 2.0";
 			$cuerpo = "";
 			
-			require_once "../views/lib/Mailer/PHPMailerAutoload.php";
-			require_once "../views/htmlFrames/BienvenidoUsuario.php";
+			//include_once "../App/web/lib/Mailer/PHPMailerAutoload.php";
+			include_once "../App/views/htmlFrames/BienvenidoUsuario.php";
 			$micorreo="cgomez@consultoriadual.com";
-			$nombrefrom="iBrain info";
+			$nombreFrom="iBrain info";
 			$nombreadmin="";
 			$asunto="Bienvenida a usuario";
 			$sucorreo="andres@consultoriadual.com";
 //////////////////////////////////////////////DATOS DE EMAIL DE confirmacion////////////////////////////////////
-			$mail2= new PHPMailer ();
-			$mail2->From = $micorreo;
-			$mail2 ->FromName = $nombreFrom;
-			$mail2-> AddAddress ($sucorreo);//aqui va el nombre del usuario que se le rep
-			$mail2->AddReplyTo($micorreo);
-			$mail2-> Subject = "$asunto";
-			$mail2->IsSMTP();
-			$mail2->SMTPSecure = "tls";                 // sets the prefix to the servier
-			$mail2->Host       = "smtp.gmail.com";      // sets GMAIL as the SMTP server
-			$mail2->Port       = 587;
-			$mail2->SMTPAuth = true;
-			$mail2->Username = 'cgomez@consultoriadual.com';
-			$mail2->Password = 'Dual2016';
-			$mail2->IsHTML(true); // El correo se enva como HTML
-			$mail2->MsgHTML($bodyMessage);
-			if(!$mail2->Send()){
-				$msg='Error: '.$mail2->ErrorInfo;
+			date_default_timezone_set('Etc/UTC');
+			$mail= new PHPMailer(true);
+			$mail->IsSMTP();
+			$mail->SMTPDebug = 2;
+			$mail->Debugoutput = 'html';
+			$mail->Host       = "smtp.gmail.com";
+			$mail->Port       = 587;
+			$mail->SMTPSecure = "tls";  
+			$mail->SMTPAuth = true;
+			$mail->Username = 'liriodelosvalles103@gmail.com';
+			$mail->Password = '.Go.040090646.';
+			$mail->setFrom($micorreo,"Carlos Gómez");
+			$mail->AddReplyTo($micorreo,"Carlos Gómez 2");
+			$mail->AddAddress ("andres@consultoriadual.com","Andrés");
+			$mail->Subject = "$asunto";
+			$mail->MsgHTML($bodyMessage);
+			$mail->AltBody='This is a plain-text message body';
+			$mail->isHTML(true);
+			$mail->SMTPOptions = array(
+				'ssl' => array(
+				'verify_peer' => false,
+				'verify_peer_name' => false,
+				'allow_self_signed' => true));
+			
+			if(!$mail->Send()){
+				$msg='Mailer Error: '.$mail->ErrorInfo;
 			}
 			else{
-				$msg="<p>Tu informacion se recibio correctamente <br> Se ha enviado una confirmacion al correo <b>$correo</b></p>";
+				$msg="<p>Tu informacion se recibio correctamente <br> Se ha enviado una confirmacion al correo <b>correo</b></p>";
 			}
 		}	
 		else
-			echo "Error,no se puedeeliminar ";
+			echo "Error,no se puede enviar el correo electrónico ";
 		//View::render("EnterpriseGroup");
 	}
 ?>
