@@ -11,6 +11,7 @@ namespace App\Models;
 defined("APPPATH") OR die("Access denied");
 
 use \Core\Database;
+use \App\Config\Globales as Globales;
 
 class CurrentUser {
 //CONSTANTES#########################################
@@ -24,7 +25,6 @@ class CurrentUser {
 	public function &getppkIBUser_p(){
 		return $this->ppkiBUser_p;
 	}
-	
 	public function getMainMenu($pkiBUser){
 	$firstLevels[]=$this->getFirstLevelMenu($pkiBUser);
 		for($i=0;$i<count($firstLevels);$i++){
@@ -33,19 +33,19 @@ class CurrentUser {
 				$this->pMainMenu .="<li>";
 				$this->pMainMenu .=		"<a href='#'>"; 
 				$this->pMainMenu .=			"<span class='nav-label'>".$firstLevels[0][$k][1]."</span>";
-				$this->pMainMenu .=			"<span class='fa arrow'></span></a>";
+				$this->pMainMenu .=			"</a>";
 				$this->pMainMenu .="		<ul class='nav nav-second-level collapse'>";
 				$secondLevels[]=$this->getSecondLevelMenu($pkiBUser,$firstLevels[0][$k][0]);
 				for($l=0;$l<count($secondLevels);$l++){
 					for($m=0;$m<count($secondLevels[$l]);$m++){
 						$thirdLevels[]=$this->getThirdLevelMenu($pkiBUser,$secondLevels[0][$m][0]);
 						$this->pMainMenu .=		"<li>";
-						$this->pMainMenu .="		<a href='http://localhost:8012/ibrain2.0/".$secondLevels[0][$m][2] ."'>".$secondLevels[0][$m][1]."<span class='fa arrow'></span></a>";
+						$this->pMainMenu .="		<a href='$directoryPath".$secondLevels[0][$m][2] ."'>".$secondLevels[0][$m][1]."</a>";
 						$this->pMainMenu .="		<ul class='nav nav-third-level'>";
 						for($n=0;$n<count($thirdLevels);$n++){
 							for($o=0;$o<count($thirdLevels[$n]);$o++){
 								$this->pMainMenu .=			"<li>";
-								$this->pMainMenu .=				"<a href='http://localhost:8012/ibrain2.0/".$thirdLevels[0][$o][1] ."'>".$thirdLevels[0][$o][0]."</a>";
+								$this->pMainMenu .=				"<a href='$directoryPath".$thirdLevels[0][$o][1] ."'>".$thirdLevels[0][$o][0]."</a>";
 								$this->pMainMenu .=			"</li>";
 							}
 						}
@@ -59,12 +59,11 @@ class CurrentUser {
 		}
 						
 					$this->pMainMenu .="<li>";
-					$this->pMainMenu .="<a href='http://localhost:8012/ibrain2.0//App/controllers/logout.php'>";
+					$this->pMainMenu .="<a href='$directoryPath/App/controllers/logout.php'>";
 					$this->pMainMenu .="<span class='nav-label'>Logout</span></span></a>";
 					$this->pMainMenu .="</li>";
 		return $this->pMainMenu;
 	}
-	
 	public function getMainMenu2($pkiBUser){
 		$PDOcnn = Database::instance();
 		$sql = "SELECT DISTINCT
@@ -99,20 +98,48 @@ class CurrentUser {
 							inner join ibfunction ibf 
 								on pkibfunctiongroup= ibf.iBFunctionGroup_pkiBFunctionGroup 
 						WHERE pkiBuser=".$firstLevels['pkiBuser']." and Active=1 and pkiBFunctionGroup=".$firstLevels['pkiBFunctionGroup'].";";
-			$this->pMainMenu .="<li>";
-			$this->pMainMenu .=	"<a href='#'>";
-			$this->pMainMenu .=	"<span class='nav-label'>".$firstLevels['ibFunctionGroupModulo']."</span>";
-			$this->pMainMenu .="		<ul class='nav nav-second-level collapse'>";
+			$this->pMainMenu .="<li class=\"dropdown\">";
+			$this->pMainMenu .="<a aria-expanded=\"false\" role=\"button\" href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">";
+			$this->pMainMenu .=		$firstLevels['ibFunctionGroupModulo']."<span class=\"caret\"></span>";
+			$this->pMainMenu .="</a>";
+			$this->pMainMenu .="";
+			$this->pMainMenu .="	<ul class='dropdown-menu multi-level' role=\"menu\" aria-labelledby=\"dropdownMenu\">";
 			foreach($PDOcnn->query($PDOQuery) as $secondLevel){
-				$this->pMainMenu .=		"<li>";
-				$this->pMainMenu .="		<a href='http://localhost:8012/ibrain2.0/".$secondLevel['iBFunctionLink']."'>".$secondLevels['iBFunctionName']."<span class='fa arrow'></span></a>";
-				$this->pMainMenu .="		<ul class='nav nav-third-level'>";
+				$directoryPath= Globales::$absoluteURL;
+				$PDOcnn = Database::instance();
+				$PDOQuery = "SELECT 
+							iBFunctionDetailName,
+							iBFunctionDetailLink
+						FROM ibuser ib 
+							inner join ibuserprofile 
+								on fkibuserprofile=pkiBUserProfile 
+							inner join ibuserprofile_has_ibfunction ibfg 
+								on pkiBUserProfile=ibuserprofile_pkibuserprofile 
+							inner join ibfunctiongroup 
+								on ibfg.ibfunctiongroup_pkibfunctiongroup=pkibfunctiongroup 
+							inner join ibfunction ibf 
+								on pkibfunctiongroup= ibf.iBFunctionGroup_pkiBFunctionGroup
+							inner join ibfunctiondetail ibd 
+								on ibd.iBFunction_pkiBFunction=ibf.pkiBFunction
+						where pkiBuser=". $secondLevel['pkiBUser'] ." and Active=1 and pkiBFunction=".$secondLevel['pkiBFunction'].";";
+				$this->pMainMenu .=		"<li class=\"dropdown-submenu\">";
+				$this->pMainMenu .="		<a tabindex=\"-1\" href='$directoryPath".$secondLevel['iBFunctionLink']."'>".$secondLevel['iBFunctionName']."</a>";
+				$this->pMainMenu .="		<ul class='dropdown-menu'>";
+				foreach($PDOcnn->query($PDOQuery) as $thirdLevels){
+					$this->pMainMenu .=			"<li>";
+					$this->pMainMenu .=				"<a href='$directoryPath".$thirdLevels['iBFunctionDetailLink'] ."'>".$thirdLevels['iBFunctionDetailName']."</a>";
+					$this->pMainMenu .=			"</li>";
+				}
 				$this->pMainMenu .="		</ul>";	
 				$this->pMainMenu .="</li>";
 			}
 			$this->pMainMenu .=			"</ul>";
 			$this->pMainMenu .="</li>";
 		}
+		$this->pMainMenu .="<li>";
+		$this->pMainMenu .="<a href='$directoryPath/App/controllers/logout.php'>";
+		$this->pMainMenu .="<span class='nav-label'>Logout</span></span></a>";
+		$this->pMainMenu .="</li>";
 		return $this->pMainMenu;
 	}
 //MÉTODOS ABSTRACTOS#################################
@@ -217,6 +244,14 @@ class CurrentUser {
         catch(\PDOException $e){
             print "Error!: " . $e->getMessage();
         }
+	}
+	public function getCurrentRealName($pkiBUser){
+		$PDOcnn = Database::instance();
+        $PDOQuery = "SELECT realname FROM ibuser Where pkiBUser=$pkiBUser;";
+		foreach ($PDOcnn->query($PDOQuery) as $resultSet) {
+			$realname=$resultSet['realname'];
+		}
+		return $realname;
 	}
 //MÉTODOS PRIVADOS###################################
 //EVENTOS############################################

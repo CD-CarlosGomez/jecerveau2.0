@@ -1,7 +1,6 @@
 <?php
-namespace Core;
+namespace App\views;
 defined("APPPATH") OR die("Access denied");
-
 		$_SESSION["nombreUsuario"];
 		$_SESSION['pkiBUser_p'];
 		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
@@ -25,66 +24,59 @@ defined("APPPATH") OR die("Access denied");
 					<meta name="viewport" content="<? echo $this->pviewport?>">
 					<meta http-equiv="X-UA-Compatible" content="IE=edge">
 					<title><?php echo $title ?></title>
-					<link href="http://localhost:8012/iBrain2.0/App/web/css/bootstrap.min.css" rel="stylesheet">
-					<link href="http://localhost:8012/iBrain2.0/App/web/font-awesome/css/font-awesome.css" rel="stylesheet">
+					<link href="<?php echo $url; ?>App/web/css/bootstrap.min.css" rel="stylesheet">
+					<link href="<?php echo $url; ?>App/web/font-awesome/css/font-awesome.css" rel="stylesheet">
 					<!-- Toastr style -->
-					<link href="http://localhost:8012/iBrain2.0/App/web/css/plugins/toastr/toastr.min.css" rel="stylesheet">
+					<link href="<?php echo $url; ?>App/web/css/plugins/toastr/toastr.min.css" rel="stylesheet">
 					<!-- Gritter -->
-					<link href="http://localhost:8012/iBrain2.0/App/web/js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
-					<link href="http://localhost:8012/iBrain2.0/App/web/css/animate.css" rel="stylesheet">
-					<link href="http://localhost:8012/iBrain2.0/App/web/css/style.css" rel="stylesheet">
+					<link href="<?php echo $url; ?>App/web/js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
+					<link href="<?php echo $url; ?>App/web/css/animate.css" rel="stylesheet">
+					<link href="<?php echo $url; ?>App/web/css/style.css" rel="stylesheet">
 			</head>
-			<body>
-					<nav class="navbar-default navbar-static-side" role="navigation">
-						<div class="sidebar-collapse">
-							<ul class="nav metismenu" id="side-menu">
-								<li class="nav-header">
-									<div class="dropdown profile-element"> <span>
-										<img alt="image" class="img-circle" src="img/profile_small.jpg" />
-										 </span>
-										<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-										<span class="clear"> <span class="block m-t-xs"><strong class="font-bold"></strong>
-										 </span> <span class="text-muted text-xs block">&nbsp; <b class="caret"></b></span> </span> </a>
-										<ul class="dropdown-menu animated fadeInRight m-t-xs">
-										</ul>
-									</div>
-									<div class="logo-element">
-										IN+
-									</div>
-								</li>
-								<li>
-								</li>
-								<?php print_r($currentMainMenu);?>
-							</ul>
-						</div>
-					</nav>
-					
-					<div id="page-wrapper" class="gray-bg dashbard-1">
-						<div class="row border-bottom">						
-							<nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">	
+			<body class="top-navigation">
+				<div id="wrapper">
+					<div id="page-wrapper" class="gray-bg">
+						<div class="row border-bottom white-bg">						
+							<nav class="navbar navbar-static-top" role="navigation">
+								<div class="navbar-header">
+									<button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+									<i class="fa fa-reorder"></i>
+									</button>
+									<a href="#" class="navbar-brand">Inicio</a>
+								</div>
+								<div class="navbar-collapse collapse" id="navbar">
+									<ul class="nav navbar-nav">
+										<?php print_r($currentMainMenu);?>
+									</ul>
+									<ul class="nav navbar-top-links navbar-right">
+										<li>
+											<a href="login.html">Log out</a>
+										</li>
+									</ul>
+								</div>
 							</nav>
 						</div>
-							
-						<div class="row  border-bottom white-bg dashboard-header">
-								<div class="col-sm-3">
-								<h1>Default Page</h1>
-								</div>
-								<div class="col-sm-6">
-								</div>
-								<div class="col-sm-3">
-								</div>
-						</div>
-							
-						<div class="row">
+						 <div class="row wrapper border-bottom white-bg page-heading">
+							<div class="col-sm-4">
+								<h2>This is main title</h2>
+								<ol class="breadcrumb">
+									<li>
+										<a href="index.html">This is</a>
+									</li>
+									<li class="active">
+										<strong>Breadcrumb</strong>
+									</li>
+								</ol>
+							</div>
+						</div>	
+						<div class="wrapper wrapper-content">
 							<div class="col-lg-12">
-								<div class="wrapper wrapper-content">
-									<div class="row">
-										<div class="col-lg-4">
-										</div>
-										<div class="col-lg-4">
-										</div>
-										<div class="col-lg-4">
-										</div>
+								<div class="middle-box text-center animated fadeInRightBig">
+									<h3 class="font-bold">This is page content</h3>
+									<div class="error-desc">
+										You can create here any grid layout you want. And any variation layout you imagine:) Check out
+										main dashboard and other site. It use many different layout.
+										<br/><a href="index.html" class="btn btn-primary m-t">Dashboard</a>
 									</div>
 								</div>
 							</div>
@@ -95,40 +87,40 @@ defined("APPPATH") OR die("Access denied");
 							</div>
 						</div>
 					</div>
-
+				</div>
 					<!-- Mainly scripts -->
-					<script src="http://localhost:8012/iBrain2.0/App/web/js/jquery-2.1.1.js"></script>
-					<script src="http://localhost:8012/iBrain2.0/App/web/js/bootstrap.min.js"></script>
-					<script src="http://localhost:8012/iBrain2.0/App/web/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-					<script src="http://localhost:8012/iBrain2.0/App/web/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+					<script src="<?php echo $url; ?>App/web/js/jquery-2.1.1.js"></script>
+					<script src="<?php echo $url; ?>App/web/js/bootstrap.min.js"></script>
+					<script src="<?php echo $url; ?>App/web/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+					<script src="<?php echo $url; ?>App/web/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
 					<!-- Flot -->
-					<script src="http://localhost:8012/iBrain2.0/App/web/js/plugins/flot/jquery.flot.js"></script>
-					<script src="http://localhost:8012/iBrain2.0/App/web/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
-					<script src="http://localhost:8012/iBrain2.0/App/web/js/plugins/flot/jquery.flot.spline.js"></script>
-					<script src="http://localhost:8012/iBrain2.0/App/web/js/plugins/flot/jquery.flot.resize.js"></script>
-					<script src="http://localhost:8012/iBrain2.0/App/web/js/plugins/flot/jquery.flot.pie.js"></script>
+					<script src="<?php echo $url; ?>App/web/js/plugins/flot/jquery.flot.js"></script>
+					<script src="<?php echo $url; ?>App/web/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+					<script src="<?php echo $url; ?>App/web/js/plugins/flot/jquery.flot.spline.js"></script>
+					<script src="<?php echo $url; ?>App/web/js/plugins/flot/jquery.flot.resize.js"></script>
+					<script src="<?php echo $url; ?>App/web/js/plugins/flot/jquery.flot.pie.js"></script>
 					<!-- Peity -->
-					<script src="http://localhost:8012/iBrain2.0/App/web/js/plugins/peity/jquery.peity.min.js"></script>
-					<script src="http://localhost:8012/iBrain2.0/App/web/js/demo/peity-demo.js"></script>
+					<script src="<?php echo $url; ?>App/web/js/plugins/peity/jquery.peity.min.js"></script>
+					<script src="<?php echo $url; ?>App/web/js/demo/peity-demo.js"></script>
 					<!-- Custom and plugin javascript -->
-					<script src="http://localhost:8012/iBrain2.0/App/web/js/inspinia.js"></script>
-					<script src="http://localhost:8012/iBrain2.0/App/web/js/plugins/pace/pace.min.js"></script>
+					<script src="<?php echo $url; ?>App/web/js/inspinia.js"></script>
+					<script src="<?php echo $url; ?>App/web/js/plugins/pace/pace.min.js"></script>
 					<!-- jQuery UI -->
-					<script src="http://localhost:8012/iBrain2.0/App/web/js/plugins/jquery-ui/jquery-ui.min.js"></script>
+					<script src="<?php echo $url; ?>App/web/js/plugins/jquery-ui/jquery-ui.min.js"></script>
 					<!-- GITTER -->
-					<script src="http://localhost:8012/iBrain2.0/App/web/js/plugins/gritter/jquery.gritter.min.js"></script>
+					<script src="<?php echo $url; ?>App/web/js/plugins/gritter/jquery.gritter.min.js"></script>
 					<!-- Sparkline -->
-					<script src="http://localhost:8012/iBrain2.0/App/web/js/plugins/sparkline/jquery.sparkline.min.js"></script>
+					<script src="<?php echo $url; ?>App/web/js/plugins/sparkline/jquery.sparkline.min.js"></script>
 
 					<!-- Sparkline demo data  -->
-					<script src="http://localhost:8012/iBrain2.0/App/web/js/demo/sparkline-demo.js"></script>
+					<script src="<?php echo $url; ?>App/web/js/demo/sparkline-demo.js"></script>
 
 					<!-- ChartJS-->
-					<script src="http://localhost:8012/iBrain2.0/App/web/js/plugins/chartJs/Chart.min.js"></script>
+					<script src="<?php echo $url; ?>App/web/js/plugins/chartJs/Chart.min.js"></script>
 
 					<!-- Toastr -->
-					<script src="http://localhost:8012/iBrain2.0/App/web/js/plugins/toastr/toastr.min.js"></script>
+					<script src="<?php echo $url; ?>App/web/js/plugins/toastr/toastr.min.js"></script>
 
 
 					<script>

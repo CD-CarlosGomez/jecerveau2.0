@@ -50,11 +50,9 @@ switch($_POST['btn']){
 		buscar();
 	break;
 	case "Acceder":
-		
-		
 		if ($acceso=Acceder()){
 			$_SESSION['pkiBUser_p']=$GLOBALS['pkiBCurrentUser'];
-			$_SESSION["nombreUsuario"]=$acceso;
+			$_SESSION["nombreUsuario"]=Acceder();
 			$_SESSION['loggedin'] = true;
 			$_SESSION['start'] = time();
 			$_SESSION['expire'] = $_SESSION['start'] + (20 * 60) ;
