@@ -49,14 +49,15 @@ class CurrentUser {
 								$this->pMainMenu .=			"</li>";
 							}
 						}
-						$this->pMainMenu .=			"</ul>";	
-						$this->pMainMenu .=		"</li>";
+						$this->pMainMenu .=		"</ul>";	
+						$this->pMainMenu .="</li>";
 					}
 				}
+				$this->pMainMenu .=			"</ul>";	
+				$this->pMainMenu .=		"</li>";
 			}
 		}
-					$this->pMainMenu .=		"</ul>";	
-					$this->pMainMenu .="</li>";	
+						
 					$this->pMainMenu .="<li>";
 					$this->pMainMenu .="<a href='http://localhost:8012/ibrain2.0//App/controllers/logout.php'>";
 					$this->pMainMenu .="<span class='nav-label'>Logout</span></span></a>";
@@ -67,6 +68,7 @@ class CurrentUser {
 	public function getMainMenu2($pkiBUser){
 		$PDOcnn = Database::instance();
 		$sql = "SELECT DISTINCT
+				pkiBuser,
 				pkiBFunctionGroup,
 				ibFunctionGroupModulo,
 				iBFunctionGroupLink
@@ -81,10 +83,33 @@ class CurrentUser {
 						on pkibfunctiongroup= ibf.iBFunctionGroup_pkiBFunctionGroup 
 					where pkiBUser=$pkiBUser and Active=1;";
 		foreach ($PDOcnn->query($sql) as $firstLevels) {
+			$PDOcnn = Database::instance();
+			$PDOQuery = "SELECT
+							pkiBUser,
+							pkiBFunction,
+							iBFunctionName,
+							iBFunctionLink
+						FROM ibuser ib 
+							inner join ibuserprofile 
+								on fkibuserprofile=pkiBUserProfile 
+							inner join ibuserprofile_has_ibfunction ibfg 
+								on pkiBUserProfile=ibuserprofile_pkibuserprofile 
+							inner join ibfunctiongroup 
+								ON ibfg.ibfunctiongroup_pkibfunctiongroup=pkibfunctiongroup 
+							inner join ibfunction ibf 
+								on pkibfunctiongroup= ibf.iBFunctionGroup_pkiBFunctionGroup 
+						WHERE pkiBuser=".$firstLevels['pkiBuser']." and Active=1 and pkiBFunctionGroup=".$firstLevels['pkiBFunctionGroup'].";";
 			$this->pMainMenu .="<li>";
 			$this->pMainMenu .=	"<a href='#'>";
 			$this->pMainMenu .=	"<span class='nav-label'>".$firstLevels['ibFunctionGroupModulo']."</span>";
 			$this->pMainMenu .="		<ul class='nav nav-second-level collapse'>";
+			foreach($PDOcnn->query($PDOQuery) as $secondLevel){
+				$this->pMainMenu .=		"<li>";
+				$this->pMainMenu .="		<a href='http://localhost:8012/ibrain2.0/".$secondLevel['iBFunctionLink']."'>".$secondLevels['iBFunctionName']."<span class='fa arrow'></span></a>";
+				$this->pMainMenu .="		<ul class='nav nav-third-level'>";
+				$this->pMainMenu .="		</ul>";	
+				$this->pMainMenu .="</li>";
+			}
 			$this->pMainMenu .=			"</ul>";
 			$this->pMainMenu .="</li>";
 		}
