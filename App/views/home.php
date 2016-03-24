@@ -53,7 +53,6 @@ defined("APPPATH") OR die("Access denied");
 									</div>
 								</li>
 								<li>
-								<?php echo APPPATH;?>
 								</li>
 								<?php print_r($currentMainMenu);?>
 							</ul>

@@ -1,9 +1,3 @@
-<?php require_once "App/config/general.conf.php"; ?>
-
-
-
-
-
 <!DOCTYPE html>
 <html>
 <head>

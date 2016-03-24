@@ -36,7 +36,7 @@ private $_sesionpkiBUser;
 		exit;
 		}
 		$currentUser=new CurrentUser;
-		$currentMainMenu=$currentUser->getMainMenu($this->_sesionpkiBUser);
+		$currentMainMenu=$currentUser->getMainMenu2($this->_sesionpkiBUser);
 		$this->_sesionMenu=$currentMainMenu;
 		$_SESSION['mainMenu']=$currentMainMenu;
 		View::set("currentMainMenu", $currentMainMenu);

@@ -106,7 +106,7 @@ class Database{
     public function __clone(){
         trigger_error('La clonación de este objeto no está permitida', E_USER_ERROR);
     }
-		public function query($sql){
+	public function query($sql){
 	return $this->_cnn->query($sql);
 	}
 //MÉTODOS PRIVADOS###################################

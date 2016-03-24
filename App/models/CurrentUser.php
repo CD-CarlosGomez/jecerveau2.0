@@ -63,6 +63,33 @@ class CurrentUser {
 					$this->pMainMenu .="</li>";
 		return $this->pMainMenu;
 	}
+	
+	public function getMainMenu2($pkiBUser){
+		$PDOcnn = Database::instance();
+		$sql = "SELECT DISTINCT
+				pkiBFunctionGroup,
+				ibFunctionGroupModulo,
+				iBFunctionGroupLink
+			FROM ibuser ib
+					inner join ibuserprofile 
+						on fkibuserprofile=pkiBUserProfile 
+					inner join ibuserprofile_has_ibfunction ibfg 
+						on pkiBUserProfile=ibuserprofile_pkibuserprofile 
+					inner join ibfunctiongroup 
+						ON ibfg.ibfunctiongroup_pkibfunctiongroup=pkibfunctiongroup 
+					inner join ibfunction ibf 
+						on pkibfunctiongroup= ibf.iBFunctionGroup_pkiBFunctionGroup 
+					where pkiBUser=$pkiBUser and Active=1;";
+		foreach ($PDOcnn->query($sql) as $firstLevels) {
+			$this->pMainMenu .="<li>";
+			$this->pMainMenu .=	"<a href='#'>";
+			$this->pMainMenu .=	"<span class='nav-label'>".$firstLevels['ibFunctionGroupModulo']."</span>";
+			$this->pMainMenu .="		<ul class='nav nav-second-level collapse'>";
+			$this->pMainMenu .=			"</ul>";
+			$this->pMainMenu .="</li>";
+		}
+		return $this->pMainMenu;
+	}
 //MÉTODOS ABSTRACTOS#################################
 //MÉTODOS PÚBLICOS###################################
 	public function setLogout(){
@@ -72,7 +99,7 @@ class CurrentUser {
 	}
 	public function getFirstLevelMenu($pkibuser_p) {
         try {
-			//$retorno=array();
+			
             $PDOcnn = Database::instance();
             $PDOQuery = "SELECT DISTINCT
 							pkiBFunctionGroup,
