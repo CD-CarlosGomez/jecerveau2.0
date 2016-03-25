@@ -8,11 +8,14 @@
 namespace App\Controllers;
 defined("APPPATH") OR die("Access denied");
 use \Core\View;
+use \Core\Controller;
+use \App\Config\Globales as Globales;
 use \App\Models\Users as User;
 use \App\Models\Companies as Company;
 use \App\Models\BranchOffices as BO;
-use \Core\Controller;
+use \App\data\DataGridView as DGB;
 use \App\web\lib\Mailer\PHPMailer;
+
 	
 class EnterpriseGroup extends Controller{
 //CONSTANTES#########################################
@@ -41,9 +44,14 @@ private $_sesionMenu;
 			  Necesita Hacer Login</a>";
 		exit;
 		}
-		//$currentUser=new CurrentUser;
+		$dsCompanyGrid=Company::getParcialSelect();
+		while ($row =$dsCompanyGrid->fetch( \PDO::FETCH_ASSOC )){
+			$dt_Company[] = $row;
+		}
+		$url= Globales::$absoluteURL;
 		$currentMainMenu=$this->_sesionMenu;
-		//View::set("currentMainMenu", $currentMainMenu);
+		View::set("dt_Company",$dt_Company);
+		View::set("url", $url);
 		View::set("currentMainMenu", $currentMainMenu);
         View::set("title", "Custom MVC");
         View::render("EnterpriseGroup");

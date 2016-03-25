@@ -1,4 +1,5 @@
 <?php
+#Crear las vistas
 namespace App\Models;
 defined("APPPATH") OR die("Access denied");
 
@@ -171,6 +172,30 @@ class Companies implements iCrud{
         	}
         catch (\PDOException $e) {
     		echo 'Incidencia al generar nuevo código ',  $e->getMessage(), ".\n";
+		}
+		
+	}
+	public static function getParcialSelect(){
+		 try {
+			$PDOcnn = Database::instance();
+			$PDOQuery="SELECT 
+						`pkCompany`, 
+						`legalName`, 
+						`commercialName`, 
+						`Street`, 
+						`ExtNumber`, 
+						`IntNumber`, 
+						`Region`, 
+						`Zone`, 
+						`Province`, 
+						`ZipCode` 
+					FROM `company` WHERE `Active`=1;";
+			$PDOResultSet = $PDOcnn->query($PDOQuery);
+			return $PDOResultSet;
+		}
+        catch(\PDOException $e)
+        {
+			print "Error!: " . $e->getMessage();
 		}
 		
 	}

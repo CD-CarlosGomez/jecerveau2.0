@@ -136,10 +136,6 @@ class CurrentUser {
 			$this->pMainMenu .=			"</ul>";
 			$this->pMainMenu .="</li>";
 		}
-		$this->pMainMenu .="<li>";
-		$this->pMainMenu .="<a href='$directoryPath/App/controllers/logout.php'>";
-		$this->pMainMenu .="<span class='nav-label'>Logout</span></span></a>";
-		$this->pMainMenu .="</li>";
 		return $this->pMainMenu;
 	}
 //MÉTODOS ABSTRACTOS#################################
