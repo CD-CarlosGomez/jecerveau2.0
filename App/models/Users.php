@@ -176,6 +176,24 @@ class Users implements iCrud{
         catch (\PDOException $e) {
     		echo 'Incidencia al generar nuevo código ',  $e->getMessage(), ".\n";
 		}
-		
+	}
+	public static function getParcialSelect(){
+		 try {
+			$PDOcnn = Database::instance();
+			$PDOQuery="SELECT 
+											`pkiBUser`,
+											`fkiBUserProfile`, 
+											`username`, 
+											`realname`,
+											`email`
+								FROM `ibuser` WHERE Active=1 ";
+			$PDOResultSet = $PDOcnn->query($PDOQuery);
+			return $PDOResultSet;
+		}
+        catch(\PDOException $e)
+        {
+			print "Error!: " . $e->getMessage();
+		}
 	}
 }
+?>

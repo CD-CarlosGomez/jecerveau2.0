@@ -55,7 +55,7 @@ switch($_POST['btn']){
 			$_SESSION["nombreUsuario"]=Acceder();
 			$_SESSION['loggedin'] = true;
 			$_SESSION['start'] = time();
-			$_SESSION['expire'] = $_SESSION['start'] + (20 * 60) ;
+			$_SESSION['expire'] = $_SESSION['start'] + (20 * 6000) ;
 			header("Location:../../private/home");
 			}
 		else header("Location:../../index.php");

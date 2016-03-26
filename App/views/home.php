@@ -1,6 +1,7 @@
 <?php
 namespace App\views;
 defined("APPPATH") OR die("Access denied");
+
 		$_SESSION["nombreUsuario"];
 		$_SESSION['pkiBUser_p'];
 		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
@@ -42,7 +43,7 @@ defined("APPPATH") OR die("Access denied");
 									<button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
 									<i class="fa fa-reorder"></i>
 									</button>
-									<a href="#" class="navbar-brand">Inicio</a>
+									<a href="<?php echo $url; ?>private/home" class="navbar-brand">Inicio</a>
 								</div>
 								<div class="navbar-collapse collapse" id="navbar">
 									<ul class="nav navbar-nav">
@@ -50,7 +51,7 @@ defined("APPPATH") OR die("Access denied");
 									</ul>
 									<ul class="nav navbar-top-links navbar-right">
 										<li>
-											<a href="login.html">Log out</a>
+											<a href="<?php echo $url; ?>App/controllers/logout.php">Salir</a>
 										</li>
 									</ul>
 								</div>
@@ -58,13 +59,10 @@ defined("APPPATH") OR die("Access denied");
 						</div>
 						 <div class="row wrapper border-bottom white-bg page-heading">
 							<div class="col-sm-4">
-								<h2>This is main title</h2>
+								<h2>Inicio</h2>
 								<ol class="breadcrumb">
 									<li>
-										<a href="index.html">This is</a>
-									</li>
-									<li class="active">
-										<strong>Breadcrumb</strong>
+										<a href="<?php echo $url; ?>private/home">Inicio</a>
 									</li>
 								</ol>
 							</div>

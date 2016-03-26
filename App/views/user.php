@@ -25,17 +25,12 @@ use \App\data\DataGridView as DGV;
 		$outputTableCompany=DGV::getInstance($dt_Company)
 		->setGridAttributes(array('class' => 'table table-striped table-bordered table-hover dataTables-example'))
 		->enableSorting(false)
-		->removeColumn('pkCompany')
+		->removeColumn('pkiBUser')
+		->removeColumn('fkiBUserProfile')
 		->setup(array(
-			'legalName' => array('header' => 'Nombre fiscal'),
-			'commercialName' => array('header' => 'Nombre comercial'),
-			'Street' => array('header' => 'Calle'),
-			'extNumber' => array('header' => 'N&uacute;mero exterior'),
-			'intNumber' => array('header' => 'N&uacute;mero interior'),
-			'Region' => array('header' => 'Regi&oacute;n'),
-			'Zone' => array('header' => 'Zona'),
-			'Province' => array('header' => 'Provincia'),
-			'ZipCode' => array('header' => 'C&oacute;digo Postal')
+			'username' => array('header' => 'Usuario'),
+			'realname' => array('header' => 'Nombre del usuario'),
+			'email' => array('header' => 'Correo electr&oacute;nico')
 		))
 		->addColumnAfter('actions', 
 									'<a href="'.$url.'private/BranchOffice">Ver ASP\'s</a>',
@@ -120,7 +115,7 @@ use \App\data\DataGridView as DGV;
 						</div>
 						<div class="ibox-content">					
 						<div class="pull-right">
-							<a onclick="" href="<?php echo $url; ?>private/Company" class="btn btn-primary ">Agregar nueva cuenta maestra</a>
+							<a onclick="" href="<?php echo $url; ?>private/home" class="btn btn-primary ">Agregar nuevo usuario</a>
 						</div>
 						<br />
 						<br />
@@ -242,10 +237,5 @@ use \App\data\DataGridView as DGV;
 
         }
     </script>
-
-
-
-
 </body>
-
 </html>

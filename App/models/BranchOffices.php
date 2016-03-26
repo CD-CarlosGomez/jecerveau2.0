@@ -167,5 +167,27 @@ class BranchOffices implements iCrud{
 		}
 		
 	}
+	public static function getParcialSelect(){
+		try {
+			$PDOcnn = Database::instance();
+			$PDOQuery="SELECT `pkBranchOffice`, 
+											`Company_pkCompany`, 
+											`BOName`, 
+											`BOStreet`, 
+											`BOExtNumber`, 
+											`BOIntNumber`, 
+											`BORegion`, 
+											`BOZone`, 
+											`BOProvince`, 
+											`BOZipCode`
+								 FROM `branchoffice` WHERE `Active`=1";
+			$PDOResultSet = $PDOcnn->query($PDOQuery);
+			return $PDOResultSet;
+		}
+        catch(\PDOException $e)
+        {
+			print "Error!: " . $e->getMessage();
+		}
+	}
 }
 

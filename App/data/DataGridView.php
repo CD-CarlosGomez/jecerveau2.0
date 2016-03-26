@@ -21,6 +21,7 @@ class DataGridView{
     protected $_cellAttributes  = array();
     protected $_gridAttributes  = array();
     protected $_startingCounter = 0;
+	protected $_pkTable=null;
     protected static $_staticTableId    = 0;
 	
 
@@ -165,16 +166,8 @@ class DataGridView{
     }
 	/**
 	**/
-	public function &setpkColumn($columnName){
-		$counter = 0;
-        foreach ($this->_columns as $column){
-            if ($column === $columnName) {
-                array_slice($this->_columns, $counter, 1);
-                return $this;
-            }
-            ++$counter;
-        }
-        return $this;
+	public function &setpkColumn($value){
+		
 	}
     /**
      *
@@ -237,41 +230,35 @@ class DataGridView{
 
         return $this;
     }
-        public function getString(){
+     public function getString(){
         $sortField  = '';
         $sortOrder  = '';
         $data       = $this->_datarows;
-
-        if ($this->_enabledSorting && isset($_POST['__sf'])) {
+		if ($this->_enabledSorting && isset($_POST['__sf'])) {
             $sortField = $_POST['__sf'];
             $sortOrder = $_POST['__so'];
-
             $dataToSort = array();
-            foreach ($data as $row)
-            {
+            foreach ($data as $row){
                 $dataToSort[] = $row[$sortField];
             }
-
             array_multisort($dataToSort, 'desc' === $sortOrder ? SORT_DESC : SORT_ASC, $data);
         }
 
         $output = '';
         if ($this->_enabledSorting) {
             $output .= '
-			<form id="fdg_form_' . $this->_tableId . '" method="post" action="' . $_SERVER['REQUEST_URI'] . '">
-			<input type="hidden" id="__sf" name="__sf" value="" />
-			<input type="hidden" id="__so" name="__so" value="" />';
-					}
-					$output .= '
-			<table';
-					foreach ($this->_gridAttributes as $name => $value){
-						$output .= ' ' . $name . '="' . $value . '"';
-					}
-					$output .= '>' . "\n";
-					//Headers de la tabla//
-					if (!empty($this->_headers)) {
-						$output .= '<thead><tr>' .  "\n";
-
+							<form id="fdg_form_' . $this->_tableId . '" method="post" action="' . $_SERVER['REQUEST_URI'] . '">
+							<input type="hidden" id="__sf" name="__sf" value="" />
+							<input type="hidden" id="__so" name="__so" value="" />';
+		}
+		$output .= '<table';
+								foreach ($this->_gridAttributes as $name => $value){
+								$output .= ' ' . $name . '="' . $value . '"';
+								}
+		$output .= '>' . "\n";
+		//Headers de la tabla//
+		if (!empty($this->_headers)) {
+		$output .= '<thead><tr>' .  "\n";
 						foreach ($this->_columns as $field){
 							$isSortable = in_array($field, $this->_sortableFields) ? true : false;
 							$output .= "\t" . '<th';
@@ -293,6 +280,7 @@ class DataGridView{
 							foreach ($this->_columns as $field){
 								$data       = isset($row[$field]) ? $row[$field] : '';
 								$template   = isset($this->_cellTemplates[$field]) ? $this->_cellTemplates[$field] : '';
+								//$output .= '<input type="hidden" id=""  class="" value="'.$row['pkCompany'].'" name="pkCompany">';
 								$output .= "\t" . '<td';
 								if (isset($this->_cellAttributes[$field])) {
 									foreach ($this->_cellAttributes[$field] as $name => $value)
@@ -314,7 +302,7 @@ class DataGridView{
 								if (!empty($template)) {
 									$data = str_replace('%data%', $data, $template);
 									$data = str_replace('%counter%', $rowCounter, $data);
-									$data = preg_replace('#(\$(.+?)\$)#sie', 'isset($row["\\2"]) ? $row["\\2"] : \'\\1\'', $data);
+									@$data = preg_replace('#(\$(.+?)\$)#sie', 'isset($row["\\2"]) ? $row["\\2"] : \'\\1\'', $data);//Deprecated: preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead
 									preg_match_all('#\[\[([a-z0-9_]+)(?::(.+?))?\]\]#si', $data, $matches, PREG_SET_ORDER);
 
 									foreach ($matches as $match){
@@ -332,11 +320,18 @@ class DataGridView{
 							$output .= '</tbody>' . "\n";
 						}
 					}
+					if (!empty($this->_headers)) {
+						$output .= '<tfoot><tr>' .  "\n";
+						foreach ($this->_columns as $field){
+							$isSortable = in_array($field, $this->_sortableFields) ? true : false;
+							$output .= "\t" . '<th>';
+							$output .= (isset($this->_headers[$field]) ? $this->_headers[$field] : '') . '</th>' .  "\n";
+						}
+						$output .= '</tr></tfoot>' .  "\n";
+					}
 					$output .= '</table>';
-
 					if ($this->_enabledSorting) {
-						$output .= '
-			</form>';
+					$output .= '</form>';
 					}
 
 		return $output;

@@ -16,7 +16,7 @@ use \App\data\DataGridView as DGB;
 use \App\web\lib\Mailer\PHPMailer;
 
 	
-class User extends Controller{
+class UserAndProfile extends Controller{
 //CONSTANTES#########################################
 //ATRIBUTOS##########################################
 private $_sesionUsuario;
@@ -53,7 +53,7 @@ private $_sesionMenu;
 		View::set("url", $url);
 		View::set("currentMainMenu", $currentMainMenu);
         View::set("title", "Grupo Empresarial");
-        View::render("user");
+        View::render("userandprofile");
 	}
 	/**
      * [index]

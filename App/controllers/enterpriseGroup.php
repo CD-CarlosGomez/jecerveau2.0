@@ -7,14 +7,14 @@
 #16.3.22 Agregar validación del lado del servidor
 namespace App\Controllers;
 defined("APPPATH") OR die("Access denied");
+
 use \Core\View;
 use \Core\Controller;
 use \App\Config\Globales as Globales;
-use \App\Models\Users as User;
 use \App\Models\Companies as Company;
 use \App\Models\BranchOffices as BO;
 use \App\data\DataGridView as DGB;
-use \App\web\lib\Mailer\PHPMailer;
+
 
 	
 class EnterpriseGroup extends Controller{
@@ -53,7 +53,7 @@ private $_sesionMenu;
 		View::set("dt_Company",$dt_Company);
 		View::set("url", $url);
 		View::set("currentMainMenu", $currentMainMenu);
-        View::set("title", "Custom MVC");
+        View::set("title", "Grupo Empresarial");
         View::render("EnterpriseGroup");
 	}
 	/**
@@ -119,8 +119,6 @@ private $_sesionMenu;
 	$c->setModifiedBy("null");
 	$c->setActive("1");
 	$c->insertData("Company");
-	
-	
 	}
 	function CreateBO(){
 	$bo=new BO;

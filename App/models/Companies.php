@@ -197,7 +197,22 @@ class Companies implements iCrud{
         {
 			print "Error!: " . $e->getMessage();
 		}
-		
+	}
+	public static function getpknaSelect(){
+		 try {
+			$PDOcnn = Database::instance();
+			$PDOQuery="SELECT 
+						`pkCompany`, 
+						`legalName`, 
+						`commercialName` 
+					FROM `company` WHERE `Active`=1;";
+			$PDOResultSet = $PDOcnn->query($PDOQuery);
+			return $PDOResultSet;
+		}
+        catch(\PDOException $e)
+        {
+			print "Error!: " . $e->getMessage();
+		}
 	}
 }
 

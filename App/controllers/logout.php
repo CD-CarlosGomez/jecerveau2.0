@@ -1,4 +1,8 @@
 <?php
+/*namespace App\Controllers;
+defined("APPPATH") OR die("Access denied");
+
+use \App\Config\Globales as Globales;*/
 // +-----------------------------------------------
 // | @author Carlos M. Gómez
 // | @date Miércoles 5 de diciembre de 2012
@@ -20,6 +24,6 @@
 session_start();
 // Borramos toda la sesion
 session_destroy();
-echo "Aquí vamos a reenviar";
-header("Location:http://localhost:8012/ibrain2.0/");
+//$directoryPath= Globales::$absoluteURL;
+header("Location:http://localhost/www/iBrain2.0/");
 ?>
