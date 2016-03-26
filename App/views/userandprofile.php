@@ -1,6 +1,10 @@
 <?php
 #Agregar los select de las llaves foráneas
 #16.3.26 mensaje modal de confirmación de movimiento CRUD
+#Agregar los validadores del lado del servidor
+#Agregar estas clases a los botones de las tablas
+#<button type="button" class="btn btn-primary btn-lg btn-block">Botón de bloque</button>
+#<button type="button" class="btn btn-default btn-lg btn-block">Botón de bloque</button>
 namespace App\View;
 defined("APPPATH") OR die("Access denied");
 
@@ -97,35 +101,49 @@ use \Core\Controller;
 								<section>
 									<p>
 										<fieldset>
-												<form id="formUser" action="<?php echo $url; ?>private/Company" method="POST" class="">
-													<div class="col-lg-6">
+												<form id="formUser" class="form-horizontal" action="<?php echo $url; ?>private/Company" method="POST" role="form">
+													<div class="col-lg-10">
 														<div class="form-group">
-															<label>User Name*</label>
-															<input id="txt_userName_h" class="form-control required" name="txt_userName_h" type="text">
-															<input id="" name="hdn_toDo_h" class="" value="AddUser" type="hidden">
+															<label class="col-lg-3 control-label">Usuario:*</label>
+															<div class="col-lg-8">
+																<input id="txt_userName_h" class="form-control required" name="txt_userName_h" type="text">
+																<input id="" name="hdn_toDo_h" class="" value="AddUser" type="hidden">
+															</div>
 														</div>
 														<div class="form-group">
-															<label>Real Name*</label>
-															<input id="txt_realName_h" class="form-control required" name="txt_realName_h" type="text">
+															<label class="col-lg-3 control-label">Nombre completo:*</label>
+															<div class="col-lg-8">
+																<input id="txt_realName_h" class="form-control required" name="txt_realName_h" type="text">
+															</div>
 														</div>
 														<div class="form-group">
-															<label>E-mail</label>
-															<input id="txt_email_h" class="form-control required" name="txt_email_h" type="text">
+															<label class="col-lg-3 control-label">E-mail:*</label>
+															<div class="col-lg-8">
+																<input id="txt_email_h" class="form-control required" name="txt_email_h" type="text">
+															</div>
 														</div>
 														<div class="form-group">
-															<label>Pasword*</label>
-															<input id="txt_password_h" class="form-control required" name="txt_password_h" type="text">
+															<label class="col-lg-3 control-label">Contrase&ntilde;a:*</label>
+															<div class="col-lg-8">
+																<input id="txt_password_h" class="form-control required" name="txt_password_h" type="text">
+															</div>
 														</div>
 														<div class="form-group">
-																<label>Profile*</label>
+															<label class="col-lg-3 control-label">Perfil:*</label>
+															<div class="col-lg-8">
 																<input id="txt_fkiUserPRofile_h" class="form-control required" name="txt_fkiUserPRofile_h" type="text">
 															</div>
+														</div>
 														<div class="form-group">
-																<label>Start Page*</label>
+															<label class="col-lg-3 control-label">P&aacute;gina de inicio:*</label>
+															<div class="col-lg-8">
 																<input id="txt_defaultFunction_h" class="form-control required" name="txt_defaultFunction_h" type="text">
 															</div>
+														</div>
+													</div>
+													<div class="col-lg-2">
 														<div class="form-group">
-															<button type="submit" id="" class="btn btn-primary" name="btn-AddBO">Agregar usuario</button>
+															<button type="submit" id="" class="btn btn-primary btn-lg btn-block" name="btn-AddBO">Agregar usuario</button>
 														</div>
 													</div>
 											</form>
@@ -139,46 +157,68 @@ use \Core\Controller;
 										<fieldset>
 											<form id="Profiles" action="<?php echo $url; ?>private/Company" method="POST" class="">
 												<div class="row">
-													<div class="col-lg-12">
-															<div class="form-group">
-															<label>Perfiles:*</label>
-																<select id="" class="form-control m-b" name="slt_pkCompany_h">
-																	<option value="-1">Selecciona un usuario ...</option>
-																<?php foreach ($drows_Company as $companyOption) {?>
-																		<option value="<?php echo $companyOption['pkCompany'] ?>"><?php echo $companyOption['commercialName'] ?></option>
-																<?php } ?>
-																</select>
-															</div>
-															<fieldset>
-															 <div class="col-sm-10">
-																	<div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Grupo empresarial </label></div>
-																	<div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Cuentas maestras y AASP</label></div>
-																	<div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Usuarios</label></div>
-																	<div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Usuarios y perfiles </label></div>
-																	<div class="i-checks"><label> <input type="checkbox" value=""> <i></i> ordenes de servicio </label></div>
-															</div>
-															</fieldset>
-															<fieldset>
-															 <div class="form-group">
-																<label class="col-sm-2 control-label">Flujo de operación</label>
-																<div class="col-sm-10">
-																	<label class="checkbox-inline"><input type="checkbox" value="option1" id="inlineCheckbox1">Recolecci&oacute;n</label> 
-																	<label class="checkbox-inline"><input type="checkbox" value="option2" id="inlineCheckbox2">Asignaci&oacute;n</label>
-																	<label class="checkbox-inline"><input type="checkbox" value="option3" id="inlineCheckbox3">Diagn&oacute;stico</label>
-																	<label class="checkbox-inline"><input type="checkbox" value="option3" id="inlineCheckbox3">Autorizaci&oacute;n de Diagn&oacute;stico</label>
-																	<label class="checkbox-inline"><input type="checkbox" value="option3" id="inlineCheckbox3">Por notificar</label>
-																	<label class="checkbox-inline"><input type="checkbox" value="option3" id="inlineCheckbox3">Por autorizar(link)</label>
-																	<label class="checkbox-inline"><input type="checkbox" value="option3" id="inlineCheckbox3">En reparaci&oacute;n</label>
-																	<label class="checkbox-inline"><input type="checkbox" value="option3" id="inlineCheckbox3">Reparado</label>
-																	<label class="checkbox-inline"><input type="checkbox" value="option3" id="inlineCheckbox3">Por entregar</label>
-																	<label class="checkbox-inline"><input type="checkbox" value="option3" id="inlineCheckbox3">Por saldar</label>
-																	<label class="checkbox-inline"><input type="checkbox" value="option3" id="inlineCheckbox3">Entregado al cliente</label>
-																	<label class="checkbox-inline"><input type="checkbox" value="option3" id="inlineCheckbox3">Cancelados</label>
-															</div>
-															</div>
-															</fieldset>
+													<div class="col-lg-10">
 														<div class="form-group">
-															<button type="submit" id="" class="btn btn-primary" name="btn-AddBO">Agregar perfil</button>
+														<label>Perfiles:*</label>
+															<select id="" class="form-control m-b" name="slt_pkCompany_h">
+																<option value="-1">Selecciona un usuario ...</option>
+															<?php foreach ($drows_Company as $companyOption) {?>
+																	<option value="<?php echo $companyOption['pkCompany'] ?>"><?php echo $companyOption['commercialName'] ?></option>
+															<?php } ?>
+															</select>
+														</div>
+														<fieldset>
+															 <div class="col-sm-10">
+																<ul>
+																	<li>
+																		<div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Grupo empresarial </label></div>
+																		<ul>
+																			<li>
+																				<div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Cuentas maestras y AASP</label></div>
+																			</li>
+																		</ul>
+																	</li>
+																	<li>
+																		<div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Usuarios</label></div>
+																		<ul>
+																			<li>
+																				<div class="i-checks"><label> <input type="checkbox" value=""> <i></i> Usuarios y perfiles </label></div>
+																				<div class="i-checks"><label> <input type="checkbox" value=""> <i></i> ordenes de servicio </label></div>
+																			</li>
+																		</ul>
+																	</li>
+																</ul>
+														</div>
+														</fieldset>
+														<fieldset>
+															<div class="form-group">
+															<label class="col-sm-10 control-label">Flujo de operación</label>
+															<div class="col-sm-10">
+																<ul class="list-group">
+																  <li class="list-group-item">
+																	<span class="badge">item<!--input type="checkbox" value="option1" id="inlineCheckbox1"--></span>
+																	Recolecci&oacute;n
+																  </li>
+																</ul>
+																<label class="checkbox-inline"><input type="checkbox" value="option1" id="inlineCheckbox1">Recolecci&oacute;n</label> 
+																<label class="checkbox-inline"><input type="checkbox" value="option2" id="inlineCheckbox2">Asignaci&oacute;n</label>
+																<label class="checkbox-inline"><input type="checkbox" value="option3" id="inlineCheckbox3">Diagn&oacute;stico</label>
+																<label class="checkbox-inline"><input type="checkbox" value="option3" id="inlineCheckbox3">Autorizaci&oacute;n de Diagn&oacute;stico</label>
+																<label class="checkbox-inline"><input type="checkbox" value="option3" id="inlineCheckbox3">Por notificar</label>
+																<label class="checkbox-inline"><input type="checkbox" value="option3" id="inlineCheckbox3">Por autorizar(link)</label>
+																<label class="checkbox-inline"><input type="checkbox" value="option3" id="inlineCheckbox3">En reparaci&oacute;n</label>
+																<label class="checkbox-inline"><input type="checkbox" value="option3" id="inlineCheckbox3">Reparado</label>
+																<label class="checkbox-inline"><input type="checkbox" value="option3" id="inlineCheckbox3">Por entregar</label>
+																<label class="checkbox-inline"><input type="checkbox" value="option3" id="inlineCheckbox3">Por saldar</label>
+																<label class="checkbox-inline"><input type="checkbox" value="option3" id="inlineCheckbox3">Entregado al cliente</label>
+																<label class="checkbox-inline"><input type="checkbox" value="option3" id="inlineCheckbox3">Cancelados</label>
+															</div>
+															</div>
+														</fieldset>
+													</div>
+													<div class="col-lg-2">
+														<div class="form-group">
+															<button type="submit" id="" class="btn btn-primary btn-block" name="btn-AddBO">Agregar perfil</button>
 														</div>
 													</div>
 												</div>
