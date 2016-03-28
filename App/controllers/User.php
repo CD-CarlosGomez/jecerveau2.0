@@ -64,7 +64,37 @@ private $_sesionMenu;
 		View::set("url", $url);
 		View::set("currentMainMenu", $currentMainMenu);
         View::set("title", "Grupo Empresarial");
-        View::render("showUser");
+        View::render("addUserAndProfile");
+	}
+	public function showProfile(){
+		session_start();
+		$this->_sesionUsuario=$_SESSION["nombreUsuario"];
+		$this->_sesionpkiBUser=$_SESSION['pkiBUser_p'];
+		$this->_sesionMenu=$_SESSION['mainMenu'];
+		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
+		else{
+				echo "Esta pagina es solo para usuarios registrados.<br>";
+			echo "<a href='http://localhost:8012/ibrain2.0'>Login Here!</a>";
+			exit;
+		}
+		$now = time(); 
+		if($now > $_SESSION['expire']){
+		session_destroy();
+		echo "Su sesion a terminado, <a href='http://localhost:8012/ibrain2.0'>
+			  Necesita Hacer Login</a>";
+		exit;
+		}
+		$dsCompanyGrid=Users::getParcialSelect();
+		while ($row =$dsCompanyGrid->fetch( \PDO::FETCH_ASSOC )){
+			$dt_Company[] = $row;
+		}
+		$url= Globales::$absoluteURL;
+		$currentMainMenu=$this->_sesionMenu;
+		View::set("dt_Company",$dt_Company);
+		View::set("url", $url);
+		View::set("currentMainMenu", $currentMainMenu);
+        View::set("title", "Grupo Empresarial");
+        View::render("showProfile");
 	}
 	public function addUser(){
 		session_start();
@@ -96,7 +126,7 @@ private $_sesionMenu;
 		View::set("url", $url);
 		View::set("currentMainMenu", $currentMainMenu);
         View::set("title", "AddCompany");
-        View::render("AddUserAndProfile");
+        View::render("AddUser");
 	}
 	public function addProfile(){
 		//session_start();
@@ -126,7 +156,7 @@ private $_sesionMenu;
 		View::set("url", $url);
 		View::set("currentMainMenu", $currentMainMenu);
         View::set("title", "Grupo Empresarial");
-        View::render("adduserandprofile");
+        View::render("addProfile");
 	}
 
 }
@@ -152,11 +182,8 @@ private $_sesionMenu;
 		}*/
 		
 	switch(@$_POST['hdn_toDo_h']){
-		case "AddCompany":
-			CreateCompany();
-		break;
-			case "AddBO":
-			CreateBO();
+		case "AddProfile":
+			CreateProfile();
 		break;
 		case "AddUser":
 			CreateUser();
@@ -178,7 +205,7 @@ private $_sesionMenu;
 		$u->setEmail($_POST['txt_email_h']);
 		$u->setDefaultF("null");
 		$u->setActive("2");
-		$u->setCreated($_SESSION['pkiBUser_p']);
+		$u->setCreated('null');
 		$u->setCreatedBy('null');
 		$u->setModified('null');
 		$u->setModifiedBy('null');

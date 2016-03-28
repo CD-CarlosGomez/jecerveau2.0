@@ -16,8 +16,6 @@ use \App\Models\Companies as MA;
 use \App\Models\BranchOffices as BO;
 use \App\data\DataGridView as DGB;
 
-
-	
 class EnterpriseGroup extends Controller{
 //CONSTANTES#########################################
 //ATRIBUTOS##########################################
@@ -34,7 +32,7 @@ private $_sesionMenu;
      * [index]
     */
 	public function index(){
-		self::ShowCompany();
+		self::showCompany();
 	}
     public function showCompany(){
 		session_start();
@@ -98,10 +96,10 @@ private $_sesionMenu;
 		View::set("url", $url);
 		View::set("currentMainMenu", $currentMainMenu);
         View::set("title", "AddCompany");
-        View::render("AddCompanyAndBO");
+        View::render("addCompany");
 	}
 	public function showBranchOffice() {
-	//session_start();
+	session_start();
 		$this->_sesionUsuario=$_SESSION["nombreUsuario"];
 		$this->_sesionpkiBUser=$_SESSION['pkiBUser_p'];
 		$this->_sesionMenu=$_SESSION['mainMenu'];
@@ -130,8 +128,37 @@ private $_sesionMenu;
         View::set("title", "AASP");
         View::render("showBO");
 	}
-	public function addBO(){
-		self::addCompany();
+	public function addBranchOffice(){
+		session_start();
+		$this->_sesionUsuario=$_SESSION["nombreUsuario"];
+		$this->_sesionpkiBUser=$_SESSION['pkiBUser_p'];
+		$this->_sesionMenu=$_SESSION['mainMenu'];
+		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
+		else{
+				echo "Esta pagina es solo para usuarios registrados.<br>";
+			echo "<a href='$url'>Login Here!</a>";
+			exit;
+		}
+		$now = time(); 
+		if($now > $_SESSION['expire']){
+		session_destroy();
+		echo "Su sesion a terminado, <a href='$url'>
+			  Necesita Hacer Login</a>";
+		exit;
+		}
+		$dsCompanyGrid=MA::getParcialSelect();
+		while ($row =$dsCompanyGrid->fetch( \PDO::FETCH_ASSOC )){
+			$dt_Company[] = $row;
+		}
+		$dsSlcCompany=MA::getpknaSelect();
+		$url= Globales::$absoluteURL;
+		$currentMainMenu=$this->_sesionMenu;
+		View::set("drows_Company",$dsSlcCompany);
+		View::set("dt_Company",$dt_Company);
+		View::set("url", $url);
+		View::set("currentMainMenu", $currentMainMenu);
+        View::set("title", "AddCompany");
+        View::render("addBO");
 	}
 }
 //MÉTODOS PRIVADOS###################################
@@ -210,6 +237,7 @@ private $_sesionMenu;
 	$bo->setModifiedBy("null");
 	$bo->setActive("1");
 	$bo->insertData("branchoffice");
+	header("Location:http://localhost:8012/iBrain2.0/private/EnterpriseGroup/showBranchOffice");
 	}
 	
 	/*function CreateUser(){

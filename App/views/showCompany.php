@@ -1,7 +1,7 @@
 <?php
 #Agregar los select de las llaves foráneas
 
-namespace App\View\EnterpriseGroup;
+namespace App\View\Company;
 defined("APPPATH") OR die("Access denied");
 
 use \App\data\DataGridView as DGV;
@@ -38,7 +38,7 @@ use \App\data\DataGridView as DGV;
 			'ZipCode' => array('header' => 'C&oacute;digo Postal')
 		))
 		->addColumnAfter('actions', 
-									'<a href="'.$url.'private/BranchOffice">Ver ASP\'s</a>',
+									'<a href="'.$url.'private/EnterpriseGroup/showBranchOffice">Ver ASP\'s</a>',
 									'Actions', array('align' => 'center'))
 		//->addColumnBefore('counter', '%counter%.', 'Counter', array('align' => 'right'))
 		//->setStartingCounter(1)
@@ -98,7 +98,7 @@ use \App\data\DataGridView as DGV;
 						<a href="<?php echo $url; ?>private/home">Inicio</a>
 					</li>
 					<li class="active">
-						<strong>Grupo Empresarial - Cuentas maestras</strong>
+						<strong>Cuentas maestras</strong>
 					</li>
 				</ol>
 			</div>
@@ -120,7 +120,7 @@ use \App\data\DataGridView as DGV;
 						</div>
 						<div class="ibox-content">					
 						<div class="pull-right">
-							<a onclick="" href="<?php echo $url; ?>private/Company/AddCompany" class="btn btn-primary ">Agregar nueva cuenta maestra</a>
+							<a onclick="" href="<?php echo $url; ?>private/EnterpriseGroup/AddCompany" class="btn btn-primary ">Agregar nueva cuenta maestra</a>
 						</div>
 						<br />
 						<br />

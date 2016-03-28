@@ -33,7 +33,7 @@ use \App\data\DataGridView as DGV;
 			'email' => array('header' => 'Correo electr&oacute;nico')
 		))
 		->addColumnAfter('actions', 
-									'<a href="'.$url.'private/BranchOffice">Ver ASP\'s</a>',
+									'<a href="'.$url.'private/User/showProfile">Ver Perfiles</a>',
 									'Actions', array('align' => 'center'))
 		//->addColumnBefore('counter', '%counter%.', 'Counter', array('align' => 'right'))
 		//->setStartingCounter(1)
@@ -87,13 +87,13 @@ use \App\data\DataGridView as DGV;
 			</div>
 		<div class="row wrapper border-bottom white-bg page-heading">
 			<div class="col-sm-4">
-				<h2>Grupo Empresarial</h2>
+				<h2>Usuarios</h2>
 				<ol class="breadcrumb">
 					<li>
 						<a href="<?php echo $url; ?>private/home">Inicio</a>
 					</li>
 					<li class="active">
-						<strong>Grupo Empresarial - Cuentas maestras</strong>
+						<strong>Usuario</strong>
 					</li>
 				</ol>
 			</div>
@@ -115,7 +115,7 @@ use \App\data\DataGridView as DGV;
 						</div>
 						<div class="ibox-content">					
 						<div class="pull-right">
-							<a onclick="" href="<?php echo $url; ?>private/home" class="btn btn-primary ">Agregar nuevo usuario</a>
+							<a onclick="" href="<?php echo $url; ?>private/User/addUser" class="btn btn-primary btn-lg btn-block">Agregar nuevo usuario</a>
 						</div>
 						<br />
 						<br />

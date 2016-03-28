@@ -14,6 +14,9 @@ Finder
 Retail
 
 Notes:
+Validadores del lado del cliente
+Validadores del lado del servidor
+Mensajes de confirmación al momento de hacer CRUD
 singleton para usuarios sesión
 namespace para globales
 13.3.13->adaptar para que lea el .ini

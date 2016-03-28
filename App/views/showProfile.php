@@ -1,10 +1,9 @@
 <?php
-#Agregar los select de las llaves foráneas
-
 namespace App\View\EnterpriseGroup;
 defined("APPPATH") OR die("Access denied");
 
 use \App\data\DataGridView as DGV;
+		
 		$_SESSION["nombreUsuario"];
 		$_SESSION['pkiBUser_p'];
 		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
@@ -24,22 +23,16 @@ use \App\data\DataGridView as DGV;
 		$outputTableCompany=DGV::getInstance($dt_Company)
 		->setGridAttributes(array('class' => 'table table-striped table-bordered table-hover dataTables-example'))
 		->enableSorting(false)
-		->removeColumn('pkBranchOffice')
-		->removeColumn('Company_pkCompany')
+		->removeColumn('pkiBUser')
+		->removeColumn('fkiBUserProfile')
 		->setup(array(
-			'commercialName' => array('header' => 'Cuenta maestra'),
-			'BOName' => array('header' => 'AASP'),
-			'BOStreet' => array('header' => 'Calle'),
-			'BOExtNumber' => array('header' => 'N&uacute;mero exterior'),
-			'BOIntNumber' => array('header' => 'N&uacute;mero interior'),
-			'BORegion' => array('header' => 'Regi&oacute;n'),
-			'BOZone' => array('header' => 'Zona'),
-			'BOProvince' => array('header' => 'Provincia'),
-			'BOZipCode' => array('header' => 'C&oacute;digo Postal')
+			'username' => array('header' => 'Usuario'),
+			'realname' => array('header' => 'Nombre del usuario'),
+			'email' => array('header' => 'Correo electr&oacute;nico')
 		))
-		/*->addColumnAfter('actions', 
-									'<a href="'.$url.'private/Company">Ver ASP\'s</a>',
-									'Actions', array('align' => 'center'))*/
+		->addColumnAfter('actions', 
+									'<a href="'.$url.'private/BranchOffice">Ver ASP\'s</a>',
+									'Actions', array('align' => 'center'))
 		//->addColumnBefore('counter', '%counter%.', 'Counter', array('align' => 'right'))
 		//->setStartingCounter(1)
 		//->setRowClass('')
@@ -92,16 +85,16 @@ use \App\data\DataGridView as DGV;
 			</div>
 		<div class="row wrapper border-bottom white-bg page-heading">
 			<div class="col-sm-4">
-				<h2>AASP</h2>
+				<h2>Grupo Empresarial</h2>
 				<ol class="breadcrumb">
 					<li>
 						<a href="<?php echo $url; ?>private/home">Inicio</a>
-					</li
-					><li>
-						<a href="<?php echo $url; ?>private/EnterpriseGroup/showCompany">Cuentas maestras</a>
+					</li>
+					<li>
+						<a href="<?php echo $url; ?>private/User">Usuario</a>
 					</li>
 					<li class="active">
-						<strong> AASP </strong>
+						<strong>Perfil</strong>
 					</li>
 				</ol>
 			</div>
@@ -123,7 +116,7 @@ use \App\data\DataGridView as DGV;
 						</div>
 						<div class="ibox-content">					
 						<div class="pull-right">
-							<a onclick="" href="<?php echo $url; ?>private/EnterpriseGroup/addBranchOffice" class="btn btn-primary ">Agregar nuevo AASP</a>
+							<a onclick="" href="<?php echo $url; ?>private/home" class="btn btn-primary ">Agregar nuevo usuario</a>
 						</div>
 						<br />
 						<br />
@@ -245,10 +238,5 @@ use \App\data\DataGridView as DGV;
 
         }
     </script>
-
-
-
-
 </body>
-
 </html>

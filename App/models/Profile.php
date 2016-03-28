@@ -5,21 +5,22 @@ defined("APPPATH") OR die("Access denied");
 use \Core\Database;
 use \App\Interfaces\iCrud;
 
-class Users implements iCrud{
+class Profiles implements iCrud{
 	
-	private static $_pkibuser;
-	private static $_fkiBUserProfile;
-	private static $_username;
-	private static $_pwd;
-	private static $_pwdtmp;
-	private static $_realname;
-	private static $_email;
-	private static $_active;
-	private static $_defaultFunction;
-	private static $_Created;
-	private static $_CreatedBy;
-	private static $_Modified;
-	private static $_ModifiedBy;
+	private static $_pkiBUserProfile;
+	private static $_name;
+	private static $_toBeCollected;
+	private static $_toBeAssigned;
+	private static $_toBeDiagnosed;
+	private static $_diagnosisToBeAuthorized;
+	private static $_toNotifyTheClient;
+	private static $_toBeAutorizedByClient;
+	private static $_inRepairProcess;
+	private static $_repaired;
+	private static $_toDelivery;
+	private static $_toBePayed;
+	private static $_deliveredToClient;
+	private static $_Cancelled;
 		
 	public function __construct(){
 	$_pkibuser=0;
