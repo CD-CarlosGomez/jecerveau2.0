@@ -66,7 +66,7 @@ private $_sesionMenu;
         View::set("title", "Grupo Empresarial");
         View::render("showUser");
 	}
-	public function AddUser(){
+	public function addUser(){
 		session_start();
 		$this->_sesionUsuario=$_SESSION["nombreUsuario"];
 		$this->_sesionpkiBUser=$_SESSION['pkiBUser_p'];
@@ -98,6 +98,37 @@ private $_sesionMenu;
         View::set("title", "AddCompany");
         View::render("AddUserAndProfile");
 	}
+	public function addProfile(){
+		//session_start();
+		$this->_sesionUsuario=$_SESSION["nombreUsuario"];
+		$this->_sesionpkiBUser=$_SESSION['pkiBUser_p'];
+		$this->_sesionMenu=$_SESSION['mainMenu'];
+		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
+		else{
+				echo "Esta pagina es solo para usuarios registrados.<br>";
+			echo "<a href='http://localhost:8012/ibrain2.0'>Login Here!</a>";
+			exit;
+		}
+		$now = time(); 
+		if($now > $_SESSION['expire']){
+		session_destroy();
+		echo "Su sesion a terminado, <a href='http://localhost:8012/ibrain2.0'>
+			  Necesita Hacer Login</a>";
+		exit;
+		}
+		$dsCompanyGrid=Users::getParcialSelect();
+		while ($row =$dsCompanyGrid->fetch( \PDO::FETCH_ASSOC )){
+			$dt_Company[] = $row;
+		}
+		$url= Globales::$absoluteURL;
+		$currentMainMenu=$this->_sesionMenu;
+		View::set("dt_Company",$dt_Company);
+		View::set("url", $url);
+		View::set("currentMainMenu", $currentMainMenu);
+        View::set("title", "Grupo Empresarial");
+        View::render("adduserandprofile");
+	}
+
 }
 //MÉTODOS PRIVADOS###################################
 //EVENTOS############################################

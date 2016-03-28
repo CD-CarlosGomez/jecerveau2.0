@@ -1,60 +1,32 @@
 <?php
 // +-----------------------------------------------
-// | @author Carlos M. G贸mez
+// | @author Carlos M. G髆ez
 // | @date 5 de Marzo del 2016
 // | @Version 1.0
 // +-----------------------------------------------
-#16.3.22 Agregar validaci贸n del lado del servidor
+#16.3.22 Agregar validaci髇 del lado del servidor
 namespace App\Controllers;
 defined("APPPATH") OR die("Access denied");
 
 use \Core\View;
 use \Core\Controller;
 use \App\Config\Globales as Globales;
-use \App\Models\Companies as Company;
-use \App\Models\BranchOffices as BO;
+use \App\Models\Users as Users;
 use \App\data\DataGridView as DGB;
-
+use \App\web\lib\Mailer\PHPMailer;
 
 	
-class Orden extends Controller{
+class UserAndProfile extends Controller{
 //CONSTANTES#########################################
 //ATRIBUTOS##########################################
 private $_sesionUsuario;
 private $_sesionpkiBUser;
 private $_sesionMenu;
 //PROPIEDADES########################################
-//M脡TODOS ABSTRACTOS#################################
-//M脡TODOS P脷BLICOS###################################
+//M蒚ODOS ABSTRACTOS#################################
+//M蒚ODOS P贐LICOS###################################
 	public function __construct(){
-		//session_start();
-		$this->_sesionUsuario=$_SESSION["nombreUsuario"];
-		$this->_sesionpkiBUser=$_SESSION['pkiBUser_p'];
-		$this->_sesionMenu=$_SESSION['mainMenu'];
-		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
-		else{
-				echo "Esta pagina es solo para usuarios registrados.<br>";
-			echo "<a href='http://localhost:8012/ibrain2.0'>Login Here!</a>";
-			exit;
-		}
-		$now = time(); 
-		if($now > $_SESSION['expire']){
-		session_destroy();
-		echo "Su sesion a terminado, <a href='http://localhost:8012/ibrain2.0'>
-			  Necesita Hacer Login</a>";
-		exit;
-		}
-		$dsCompanyGrid=Company::getParcialSelect();
-		while ($row =$dsCompanyGrid->fetch( \PDO::FETCH_ASSOC )){
-			$dt_Company[] = $row;
-		}
-		$url= Globales::$absoluteURL;
-		$currentMainMenu=$this->_sesionMenu;
-		View::set("dt_Company",$dt_Company);
-		View::set("url", $url);
-		View::set("currentMainMenu", $currentMainMenu);
-        View::set("title", "Grupo Empresarial");
-        View::render("EnterpriseGroup");
+		
 	}
 	/**
      * [index]
@@ -64,7 +36,7 @@ private $_sesionMenu;
 	//$layout= Layouts::render();
 	}
 }
-//M脡TODOS PRIVADOS###################################
+//M蒚ODOS PRIVADOS###################################
 //EVENTOS############################################
 //CONTROLES##########################################
 //MAIN###############################################
@@ -99,49 +71,9 @@ private $_sesionMenu;
 			Delete();
 		break;
  	}
-	function CreateCompany(){
-	$c=new Company;
-	$c->setpkCompany($c->getNextId("pkCompany","Company"));
-	$c->setLegalName($_POST['txt_legalName_h']);
-	$c->setCommercialName($_POST["txt_commercialName_h"]);
-	$c->setTaxId("No definido");
-	$c-> setLogoFile("No definido");
-	$c->setStreet($_POST["txt_street_h"]);
-	$c->setExtNumber($_POST["txt_extNumber_h"]);
-	$c->setIntNumber($_POST["txt_intNumber_h"]);
-	$c->setRegion($_POST["txt_region_h"]);
-	$c->setZone($_POST["txt_zone_h"]);
-	$c->setProvince($_POST["txt_province_h"]);
-	$c->setZipCode($_POST["txt_zipCode_h"]);
-	$c->setCreated("null");
-	$c->setCreatedBy("1");
-	$c->setModified("null");
-	$c->setModifiedBy("null");
-	$c->setActive("1");
-	$c->insertData("Company");
-	}
-	function CreateBO(){
-	$bo=new BO;
-	$bo->setpkBO($bo->getNextId("pkBranchOffice","BranchOffice"));
-	$bo->setfkCompany(1);
-	$bo->setBOName($_POST["txt_BOName_h"]);
-	$bo->setBOStreet($_POST["txt_BOStreet_h"]);
-	$bo->setBOExtNumber($_POST["txt_BOExtNumber_h"]);
-	$bo->setBOIntNumber($_POST["txt_BOIntNumber_h"]);
-	$bo->setBORegion($_POST["txt_BORegion_h"]);
-	$bo->setBOZone($_POST["txt_BOZone_h"]);
-	$bo->setBOProvince($_POST["txt_BOProvince_h"]);
-	$bo->setBOZipCode($_POST["txt_BOZipCode_h"]);
-	$bo->setCreated("null");
-	$bo->setCreatedBy("1");
-	$bo->setModified("null");
-	$bo->setModifiedBy("null");
-	$bo->setActive("1");
-	$bo->insertData("branchoffice");
-	}
 	
 	function CreateUser(){
-		$u=new User;
+		$u=new Users;
 		$nextId=$u->getNextId("pkiBUser","ibuser");
 		$u->setpkiBUser($nextId);
 		$u->setfkiBUserProfile(1);
@@ -180,9 +112,9 @@ private $_sesionMenu;
 			$mail->SMTPAuth = true;
 			$mail->Username = 'santi.notificaciones@gmail.com';
 			$mail->Password = 'envios2015';
-			$mail->setFrom($micorreo,"Carlos G贸mez");
-			$mail->AddReplyTo($micorreo,"Carlos G贸mez 2");
-			$mail->AddAddress ("cgomez@consultoriadual.com","Andr茅s");
+			$mail->setFrom($micorreo,"Carlos G髆ez");
+			$mail->AddReplyTo($micorreo,"Carlos G髆ez 2");
+			$mail->AddAddress ("cgomez@consultoriadual.com","Andr閟");
 			$mail->Subject = "$asunto";
 			$mail->MsgHTML($bodyMessage);
 			$mail->AltBody='This is a plain-text message body';
@@ -201,7 +133,7 @@ private $_sesionMenu;
 			}
 		}	
 		else
-			echo "Error,no se puede enviar el correo electr贸nico ";
+			echo "Error,no se puede enviar el correo electr髇ico ";
 		//View::render("EnterpriseGroup");
 	}
 ?>

@@ -18,7 +18,7 @@ use \App\data\DataGridView as DGB;
 
 
 	
-class Company extends Controller{
+class EnterpriseGroup extends Controller{
 //CONSTANTES#########################################
 //ATRIBUTOS##########################################
 private $_sesionUsuario;
@@ -36,7 +36,7 @@ private $_sesionMenu;
 	public function index(){
 		self::ShowCompany();
 	}
-    public function ShowCompany(){
+    public function showCompany(){
 		session_start();
 		$this->_sesionUsuario=$_SESSION["nombreUsuario"];
 		$this->_sesionpkiBUser=$_SESSION['pkiBUser_p'];
@@ -68,7 +68,7 @@ private $_sesionMenu;
         View::set("title", "Companies");
         View::render("showCompany");
 	}
-	public function AddCompany(){
+	public function addCompany(){
 		session_start();
 		$this->_sesionUsuario=$_SESSION["nombreUsuario"];
 		$this->_sesionpkiBUser=$_SESSION['pkiBUser_p'];
@@ -99,6 +99,39 @@ private $_sesionMenu;
 		View::set("currentMainMenu", $currentMainMenu);
         View::set("title", "AddCompany");
         View::render("AddCompanyAndBO");
+	}
+	public function showBranchOffice() {
+	//session_start();
+		$this->_sesionUsuario=$_SESSION["nombreUsuario"];
+		$this->_sesionpkiBUser=$_SESSION['pkiBUser_p'];
+		$this->_sesionMenu=$_SESSION['mainMenu'];
+		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
+		else{
+				echo "Esta pagina es solo para usuarios registrados.<br>";
+			echo "<a href='http://localhost:8012/ibrain2.0'>Login Here!</a>";
+			exit;
+		}
+		$now = time(); 
+		if($now > $_SESSION['expire']){
+		session_destroy();
+		echo "Su sesion a terminado, <a href='http://localhost:8012/ibrain2.0'>
+			  Necesita Hacer Login</a>";
+		exit;
+		}
+		$dsCompanyGrid=BO::getParcialSelect();
+		while ($row =$dsCompanyGrid->fetch( \PDO::FETCH_ASSOC )){
+			$dt_Company[] = $row;
+		}
+		$url= Globales::$absoluteURL;
+		$currentMainMenu=$this->_sesionMenu;
+		View::set("dt_Company",$dt_Company);
+		View::set("url", $url);
+		View::set("currentMainMenu", $currentMainMenu);
+        View::set("title", "AASP");
+        View::render("showBO");
+	}
+	public function addBO(){
+		self::addCompany();
 	}
 }
 //MÉTODOS PRIVADOS###################################
