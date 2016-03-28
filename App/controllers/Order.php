@@ -17,7 +17,7 @@ use \App\data\DataGridView as DGB;
 
 
 	
-class EnterpriseGroup extends Controller{
+class Orden extends Controller{
 //CONSTANTES#########################################
 //ATRIBUTOS##########################################
 private $_sesionUsuario;

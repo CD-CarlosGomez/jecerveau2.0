@@ -25,21 +25,21 @@ use \App\data\DataGridView as DGV;
 		$outputTableCompany=DGV::getInstance($dt_Company)
 		->setGridAttributes(array('class' => 'table table-striped table-bordered table-hover dataTables-example'))
 		->enableSorting(false)
-		->removeColumn('pkBranchOffice')
-		->removeColumn('Company_pkCompany')
+		->removeColumn('pkCompany')
 		->setup(array(
-			'BOName' => array('header' => 'AASP'),
-			'BOStreet' => array('header' => 'Calle'),
-			'BOExtNumber' => array('header' => 'N&uacute;mero exterior'),
-			'BOIntNumber' => array('header' => 'N&uacute;mero interior'),
-			'BORegion' => array('header' => 'Regi&oacute;n'),
-			'BOZone' => array('header' => 'Zona'),
-			'BOProvince' => array('header' => 'Provincia'),
-			'BOZipCode' => array('header' => 'C&oacute;digo Postal')
+			'legalName' => array('header' => 'Nombre fiscal'),
+			'commercialName' => array('header' => 'Nombre comercial'),
+			'Street' => array('header' => 'Calle'),
+			'extNumber' => array('header' => 'N&uacute;mero exterior'),
+			'intNumber' => array('header' => 'N&uacute;mero interior'),
+			'Region' => array('header' => 'Regi&oacute;n'),
+			'Zone' => array('header' => 'Zona'),
+			'Province' => array('header' => 'Provincia'),
+			'ZipCode' => array('header' => 'C&oacute;digo Postal')
 		))
-		/*->addColumnAfter('actions', 
-									'<a href="'.$url.'private/Company">Ver ASP\'s</a>',
-									'Actions', array('align' => 'center'))*/
+		->addColumnAfter('actions', 
+									'<a href="'.$url.'private/BranchOffice">Ver ASP\'s</a>',
+									'Actions', array('align' => 'center'))
 		//->addColumnBefore('counter', '%counter%.', 'Counter', array('align' => 'right'))
 		//->setStartingCounter(1)
 		//->setRowClass('')
@@ -92,13 +92,13 @@ use \App\data\DataGridView as DGV;
 			</div>
 		<div class="row wrapper border-bottom white-bg page-heading">
 			<div class="col-sm-4">
-				<h2>AASP</h2>
+				<h2>Grupo Empresarial</h2>
 				<ol class="breadcrumb">
 					<li>
 						<a href="<?php echo $url; ?>private/home">Inicio</a>
 					</li>
 					<li class="active">
-						<strong>Grupo Empresarial -AASP </strong>
+						<strong>Grupo Empresarial - Cuentas maestras</strong>
 					</li>
 				</ol>
 			</div>
@@ -108,7 +108,7 @@ use \App\data\DataGridView as DGV;
 				<div class="col-lg-12">
 					<div class="ibox float-e-margins">
 						<div class="ibox-title">
-							<h5>Cuenta maestra</h5>
+							<h5>Cuentas maestra</h5>
 							<div class="ibox-tools">
 								<a class="collapse-link">
 									<i class="fa fa-chevron-up"></i>
@@ -120,7 +120,7 @@ use \App\data\DataGridView as DGV;
 						</div>
 						<div class="ibox-content">					
 						<div class="pull-right">
-							<a onclick="" href="<?php echo $url; ?>private/Company" class="btn btn-primary ">Agregar nuevo AASP</a>
+							<a onclick="" href="<?php echo $url; ?>private/Company/AddCompany" class="btn btn-primary ">Agregar nueva cuenta maestra</a>
 						</div>
 						<br />
 						<br />

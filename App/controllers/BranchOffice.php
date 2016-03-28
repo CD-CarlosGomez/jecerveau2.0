@@ -28,7 +28,19 @@ private $_sesionMenu;
 //MÉTODOS ABSTRACTOS#################################
 //MÉTODOS PÚBLICOS###################################
 	public function __construct(){
-		//session_start();
+	
+	}
+	/**
+     * [index]
+    */
+    public function index(){
+	//$layout=new WithSiteMap(new WithTemplate(new WithMenu(new LayoutCSS())));
+	//$layout= Layouts::render();
+	self::showBranchOffices();
+	}
+	
+	public function showBranchOffices() {
+	//session_start();
 		$this->_sesionUsuario=$_SESSION["nombreUsuario"];
 		$this->_sesionpkiBUser=$_SESSION['pkiBUser_p'];
 		$this->_sesionMenu=$_SESSION['mainMenu'];
@@ -55,15 +67,12 @@ private $_sesionMenu;
 		View::set("url", $url);
 		View::set("currentMainMenu", $currentMainMenu);
         View::set("title", "AASP");
-        View::render("branchOffice");
+        View::render("showBO");
 	}
-	/**
-     * [index]
-    */
-    public function index(){
-	//$layout=new WithSiteMap(new WithTemplate(new WithMenu(new LayoutCSS())));
-	//$layout= Layouts::render();
-	}
+	
+	
+	
+	
 }
 //MÉTODOS PRIVADOS###################################
 //EVENTOS############################################

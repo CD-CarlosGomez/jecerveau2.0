@@ -6,7 +6,7 @@ defined("APPPATH") OR die("Access denied");
 
 use \Core\View;
 use \Core\Controller;
-		
+		/*
 		$_SESSION["nombreUsuario"];
 		$_SESSION['pkiBUser_p'];
 		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
@@ -22,7 +22,7 @@ use \Core\Controller;
 			  Necesita Hacer Login</a>";
 		exit;
 
-		}
+		}*/
 ?>
 <!DOCTYPE html>
 <html>
@@ -75,7 +75,7 @@ use \Core\Controller;
 						<a href="<?php echo $url; ?>private/home">Inicio</a>
 					</li>
 					<li>
-						<a href="<?php echo $url; ?>private/EnterpriseGroup">Grupo empresarial</a>
+						<a href="<?php echo $url; ?>private/Company/ShowCompanies">Grupo empresarial</a>
 					</li>
 					<li class="active">
 						<strong>Cuenta maestra</strong>
@@ -97,53 +97,67 @@ use \Core\Controller;
 								<section>
 									<p>
 										<fieldset>
-											<form id="formCompany" action="<?php echo $url; ?>private/Company" method="POST" class="">
-												<div class="row"></div>
-												<div class="row">
-													<div class="col-lg-6">
-														<div class="form-group">
-															<label>Raz&oacute;n social:*</label>
+											<form id="formCompany" class="form-horizontal" action="<?php echo $url; ?>private/Company" method="POST" class="">
+												<div class="col-lg-10">
+													<div class="form-group">
+														<label class="col-lg-3 control-label">Raz&oacute;n social:*</label>
+														<div class="col-lg-8">
 															<input id="txt_legalName_h" class="form-control required" name="txt_legalName_h" type="text">
 															<input id="" name="hdn_toDo_h" class="" value="AddCompany" type="hidden">
 														</div>
-														<div class="form-group">
-															<label>Nombre Comercial*</label>
+													</div>
+													<div class="form-group">
+														<label class="col-lg-3 control-label">Nombre Comercial*</label>
+														<div class="col-lg-8">
 															<input id="txt_commercialName_h" class="form-control required" name="txt_commercialName_h" type="text">
 														</div>
-														<div class="form-group">
-															<label>Calle*</label>
+													</div>
+													<div class="form-group">
+														<label class="col-lg-3 control-label">Calle*</label>
+														<div class="col-lg-8">
 															<input id="txt_street_h" class="form-control required" name="txt_street_h" type="text">
 														</div>
-														<div class="form-group">
-															<label>N&uacute;mero exterior:*</label>
+													</div>
+													<div class="form-group">
+														<label class="col-lg-3 control-label">N&uacute;mero exterior:*</label>
+														<div class="col-lg-8">
 															<input id="txt_extNumber_h" class="form-control required" name="txt_extNumber_h" type="text">
 														</div>
-														<div class="form-group">
-															<label>N&uacute;mero interior:*</label>
-															<input id="txt_intNumber_h" class="form-control required" name="txt_intNumber_h" type="text">
+													</div>
+													<div class="form-group">
+														<label class="col-lg-3 control-label">N&uacute;mero interior:*</label>
+															<div class="col-lg-8">
+																<input id="txt_intNumber_h" class="form-control required" name="txt_intNumber_h" type="text">
+															</div>
+													</div>					
+													<div class="form-group">
+													<label class="col-lg-3 control-label">Regi&oacute;n:*</label>
+														<div class="col-lg-8">
+															<input id="txt_region_h" class="form-control required" name="txt_region_h" type="text">
 														</div>
 													</div>
-													<div class="col-lg-6">
-														<div class="form-group">
-															<label>Regi&oacute;n:*</label>
-															<input id="txt_region_h" class="form-control required" name="txt_region_h" type="text">
-															<input id="" name="hdn_toDo_h" class="" value="AddCompany" type="hidden">
-														</div>
-														<div class="form-group">
-															<label>Zona:*</label>
+													<div class="form-group">
+														<label class="col-lg-3 control-label">Zona:*</label>
+														<div class="col-lg-8">
 															<input id="txt_zone_h" class="form-control required" name="txt_zone_h" type="text">
 														</div>
-														<div class="form-group">
-															<label>Provincia:*</label>
+													</div>
+													<div class="form-group">
+														<label class="col-lg-3 control-label">Provincia:*</label>
+														<div class="col-lg-8">
 															<input  id="txt_province_h" class="form-control required" name="txt_province_h" type="text">
 														</div>
-														<div class="form-group">
-															<label>C&oacute;digo postal:*</label>
+													</div>
+													<div class="form-group">
+													<label class="col-lg-3 control-label">C&oacute;digo postal:*</label>
+														<div class="col-lg-8">
 															<input  id="txt_zipCode_h" class="form-control required" name="txt_zipCode_h" type="text">
-														</div>
-														<div class="form-group">
-															<button type="submit" id="" class="btn btn-primary" name="btn_AddCompany">Agregar</button>
-														</div>
+													</div>
+													</div>
+												</div>
+												<div class="col-lg-2">
+													<div class="form-group">
+														<button type="submit" id="" class="btn btn-primary btn-lg btn-block" name="btn_AddCompany">Agregar</button>
 													</div>
 												</div>
 											</form>
@@ -155,12 +169,11 @@ use \Core\Controller;
 								<section>
 									<p>
 										<fieldset>
-											<form id="formBO" action="<?php echo $url; ?>private/Company" method="POST" class="">
-													<div class="row"></div>
-												<div class="row">
-													<div class="col-lg-6">
-															<div class="form-group">
-															<label>Cuenta maestra:*</label>
+											<form id="formBO" class="form-horizontal" action="<?php echo $url; ?>private/Company" method="POST" class="">
+												<div class="col-lg-10">
+													<div class="form-group">
+														<label class="col-lg-3 control-label">Cuenta maestra:*</label>
+															<div class="col-lg-8">
 																<select id="" class="form-control m-b" name="slt_pkCompany_h">
 																	<option value="-1">Selecciona una cuenta maestra ...</option>
 																<?php foreach ($drows_Company as $companyOption) {?>
@@ -168,45 +181,60 @@ use \Core\Controller;
 																<?php } ?>
 																</select>
 															</div>
-															<div class="form-group">
-															<label>Branch Office Name*</label>
+													</div>
+													<div class="form-group">
+														<label class="col-lg-3 control-label">Branch Office Name*</label>
+														<div class="col-lg-8">
 															<input id="txt_BOName_h" class="form-control required" name="txt_BOName_h" type="text">
 															<input id="" name="hdn_toDo_h" class="" value="AddBO" type="hidden">
 														</div>
-														<div class="form-group">
-															<label>Branch Office Street*</label>
+													</div>
+													<div class="form-group">
+														<label class="col-lg-3 control-label">Branch Office Street*</label>
+														<div class="col-lg-8">
 															<input id="txt_BOStreet_h" class="form-control required" name="txt_BOStreet_h" type="text">
 														</div>
-														<div class="form-group">
-															<label>Branch Office Ext Number*</label>
+													</div>
+													<div class="form-group">
+														<label class="col-lg-3 control-label">Branch Office Ext Number*</label>
+														<div class="col-lg-8">
 															<input id="txt_BOExtNumber_h" class="form-control required" name="txt_BOExtNumber_h" type="text">
 														</div>
-														<div class="form-group">
-															<label>Branch Office Int Number*</label>
+													</div>
+													<div class="form-group">
+														<label class="col-lg-3 control-label">Branch Office Int Number*</label>
+														<div class="col-lg-8">
 															<input id="txt_BOIntNumber_h" class="form-control required" name="txt_BOIntNumber_h" type="text">
 														</div>
 													</div>
-													<div class="col-lg-6">
-														<div class="form-group">
-															<label>Region*</label>
+													<div class="form-group">
+														<label class="col-lg-3 control-label">Region*</label>
+														<div class="col-lg-8">
 															<input id="txt_BORegion_h" class="form-control required" name="txt_BORegion_h" type="text">
-															<input id="" name="btn_toDo_h" class="" value="AddCompany" type="hidden">
 														</div>
-														<div class="form-group">
-															<label>Zone*</label>
+													</div>
+													<div class="form-group">
+														<label class="col-lg-3 control-label">Zone*</label>
+														<div class="col-lg-8">
 															<input id="txt_BOZone_h" class="form-control required" name="txt_BOZone_h" type="text">
 														</div>
-														<div class="form-group">
-															<label>Province*</label>
+													</div>
+													<div class="form-group">
+														<label class="col-lg-3 control-label">Province*</label>
+														<div class="col-lg-8">
 															<input  id="txt_BOProvince_h" class="form-control required" name="txt_BOProvince_h" type="text">
 														</div>
-														<div class="form-group">
-															<label>Zip Code*</label>
+													</div>
+													<div class="form-group">
+														<label class="col-lg-3 control-label">Zip Code*</label>
+														<div class="col-lg-8">	
 															<input  id="txt_BOZipCode_h" class="form-control required" name="txt_BOZipCode_h" type="text">
 														</div>
-														<div class="form-group">
-															<button type="submit" id="" class="btn btn-primary" name="btn-AddBO">Agregar AASP</button>
-														</div>
+													</div>
+												</div>
+												<div class="col-lg-2">
+													<div class="form-group">
+														<button type="submit" id="" class="btn btn-primary" name="btn-AddBO">Agregar AASP</button>
 													</div>
 												</div>
 											</form>
@@ -220,7 +248,7 @@ use \Core\Controller;
                 </div>
             </div>
         </div>
-		</div>
+	</div>
 		
         <div class="footer">
             <div class="pull-right">

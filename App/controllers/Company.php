@@ -5,6 +5,7 @@
 // | @Version 1.0
 // +-----------------------------------------------
 #16.3.22 Agregar validación del lado del servidor
+#16.3.27 Arreglar problemas de sesión, condición: si no ha iniciado sesión, que la inicie, de lo contrario que no...
 namespace App\Controllers;
 defined("APPPATH") OR die("Access denied");
 
@@ -27,20 +28,29 @@ private $_sesionMenu;
 //MÉTODOS ABSTRACTOS#################################
 //MÉTODOS PÚBLICOS###################################
 	public function __construct(){
-		//session_start();
+	
+	}
+	/**
+     * [index]
+    */
+	public function index(){
+		self::ShowCompany();
+	}
+    public function ShowCompany(){
+		session_start();
 		$this->_sesionUsuario=$_SESSION["nombreUsuario"];
 		$this->_sesionpkiBUser=$_SESSION['pkiBUser_p'];
 		$this->_sesionMenu=$_SESSION['mainMenu'];
 		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
 		else{
 				echo "Esta pagina es solo para usuarios registrados.<br>";
-			echo "<a href='http://localhost:8012/ibrain2.0'>Login Here!</a>";
+			echo "<a href='$url'>Login Here!</a>";
 			exit;
 		}
 		$now = time(); 
 		if($now > $_SESSION['expire']){
 		session_destroy();
-		echo "Su sesion a terminado, <a href='http://localhost:8012/ibrain2.0'>
+		echo "Su sesion a terminado, <a href='$url'>
 			  Necesita Hacer Login</a>";
 		exit;
 		}
@@ -55,15 +65,40 @@ private $_sesionMenu;
 		View::set("dt_Company",$dt_Company);
 		View::set("url", $url);
 		View::set("currentMainMenu", $currentMainMenu);
-        View::set("title", "Company");
-        View::render("Company");
+        View::set("title", "Companies");
+        View::render("showCompany");
 	}
-	/**
-     * [index]
-    */
-    public function index(){
-	//$layout=new WithSiteMap(new WithTemplate(new WithMenu(new LayoutCSS())));
-	//$layout= Layouts::render();
+	public function AddCompany(){
+		session_start();
+		$this->_sesionUsuario=$_SESSION["nombreUsuario"];
+		$this->_sesionpkiBUser=$_SESSION['pkiBUser_p'];
+		$this->_sesionMenu=$_SESSION['mainMenu'];
+		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
+		else{
+				echo "Esta pagina es solo para usuarios registrados.<br>";
+			echo "<a href='$url'>Login Here!</a>";
+			exit;
+		}
+		$now = time(); 
+		if($now > $_SESSION['expire']){
+		session_destroy();
+		echo "Su sesion a terminado, <a href='$url'>
+			  Necesita Hacer Login</a>";
+		exit;
+		}
+		$dsCompanyGrid=MA::getParcialSelect();
+		while ($row =$dsCompanyGrid->fetch( \PDO::FETCH_ASSOC )){
+			$dt_Company[] = $row;
+		}
+		$dsSlcCompany=MA::getpknaSelect();
+		$url= Globales::$absoluteURL;
+		$currentMainMenu=$this->_sesionMenu;
+		View::set("drows_Company",$dsSlcCompany);
+		View::set("dt_Company",$dt_Company);
+		View::set("url", $url);
+		View::set("currentMainMenu", $currentMainMenu);
+        View::set("title", "AddCompany");
+        View::render("AddCompanyAndBO");
 	}
 }
 //MÉTODOS PRIVADOS###################################
@@ -71,7 +106,7 @@ private $_sesionMenu;
 //CONTROLES##########################################
 //MAIN###############################################
 		//session_start();
-		$userName=$_SESSION["nombreUsuario"];
+		/*$userName=$_SESSION["nombreUsuario"];
 		$pkiBUser=$_SESSION['pkiBUser_p'];
 		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
 		else{
@@ -85,7 +120,7 @@ private $_sesionMenu;
 		echo "Su sesion a terminado, <a href='http://localhost:8012/ibrain2.0'>
 			  Necesita Hacer Login</a>";
 		exit;
-		}
+		}*/
 		
 	switch(@$_POST['hdn_toDo_h']){
 		case "AddCompany":
