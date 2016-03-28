@@ -1,8 +1,0 @@
-13.3.13->adaptar para que lea el .ini
-	->Adaptar patrón de diseño singleton.
-	->namespace para globales.
-	->navegación para rutas relativas
-	->validar que haya registros en la bs para que imprima el menú según los niveles...
-	->Aprender a utilizar static y global
-	->__get and __set
-	->Ver que onda con decorator de los layouts.
