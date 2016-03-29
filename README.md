@@ -8,6 +8,7 @@ Que el jefe pueda cambiarlo
 En la estructura de datos, las credenciales GSX estén a nivel sucursal
 Crear una tabla employee para asignar órdenes según los skills (power line/smart line)
 
+
 TAKE IN (servicios de inserción REST)
 ALERT REST
 Finder
@@ -25,3 +26,4 @@ namespace para globales
 	->Ver que onda con decorator de los layouts.
 	->Checar a cerca de las sesiones por cada página
 	->Que las vistas se puedan acceder por APPATH
+13.3.29 La base de datos ha perdido relaciones, hay que volver a relacionarlo.

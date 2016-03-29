@@ -5,6 +5,7 @@
 // | @Version 1.0
 // +-----------------------------------------------
 #16.3.22 Agregar validación del lado del servidor
+#Preguntar en qué consiste el GSX exactamente...
 namespace App\Controllers;
 defined("APPPATH") OR die("Access denied");
 
@@ -98,6 +99,7 @@ private $_sesionMenu;
         View::set("title", "Grupo Empresarial");
 		View::render("addSO");
 	}
+
 }
 //MÉTODOS PRIVADOS###################################
 //EVENTOS############################################

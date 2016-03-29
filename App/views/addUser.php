@@ -99,7 +99,7 @@ use \Core\Controller;
                 <div class="col-lg-12">
                     <div class="ibox">
                         <div class="ibox-title">
-                            <h5>Configuraci&oacute;n Inicial</h5>
+                            <h5>Nuevo Usuario</h5>
                         </div>
                         <div class="ibox-content">
 							<div id="Wzd_Customazing">
@@ -156,6 +156,46 @@ use \Core\Controller;
 										</fieldset>
 									</p>
 									<p>(*) Mandatory</p>
+								</section>
+								<h3>Asignar perfil a usuario</h3>
+								<section>
+									<p>
+										<fieldset>
+											<form id="Profiles"class="form-horizontal"  action="<?php echo $url; ?>private/User" method="POST" class="">
+												<div class="col-lg-10">
+													<fieldset>
+														<div class="form-group">
+														<label class="col-lg-3 control-label">Usuario:*</label>
+															<div class="col-lg-8">
+															<select id="" class="form-control m-b" name="slt_pkiBUsers_h">
+																<option value="-1">Selecciona un usuario ...</option>
+																	<?php foreach ($drowsU as $Options) {?>
+																		<option value="<?php echo $Options['pkiBUser']; ?>"><?php echo $Options['realname']; ?></option>
+																	<?php } ?>
+															</select>
+															</div>
+														</div>
+														<div class="form-group">
+														<label class="col-lg-3 control-label">Perfil:*</label>
+															<div class="col-lg-8">
+															<select id="" class="form-control m-b" name="slt_pkiBUsers_h">
+																<option value="-1">Selecciona Perfil...</option>
+																	<?php foreach ($drowsP as $Options) {?>
+																		<option value="<?php echo $Options['pkiBUserProfile']; ?>"><?php echo $Options['profileName']; ?></option>
+																	<?php } ?>
+															</select>
+															</div>
+														</div>
+													</fieldset>
+												</div>
+												<div class="col-lg-2">
+													<div class="form-group">
+														<button type="submit" id="" class="btn btn-primary btn-block" value="assignProfileToUser" name="btn_toDo_h">Guardar</button>
+													</div>
+												</div>
+											</form>
+										</fieldset>
+									</p>
 								</section>
 							</div>
 						</div>

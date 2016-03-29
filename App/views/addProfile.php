@@ -109,24 +109,13 @@ use \Core\Controller;
                         </div>
                         <div class="ibox-content">
 							<div id="Wzd_Customazing">
-								<h3>Perfiles</h3>
+								<h3>Nuevo Perfiles</h3>
 								<section>
 									<p>
 										<fieldset>
 											<form id="Profiles"class="form-horizontal"  action="<?php echo $url; ?>private/User" method="POST" class="">
 												<div class="col-lg-10">
 													<fieldset>
-														<div class="form-group">
-														<label class="col-lg-3 control-label">Usuario:*</label>
-															<div class="col-lg-8">
-															<select id="" class="form-control m-b" name="slt_pkiBUsers_h">
-																<option value="-1">Selecciona un usuario ...</option>
-																	<?php foreach ($drowsU as $Options) {?>
-																		<option value="<?php echo $Options['pkiBUser']; ?>"><?php echo $Options['realname']; ?></option>
-																	<?php } ?>
-															</select>
-															</div>
-														</div>
 														<div class="form-group">
 															<label class="col-lg-3 control-label">Descripci&oacute;n del perfil:*</label>
 															<div class="col-lg-8">
@@ -152,7 +141,7 @@ use \Core\Controller;
 																		<i class="fa fa-truck"></i>
 																	</div>
 																	<div class="vertical-timeline-content">
-																		<h2> <div class="i-checks"><label> <input type="checkbox" value="1" name="chk_toBecollected_h"> <i></i>Recolecci&oacute;n</label></div></h2>
+																		<h2> <div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_toBecollected_h"> <i></i>Recolecci&oacute;n</label></div></h2>
 																	</div>
 																</div>
 																<div class="vertical-timeline-block">
@@ -160,7 +149,7 @@ use \Core\Controller;
 																		<i class="fa fa-group"></i>
 																	</div>
 																	<div class="vertical-timeline-content">
-																		<h2><div class="i-checks"><label> <input type="checkbox" value="1" name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div></h2>
+																		<h2><div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div></h2>
 																	</div>
 																</div>
 																<div class="vertical-timeline-block">
@@ -168,7 +157,7 @@ use \Core\Controller;
 																		<i class="fa fa-laptop"></i>
 																	</div>
 																	<div class="vertical-timeline-content">
-																		<h2><div class="i-checks"><label> <input type="checkbox" value="1" name="chk_toBeDiagnosed_h"> <i></i>Diagn&oacute;stico</label></div></h2>
+																		<h2><div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_toBeDiagnosed_h"> <i></i>Diagn&oacute;stico</label></div></h2>
 																	</div>
 																</div>
 																<div class="vertical-timeline-block">
@@ -176,7 +165,7 @@ use \Core\Controller;
 																		<i class="fa fa-lock"></i>
 																	</div>
 																	<div class="vertical-timeline-content">
-																		<h2><div class="i-checks"><label> <input type="checkbox" value="1" name="chk_diagnosisToBeAuthorized_h"> <i></i>Autorizar diagn&oacute;stico</label></div></h2>
+																		<h2><div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_diagnosisToBeAuthorized_h"> <i></i>Autorizar diagn&oacute;stico</label></div></h2>
 																	</div>
 																</div>
 																<div class="vertical-timeline-block">
@@ -184,7 +173,7 @@ use \Core\Controller;
 																		<i class="fa fa-comments"></i>
 																	</div>
 																	<div class="vertical-timeline-content">
-																		<h2><div class="i-checks"><label> <input type="checkbox" value="1" name="chk_toNotifyTheClient_h"> <i></i>Por notificar al cliente</label></div></h2>
+																		<h2><div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_toNotifyTheClient_h"> <i></i>Por notificar al cliente</label></div></h2>
 																	</div>
 																</div>
 																<div class="vertical-timeline-block">
@@ -192,7 +181,7 @@ use \Core\Controller;
 																		<i class="fa fa-thumbs-up"></i>
 																	</div>
 																	<div class="vertical-timeline-content">
-																		<h2><div class="i-checks"><label> <input type="checkbox" value="1" name="chk_toBeAuthorizedByClient_h"> <i></i>Por autorizar (link)</label></div></h2>
+																		<h2><div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_toBeAuthorizedByClient_h"> <i></i>Por autorizar (link)</label></div></h2>
 																	</div>
 																</div>
 																<div class="vertical-timeline-block">
@@ -200,7 +189,7 @@ use \Core\Controller;
 																		<i class="fa fa-user-md"></i>
 																	</div>
 																	<div class="vertical-timeline-content">
-																		<h2><div class="i-checks"><label> <input type="checkbox" value="1" name="chk_inRepairProcess_h"> <i></i>En reparaci&oacute;n</label></div></h2>
+																		<h2><div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_inRepairProcess_h"> <i></i>En reparaci&oacute;n</label></div></h2>
 																	</div>
 																</div>
 																<div class="vertical-timeline-block">
@@ -208,7 +197,7 @@ use \Core\Controller;
 																		<i class="fa fa-check-square"></i>
 																	</div>
 																	<div class="vertical-timeline-content">
-																		<h2><div class="i-checks"><label> <input type="checkbox" value="1" name="chk_repaired_h"> <i></i>Reparado</label></div></h2>
+																		<h2><div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_repaired_h"> <i></i>Reparado</label></div></h2>
 																	</div>
 																</div>
 																<div class="vertical-timeline-block">
@@ -216,7 +205,7 @@ use \Core\Controller;
 																		<i class="fa fa-share-square"></i>
 																	</div>
 																	<div class="vertical-timeline-content">
-																		<h2><div class="i-checks"><label> <input type="checkbox" value="1" name="chk_toDelivery_h"> <i></i>Por entregar</label></div></h2>
+																		<h2><div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_toDelivery_h"> <i></i>Por entregar</label></div></h2>
 																	</div>
 																</div>
 																<div class="vertical-timeline-block">
@@ -224,7 +213,7 @@ use \Core\Controller;
 																		<i class="fa fa-money"></i>
 																	</div>
 																	<div class="vertical-timeline-content">
-																		<h2><div class="i-checks"><label> <input type="checkbox" value="1" name="chk_toBeCharged_h"> <i></i>Por saldar</label></div></h2>
+																		<h2><div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_toBeCharged_h"> <i></i>Por saldar</label></div></h2>
 																	</div>
 																</div>
 																<div class="vertical-timeline-block">
@@ -232,7 +221,7 @@ use \Core\Controller;
 																		<i class="fa fa-share-square-o"></i>
 																	</div>
 																	<div class="vertical-timeline-content">
-																		<h2><div class="i-checks"><label> <input type="checkbox" value="1" name="chk__deliveredToClient_h"> <i></i>Entregado al cliente</label></div></h2>
+																		<h2><div class="i-checks"><label> <input type="checkbox"  value="1" name="chk__deliveredToClient_h"> <i></i>Entregado al cliente</label></div></h2>
 																	</div>
 																</div>
 																<div class="vertical-timeline-block">
@@ -240,10 +229,21 @@ use \Core\Controller;
 																		<i class="fa fa-thumbs-down"></i>
 																	</div>
 																	<div class="vertical-timeline-content">
-																		<h2><div class="i-checks"><label> <input type="checkbox" value="1" name="chk__cancelled_h"> <i></i>Cancelados</label></div></h2>
+																		<h2><div class="i-checks"><label> <input type="checkbox"  value="1" name="chk__cancelled_h"> <i></i>Cancelados</label></div></h2>
 																	</div>
 																</div>
 															</div>
+															</div>
+														</div>
+														<div class="form-group">
+														<label class="col-lg-3 control-label">Usuario:*</label>
+															<div class="col-lg-8">
+															<select id="" class="form-control m-b" name="slt_pkiBUsers_h">
+																<option value="-1">Selecciona un usuario ...</option>
+																	<?php foreach ($drowsU as $Options) {?>
+																		<option value="<?php echo $Options['pkiBUser']; ?>"><?php echo $Options['realname']; ?></option>
+																	<?php } ?>
+															</select>
 															</div>
 														</div>
 													</fieldset>

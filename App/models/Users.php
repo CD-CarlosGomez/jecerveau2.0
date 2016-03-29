@@ -215,11 +215,16 @@ class Users implements iCrud{
 			$PDOcnn = Database::instance();
 			$PDOQuery="SELECT 
 							`pkiBUser`,
+							pkiBUserProfile,
 							`fkiBUserProfile`, 
 							`username`, 
 							`realname`,
-							`email`
-						FROM `ibuser` WHERE Active=1 or Active=2;";
+							`email`,
+							profileName
+						FROM `ibuser` 
+							INNER JOIN ibuserprofile
+								ON fkiBUserProfile=pkiBUserProfile
+						WHERE Active=1 or Active=2;";
 			$PDOResultSet = $PDOcnn->query($PDOQuery);
 			return $PDOResultSet;
 		}

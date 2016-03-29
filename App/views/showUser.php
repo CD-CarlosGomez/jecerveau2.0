@@ -26,14 +26,15 @@ use \App\data\DataGridView as DGV;
 		->setGridAttributes(array('class' => 'table table-striped table-bordered table-hover dataTables-example'))
 		->enableSorting(false)
 		->removeColumn('pkiBUser')
-		->removeColumn('fkiBUserProfile')
+		->removeColumn('pkiBUserProfile')
 		->setup(array(
 			'username' => array('header' => 'Usuario'),
 			'realname' => array('header' => 'Nombre del usuario'),
-			'email' => array('header' => 'Correo electr&oacute;nico')
+			'email' => array('header' => 'Correo electr&oacute;nico'),
+			'profileName' => array('header' => 'Perfil asignado')
 		))
 		->addColumnAfter('actions', 
-									'<a href="'.$url.'private/User/showProfile">Ver Perfiles</a>',
+									'<a href="'.$url.'private/User/showProfile">Ver Perfil</a>',
 									'Actions', array('align' => 'center'))
 		//->addColumnBefore('counter', '%counter%.', 'Counter', array('align' => 'right'))
 		//->setStartingCounter(1)

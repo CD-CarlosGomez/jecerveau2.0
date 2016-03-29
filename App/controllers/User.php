@@ -34,9 +34,9 @@ private $_sesionMenu;
     public function index(){
 		//$layout=new WithSiteMap(new WithTemplate(new WithMenu(new LayoutCSS())));
 		//$layout= Layouts::render();
-		//self::showUser();
+		self::showUser();
 		View::set("foo",true);
-		View::render("z_testPost");
+		//View::render("z_testPost");
 	}
 	public function showUser(){
 		session_start();
@@ -116,18 +116,23 @@ private $_sesionMenu;
 			  Necesita Hacer Login</a>";
 		exit;
 		}
-		/*$dsCompanyGrid=MA::getParcialSelect();
-		while ($row =$dsCompanyGrid->fetch( \PDO::FETCH_ASSOC )){
-			$dt_Company[] = $row;
-		}*/
-		
+	#get main variables
 		$url= Globales::$absoluteURL;
 		$currentMainMenu=$this->_sesionMenu;
-		
+	#set main variables
 		View::set("url", $url);
 		View::set("currentMainMenu", $currentMainMenu);
-        View::set("title", "AddCompany");
-        View::render("AddUser");
+		View::set("title", "Nuevo Usuario");
+	#get data variables
+		$dsProfile=Profiles::getParcialSelect();
+		$dsUser=Users::getParcialSelect();
+	#set data variables
+		View::set("drowsP",$dsProfile);
+		View::set("drowsU",$dsUser);
+	#Renderizar
+		View::render("AddUser");
+        
+       
 	}
 	public function addProfile(){
 		session_start();
@@ -147,24 +152,21 @@ private $_sesionMenu;
 			  Necesita Hacer Login</a>";
 		exit;
 		}
-		
-		/*$dsCompanyGrid=Users::getParcialSelect();
-		while ($row =$dsCompanyGrid->fetch( \PDO::FETCH_ASSOC )){
-			$dt_Company[] = $row;
-		}*/
-		
-		$dsGFunction=Profiles::getSelectibfunctiongroup12();
-		$dsUser=Users::getParcialSelect();
+	#get main variables
 		$url= Globales::$absoluteURL;
 		$currentMainMenu=$this->_sesionMenu;
-		
-		View::set("drowsU",$dsUser);
-		View::set("drowsF",$dsGFunction);
-		//View::set("dt_Company",$dt_Company);
+	#set main variables
 		View::set("url", $url);
 		View::set("currentMainMenu", $currentMainMenu);
-        View::set("title", "Grupo Empresarial");
-        View::render("addProfile");
+		View::set("title", "Nuevo Perfil");
+    #get data variables
+		$dsGFunction=Profiles::getSelectibfunctiongroup12();
+		$dsUser=Users::getParcialSelect();
+	#set data variables
+		View::set("drowsF",$dsGFunction);
+		View::set("drowsU",$dsUser);
+	#Renderizar Vista
+		View::render("addProfile");
 	}
 
 }
@@ -200,7 +202,17 @@ private $_sesionMenu;
 			Delete();
 		break;
  	}
-	
+	switch(@$_POST['btn_toDo_h']){
+		case "assignProfileToUser":
+			assignProfileToUser();
+		break;
+		case "AddUser":
+			CreateUser();
+		break;
+		case "Eliminar":
+			Delete();
+		break;
+ 	}
 	function CreateUser(){
 		$u=new Users;
 		$nextId=$u->getNextId("pkiBUser","ibuser");
@@ -266,34 +278,48 @@ private $_sesionMenu;
 		//View::render("EnterpriseGroup");
 	}
 	function CreateProfile(){
-		$i=0;
-		$functionGroup[]=$_POST['slt_pkiBFunctionGroup_h'];
+		$b=(empty($_POST['chk_toBecollected_h']))?"0":"1";
+		$c=(empty($_POST['chk_toBeAssigned_h']))?"0":"1";
+		$d=(empty($_POST['chk_toBeDiagnosed_h']))?"0":"1";
+		$f=(empty($_POST['chk_diagnosisToBeAuthorized_h']))?"0":"1";
+		$g=(empty($_POST['chk_toNotifyTheClient_h']))?"0":"1";
+		$h=(empty($_POST['chk_toBeAuthorizedByClient_h']))?"0":"1";
+		$l=(empty($_POST['chk_inRepairProcess_h']))?"0":"1";
+		$m=(empty($_POST['chk_repaired_h']))?"0":"1";
+		$n=(empty($_POST['chk_toDelivery_h']))?"0":"1";
+		$q=(empty($_POST['chk_toBeCharged_h']))?"0":"1";
+		$r=(empty($_POST['chk__deliveredToClient_h']))?"0":"1";
+		$s=(empty($_POST['chk__cancelled_h']))?"0":"1";
+		
+		@$functionGroup[]=$_POST['slt_pkiBFunctionGroup_h'];
 		$p=new Profiles;
 		$nextId=$p->getNextId("pkiBUserProfile","ibuserprofile");
 		$p->setpkiBUserProfile($nextId);
 		$p->setProfileName($_POST['txt_profileName_h']);
-		$p->setToBeCollected($_POST['chk_toBecollected_h']);
-		$p->setToBeAssigned($_POST['chk_toBeAssigned_h']);
-		$p->setToBeDiagnosed($_POST['chk_toBeDiagnosed_h']);
-		$p->setDiagnosisToBeAuthorized($_POST['chk_diagnosisToBeAuthorized_h']);
-		$p->setToNotifyTheClient($_POST['chk_toNotifyTheClient_h']);
-		$p->setToBeAuthorizedByClient($_POST['chk_toBeAuthorizedByClient_h']);
-		$p->setInRepairProcess($_POST['chk_inRepairProcess_h']);
-		$p->setRepaired($_POST['chk_repaired_h']);
-		$p->setToDelivery($_POST['chk_toDelivery_h']);
-		$p->setToBeCharged($_POST['chk_toBeCharged_h']);
-		$p->setDeliveredToClient($_POST['chk__deliveredToClient_h']);
-		$p->setCancelled($_POST['chk__cancelled_h']);
-		$p-> insertData("ibuserprofile");
-		/*{
+		$p->setToBeCollected($b);
+		$p->setToBeAssigned($c);
+		$p->setToBeDiagnosed($d);
+		$p->setDiagnosisToBeAuthorized($f);
+		$p->setToNotifyTheClient($g);
+		$p->setToBeAuthorizedByClient($h);
+		$p->setInRepairProcess($l);
+		$p->setRepaired($m);
+		$p->setToDelivery($n);
+		$p->setToBeCharged($q);
+		$p->setDeliveredToClient($r);
+		$p->setCancelled($s);
+		if($p-> insertData("ibuserprofile")){
+			if(!empty()){
+				
+			}
 			Users::updateProfile($nextId,$_POST['slt_pkiBUsers_h']);
 			foreach (functionGroup as $modules){
 				Users::insertProfileHasFunction($nextId,$modules[$i]);
 				$i++;
 			}
-		}*/
-		//header("Location:http://localhost:8012/iBrain2.0/private/EnterpriseGroup/showBranchOffice");
-		header("Location:http://localhost/www/iBrain2.0/private/User/showProfile");
+		}
+		header("Location:http://localhost:8012/iBrain2.0/private/User/showProfile");
+		//header("Location:http://localhost/www/iBrain2.0/private/User/showProfile");
 	}
 	
 ?>

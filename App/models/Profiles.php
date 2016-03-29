@@ -24,7 +24,7 @@ class Profiles implements iCrud{
 		
 	public function __construct(){
 		$_pkiBUserProfile=0;
-		$_profileName="0";
+		$_profileName="Default";
 		$_toBeCollected="0";
 		$_toBeAssigned="0";
 		$_toBeDiagnosed="0";
@@ -68,6 +68,14 @@ class Profiles implements iCrud{
 	public static function setCancelled($valor){self::$_cancelled=$valor;}
 	public static function getCancelled()	{return self::$_cancelled;}
 	
+	
+	public static function showAttribInfo($var){
+		$varinfo=var_dump($var);
+		return $varinfo;
+		//print_r ('<script>alert("$varinfo");</script>');
+		//redirect('orderManagement/index');
+	}
+	public static function testAttrb(){}
     public static function getAll(){
         try {
 			$connection = Database::instance();
@@ -110,7 +118,7 @@ class Profiles implements iCrud{
             $query->bindParam(9, self::$_inRepairProcess, \PDO::PARAM_STR);
 			$query->bindParam(10, self::$_repaired, \PDO::PARAM_STR);
 			$query->bindParam(11, self::$_toDelivery, \PDO::PARAM_STR);
-			$query->bindParam(12, self::$_toBeCharged, \PDO::PARAM_STR);
+			$query->bindParam(12, self::$_toBeCharged, \PDO::PARAM_INT);
 			$query->bindParam(13, self::$_deliveredToClient, \PDO::PARAM_STR);
 			$query->bindParam(14, self::$_cancelled, \PDO::PARAM_STR);
             $query->execute();
@@ -171,14 +179,7 @@ class Profiles implements iCrud{
 	public static function getParcialSelect(){
 		 try {
 			$PDOcnn = Database::instance();
-			$PDOQuery="	SELECT 
-							realname,
-							up.*
-							
-						FROM ibuser u 
-							INNER JOIN ibuserprofile up 
-								ON up.pkiBUserProfile=u.fkiBUserProfile 
-						WHERE u.Active=1 or u.Active=2;";
+			$PDOQuery="SELECT * FROM `ibuserprofile`";
 			$PDOResultSet = $PDOcnn->query($PDOQuery);
 			return $PDOResultSet;
 		}
