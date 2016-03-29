@@ -128,6 +128,20 @@ class Users implements iCrud{
             print "Error!: " . $e->getMessage();
         }
     }
+	public static function insertProfileHasFunction($pkiBUserProfile,$pkiBFunctionGroup){
+		try {
+            $connection = Database::instance();
+			$sql = "INSERT INTO ibuserprofile_has_ibfunction VALUES (?,?);";
+            $query = $connection->prepare($sql);
+            $query->bindParam(1, $pkiBUserProfile, \PDO::PARAM_INT);
+			$query->bindParam(2, $pkiBFunctionGroup, \PDO::PARAM_INT);
+			$query->execute();
+            return true;
+        }
+        catch(\PDOException $e){
+            print "Error!: " . $e->getMessage();
+        }
+    }
     public static function updateById($id){
 		try {
             $connection = Database::instance();
@@ -139,6 +153,26 @@ class Users implements iCrud{
 			$query->bindParam(4, $id, \PDO::PARAM_INT);
             $query->execute();
             return $query->fetch();
+        }
+        catch(\PDOException $e){
+            print "Error!: " . $e->getMessage();
+        }
+    }
+	public static function updateProfile($pkiBUserProfile,$pkiBUser){
+		try {
+            $connection = Database::instance();
+            $sql = "
+						UPDATE `ibuser` 
+							SET `fkiBUserProfile` = ? 
+						WHERE `ibuser`.`pkiBUser` = ?;";
+            
+			$query = $connection->prepare($sql);
+            
+			$query->bindParam(1, $pkiBUserProfile, \PDO::PARAM_INT);
+			$query->bindParam(2, $pkiBUser, \PDO::PARAM_INT);
+			
+            $query->execute();
+            return true;//$query->fetch();
         }
         catch(\PDOException $e){
             print "Error!: " . $e->getMessage();

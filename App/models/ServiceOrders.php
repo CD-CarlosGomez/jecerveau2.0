@@ -1,25 +1,28 @@
 <?php
-namespace App\Models\Users;
+namespace App\Models;
 defined("APPPATH") OR die("Access denied");
 
 use \Core\Database;
 use \App\Interfaces\iCrud;
 
 class ServiceOrders implements iCrud{
-	private $_pkibSorder;
+	private $_pkibSOrder;
 	private $_fkBranchOffice;
 	private $_fkCustomercontact;
 	private $_fkDevice;
 	private $_fkCollectMethod;
 	private $_fkOSstatus;
 	private $_fkSOrderType;
-	private $_SOrderDesc;
-	private $_SorderhasIncidentalDano;
-	private $_SorderIncidentalDanoObs;
-	private $_SorderAppliedWarranty;
-	private $_SorderWarrantytype;
-	private $_SorderWarrantyFactura;
-	private $_SorderWarrantySupplier;
+	private $_ibSOrderName;
+	private $_ibSOrderDesc;
+	private $_ibSOrderGSX;
+	private $_ibSOrderObs;
+	private $_ibSOrderhasIncidentalDano;
+	private $_ibSOrderIncidentalDanoObs;
+	private $_ibSOrderAppliedWarranty;
+	private $_ibSOrderWarrantytype;
+	private $_ibSOrderWarrantyFactura;
+	private $_ibSOrderWarrantySupplier;
 	
 	
 	public function __construct(){
@@ -30,13 +33,16 @@ class ServiceOrders implements iCrud{
 		$this->_fkCollectMethod=0;
 		$this->_fkOSstatus=0;
 		$this->_fkSOrderType=0;
-		$this->_SOrderDesc="";
-		$this->_SorderhasIncidentalDano="";
-		$this->_SorderIncidentalDanoObs="";
-		$this->_SorderAppliedWarranty="";
-		$this->_SorderWarrantytype="";
-		$this->_SorderWarrantyFactura="";
-		$this->_SorderWarrantySupplier="";
+		$this->_ibSOrderName="";
+		$this->_ibSOrderDesc="";
+		$this->_ibSOrderGSX="";
+		$this->_ibSOrderObs="";
+		$this->_ibSOrderhasIncidentalDano="";
+		$this->_ibSOrderIncidentalDanoObs="";
+		$this->_ibSOrderAppliedWarranty="";
+		$this->_ibSOrderWarrantytype="";
+		$this->_ibSOrderWarrantyFactura="";
+		$this->_ibSOrderWarrantySupplier="";
 	}
 	
 	public static function setpkibSorder($valor){$this->_pkibSorder=$valor;}
@@ -53,28 +59,38 @@ class ServiceOrders implements iCrud{
 	public static function getOSstatus(){return $this->_fkOSstatus;}
 	public static function setfkOrderType($valor){$this->_fkSOrderType=$valor;}
 	public static function getfkOrderType()	{return $this->_fkSOrderType;}
-	public static function setOrderDesc($valor){$this->_SOrderDesc=$valor;}
-	public static function getOrderDesc(){return $this->_SOrderDesc;}
-	public static function setSorderhasIncidentalDano($valor){$this->_SorderhasIncidentalDano=$valor;}
-	public static function getSorderhasIncidentalDano() {return $this->_SorderhasIncidentalDano;}
-	public static function setSorderIncidentalDanoObs($valor){$this->_SorderIncidentalDanoObs=$valor;}
-	public static function getSorderIncidentalDanoObs(){return $this->_SorderIncidentalDanoObs;}
-	public static function setSorderAppliedWarranty($valor){$this->_SorderAppliedWarranty=$valor;}
-	public static function getSorderAppliedWarranty()	{return $this->_SorderAppliedWarranty;}
-	public static function setSorderWarrantytype($valor){$this->_SorderWarrantytype=$valor;}
-	public static function getSorderWarrantytype(){return $this->_SorderWarrantytype;}
-	public static function setSorderWarrantyFactura($valor){$this->_SorderWarrantyFactura=$valor;}
-	public static function getSorderWarrantyFactura() {return $this->_SorderWarrantyFactura;}
-	public static function setSorderWarrantySupplier($valor){$this->_SorderWarrantySupplier=$valor;}
-	public static function getSorderWarrantySupplier(){return $this->_SorderWarrantySupplier;}
+	
+	public static function setIbSOrderName($valor){$this->_ibSOrderName=$valor;}
+	public static function getIbSOrderName(){return $this->_ibSOrderName;}
+	public static function setIbSOrderDesc($valor){$this->_ibSOrderDesc=$valor;}
+	public static function getIbSOrderDesc(){return $this->_ibSOrderDesc;}
+	public static function setIbSOrderGSX($valor){$this->_ibSOrderGSX=$valor;}
+	public static function getIbSOrderGSX(){return $this->_ibSOrderGSX;}
+	public static function setIbSOrderObs($valor){$this->_ibSOrderObs=$valor;}
+	public static function getIbSOrderObs(){return $this->_ibSOrderObs;}
+	
+	public static function setIbSOrderhasIncidentalDano($valor){$this->_ibSOrderhasIncidentalDano=$valor;}
+	public static function getIbSOrderhasIncidentalDano() {return $this->_ibSOrderhasIncidentalDano;}
+	public static function setIbSOrderIncidentalDanoObs($valor){$this->_ibSOrderIncidentalDanoObs=$valor;}
+	public static function getIbSOrderIncidentalDanoObs(){return $this->_ibSOrderIncidentalDanoObs;}
+	public static function setIbSOrderAppliedWarranty($valor){$this->_ibSOrderAppliedWarranty=$valor;}
+	public static function getIbSOrderAppliedWarranty()	{return $this->_ibSOrderAppliedWarranty;}
+	public static function setIbSOrderWarrantytype($valor){$this->_ibSOrderWarrantytype=$valor;}
+	public static function getIbSOrderWarrantytype(){return $this->_ibSOrderWarrantytype;}
+	public static function setIbSOrderWarrantyFactura($valor){$this->_ibSOrderWarrantyFactura=$valor;}
+	public static function getIbSOrderWarrantyFactura() {return $this->_ibSOrderWarrantyFactura;}
+	public static function setIbSOrderWarrantySupplier($valor){$this->_ibSOrderWarrantySupplier=$valor;}
+	public static function getIbSOrderWarrantySupplier(){return $this->_ibSOrderWarrantySupplier;}
 	
 	public static function getAll(){
         try {
-			$connection = Database::instance();
-			$sql = "SELECT * from ibsorder";
-			$query = $connection->prepare($sql);
+			$PDOcnn = Database::instance();
+			$PDOQuery = "SELECT * from ibsorder";
+			/*$query = $connection->prepare($sql);
 			$query->execute();
-			return $query->fetchAll();
+			$resultSet=$query->fetchAll();*/
+			$PDOResultSet = $PDOcnn->query($PDOQuery);
+			return $PDOResultSet;
 		}
         catch(\PDOException $e)
         {
@@ -94,7 +110,44 @@ class ServiceOrders implements iCrud{
             print "Error!: " . $e->getMessage();
         }
     }
-    public static function insertData($user){
+    public static function getNextId($column,$table){
+		try {
+				$cnn=Database::instance();
+				$PDOQuery = "SELECT MAX($column) AS Maximo FROM $table;";
+				$dso=$cnn->query($PDOQuery);
+				$ultimo=$dso->fetch();
+				$plusid=$ultimo['Maximo'];
+				if ($plusid=="") {
+					$plusid=1;
+				}
+				else{
+					$plusid++;
+				}
+				return $plusid;
+        	}
+        catch (\PDOException $e) {
+    		echo 'Incidencia al generar nuevo código ',  $e->getMessage(), ".\n";
+		}
+	}
+	public static function getSelectIbSO189A1(){
+		 try {
+			$PDOcnn = Database::instance();
+			$PDOQuery="SELECT 
+												pkibSOrder,
+												ibSOrderName,
+												ibSOrderDesc,
+												ibSOrderGSX,
+												ibSOrderObs
+						FROM `ibsorder`;";
+			$PDOResultSet = $PDOcnn->query($PDOQuery);
+			return $PDOResultSet;
+		}
+        catch(\PDOException $e)
+        {
+			print "Error!: " . $e->getMessage();
+		}
+	}
+	public static function insertData($user){
 		try {
             $connection = Database::instance();
             $sql = "INSERT INTO ibuser (pkibuser,username,pwd,active) VALUES (?,?,?,?)";
@@ -103,6 +156,30 @@ class ServiceOrders implements iCrud{
 			$query->bindParam(2, $this->_username, \PDO::PARAM_STR);
 			$query->bindParam(3, $this->_pwd, \PDO::PARAM_STR);
 			$query->bindParam(4, $this->_active, \PDO::PARAM_STR);
+            $query->execute();
+            return $query->fetch();
+        }
+        catch(\PDOException $e){
+            print "Error!: " . $e->getMessage();
+        }
+    }
+	public static function insertIbSO189A1($a,$b,$c,$d,$e){
+		try {
+            $connection = Database::instance();
+            $sql = "INSERT INTO ibsorder (
+															pkibSOrder,
+															ibSOrderName,
+															ibSOrderDesc,
+															ibSOrderGSX,
+															ibSOrderObs
+														) 
+						VALUES (?,?,?,?,?)";
+            $query = $connection->prepare($sql);
+            $query->bindParam(1, $a, \PDO::PARAM_INT);
+			$query->bindParam(2, $b, \PDO::PARAM_STR);
+			$query->bindParam(3, $c, \PDO::PARAM_STR);
+			$query->bindParam(4, $d, \PDO::PARAM_STR);
+			$query->bindParam(5, $e, \PDO::PARAM_STR);
             $query->execute();
             return $query->fetch();
         }
@@ -139,23 +216,5 @@ class ServiceOrders implements iCrud{
             print "Error!: " . $e->getMessage();
         }
 	}
-	public static function getNextId($column,$table){
-		try {
-				$cnn=Database::instance();
-				$PDOQuery = "SELECT MAX($column) AS Maximo FROM $table;";
-				$dso=$cnn->query($PDOQuery);
-				$ultimo=$dso->fetch();
-				$plusid=$ultimo['Maximo'];
-				if ($plusid=="") {
-					$plusid=1;
-				}
-				else{
-					$plusid++;
-				}
-				return $plusid;
-        	}
-        catch (\PDOException $e) {
-    		echo 'Incidencia al generar nuevo código ',  $e->getMessage(), ".\n";
-		}
-	}
+	
 }

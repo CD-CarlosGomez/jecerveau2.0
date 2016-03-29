@@ -18,25 +18,25 @@ class Profiles implements iCrud{
 	private static $_inRepairProcess;
 	private static $_repaired;
 	private static $_toDelivery;
-	private static $_toBePayed;
+	private static $_toBeCharged;
 	private static $_deliveredToClient;
-	private static $_Cancelled;
+	private static $_cancelled;
 		
 	public function __construct(){
-		$this->_pkiBUserProfile=0;
-		$this->_profileName="";
-		$this->_toBeCollected="";
-		$this->_toBeAssigned="";
-		$this->_toBeDiagnosed="";
-		$this->_diagnosisToBeAuthorized="";
-		$this->_toNotifyTheClient="";
-		$this->_toBeAuthorizedByClient="";
-		$this->_inRepairProcess="";
-		$this->_repaired="";
-		$this->_toDelivery="";
-		$this->_toBeCharged="";
-		$this->_deliveredToClient="";
-		$this->_cancelled="";
+		$_pkiBUserProfile=0;
+		$_profileName="0";
+		$_toBeCollected="0";
+		$_toBeAssigned="0";
+		$_toBeDiagnosed="0";
+		$_diagnosisToBeAuthorized="0";
+		$_toNotifyTheClient="0";
+		$_toBeAuthorizedByClient="0";
+		$_inRepairProcess="0";
+		$_repaired="0";
+		$_toDelivery="0";
+		$_toBeCharged="0";
+		$_deliveredToClient="0";
+		$_cancelled="0";
 	}
 	
 	public static function setpkiBUserProfile($valor){self::$_pkiBUserProfile=$valor;}
@@ -97,8 +97,7 @@ class Profiles implements iCrud{
     public static function insertData($data){
 		try {
             $connection = Database::instance();
-			self::setpkiBUserProfile(self::getNextId("pkiBUserProfile","ibuserprofile"));
-            $sql = "INSERT INTO $data VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+			$sql = "INSERT INTO $data VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
             $query = $connection->prepare($sql);
             $query->bindParam(1, self::$_pkiBUserProfile, \PDO::PARAM_INT);
 			$query->bindParam(2, self::$_profileName, \PDO::PARAM_STR);
