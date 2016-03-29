@@ -70,6 +70,8 @@ use \App\data\DataGridView as DGV;
     <link href="<?php echo $url; ?>/App/web/css/plugins/steps/jquery.steps.css" rel="stylesheet">
 	<!-- dataTable CSS-->
     <link href="<?php echo $url; ?>/App/web/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+	<!-- CSS Checkbox -->
+	<link href="<?php echo $url; ?>App/web/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
 	
 </head>
 <body class="top-navigation">
@@ -173,6 +175,9 @@ use \App\data\DataGridView as DGV;
 	<!-- dataTables-->
 	<script src="<?php echo $url; ?>/App/web/js/plugins/dataTables/datatables.min.js"></script>
 	<script src="<?php echo $url; ?>/App/web/js/plugins/jeditable/jquery.jeditable.js"></script>
+	<!-- iCheck -->
+    <script src="<?php echo $url; ?>App/web/js/plugins/iCheck/icheck.min.js"></script>
+	
 	
    <script>
         $(document).ready(function(){
@@ -212,10 +217,9 @@ use \App\data\DataGridView as DGV;
 				}
 			});
             
-			
-			
-			
-			
+			$('.i-checks').iCheck({
+                    checkboxClass: 'icheckbox_square-green',
+                });	
 			
 			/* Init DataTables */
             var oTable = $('#AddTD').DataTable();

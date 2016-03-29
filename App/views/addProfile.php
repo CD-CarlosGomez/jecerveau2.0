@@ -141,7 +141,7 @@ use \Core\Controller;
 																		<i class="fa fa-truck"></i>
 																	</div>
 																	<div class="vertical-timeline-content">
-																		<h2> <div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_toBecollected_h"> <i></i>Recolecci&oacute;n</label></div></h2>
+																		<div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_toBecollected_h"> <i></i>Recolecci&oacute;n</label></div>
 																	</div>
 																</div>
 																<div class="vertical-timeline-block">
@@ -149,7 +149,7 @@ use \Core\Controller;
 																		<i class="fa fa-group"></i>
 																	</div>
 																	<div class="vertical-timeline-content">
-																		<h2><div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div></h2>
+																		<div class="i-checks"><label> <input type="checkbox" value="1" name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>
 																	</div>
 																</div>
 																<div class="vertical-timeline-block">
@@ -157,7 +157,7 @@ use \Core\Controller;
 																		<i class="fa fa-laptop"></i>
 																	</div>
 																	<div class="vertical-timeline-content">
-																		<h2><div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_toBeDiagnosed_h"> <i></i>Diagn&oacute;stico</label></div></h2>
+																		<div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_toBeDiagnosed_h"> <i></i>Diagn&oacute;stico</label></div>
 																	</div>
 																</div>
 																<div class="vertical-timeline-block">
@@ -165,7 +165,7 @@ use \Core\Controller;
 																		<i class="fa fa-lock"></i>
 																	</div>
 																	<div class="vertical-timeline-content">
-																		<h2><div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_diagnosisToBeAuthorized_h"> <i></i>Autorizar diagn&oacute;stico</label></div></h2>
+																		<div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_diagnosisToBeAuthorized_h"> <i></i>Autorizar diagn&oacute;stico</label></div>
 																	</div>
 																</div>
 																<div class="vertical-timeline-block">
@@ -173,7 +173,7 @@ use \Core\Controller;
 																		<i class="fa fa-comments"></i>
 																	</div>
 																	<div class="vertical-timeline-content">
-																		<h2><div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_toNotifyTheClient_h"> <i></i>Por notificar al cliente</label></div></h2>
+																		<div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_toNotifyTheClient_h"> <i></i>Por notificar al cliente</label></div>
 																	</div>
 																</div>
 																<div class="vertical-timeline-block">
@@ -181,7 +181,7 @@ use \Core\Controller;
 																		<i class="fa fa-thumbs-up"></i>
 																	</div>
 																	<div class="vertical-timeline-content">
-																		<h2><div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_toBeAuthorizedByClient_h"> <i></i>Por autorizar (link)</label></div></h2>
+																		<div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_toBeAuthorizedByClient_h"> <i></i>Por autorizar (link)</label></div>
 																	</div>
 																</div>
 																<div class="vertical-timeline-block">
@@ -189,7 +189,7 @@ use \Core\Controller;
 																		<i class="fa fa-user-md"></i>
 																	</div>
 																	<div class="vertical-timeline-content">
-																		<h2><div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_inRepairProcess_h"> <i></i>En reparaci&oacute;n</label></div></h2>
+																		<div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_inRepairProcess_h"> <i></i>En reparaci&oacute;n</label></div>
 																	</div>
 																</div>
 																<div class="vertical-timeline-block">
@@ -197,7 +197,7 @@ use \Core\Controller;
 																		<i class="fa fa-check-square"></i>
 																	</div>
 																	<div class="vertical-timeline-content">
-																		<h2><div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_repaired_h"> <i></i>Reparado</label></div></h2>
+																		<div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_repaired_h"> <i></i>Reparado</label></div>
 																	</div>
 																</div>
 																<div class="vertical-timeline-block">
@@ -205,7 +205,7 @@ use \Core\Controller;
 																		<i class="fa fa-share-square"></i>
 																	</div>
 																	<div class="vertical-timeline-content">
-																		<h2><div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_toDelivery_h"> <i></i>Por entregar</label></div></h2>
+																		<div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_toDelivery_h"> <i></i>Por entregar</label></div>
 																	</div>
 																</div>
 																<div class="vertical-timeline-block">
@@ -213,7 +213,7 @@ use \Core\Controller;
 																		<i class="fa fa-money"></i>
 																	</div>
 																	<div class="vertical-timeline-content">
-																		<h2><div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_toBeCharged_h"> <i></i>Por saldar</label></div></h2>
+																		<div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_toBeCharged_h"> <i></i>Por saldar</label></div>
 																	</div>
 																</div>
 																<div class="vertical-timeline-block">
@@ -221,7 +221,7 @@ use \Core\Controller;
 																		<i class="fa fa-share-square-o"></i>
 																	</div>
 																	<div class="vertical-timeline-content">
-																		<h2><div class="i-checks"><label> <input type="checkbox"  value="1" name="chk__deliveredToClient_h"> <i></i>Entregado al cliente</label></div></h2>
+																		<div class="i-checks"><label> <input type="checkbox"  value="1" name="chk__deliveredToClient_h"> <i></i>Entregado al cliente</label></div>
 																	</div>
 																</div>
 																<div class="vertical-timeline-block">
@@ -229,7 +229,7 @@ use \Core\Controller;
 																		<i class="fa fa-thumbs-down"></i>
 																	</div>
 																	<div class="vertical-timeline-content">
-																		<h2><div class="i-checks"><label> <input type="checkbox"  value="1" name="chk__cancelled_h"> <i></i>Cancelados</label></div></h2>
+																		<div class="i-checks"><label> <input type="checkbox"  value="1" name="chk__cancelled_h"> <i></i>Cancelados</label></div>
 																	</div>
 																</div>
 															</div>
@@ -332,16 +332,7 @@ use \Core\Controller;
 			
 			$('#slt_pkiBFunctionGroup_h').multiSelect({keepOrder:true});
 		});
-		 var config = {
-                '.chosen-select'           : {},
-                '.chosen-select-deselect'  : {allow_single_deselect:true},
-                '.chosen-select-no-single' : {disable_search_threshold:10},
-                '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
-                '.chosen-select-width'     : {width:"95%"}
-                }
-            for (var selector in config) {
-                $(selector).chosen(config[selector]);
-            }
+		 
     </script>
 
 

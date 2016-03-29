@@ -56,17 +56,24 @@ private $_sesionMenu;
 			  Necesita Hacer Login</a>";
 		exit;
 		}
-		$dsCompanyGrid=Users::getParcialSelect();
-		while ($row =$dsCompanyGrid->fetch( \PDO::FETCH_ASSOC )){
-			$dt_Company[] = $row;
-		}
+	#get main Variables
 		$url= Globales::$absoluteURL;
 		$currentMainMenu=$this->_sesionMenu;
-		View::set("dt_Company",$dt_Company);
+	#set main variables
 		View::set("url", $url);
-		View::set("currentMainMenu", $currentMainMenu);
+		View::set("currentMainMenu", $currentMainMenu);	
+	#get data variables
+		$dsCompanyGrid=Users::getParcialSelect();
+		while ($row =$dsCompanyGrid->fetch( \PDO::FETCH_ASSOC )){$dt_Company[] = $row;}
+	#set data variables
+		View::set("dt_Company",$dt_Company);
         View::set("title", "Grupo Empresarial");
-        View::render("showUser");
+	#Renderizar
+		View::render("showUser");	
+		
+		
+
+        
 	}
 	public function showProfile(){
 		session_start();
@@ -176,7 +183,8 @@ private $_sesionMenu;
 //MAIN###############################################
 		/*session_start();
 		$userName=$_SESSION["nombreUsuario"];
-		$pkiBUser=$_SESSION['pkiBUser_p'];
+		$pkiBUser=$_SESSION['pkiBUs
+		er_p'];
 		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
 		else{
 				echo "Esta pagina es solo para usuarios registrados.<br>";
@@ -278,20 +286,21 @@ private $_sesionMenu;
 		//View::render("EnterpriseGroup");
 	}
 	function CreateProfile(){
-		$b=(empty($_POST['chk_toBecollected_h']))?"0":"1";
-		$c=(empty($_POST['chk_toBeAssigned_h']))?"0":"1";
-		$d=(empty($_POST['chk_toBeDiagnosed_h']))?"0":"1";
-		$f=(empty($_POST['chk_diagnosisToBeAuthorized_h']))?"0":"1";
-		$g=(empty($_POST['chk_toNotifyTheClient_h']))?"0":"1";
-		$h=(empty($_POST['chk_toBeAuthorizedByClient_h']))?"0":"1";
-		$l=(empty($_POST['chk_inRepairProcess_h']))?"0":"1";
-		$m=(empty($_POST['chk_repaired_h']))?"0":"1";
-		$n=(empty($_POST['chk_toDelivery_h']))?"0":"1";
-		$q=(empty($_POST['chk_toBeCharged_h']))?"0":"1";
-		$r=(empty($_POST['chk__deliveredToClient_h']))?"0":"1";
-		$s=(empty($_POST['chk__cancelled_h']))?"0":"1";
 		
-		@$functionGroup[]=$_POST['slt_pkiBFunctionGroup_h'];
+		$b=(empty($_POST['chk_toBecollected_h']))?'<div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>':'<div class="i-checks"><label> <input type="checkbox"  value="1" checked  name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>';
+		$c=(empty($_POST['chk_toBeAssigned_h']))?'<div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>':'<div class="i-checks"><label> <input type="checkbox"  value="1" checked  name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>';
+		$d=(empty($_POST['chk_toBeDiagnosed_h']))?'<div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>':'<div class="i-checks"><label> <input type="checkbox"  value="1" checked  name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>';
+		$f=(empty($_POST['chk_diagnosisToBeAuthorized_h']))?'<div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>':'<div class="i-checks"><label> <input type="checkbox"  value="1" checked  name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>';
+		$g=(empty($_POST['chk_toNotifyTheClient_h']))?'<div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>':'<div class="i-checks"><label> <input type="checkbox"  value="1" checked  name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>';
+		$h=(empty($_POST['chk_toBeAuthorizedByClient_h']))?'<div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>':'<div class="i-checks"><label> <input type="checkbox"  value="1" checked  name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>';
+		$l=(empty($_POST['chk_inRepairProcess_h']))?'<div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>':'<div class="i-checks"><label> <input type="checkbox"  value="1" checked  name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>';
+		$m=(empty($_POST['chk_repaired_h']))?'<div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>':'<div class="i-checks"><label> <input type="checkbox"  value="1" checked  name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>';
+		$n=(empty($_POST['chk_toDelivery_h']))?'<div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>':'<div class="i-checks"><label> <input type="checkbox"  value="1" checked  name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>';
+		$q=(empty($_POST['chk_toBeCharged_h']))?'<div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>':'<div class="i-checks"><label> <input type="checkbox"  value="1" checked  name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>';
+		$r=(empty($_POST['chk__deliveredToClient_h']))?'<div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>':'<div class="i-checks"><label> <input type="checkbox"  value="1" checked  name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>';
+		$s=(empty($_POST['chk__cancelled_h']))?'<div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>':'<div class="i-checks"><label> <input type="checkbox"  value="1" checked  name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>';
+		
+		@$functionGroup=$_POST['slt_pkiBFunctionGroup_h'];
 		$p=new Profiles;
 		$nextId=$p->getNextId("pkiBUserProfile","ibuserprofile");
 		$p->setpkiBUserProfile($nextId);
@@ -309,11 +318,10 @@ private $_sesionMenu;
 		$p->setDeliveredToClient($r);
 		$p->setCancelled($s);
 		if($p-> insertData("ibuserprofile")){
-			if(!empty()){
-				
+			if(!empty($_POST['slt_pkiBUsers_h'])){
+				Users::updateProfile($nextId,$_POST['slt_pkiBUsers_h']);
 			}
-			Users::updateProfile($nextId,$_POST['slt_pkiBUsers_h']);
-			foreach (functionGroup as $modules){
+			foreach ($functionGroup as $modules){
 				Users::insertProfileHasFunction($nextId,$modules[$i]);
 				$i++;
 			}
@@ -321,5 +329,7 @@ private $_sesionMenu;
 		header("Location:http://localhost:8012/iBrain2.0/private/User/showProfile");
 		//header("Location:http://localhost/www/iBrain2.0/private/User/showProfile");
 	}
-	
+	function assignProfileToUser(){
+		Users::updateProfile($_POST['slt_pkiBUsersProfile_h'],$_POST['slt_pkiBUsers_h']);		
+	}
 ?>

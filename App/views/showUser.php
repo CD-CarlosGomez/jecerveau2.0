@@ -26,7 +26,7 @@ use \App\data\DataGridView as DGV;
 		->setGridAttributes(array('class' => 'table table-striped table-bordered table-hover dataTables-example'))
 		->enableSorting(false)
 		->removeColumn('pkiBUser')
-		->removeColumn('pkiBUserProfile')
+		->removeColumn('fkiBUserProfile')
 		->setup(array(
 			'username' => array('header' => 'Usuario'),
 			'realname' => array('header' => 'Nombre del usuario'),

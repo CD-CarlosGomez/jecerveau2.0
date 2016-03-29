@@ -178,7 +178,7 @@ use \Core\Controller;
 														<div class="form-group">
 														<label class="col-lg-3 control-label">Perfil:*</label>
 															<div class="col-lg-8">
-															<select id="" class="form-control m-b" name="slt_pkiBUsers_h">
+															<select id="" class="form-control m-b" name="slt_pkiBUsersProfile_h">
 																<option value="-1">Selecciona Perfil...</option>
 																	<?php foreach ($drowsP as $Options) {?>
 																		<option value="<?php echo $Options['pkiBUserProfile']; ?>"><?php echo $Options['profileName']; ?></option>
