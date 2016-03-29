@@ -102,7 +102,7 @@ class Users implements iCrud{
             print "Error!: " . $e->getMessage();
         }
     }
-     public static function insertData($data){
+    public static function insertData($data){
 		try {
             $connection = Database::instance();
 			//self::setpkiBUser(self::getNextId("pkiBUser","ibuser"));
@@ -112,11 +112,11 @@ class Users implements iCrud{
 			$query->bindParam(2, self::$_fkiBUserProfile, \PDO::PARAM_INT);
 			$query->bindParam(3, self::$_username, \PDO::PARAM_STR);
 			$query->bindParam(4, self::$_pwd, \PDO::PARAM_STR);
-            $query->bindParam(5, self::$_pwdtmp, \PDO::PARAM_INT);
+            $query->bindParam(5, self::$_pwdtmp, \PDO::PARAM_STR);
 			$query->bindParam(6, self::$_realname, \PDO::PARAM_STR);
 			$query->bindParam(7, self::$_email, \PDO::PARAM_STR);
 			$query->bindParam(8, self::$_active, \PDO::PARAM_STR);
-            $query->bindParam(9, self::$_defaultFunction, \PDO::PARAM_INT);
+            $query->bindParam(9, self::$_defaultFunction, \PDO::PARAM_STR);
 			$query->bindParam(10, self::$_Created, \PDO::PARAM_STR);
 			$query->bindParam(11, self::$_CreatedBy, \PDO::PARAM_STR);
 			$query->bindParam(12, self::$_Modified, \PDO::PARAM_STR);
@@ -144,7 +144,6 @@ class Users implements iCrud{
             print "Error!: " . $e->getMessage();
         }
     }
-
     public static function deleteById($id){
 			try {
             $connection = Database::instance();
@@ -181,12 +180,12 @@ class Users implements iCrud{
 		 try {
 			$PDOcnn = Database::instance();
 			$PDOQuery="SELECT 
-											`pkiBUser`,
-											`fkiBUserProfile`, 
-											`username`, 
-											`realname`,
-											`email`
-								FROM `ibuser` WHERE Active=1 or Active=2;";
+							`pkiBUser`,
+							`fkiBUserProfile`, 
+							`username`, 
+							`realname`,
+							`email`
+						FROM `ibuser` WHERE Active=1 or Active=2;";
 			$PDOResultSet = $PDOcnn->query($PDOQuery);
 			return $PDOResultSet;
 		}
@@ -195,5 +194,6 @@ class Users implements iCrud{
 			print "Error!: " . $e->getMessage();
 		}
 	}
+	
 }
 ?>

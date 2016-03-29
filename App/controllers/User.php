@@ -12,7 +12,7 @@ use \Core\View;
 use \Core\Controller;
 use \App\Config\Globales as Globales;
 use \App\Models\Users as Users;
-use \App\data\DataGridView as DGB;
+use \App\Models\Profiles as Profiles;
 use \App\web\lib\Mailer\PHPMailer;
 
 	
@@ -64,7 +64,7 @@ private $_sesionMenu;
 		View::set("url", $url);
 		View::set("currentMainMenu", $currentMainMenu);
         View::set("title", "Grupo Empresarial");
-        View::render("addUserAndProfile");
+        View::render("showUser");
 	}
 	public function showProfile(){
 		session_start();
@@ -84,7 +84,7 @@ private $_sesionMenu;
 			  Necesita Hacer Login</a>";
 		exit;
 		}
-		$dsCompanyGrid=Users::getParcialSelect();
+		$dsCompanyGrid=Profiles::getParcialSelect();
 		while ($row =$dsCompanyGrid->fetch( \PDO::FETCH_ASSOC )){
 			$dt_Company[] = $row;
 		}
@@ -117,19 +117,20 @@ private $_sesionMenu;
 		/*$dsCompanyGrid=MA::getParcialSelect();
 		while ($row =$dsCompanyGrid->fetch( \PDO::FETCH_ASSOC )){
 			$dt_Company[] = $row;
-		}
-		$dsSlcCompany=MA::getpknaSelect();*/
+		}*/
+		$dsGFunction=Profiles::getSelectibfunctiongroup12();
+		$dsUser=Users::getParcialSelect();
 		$url= Globales::$absoluteURL;
 		$currentMainMenu=$this->_sesionMenu;
-		//View::set("drows_Company",$dsSlcCompany);
-		//View::set("dt_Company",$dt_Company);
+		View::set("drowsU",$dsUser);
+		View::set("drowsF",$dsGFunction);
 		View::set("url", $url);
 		View::set("currentMainMenu", $currentMainMenu);
         View::set("title", "AddCompany");
         View::render("AddUser");
 	}
 	public function addProfile(){
-		//session_start();
+		session_start();
 		$this->_sesionUsuario=$_SESSION["nombreUsuario"];
 		$this->_sesionpkiBUser=$_SESSION['pkiBUser_p'];
 		$this->_sesionMenu=$_SESSION['mainMenu'];
@@ -257,4 +258,23 @@ private $_sesionMenu;
 			echo "Error,no se puede enviar el correo electrónico ";
 		//View::render("EnterpriseGroup");
 	}
+	function CreateProfile(){
+		$p=new Profiles;
+		$p->setProfileName();
+		$p->setToBeCollected();
+		$p->setToBeAssigned();
+		$p->setToBeDiagnosed();
+		$p->setDiagnosisToBeAuthorized();
+		$p->setToNotifyTheClient();
+		$p->setToBeAuthorizedByClient();
+		$p->setInRepairProcess();
+		$p->setRepaired();
+		$p->setToDelivery();
+		$p->setToBeCharged();
+		$p->setDeliveredToClient();
+		$p->setCancelled();
+		
+		
+	}
+	
 ?>

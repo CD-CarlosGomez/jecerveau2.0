@@ -49,6 +49,8 @@ use \Core\Controller;
 	<link href="<?php echo $url; ?>App/web/css/plugins/select2/select2.min.css" rel="stylesheet">
 	<!-- CSS Checkbox -->
 	<link href="<?php echo $url; ?>App/web/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+	<!-- CSS multiselect -->
+	<link href="<?php echo $url; ?>App/web/css/plugins/multiselect/multi-select.css" rel="stylesheet">
 	<style>
         .wizard > .content > .body  position: relative; }
     </style>
@@ -85,10 +87,13 @@ use \Core\Controller;
 						<a href="<?php echo $url; ?>private/home">Inicio</a>
 					</li>
 					<li>
-						<a href="<?php echo $url; ?>private/User">Usuarios</a>
+						<a href="<?php echo $url; ?>private/User">Usuario</a>
+					</li>
+					<li>
+						<a href="<?php echo $url; ?>private/User/showProfile">Perfil</a>
 					</li>
 					<li class="active">
-						<strong>Usuarios y permisos</strong>
+						<strong>Nuevo Perfil</strong>
 					</li>
 				</ol>
 			</div>
@@ -103,60 +108,6 @@ use \Core\Controller;
                         </div>
                         <div class="ibox-content">
 							<div id="Wzd_Customazing">
-								<h3>Usuarios</h3>
-								<section>
-									<p>
-										<fieldset>
-												<form id="formUser" class="form-horizontal" action="<?php echo $url; ?>private/Company" method="POST" role="form">
-													<div class="col-lg-10">
-														<div class="form-group">
-															<label class="col-lg-3 control-label">Usuario:*</label>
-															<div class="col-lg-8">
-																<input id="txt_userName_h" class="form-control required" name="txt_userName_h" type="text">
-																<input id="" name="hdn_toDo_h" class="" value="AddUser" type="hidden">
-															</div>
-														</div>
-														<div class="form-group">
-															<label class="col-lg-3 control-label">Nombre completo:*</label>
-															<div class="col-lg-8">
-																<input id="txt_realName_h" class="form-control required" name="txt_realName_h" type="text">
-															</div>
-														</div>
-														<div class="form-group">
-															<label class="col-lg-3 control-label">E-mail:*</label>
-															<div class="col-lg-8">
-																<input id="txt_email_h" class="form-control required" name="txt_email_h" type="text">
-															</div>
-														</div>
-														<div class="form-group">
-															<label class="col-lg-3 control-label">Contrase&ntilde;a:*</label>
-															<div class="col-lg-8">
-																<input id="txt_password_h" class="form-control required" name="txt_password_h" type="text">
-															</div>
-														</div>
-														<div class="form-group">
-															<label class="col-lg-3 control-label">Perfil:*</label>
-															<div class="col-lg-8">
-																<input id="txt_fkiUserPRofile_h" class="form-control required" name="txt_fkiUserPRofile_h" type="text">
-															</div>
-														</div>
-														<div class="form-group">
-															<label class="col-lg-3 control-label">P&aacute;gina de inicio:*</label>
-															<div class="col-lg-8">
-																<input id="txt_defaultFunction_h" class="form-control required" name="txt_defaultFunction_h" type="text">
-															</div>
-														</div>
-													</div>
-													<div class="col-lg-2">
-														<div class="form-group">
-															<button type="submit" id="" class="btn btn-primary btn-lg btn-block" name="btn-AddBO">Agregar</button>
-														</div>
-													</div>
-											</form>
-										</fieldset>
-									</p>
-									<p>(*) Mandatory</p>
-								</section>
 								<h3>Perfiles</h3>
 								<section>
 									<p>
@@ -167,29 +118,27 @@ use \Core\Controller;
 														<div class="form-group">
 														<label class="col-lg-3 control-label">Usuario:*</label>
 															<div class="col-lg-8">
-															<select id="" class="form-control m-b" name="slt_pkCompany_h">
+															<select id="" class="form-control m-b" name="slt_pkUsers_h">
 																<option value="-1">Selecciona un usuario ...</option>
-																	<?php foreach ($drows_Company as $companyOption) {?>
-																		<option value="<?php echo $companyOption['pkCompany'] ?>"><?php echo $companyOption['commercialName'] ?></option>
+																	<?php foreach ($drowsU as $Options) {?>
+																		<option value="<?php echo $Options['pkiBUser']; ?>"><?php echo $Options['realname']; ?></option>
 																	<?php } ?>
 															</select>
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="col-lg-3 control-label">Permiso a contenido:*</label>
-																<div class="col-lg-8">
-																	<select data-placeholder="Elige permisos a contenidos..." class="select2" multiple="multiple" style="width:100%;" tabindex="4" name="pkiFunctions[]">
-                														<option value="0"></option>
-                														<option value="1">Option 1</option>
-																		<option value="2">Option 2</option>
-																		<option value="3">Option 3</option>
-																		<option value="4">Option 4</option>
-																		<option value="5">Option 5</option>
-																		<option value="6">Option 6</option>
-																	</select>
-																</div>
+															<div class="col-lg-8">
+																<select multiple="multiple" id="my-select" name="my-select[]">
+																	<?php foreach ($drowsF as $options){?>
+																	<option value="<?php echo $options['pkiBFunctionGroup'];?>"><?php echo $options['iBFunctionGroupModulo']; ?></option>
+																	<?php } ?>
+																</select>
+															</div>
 														</div>
 														<div class="form-group">
+															<label class="col-lg-3 control-label">Permiso a flujo de operaci&oacute;n:*</label>
+															<div class="col-lg-8">
 															<div id="vertical-timeline" class="vertical-container light-timeline center-orientation">
 																<div class="vertical-timeline-block">
 																	<div class="vertical-timeline-icon navy-bg">
@@ -288,6 +237,7 @@ use \Core\Controller;
 																	</div>
 																</div>
 															</div>
+															</div>
 														</div>
 													</fieldset>
 												</div>
@@ -342,6 +292,8 @@ use \Core\Controller;
 	<script src="<?php echo $url; ?>App/web/js/demo/peity-demo.js"></script>
 	<!-- iCheck -->
     <script src="<?php echo $url; ?>App/web/js/plugins/iCheck/icheck.min.js"></script>
+	<!-- Jquery multiselect -->
+	<script src="<?php echo $url; ?>App/web/js/plugins/multiselect/jquery.multi-select.js"></script>
     <script>
         $(document).ready(function(){
             $("#Wzd_Customazing").steps({
@@ -366,9 +318,11 @@ use \Core\Controller;
 			
 			$('#vertical-timeline').toggleClass('center-orientation');
 			
-			 $('.i-checks').iCheck({
+			$('.i-checks').iCheck({
                     checkboxClass: 'icheckbox_square-green',
                 });
+			
+			$('#my-select').multiSelect({keepOrder:true});
 		});
 		 var config = {
                 '.chosen-select'           : {},

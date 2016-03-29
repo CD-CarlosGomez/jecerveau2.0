@@ -1,4 +1,6 @@
 <?php
+#Al parecer la tabla no es responsivo
+
 namespace App\View\EnterpriseGroup;
 defined("APPPATH") OR die("Access denied");
 
@@ -23,17 +25,27 @@ use \App\data\DataGridView as DGV;
 		$outputTableCompany=DGV::getInstance($dt_Company)
 		->setGridAttributes(array('class' => 'table table-striped table-bordered table-hover dataTables-example'))
 		->enableSorting(false)
-		->removeColumn('pkiBUser')
-		->removeColumn('fkiBUserProfile')
+		->removeColumn('pkiBUserProfile')
 		->setup(array(
-			'username' => array('header' => 'Usuario'),
-			'realname' => array('header' => 'Nombre del usuario'),
-			'email' => array('header' => 'Correo electr&oacute;nico')
+			'realname' => array('header' => 'Usuario'),
+			'profileName' => array('header' => 'Perfil'),
+			'toBeCollected' => array('header' => 'Recolecci&oacute;n'),
+			'toBeAssigned' => array('header' => 'Reasignaci&oacute;n'),
+			'toBeDiagnosed' => array('header' => 'Dian&oacute;stico'),
+			'diagnosisToBeAuthorized' => array('header' => 'Autoriza diagn&oacutestico'),
+			'toNotifyTheClient' => array('header' => 'Notificaciones al cliente'),
+			'toBeAuthorizedByClient' => array('header' => 'Autorizados por el cliente'),
+			'inRepairProcess' => array('header' => 'En reparaci&oacute;n'),
+			'repaired' => array('header' => 'Reparados'),
+			'toDelivery' => array('header' => 'Para entregar al cliente'),
+			'toBeCharged' => array('header' => 'Por saldar'),
+			'deliveredToClient' => array('header' => 'Entregados al cliente'),
+			'cancelled' => array('header' => 'Canceladas')
 		))
-		->addColumnAfter('actions', 
-									'<a href="'.$url.'private/BranchOffice">Ver ASP\'s</a>',
+		/*->addColumnAfter('actions', 
+									'<a href="'.$url.'private/BranchOffice">\'s</a>',
 									'Actions', array('align' => 'center'))
-		//->addColumnBefore('counter', '%counter%.', 'Counter', array('align' => 'right'))
+		//->addColumnBefore('counter', '%counter%.', 'Counter', array('align' => 'right'))*/
 		//->setStartingCounter(1)
 		//->setRowClass('')
 		//->setAlterRowClass('alterRow');
@@ -116,7 +128,7 @@ use \App\data\DataGridView as DGV;
 						</div>
 						<div class="ibox-content">					
 						<div class="pull-right">
-							<a onclick="" href="<?php echo $url; ?>private/home" class="btn btn-primary ">Agregar nuevo usuario</a>
+							<a onclick="" href="<?php echo $url; ?>private/User/addProfile" class="btn btn-primary ">Agregar nuevo perfil</a>
 						</div>
 						<br />
 						<br />
