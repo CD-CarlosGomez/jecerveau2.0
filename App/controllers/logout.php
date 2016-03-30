@@ -26,5 +26,6 @@ session_start();
 session_destroy();
 //$directoryPath= Globales::$absoluteURL;
 //header("Location:http://localhost/www/iBrain2.0/");
-header("Location:http://localhost:8012/iBrain2.0/");
+//header("Location:http://localhost:8012/iBrain2.0/");
+header("Location:http://192.168.1.47:8012/ibrain2.0/");
 ?>

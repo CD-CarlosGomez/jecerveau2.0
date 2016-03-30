@@ -200,7 +200,7 @@ private $_sesionMenu;
 		}*/
 		
 	switch(@$_POST['hdn_toDo_h']){
-		case "AddProfile":
+		case "AddProfile_1":
 			CreateProfile();
 		break;
 		case "AddUser":
@@ -287,18 +287,18 @@ private $_sesionMenu;
 	}
 	function CreateProfile(){
 		
-		$b=(empty($_POST['chk_toBecollected_h']))?'<div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>':'<div class="i-checks"><label> <input type="checkbox"  value="1" checked  name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>';
-		$c=(empty($_POST['chk_toBeAssigned_h']))?'<div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>':'<div class="i-checks"><label> <input type="checkbox"  value="1" checked  name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>';
-		$d=(empty($_POST['chk_toBeDiagnosed_h']))?'<div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>':'<div class="i-checks"><label> <input type="checkbox"  value="1" checked  name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>';
-		$f=(empty($_POST['chk_diagnosisToBeAuthorized_h']))?'<div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>':'<div class="i-checks"><label> <input type="checkbox"  value="1" checked  name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>';
-		$g=(empty($_POST['chk_toNotifyTheClient_h']))?'<div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>':'<div class="i-checks"><label> <input type="checkbox"  value="1" checked  name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>';
-		$h=(empty($_POST['chk_toBeAuthorizedByClient_h']))?'<div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>':'<div class="i-checks"><label> <input type="checkbox"  value="1" checked  name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>';
-		$l=(empty($_POST['chk_inRepairProcess_h']))?'<div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>':'<div class="i-checks"><label> <input type="checkbox"  value="1" checked  name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>';
-		$m=(empty($_POST['chk_repaired_h']))?'<div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>':'<div class="i-checks"><label> <input type="checkbox"  value="1" checked  name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>';
-		$n=(empty($_POST['chk_toDelivery_h']))?'<div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>':'<div class="i-checks"><label> <input type="checkbox"  value="1" checked  name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>';
-		$q=(empty($_POST['chk_toBeCharged_h']))?'<div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>':'<div class="i-checks"><label> <input type="checkbox"  value="1" checked  name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>';
-		$r=(empty($_POST['chk__deliveredToClient_h']))?'<div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>':'<div class="i-checks"><label> <input type="checkbox"  value="1" checked  name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>';
-		$s=(empty($_POST['chk__cancelled_h']))?'<div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>':'<div class="i-checks"><label> <input type="checkbox"  value="1" checked  name="chk_toBeAssigned_h"> <i></i>Asignaci&oacute;n</label></div>';
+		$b=(empty($_POST['chk_toBecollected_h']))			?' <input type="checkbox" name=""/>':' <input type="checkbox" checked  name=""/>';
+		$c=(empty($_POST['chk_toBeAssigned_h']))			?' <input type="checkbox" name=""/>':' <input type="checkbox" checked  name=""/>';
+		$d=(empty($_POST['chk_toBeDiagnosed_h']))			?' <input type="checkbox" name=""/>':' <input type="checkbox" checked  name=""/>';
+		$f=(empty($_POST['chk_diagnosisToBeAuthorized_h']))	?' <input type="checkbox" name=""/>':' <input type="checkbox" checked  name=""/>';
+		$g=(empty($_POST['chk_toNotifyTheClient_h']))		?' <input type="checkbox" name=""/>':' <input type="checkbox" checked  name=""/>';
+		$h=(empty($_POST['chk_toBeAuthorizedByClient_h']))	?' <input type="checkbox" name=""/>':' <input type="checkbox" checked  name=""/>';
+		$l=(empty($_POST['chk_inRepairProcess_h']))			?' <input type="checkbox" name=""/>':' <input type="checkbox" checked  name=""/>';
+		$m=(empty($_POST['chk_repaired_h']))				?' <input type="checkbox" name=""/>':' <input type="checkbox" checked  name=""/>';
+		$n=(empty($_POST['chk_toDelivery_h']))				?' <input type="checkbox" name=""/>':' <input type="checkbox" checked  name=""/>';
+		$q=(empty($_POST['chk_toBeCharged_h']))				?' <input type="checkbox" name=""/>':' <input type="checkbox" checked  name=""/>';
+		$r=(empty($_POST['chk__deliveredToClient_h']))		?' <input type="checkbox" name=""/>':' <input type="checkbox" checked  name=""/>';
+		$s=(empty($_POST['chk__cancelled_h']))				?' <input type="checkbox" name=""/>':' <input type="checkbox" checked  name=""/>';
 		
 		@$functionGroup=$_POST['slt_pkiBFunctionGroup_h'];
 		$p=new Profiles;
@@ -322,9 +322,12 @@ private $_sesionMenu;
 				Users::updateProfile($nextId,$_POST['slt_pkiBUsers_h']);
 			}
 			foreach ($functionGroup as $modules){
-				Users::insertProfileHasFunction($nextId,$modules[$i]);
-				$i++;
+				$value[]=$modules;
 			}
+			$values=implode(',',$value);
+			$bindParam="(".$values.")";
+			Users::insertProfileHasFunction($nextId,$bindParam);
+				
 		}
 		header("Location:http://localhost:8012/iBrain2.0/private/User/showProfile");
 		//header("Location:http://localhost/www/iBrain2.0/private/User/showProfile");
