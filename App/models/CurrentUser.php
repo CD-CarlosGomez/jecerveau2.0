@@ -66,75 +66,104 @@ class CurrentUser {
 	}
 	public function getMainMenu2($pkiBUser){
 		$PDOcnn = Database::instance();
-		$sql = "SELECT DISTINCT
+		$sql = 
+		"
+		SELECT 	DISTINCT
+				pkBranchOffice, 
 				pkiBuser,
 				pkiBFunctionGroup,
-				ibFunctionGroupModulo,
-				iBFunctionGroupLink
-			FROM ibuser ib
-					inner join ibuserprofile 
-						on fkibuserprofile=pkiBUserProfile 
-					inner join ibuserprofile_has_ibfunction ibfg 
-						on pkiBUserProfile=ibuserprofile_pkibuserprofile 
-					inner join ibfunctiongroup 
-						ON ibfg.ibfunctiongroup_pkibfunctiongroup=pkibfunctiongroup 
-					inner join ibfunction ibf 
-						on pkibfunctiongroup= ibf.iBFunctionGroup_pkiBFunctionGroup 
-					where pkiBUser=$pkiBUser and Active=1;";
+				ibFunctionGroupName, 
+				iBFunctionGroupLink 
+		FROM branchoffice bo 
+			inner join ibuserprofile up 
+				on bo.pkBranchOffice=up.BranchOffice_pkBranchOffice 
+			inner join ibuser u 
+				on up.iBUser_pkiBUser=u.pkiBUser 
+			inner join ibuserprofile_has_ibfunctiondetail uphfd 
+				on up.pkiBUserProfile=uphfd.iBUserProfile_pkiBUserProfile 
+			inner join ibfunctiondetail fd 
+				on uphfd.ibFunctionDetail_pkibFunctionDetail=fd.pkibFunctionDetail 
+			inner join ibfunction f 
+				on fd.fkiBFunction=f.pkiBFunction 
+			inner join ibfunctiongroup fg 
+				on f.fkiBFunctionGroup=fg.pkiBFunctionGroup 
+		WHERE pkiBUser='$pkiBUser' 
+			and u.Active=1;	
+		";
 		foreach ($PDOcnn->query($sql) as $firstLevels) {
-			$PDOcnn = Database::instance();
-			$PDOQuery = "SELECT
-							pkiBUser,
-							pkiBFunction,
-							iBFunctionName,
-							iBFunctionLink
-						FROM ibuser ib 
-							inner join ibuserprofile 
-								on fkibuserprofile=pkiBUserProfile 
-							inner join ibuserprofile_has_ibfunction ibfg 
-								on pkiBUserProfile=ibuserprofile_pkibuserprofile 
-							inner join ibfunctiongroup 
-								ON ibfg.ibfunctiongroup_pkibfunctiongroup=pkibfunctiongroup 
-							inner join ibfunction ibf 
-								on pkibfunctiongroup= ibf.iBFunctionGroup_pkiBFunctionGroup 
-						WHERE pkiBuser=".$firstLevels['pkiBuser']." and Active=1 and pkiBFunctionGroup=".$firstLevels['pkiBFunctionGroup'].";";
-			$this->pMainMenu .="<li class=\"dropdown\">";
-			$this->pMainMenu .="<a aria-expanded=\"false\" role=\"button\" href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">";
-			$this->pMainMenu .=		$firstLevels['ibFunctionGroupModulo']."<span class=\"caret\"></span>";
-			$this->pMainMenu .="</a>";
-			$this->pMainMenu .="";
-			$this->pMainMenu .="	<ul class='dropdown-menu multi-level' role=\"menu\" aria-labelledby=\"dropdownMenu\">";
-			foreach($PDOcnn->query($PDOQuery) as $secondLevel){
-				$directoryPath= Globales::$absoluteURL;
+				
+				$this->pMainMenu .="<li class=\"dropdown\">";
+				$this->pMainMenu .="<a aria-expanded=\"false\" role=\"button\" href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">";
+				$this->pMainMenu .=		$firstLevels['ibFunctionGroupName']."<span class=\"caret\"></span>";
+				$this->pMainMenu .="</a>";
+				$this->pMainMenu .="";
+				$this->pMainMenu .="	<ul class='dropdown-menu multi-level' role=\"menu\" aria-labelledby=\"dropdownMenu\">";
+				
 				$PDOcnn = Database::instance();
-				$PDOQuery = "SELECT 
+				$PDOQuery = 
+				"
+				SELECT 	
+						pkBranchOffice, 
+						pkiBuser,
+						pkiBFunction,
+						iBFunctionName,
+						iBFunctionLink
+				FROM branchoffice bo 
+					inner join ibuserprofile up 
+						on bo.pkBranchOffice=up.BranchOffice_pkBranchOffice 
+					inner join ibuser u 
+						on up.iBUser_pkiBUser=u.pkiBUser 
+					inner join ibuserprofile_has_ibfunctiondetail uphfd 
+						on up.pkiBUserProfile=uphfd.iBUserProfile_pkiBUserProfile 
+					inner join ibfunctiondetail fd 
+						on uphfd.ibFunctionDetail_pkibFunctionDetail=fd.pkibFunctionDetail 
+					inner join ibfunction f 
+						on fd.fkiBFunction=f.pkiBFunction 
+					inner join ibfunctiongroup fg 
+						on f.fkiBFunctionGroup=fg.pkiBFunctionGroup 
+				WHERE pkiBUser='su@consultoriadual.com' 
+					and u.Active=1
+				";
+			foreach($PDOcnn->query($PDOQuery) as $secondLevel){
+					$directoryPath= Globales::$absoluteURL;
+					$PDOcnn = Database::instance();
+					$this->pMainMenu .=		"<li class=\"dropdown-submenu\">";
+					$this->pMainMenu .="		<a tabindex=\"-1\" href='$directoryPath".$secondLevel['iBFunctionLink']."/private'>".$secondLevel['iBFunctionName']."</a>";
+					$this->pMainMenu .="		<ul class='dropdown-menu'>";
+					
+					$PDOQuery = 
+					"
+					SELECT 	
+							pkBranchOffice, 
+							pkiBuser,
 							iBFunctionDetailName,
 							iBFunctionDetailLink
-						FROM ibuser ib 
-							inner join ibuserprofile 
-								on fkibuserprofile=pkiBUserProfile 
-							inner join ibuserprofile_has_ibfunction ibfg 
-								on pkiBUserProfile=ibuserprofile_pkibuserprofile 
-							inner join ibfunctiongroup 
-								on ibfg.ibfunctiongroup_pkibfunctiongroup=pkibfunctiongroup 
-							inner join ibfunction ibf 
-								on pkibfunctiongroup= ibf.iBFunctionGroup_pkiBFunctionGroup
-							inner join ibfunctiondetail ibd 
-								on ibd.iBFunction_pkiBFunction=ibf.pkiBFunction
-						where pkiBuser=". $secondLevel['pkiBUser'] ." and Active=1 and pkiBFunction=".$secondLevel['pkiBFunction'].";";
-				$this->pMainMenu .=		"<li class=\"dropdown-submenu\">";
-				$this->pMainMenu .="		<a tabindex=\"-1\" href='$directoryPath".$secondLevel['iBFunctionLink']."'>".$secondLevel['iBFunctionName']."</a>";
-				$this->pMainMenu .="		<ul class='dropdown-menu'>";
+					FROM branchoffice bo 
+						inner join ibuserprofile up 
+							on bo.pkBranchOffice=up.BranchOffice_pkBranchOffice 
+						inner join ibuser u 
+							on up.iBUser_pkiBUser=u.pkiBUser 
+						inner join ibuserprofile_has_ibfunctiondetail uphfd 
+							on up.pkiBUserProfile=uphfd.iBUserProfile_pkiBUserProfile 
+						inner join ibfunctiondetail fd 
+							on uphfd.ibFunctionDetail_pkibFunctionDetail=fd.pkibFunctionDetail 
+						inner join ibfunction f 
+							on fd.fkiBFunction=f.pkiBFunction 
+						inner join ibfunctiongroup fg 
+							on f.fkiBFunctionGroup=fg.pkiBFunctionGroup 
+					WHERE pkiBUser='su@consultoriadual.com' 
+						and u.Active=1
+					";
 				foreach($PDOcnn->query($PDOQuery) as $thirdLevels){
 					$this->pMainMenu .=			"<li>";
-					$this->pMainMenu .=				"<a href='$directoryPath".$thirdLevels['iBFunctionDetailLink'] ."'>".$thirdLevels['iBFunctionDetailName']."</a>";
+					$this->pMainMenu .=				"<a href='$directoryPath".$thirdLevels['iBFunctionDetailLink'] ."/private'>".$thirdLevels['iBFunctionDetailName']."</a>";
 					$this->pMainMenu .=			"</li>";
 				}
-				$this->pMainMenu .="		</ul>";	
-				$this->pMainMenu .="</li>";
+					$this->pMainMenu .="		</ul>";	
+					$this->pMainMenu .="</li>";
 			}
-			$this->pMainMenu .=			"</ul>";
-			$this->pMainMenu .="</li>";
+				$this->pMainMenu .=			"</ul>";
+				$this->pMainMenu .="</li>";
 		}
 		return $this->pMainMenu;
 	}

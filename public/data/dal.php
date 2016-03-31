@@ -10,7 +10,7 @@ class dal{
 	$this->servidor="localhost";
 	$this->usuario="root";
 	$this->password="";
-	$this->basedatos="ibrain20";
+	$this->basedatos="ibrain2";
 	}
 	public function conectar(){
 	$bd=mysqli_connect(

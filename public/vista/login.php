@@ -22,13 +22,25 @@
             <h3>Welcome</h3>
 			<form class="m-t" role="form"  method="post" action="public/controlador/login.neg.php" >
                 <div class="form-group">
-                    <input type="email" class="form-control" placeholder="Username" required="" name="usuario">
+                    <input type="email" id="txt_usuario_h" class="form-control" placeholder="Username" required="" name="txt_usuario_h">
                 </div>
-                <div class="form-group">
-                    <input type="password" class="form-control" placeholder="Password" required="" name="contrasena">
+				<div id="show1" class="form-group hidden1">
+					<select id="slt_AASP_h" class="form-control" required="" name="slt_AASP_h">
+						<option value=0>AASP1</option>
+						<option value=3>AASP2</option>
+						<option value=2>AASP3</option>
+						<option value=1>AASP4</option>
+					</select>
+				</div>
+				<div id="show2" class="form-group hidden1">
+					<div class="form-group">
+						<input type="password" id="txt_contrasena_h" class="form-control" placeholder="Password" required="" name="txt_contrasena_h">
+					</div>
                 </div>
-                <button type="submit" class="btn btn-primary block full-width m-b" value="Acceder" name="btn">Login</button>
-                <!--a href="#"><small>Forgot password?</small></a>
+				<div id="show3" class="form-group hidden1">
+					<button type="submit" id="btn_Acceder_h" class="btn btn-primary block full-width m-b" value="Acceder" name="btn_Acceder_h">Login</button>
+                </div>
+				<!--a href="#"><small>Forgot password?</small></a>
                 <p class="text-muted text-center"><small>Do not have an account?</small></p>
                 <a class="btn btn-sm btn-white btn-block" href="register.html">Create an account</a-->
             </form>
@@ -38,7 +50,61 @@
     <!-- Mainly scripts -->
     <script src="App/web/js/jquery-2.1.1.js"></script>
     <script src="App/web/js/bootstrap.min.js"></script>
-
+	<script>
+	$(document).ready(
+		function(){
+			var slt_AASP_j=$("#slt_AASP_h");
+			var txt_usuario_j=$("#txt_usuario_h");
+			var divSltAASP=$(".hidden1");
+			
+			
+			
+			
+			
+			divSltAASP.hide();
+			
+			txt_usuario_j.on("change",
+				function(){
+					$("#show1").show("slow");
+					
+				if($(this).val()!=''){
+					$.ajax(
+						url:'App/controller/Home.php',
+						type: 'post',
+						data:{cmd_getAASP_ajx:'getData'},
+						dataType: 'json',
+						success: function(data){
+							if (data.success){
+								$.each(data,function(index,record){
+									if($.isNumeric(index)){
+										var row=$("<option />");
+										$("<td />").text(record.Id).appendTo(row);
+										$("<td />").text(record.Nombre).appendTo(row);
+										$("<td />").text(record.Descripcion).appendTo(row);
+										row.appendTo('table');	
+									}
+								})
+							}
+							$('table').dataTable({
+								"bJQueryUI":true,
+								"sPaginationType":"full_numbers"
+							})
+						}
+					);
+				} 
+					
+					
+				}				
+			);
+			slt_AASP_j.on("change",
+				function(){
+					$("#show2").show("slow");
+					$("#show3").show("slow");
+				}				
+			);
+		}
+	);
+	</script>
 </body>
 
 </html>

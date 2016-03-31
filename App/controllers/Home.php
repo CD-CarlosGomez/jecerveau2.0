@@ -7,6 +7,7 @@
 namespace App\Controllers;
 defined("APPPATH") OR die("Access denied");
 use \Core\View;
+use \Core\Database;
 use \App\Models\CurrentUser as CurrentUser;
 use \App\Config\Globales as Globales;
 use \Core\Controller;
@@ -19,7 +20,7 @@ private $_sesionpkiBUser;
 //PROPIEDADES########################################
 //MÉTODOS ABSTRACTOS#################################
 //MÉTODOS PÚBLICOS###################################
-	public function __construct(){
+public function __construct(){
 		session_start();
 		$this->_sesionUsuario=$_SESSION["nombreUsuario"];
 		$this->_sesionpkiBUser=$_SESSION['pkiBUser_p'];
@@ -92,8 +93,32 @@ private $_sesionpkiBUser;
 		$users=Users::getAll();
 		print_r($users);
 	}
+	
 //MÉTODOS PRIVADOS###################################
 //EVENTOS############################################
 //CONTROLES##########################################
-//MAIN###############################################
 }
+//MAIN###############################################
+if(isset($_POST['cmd_getAASP_ajx'])){
+		try{
+			$PDOcnn = Database::instance();
+			$PDOQuery="Select pkBranchOffice,BOName from branchoffice;";
+			$PDOQuery=$PDOcnn->prepare($PDOQuery) or die ($sql);
+			if(!$PDOQuery->execute())return false;
+			if(!$PDOQuery->rowCount()>0){
+				$json=array();
+				while ($row=$result->fetch()){
+					$json[]=array(
+						'pkBranchOffice'=>$row['pkBranchOffice'],
+						'BOName'=>$row['BOName']
+					);
+				}
+			}
+			$json['success']=true;
+			echo  json_enconde ($json);
+		}
+		catch(PDOException $e){
+		}
+	}
+
+

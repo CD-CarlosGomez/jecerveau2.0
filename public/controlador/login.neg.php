@@ -14,12 +14,13 @@ $pkiBCurrentUser="";
 //PROPIEDADES########################################
 //MÉTODOS ABSTRACTOS#################################
 //MÉTODOS PÚBLICOS###################################
+echo $_POST['txt_usuario_h']." ".$_POST['txt_contrasena_h'];
 	function Acceder(){
 		global $pkiBCurrentUser;
 		$logStatus="";
 		$login=new Login();
-		$login->setNombreUsuario(trim($_POST['usuario']));
-		$login->setContrasenaUsuario(trim($_POST['contrasena']));
+		$login->setNombreUsuario(trim($_POST['txt_usuario_h']));
+		$login->setContrasenaUsuario(trim($_POST['txt_contrasena_h']));
 		if($pkiBCurrentUser=$login->Acceder()){
 			return $login->getNombreUsuario();
 		}
@@ -36,7 +37,7 @@ $pkiBCurrentUser="";
 //CONTROLES##########################################
 //MAIN###############################################
 $_POST['btn'];
-switch($_POST['btn']){
+switch($_POST['btn_Acceder_h']){
 	case "Guardar":
 		guardar();
 	break;
