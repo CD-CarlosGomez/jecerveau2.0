@@ -1,3 +1,7 @@
+<?php 
+//require_once 'App/controllers/Home.php';//C:\xampp\htdocs\iBrain2.0\App\controllers
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,10 +30,7 @@
                 </div>
 				<div id="show1" class="form-group hidden1">
 					<select id="slt_AASP_h" class="form-control" required="" name="slt_AASP_h">
-						<option value=0>AASP1</option>
-						<option value=3>AASP2</option>
-						<option value=2>AASP3</option>
-						<option value=1>AASP4</option>
+						<option value=-1>Seleccion un AASP</option>
 					</select>
 				</div>
 				<div id="show2" class="form-group hidden1">
@@ -57,43 +58,40 @@
 			var txt_usuario_j=$("#txt_usuario_h");
 			var divSltAASP=$(".hidden1");
 			
-			
-			
-			
-			
 			divSltAASP.hide();
 			
 			txt_usuario_j.on("change",
 				function(){
 					$("#show1").show("slow");
 					
-				if($(this).val()!=''){
-					$.ajax(
-						url:'App/controller/Home.php',
-						type: 'post',
-						data:{cmd_getAASP_ajx:'getData'},
-						dataType: 'json',
-						success: function(data){
-							if (data.success){
-								$.each(data,function(index,record){
-									if($.isNumeric(index)){
-										var row=$("<option />");
-										$("<td />").text(record.Id).appendTo(row);
-										$("<td />").text(record.Nombre).appendTo(row);
-										$("<td />").text(record.Descripcion).appendTo(row);
-										row.appendTo('table');	
-									}
+					if($(this).val()!=''){
+						$.ajax({
+							url:'public/controlador/login.neg.php',
+							type: 'post',
+							data:{
+								cmd_getAASP_ajx:'getData',
+								username: username.val()
+							},
+							dataType: 'json',
+							success: function(data){
+								if (data.success){
+									$.each(data,function(index,record){
+										if($.isNumeric(index)){
+											slt_AASP_j.append('<option value="' + record.pkBranchOffice + '">' + record.BOName + '</option>' );
+										}
+									})
+								}
+								$('table').dataTable({
+									"bJQueryUI":true,
+									"sPaginationType":"full_numbers"
 								})
+							},
+							error: function(){
+								alert('Ocurrio un error con el servidor ..');
+								slt_AASP_j.prop('disabled', false);
 							}
-							$('table').dataTable({
-								"bJQueryUI":true,
-								"sPaginationType":"full_numbers"
-							})
-						}
-					);
-				} 
-					
-					
+						});
+					}
 				}				
 			);
 			slt_AASP_j.on("change",

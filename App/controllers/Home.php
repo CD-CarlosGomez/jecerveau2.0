@@ -99,26 +99,6 @@ public function __construct(){
 //CONTROLES##########################################
 }
 //MAIN###############################################
-if(isset($_POST['cmd_getAASP_ajx'])){
-		try{
-			$PDOcnn = Database::instance();
-			$PDOQuery="Select pkBranchOffice,BOName from branchoffice;";
-			$PDOQuery=$PDOcnn->prepare($PDOQuery) or die ($sql);
-			if(!$PDOQuery->execute())return false;
-			if(!$PDOQuery->rowCount()>0){
-				$json=array();
-				while ($row=$result->fetch()){
-					$json[]=array(
-						'pkBranchOffice'=>$row['pkBranchOffice'],
-						'BOName'=>$row['BOName']
-					);
-				}
-			}
-			$json['success']=true;
-			echo  json_enconde ($json);
-		}
-		catch(PDOException $e){
-		}
-	}
+
 
 

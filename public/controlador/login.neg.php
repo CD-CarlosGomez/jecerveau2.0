@@ -14,7 +14,7 @@ $pkiBCurrentUser="";
 //PROPIEDADES########################################
 //MÉTODOS ABSTRACTOS#################################
 //MÉTODOS PÚBLICOS###################################
-echo $_POST['txt_usuario_h']." ".$_POST['txt_contrasena_h'];
+$_POST['txt_usuario_h']." ".$_POST['txt_contrasena_h'];
 	function Acceder(){
 		global $pkiBCurrentUser;
 		$logStatus="";
@@ -26,17 +26,24 @@ echo $_POST['txt_usuario_h']." ".$_POST['txt_contrasena_h'];
 		}
 		else return false;
 	}
-	
 	function quitar($mensaje){
 		$nopermitidos = array("'",'\\','<','>',"\"");
 		$mensaje = str_replace($nopermitidos, "", $mensaje);
 		return $mensaje;
 	}
+	function renderBOOptions(){
+		$login=new Login();
+		$login->SBuscarBO($BOName);
+	}
 //MÉTODOS PRIVADOS###################################
 //EVENTOS############################################
 //CONTROLES##########################################
 //MAIN###############################################
-$_POST['btn'];
+	if(isset($_POST['cmd_getAASP_ajx'])){
+		renderBOOptions($_POST['username']);
+	}
+
+
 switch($_POST['btn_Acceder_h']){
 	case "Guardar":
 		guardar();

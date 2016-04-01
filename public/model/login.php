@@ -74,7 +74,6 @@ class Login extends dal{
 		return false; 
 		}
 	}
-	
 	public function guardar(){
 	$sql="insert into cliente(nombre,apellidos,telefono) values
 		  ('$this->nombre','$this->apellidos','$this->telefono')";
@@ -85,7 +84,6 @@ class Login extends dal{
 	   return false; 
 	  
 	}
-	
 	public function modificar(){
 	$sql="update cliente set cod_cli='$this->cod_cli',nombre='$this->nombre',apellidos='$this->apellidos',telefono='$this->telefono' where cod_cli=$this->cod_cli ";
 	$result=parent::ejecutar($sql);
@@ -95,7 +93,6 @@ class Login extends dal{
 	   return false; 
 	 
 	}
-	
 	public function eliminar(){
 	$sql="delete from cliente where cod_cli=$this->cod_cli";
 	$result=parent::ejecutar($sql);
@@ -105,16 +102,49 @@ class Login extends dal{
 	   return false; 
 	 
 	}
-	
-	public function buscar_nombre($criterio){
-	$sql="select * from cliente where nombre like '%$criterio'";
-	return(parent::ejecutar($sql));
+	public function SBuscarBO($BOName){
+	$MySqliQuery=
+	"SELECT 
+		pkBranchOffice, 
+		BOName 
+	FROM branchoffice BO 
+		INNER JOIN ibuserprofile UP 
+			ON BO.pkBranchOffice=UP.BranchOffice_pkBranchOffice 
+		INNER JOIN ibuser U 
+			ON UP.iBUser_pkiBUser=U.pkiBUser 
+	WHERE U.username='$BOName';
+	";
+	return(parent::ejecutar($MySqliQuery));
 	}
-	
 	public function buscar_apellidos($criterio){
 	$sql="select * from cliente where apellidos like '%$criterio'";
 	return(parent::ejecutar($sql));
 	}
+	
+	/*if(isset($_POST['cmd_getAASP_ajx'])){
+		try{
+			$PDOcnn = Database::instance();
+			$PDOQuery="Select pkBranchOffice,BOName from branchoffice;";
+			$PDOQuery=$PDOcnn->prepare($PDOQuery) or die ($PDOQuery);
+			$PDOQuery->execute();
+			$ResultSet[]=$PDOQuery->fetchAll(\PDO::FETCH_ASSOC);
+			return $ResultSet;
+			/*if(!$PDOQuery->execute())return false;
+			if(!$PDOQuery->rowCount()>0){
+				$json=array();
+				while ($row=$result->fetch()){
+					$json[]=array(
+						'pkBranchOffice'=>$row['pkBranchOffice'],
+						'BOName'=>$row['BOName']
+					);
+				}
+			}
+			$json['success']=true;
+			echo  json_enconde ($json);
+		}
+		catch(PDOException $e){
+		}
+	}*/
 //MÉTODOS PRIVADOS###################################
 //EVENTOS############################################
 //CONTROLES##########################################
