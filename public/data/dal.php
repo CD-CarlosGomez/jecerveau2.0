@@ -23,9 +23,14 @@ class dal{
 	else
 	  echo "Error al conectarse con la Base de datos"; 
 	}
+	
 	public function ejecutar($sql){
 	$cnn=$this->conectar();
 	return mysqli_query($cnn,$sql);
+	}
+	public function cerrarConexion($db, $query) {
+		$query->free();
+		//$this->close();
 	}
 }
 ?>

@@ -1,5 +1,5 @@
 <?php 
-require('../data/dal.php');
+require_once('../data/dal.php');
 class Login extends dal{
 // +-----------------------------------------------
 // | @author Carlos M. Gómez
@@ -102,49 +102,24 @@ class Login extends dal{
 	   return false; 
 	 
 	}
-	public function SBuscarBO($BOName){
-	$MySqliQuery=
-	"SELECT 
-		pkBranchOffice, 
-		BOName 
-	FROM branchoffice BO 
-		INNER JOIN ibuserprofile UP 
-			ON BO.pkBranchOffice=UP.BranchOffice_pkBranchOffice 
-		INNER JOIN ibuser U 
-			ON UP.iBUser_pkiBUser=U.pkiBUser 
-	WHERE U.username='$BOName';
-	";
-	return(parent::ejecutar($MySqliQuery));
+	public function SBuscarBO(){
+		$MySqliQuery=
+		"SELECT 
+			pkBranchOffice, 
+			BOName 
+		FROM branchoffice BO 
+			INNER JOIN ibuserprofile UP 
+				ON BO.pkBranchOffice=UP.BranchOffice_pkBranchOffice 
+			INNER JOIN ibuser U 
+				ON UP.iBUser_pkiBUser=U.pkiBUser 
+		WHERE U.username='$BOName';
+		";
+		return(parent::ejecutar($MySqliQuery));
 	}
 	public function buscar_apellidos($criterio){
 	$sql="select * from cliente where apellidos like '%$criterio'";
 	return(parent::ejecutar($sql));
 	}
-	
-	/*if(isset($_POST['cmd_getAASP_ajx'])){
-		try{
-			$PDOcnn = Database::instance();
-			$PDOQuery="Select pkBranchOffice,BOName from branchoffice;";
-			$PDOQuery=$PDOcnn->prepare($PDOQuery) or die ($PDOQuery);
-			$PDOQuery->execute();
-			$ResultSet[]=$PDOQuery->fetchAll(\PDO::FETCH_ASSOC);
-			return $ResultSet;
-			/*if(!$PDOQuery->execute())return false;
-			if(!$PDOQuery->rowCount()>0){
-				$json=array();
-				while ($row=$result->fetch()){
-					$json[]=array(
-						'pkBranchOffice'=>$row['pkBranchOffice'],
-						'BOName'=>$row['BOName']
-					);
-				}
-			}
-			$json['success']=true;
-			echo  json_enconde ($json);
-		}
-		catch(PDOException $e){
-		}
-	}*/
 //MÉTODOS PRIVADOS###################################
 //EVENTOS############################################
 //CONTROLES##########################################

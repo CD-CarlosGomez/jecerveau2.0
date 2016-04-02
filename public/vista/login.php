@@ -1,5 +1,5 @@
 <?php 
-//require_once 'App/controllers/Home.php';//C:\xampp\htdocs\iBrain2.0\App\controllers
+//require_once 'public/controlador/login.neg.php';
 ?>
 
 <!DOCTYPE html>
@@ -30,7 +30,8 @@
                 </div>
 				<div id="show1" class="form-group hidden1">
 					<select id="slt_AASP_h" class="form-control" required="" name="slt_AASP_h">
-						<option value=-1>Seleccion un AASP</option>
+						<option value=-1>Seleccion un AASP...</option>
+						<!--input type="hidden" value="1" name="vstr_username_j"/-->
 					</select>
 				</div>
 				<div id="show2" class="form-group hidden1">
@@ -51,6 +52,8 @@
     <!-- Mainly scripts -->
     <script src="App/web/js/jquery-2.1.1.js"></script>
     <script src="App/web/js/bootstrap.min.js"></script>
+	 <!-- Ajax scripts -->
+	<!--script src="App/web/js/jquery.ajax.min.js"></script-->
 	<script>
 	$(document).ready(
 		function(){
@@ -58,42 +61,53 @@
 			var txt_usuario_j=$("#txt_usuario_h");
 			var divSltAASP=$(".hidden1");
 			
-			divSltAASP.hide();
+			//divSltAASP.hide();
 			
-			txt_usuario_j.on("change",
+			txt_usuario_j.focus(
 				function(){
-					$("#show1").show("slow");
-					
-					if($(this).val()!=''){
-						$.ajax({
-							url:'public/controlador/login.neg.php',
-							type: 'post',
-							data:{
-								cmd_getAASP_ajx:'getData',
-								username: username.val()
-							},
-							dataType: 'json',
-							success: function(data){
-								if (data.success){
-									$.each(data,function(index,record){
-										if($.isNumeric(index)){
-											slt_AASP_j.append('<option value="' + record.pkBranchOffice + '">' + record.BOName + '</option>' );
+					divSltAASP.hide();
+				}
+			);
+			
+			
+			txt_usuario_j.on("keypress",
+				function(e){
+					keypressed_j=txt_usuario_j?e.keyCode:e.which;
+					if(keypressed_j==13 || keypressed_j==9 ){
+						/*Si el textbos no está vacío*/
+						if(txt_usuario_j.val()!=''){
+							/*Datos a postear*/
+							var datos={
+								vstr_username_j:txt_usuario_j.val()
+							};
+							$.post("public/controlador/login.neg.php", datos, function (BO){
+								slt_AASP_j.empty();
+								$.each(
+									BO,
+									function (index,record){
+										/*Validar que aparezca algo cuando el json está vacío
+										if(json.length()==0){
+											slt_AASP_j.append("<option>Intente con otra cuenta</option>");
+										}*/
+										if ($.isNumeric(index)){
+											slt_AASP_j.append("<option value='-1'>Seleccione un AASP...</option>");
+											slt_AASP_j.append("<option value='0'>" + record.nombre + "</option>");
 										}
-									})
-								}
-								$('table').dataTable({
-									"bJQueryUI":true,
-									"sPaginationType":"full_numbers"
-								})
-							},
-							error: function(){
-								alert('Ocurrio un error con el servidor ..');
-								slt_AASP_j.prop('disabled', false);
-							}
-						});
+									}
+								);
+							}, 'json'
+							);
+						}
+						else{
+							slt_AASP_j.empty();
+							slt_AASP_j.append("<option>Seleccione un AASP...</option>");
+						}
+						//muestra el div de seleccionar un aasp
+						$("#show1").show("slow");
 					}
 				}				
 			);
+			
 			slt_AASP_j.on("change",
 				function(){
 					$("#show2").show("slow");
