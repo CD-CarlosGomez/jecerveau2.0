@@ -61,7 +61,7 @@
 			var txt_usuario_j=$("#txt_usuario_h");
 			var divSltAASP=$(".hidden1");
 			
-			//divSltAASP.hide();
+			divSltAASP.hide();
 			
 			txt_usuario_j.focus(
 				function(){
@@ -80,7 +80,7 @@
 							var datos={
 								vstr_username_j:txt_usuario_j.val()
 							};
-							$.post("public/controlador/login.neg.php", datos, function (BO){
+							$.post("App/web/ajax/slt_AASP_h.php", datos, function (BO){
 								slt_AASP_j.empty();
 								$.each(
 									BO,
