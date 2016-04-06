@@ -54,16 +54,11 @@ class Login extends dal{
 	public function Acceder(){
 		$mySQLiQuery=
 		"
-				SELECT
+		SELECT
 			pkiBUser,
 			username,
-			pwd, 
-			pkBranchOffice 
+			pwd
 		FROM ibuser u
-			INNER JOIN ibuserprofile up
-				ON u.pkiBUser=up.iBUser_pkiBUser
-			INNER JOIN branchoffice BO
-				ON up.BranchOffice_pkBranchOffice=bo.pkBranchOffice
 		WHERE username='".$this->_nombreUsuario."'
 			AND u.Active=1;
 		";

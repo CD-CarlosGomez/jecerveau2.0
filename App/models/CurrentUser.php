@@ -17,7 +17,7 @@ class CurrentUser {
 //CONSTANTES#########################################
 //ATRIBUTOS##########################################
 	public $pMainMenu="";
-	public $ppkiBUser_p="1";
+	public $ppkiBUser_p="";
 //PROPIEDADES########################################
 	public function setppkiBUser_p($value){
 		$this->ppkiBUser_p=$value;
@@ -25,60 +25,23 @@ class CurrentUser {
 	public function &getppkIBUser_p(){
 		return $this->ppkiBUser_p;
 	}
-	public function getMainMenu($pkiBUser){
-	$firstLevels[]=$this->getFirstLevelMenu($pkiBUser);
-		for($i=0;$i<count($firstLevels);$i++){
-			for($k=0;$k<count($firstLevels[$i]);$k++){
-				
-				$this->pMainMenu .="<li>";
-				$this->pMainMenu .=		"<a href='#'>"; 
-				$this->pMainMenu .=			"<span class='nav-label'>".$firstLevels[0][$k][1]."</span>";
-				$this->pMainMenu .=			"</a>";
-				$this->pMainMenu .="		<ul class='nav nav-second-level collapse'>";
-				$secondLevels[]=$this->getSecondLevelMenu($pkiBUser,$firstLevels[0][$k][0]);
-				for($l=0;$l<count($secondLevels);$l++){
-					for($m=0;$m<count($secondLevels[$l]);$m++){
-						$thirdLevels[]=$this->getThirdLevelMenu($pkiBUser,$secondLevels[0][$m][0]);
-						$this->pMainMenu .=		"<li>";
-						$this->pMainMenu .="		<a href='$directoryPath".$secondLevels[0][$m][2] ."'>".$secondLevels[0][$m][1]."</a>";
-						$this->pMainMenu .="		<ul class='nav nav-third-level'>";
-						for($n=0;$n<count($thirdLevels);$n++){
-							for($o=0;$o<count($thirdLevels[$n]);$o++){
-								$this->pMainMenu .=			"<li>";
-								$this->pMainMenu .=				"<a href='$directoryPath".$thirdLevels[0][$o][1] ."'>".$thirdLevels[0][$o][0]."</a>";
-								$this->pMainMenu .=			"</li>";
-							}
-						}
-						$this->pMainMenu .=		"</ul>";	
-						$this->pMainMenu .="</li>";
-					}
-				}
-				$this->pMainMenu .=			"</ul>";	
-				$this->pMainMenu .=		"</li>";
-			}
-		}
-						
-					$this->pMainMenu .="<li>";
-					$this->pMainMenu .="<a href='$directoryPath/App/controllers/logout.php'>";
-					$this->pMainMenu .="<span class='nav-label'>Logout</span></span></a>";
-					$this->pMainMenu .="</li>";
-		return $this->pMainMenu;
-	}
 	public function getMainMenu2($pkiBUser){
 		$PDOcnn = Database::instance();
 		$sql = 
 		"
-		SELECT 	DISTINCT
+		SELECT 
 				pkBranchOffice, 
 				pkiBuser,
 				pkiBFunctionGroup,
 				ibFunctionGroupName, 
 				iBFunctionGroupLink 
-		FROM branchoffice bo 
-			inner join ibuserprofile up 
-				on bo.pkBranchOffice=up.BranchOffice_pkBranchOffice 
+		FROM branchoffice bo
+			inner join branchoffice_has_ibuserprofile bohup
+				on bo.pkBranchOffice=bohup.branchoffice_pkBranchOffice
 			inner join ibuser u 
-				on up.iBUser_pkiBUser=u.pkiBUser 
+				on bohup.ibuser_pkiBUser=u.pkiBUser
+			inner join ibuserprofile up 
+				on bohup.ibuserprofile_pkiBUserProfile=up.pkiBUserProfile
 			inner join ibuserprofile_has_ibfunctiondetail uphfd 
 				on up.pkiBUserProfile=uphfd.iBUserProfile_pkiBUserProfile 
 			inner join ibfunctiondetail fd 
@@ -88,7 +51,9 @@ class CurrentUser {
 			inner join ibfunctiongroup fg 
 				on f.fkiBFunctionGroup=fg.pkiBFunctionGroup 
 		WHERE pkiBUser='$pkiBUser' 
-			and u.Active=1;	
+			AND u.Active='1'
+			AND fg.Active='1'
+		GROUP BY ibFunctionGroupName
 		";
 		foreach ($PDOcnn->query($sql) as $firstLevels) {
 				
@@ -103,16 +68,18 @@ class CurrentUser {
 				$PDOQuery = 
 				"
 				SELECT 	
-						pkBranchOffice, 
-						pkiBuser,
-						pkiBFunction,
-						iBFunctionName,
-						iBFunctionLink
-				FROM branchoffice bo 
+					pkBranchOffice, 
+					pkiBuser,
+					pkiBFunction,
+					iBFunctionName,
+					iBFunctionLink
+				FROM branchoffice bo
+					inner join branchoffice_has_ibuserprofile bohup
+						on bo.pkBranchOffice=bohup.branchoffice_pkBranchOffice
 					inner join ibuserprofile up 
-						on bo.pkBranchOffice=up.BranchOffice_pkBranchOffice 
+						on bohup.ibuserprofile_pkiBUserProfile=up.pkiBUserProfile
 					inner join ibuser u 
-						on up.iBUser_pkiBUser=u.pkiBUser 
+						on bohup.ibuser_pkiBUser=u.pkiBUser
 					inner join ibuserprofile_has_ibfunctiondetail uphfd 
 						on up.pkiBUserProfile=uphfd.iBUserProfile_pkiBUserProfile 
 					inner join ibfunctiondetail fd 
@@ -121,14 +88,16 @@ class CurrentUser {
 						on fd.fkiBFunction=f.pkiBFunction 
 					inner join ibfunctiongroup fg 
 						on f.fkiBFunctionGroup=fg.pkiBFunctionGroup 
-				WHERE pkiBUser='su@consultoriadual.com' 
-					and u.Active=1
+				WHERE pkiBUser= '$pkiBUser'
+					AND u.Active='1'
+					AND f.Active='1'
+					AND fg.pkiBFunctionGroup=".$firstLevels['pkiBFunctionGroup'].";
 				";
 			foreach($PDOcnn->query($PDOQuery) as $secondLevel){
 					$directoryPath= Globales::$absoluteURL;
 					$PDOcnn = Database::instance();
 					$this->pMainMenu .=		"<li class=\"dropdown-submenu\">";
-					$this->pMainMenu .="		<a tabindex=\"-1\" href='$directoryPath".$secondLevel['iBFunctionLink']."/private'>".$secondLevel['iBFunctionName']."</a>";
+					$this->pMainMenu .="		<a tabindex=\"-1\" href='$directoryPath".$secondLevel['iBFunctionLink']."'>".$secondLevel['iBFunctionName']."</a>";
 					$this->pMainMenu .="		<ul class='dropdown-menu'>";
 					
 					$PDOQuery = 
@@ -139,10 +108,12 @@ class CurrentUser {
 							iBFunctionDetailName,
 							iBFunctionDetailLink
 					FROM branchoffice bo 
+						inner join branchoffice_has_ibuserprofile bohup
+							on bo.pkBranchOffice=bohup.branchoffice_pkBranchOffice
 						inner join ibuserprofile up 
-							on bo.pkBranchOffice=up.BranchOffice_pkBranchOffice 
+							on bohup.ibuserprofile_pkiBUserProfile=up.pkiBUserProfile
 						inner join ibuser u 
-							on up.iBUser_pkiBUser=u.pkiBUser 
+							on bohup.ibuser_pkiBUser=u.pkiBUser
 						inner join ibuserprofile_has_ibfunctiondetail uphfd 
 							on up.pkiBUserProfile=uphfd.iBUserProfile_pkiBUserProfile 
 						inner join ibfunctiondetail fd 
@@ -151,12 +122,14 @@ class CurrentUser {
 							on fd.fkiBFunction=f.pkiBFunction 
 						inner join ibfunctiongroup fg 
 							on f.fkiBFunctionGroup=fg.pkiBFunctionGroup 
-					WHERE pkiBUser='su@consultoriadual.com' 
-						and u.Active=1
+					WHERE pkiBUser='$pkiBUser'
+						AND u.Active='1'
+						AND fd.Active='1'
+						AND f.pkiBFunction=".$secondLevel['pkiBFunction'].";
 					";
 				foreach($PDOcnn->query($PDOQuery) as $thirdLevels){
 					$this->pMainMenu .=			"<li>";
-					$this->pMainMenu .=				"<a href='$directoryPath".$thirdLevels['iBFunctionDetailLink'] ."/private'>".$thirdLevels['iBFunctionDetailName']."</a>";
+					$this->pMainMenu .=				"<a href='$directoryPath".$thirdLevels['iBFunctionDetailLink'] ."'>".$thirdLevels['iBFunctionDetailName']."</a>";
 					$this->pMainMenu .=			"</li>";
 				}
 					$this->pMainMenu .="		</ul>";	
@@ -169,106 +142,10 @@ class CurrentUser {
 	}
 //MÉTODOS ABSTRACTOS#################################
 //MÉTODOS PÚBLICOS###################################
-	public function setLogout(){
+	public function Logout(){
 		session_start();
 		session_destroy();
 		header("Location:../../private/home");
-	}
-	public function getFirstLevelMenu($pkibuser_p) {
-        try {
-			
-            $PDOcnn = Database::instance();
-            $PDOQuery = "SELECT DISTINCT
-							pkiBFunctionGroup,
-							ibFunctionGroupModulo,
-							iBFunctionGroupLink
-						FROM ibuser ib
-							inner join ibuserprofile 
-								on fkibuserprofile=pkiBUserProfile 
-							inner join ibuserprofile_has_ibfunction ibfg 
-								on pkiBUserProfile=ibuserprofile_pkibuserprofile 
-							inner join ibfunctiongroup 
-								ON ibfg.ibfunctiongroup_pkibfunctiongroup=pkibfunctiongroup 
-							inner join ibfunction ibf 
-								on pkibfunctiongroup= ibf.iBFunctionGroup_pkiBFunctionGroup 
-						where pkiBUser=? and Active=1;";
-            $PDOquery = $PDOcnn->prepare($PDOQuery);
-            $PDOquery->bindParam(1, $pkibuser_p, \PDO::PARAM_INT);
-            $PDOquery->execute();
-			//$PDOResultSet=$PDOquery->fetch();
-            while ($PDOResultSet=$PDOquery->fetch(\PDO::FETCH_NUM)){
-				$retorno[]=$PDOResultSet;
-			}
-			return $retorno;
-        }
-        catch(\PDOException $e){
-            print "Error!: " . $e->getMessage();
-        }
-    }
-    public function getSecondLevelMenu($pkiBUser_p,$firstLevel_p){
-		 try {
-			$retorno=array();
-            $PDOcnn = Database::instance();
-            $PDOQuery = "SELECT 
-							pkiBFunction,
-							iBFunctionName,
-							iBFunctionLink
-						FROM ibuser ib 
-							inner join ibuserprofile 
-								on fkibuserprofile=pkiBUserProfile 
-							inner join ibuserprofile_has_ibfunction ibfg 
-								on pkiBUserProfile=ibuserprofile_pkibuserprofile 
-							inner join ibfunctiongroup 
-								ON ibfg.ibfunctiongroup_pkibfunctiongroup=pkibfunctiongroup 
-							inner join ibfunction ibf 
-								on pkibfunctiongroup= ibf.iBFunctionGroup_pkiBFunctionGroup 
-						WHERE pkiBuser=? and Active=1 and pkiBFunctionGroup=?;";
-            $PDOquery = $PDOcnn->prepare($PDOQuery);
-            $PDOquery->bindParam(1, $pkiBUser_p, \PDO::PARAM_INT);
-            $PDOquery->bindParam(2, $firstLevel_p, \PDO::PARAM_INT);
-			$PDOquery->execute();
-			//$PDOResultSet=$PDOquery->fetchAll();
-            while($PDOResultSet=$PDOquery->fetch(\PDO::FETCH_NUM)){
-				$retorno[]=$PDOResultSet;
-			}
-			return $retorno;
-        }
-        catch(\PDOException $e){
-            print "Error!: " . $e->getMessage();
-        }
-    }
-    public function getThirdLevelMenu($pkiBUser_p,$secondLevel_p){
-		try {
-			$retorno=array();
-            $PDOcnn = Database::instance();
-            $PDOQuery = "SELECT 
-							iBFunctionDetailName,
-							iBFunctionDetailLink
-						FROM ibuser ib 
-							inner join ibuserprofile 
-								on fkibuserprofile=pkiBUserProfile 
-							inner join ibuserprofile_has_ibfunction ibfg 
-								on pkiBUserProfile=ibuserprofile_pkibuserprofile 
-							inner join ibfunctiongroup 
-								on ibfg.ibfunctiongroup_pkibfunctiongroup=pkibfunctiongroup 
-							inner join ibfunction ibf 
-								on pkibfunctiongroup= ibf.iBFunctionGroup_pkiBFunctionGroup
-							inner join ibfunctiondetail ibd 
-								on ibd.iBFunction_pkiBFunction=ibf.pkiBFunction
-						where pkiBuser=? and Active=1 and pkiBFunction=?;";
-            $PDOquery = $PDOcnn->prepare($PDOQuery);
-            $PDOquery->bindParam(1, $pkiBUser_p, \PDO::PARAM_INT);
-            $PDOquery->bindParam(2, $secondLevel_p, \PDO::PARAM_INT);
-            $PDOquery->execute();
-			//$PDOResultSet=$PDOquery->fetchAll();
-            while($PDOResultSet=$PDOquery->fetch(\PDO::FETCH_NUM)){
-				$retorno[]=$PDOResultSet;
-			}
-			return $retorno;
-        }
-        catch(\PDOException $e){
-            print "Error!: " . $e->getMessage();
-        }
 	}
 	public function getCurrentRealName($pkiBUser){
 		$PDOcnn = Database::instance();
@@ -277,6 +154,32 @@ class CurrentUser {
 			$realname=$resultSet['realname'];
 		}
 		return $realname;
+	}
+	public function getCurrentBO($pkiBUser){
+		$PDOcnn = Database::instance();
+        $PDOQuery = 
+		"
+		SELECT 
+			pkBranchOffice, 
+			BOName 
+		FROM branchoffice bo
+			INNER JOIN branchoffice_has_ibuserprofile bohup 
+				ON bo.pkBranchOffice=bohup.branchoffice_pkBranchOffice 
+			INNER JOIN ibuser u
+				ON bohup.ibuser_pkiBUser=u.pkiBUser
+		WHERE U.pkiBUser='$pkiBUser'
+			AND bo.Active=1
+		";
+		
+		foreach ($PDOcnn->query($PDOQuery) as $resultSet) {
+			$output  ="<li>";
+			$output .=	"<a href=#";
+			$output .= 		$resultSet['BOName'];
+			$output .= 	"</a>";
+			$output .="</li>";
+			
+		}
+		return $output;
 	}
 //MÉTODOS PRIVADOS###################################
 //EVENTOS############################################

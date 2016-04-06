@@ -6,6 +6,7 @@
 // +-----------------------------------------------
 #16.3.22 Agregar validación del lado del servidor
 #16.3.27 Arreglar problemas de sesión, condición: si no ha iniciado sesión, que la inicie, de lo contrario que no...
+
 namespace App\Controllers;
 defined("APPPATH") OR die("Access denied");
 
@@ -14,6 +15,7 @@ use \Core\Controller;
 use \App\Config\Globales as Globales;
 use \App\Models\Companies as MA;
 use \App\Models\BranchOffices as BO;
+use \App\Models\CurrentUser as CU;
 use \App\data\DataGridView as DGB;
 
 class EnterpriseGroup extends Controller{
@@ -21,7 +23,6 @@ class EnterpriseGroup extends Controller{
 //ATRIBUTOS##########################################
 private $_sesionUsuario;
 private $_sesionpkiBUser;
-private $_sesionMenu;
 //PROPIEDADES########################################
 //MÉTODOS ABSTRACTOS#################################
 //MÉTODOS PÚBLICOS###################################
@@ -38,7 +39,7 @@ private $_sesionMenu;
 		session_start();
 		$this->_sesionUsuario=$_SESSION["nombreUsuario"];
 		$this->_sesionpkiBUser=$_SESSION['pkiBUser_p'];
-		$this->_sesionMenu=$_SESSION['mainMenu'];
+		
 		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
 		else{
 				echo "Esta pagina es solo para usuarios registrados.<br>";
@@ -52,19 +53,35 @@ private $_sesionMenu;
 			  Necesita Hacer Login</a>";
 		exit;
 		}
-		$dsCompanyGrid=MA::getParcialSelect();
-		while ($row =$dsCompanyGrid->fetch( \PDO::FETCH_ASSOC )){
+		#Objetos e instancias
+		$cu=new CU;
+		
+		#get main variables
+		
+		#set main variables
+		$url= Globales::$absoluteURL;
+		View::set("title", "Companies");
+		View::set("url", $url);
+		#get data variables
+		$currentMainMenu=$cu->getMainMenu2($this->_sesionpkiBUser);
+		$dsSlcCompany=MA::getpknaSelect();
+		//$dsCompanyGrid=MA::getParcialSelect();
+		/*while ($row =$dsCompanyGrid->fetch( \PDO::FETCH_ASSOC )){
+			$dt_Company[] = $row;
+		}*/
+		$dsKanBanCompanies=MA::callKanban(0);
+		while ($row =$dsKanBanCompanies->fetch(\PDO::FETCH_ASSOC)){
 			$dt_Company[] = $row;
 		}
-		$dsSlcCompany=MA::getpknaSelect();
-		$url= Globales::$absoluteURL;
-		$currentMainMenu=$this->_sesionMenu;
+		#set data variables
+		View::set("currentMainMenu", $currentMainMenu);
 		View::set("drows_Company",$dsSlcCompany);
 		View::set("dt_Company",$dt_Company);
-		View::set("url", $url);
-		View::set("currentMainMenu", $currentMainMenu);
-        View::set("title", "Companies");
-        View::render("showCompany");
+		#Render
+		View::render("showCompany");
+		
+       
+        
 	}
 	public function addCompany(){
 		session_start();

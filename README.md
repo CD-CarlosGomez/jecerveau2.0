@@ -18,7 +18,7 @@ Notes:
 Validadores del lado del cliente
 Validadores del lado del servidor
 Mensajes de confirmación al momento de hacer CRUD
-singleton para usuarios sesión
+singleton para usuarios sesión, sobre todo para crear el menú
 namespace para globales
 13.3.13->adaptar para que lea el .ini
 	->Utilizar variables static y global
@@ -26,4 +26,3 @@ namespace para globales
 	->Ver que onda con decorator de los layouts.
 	->Checar a cerca de las sesiones por cada página
 	->Que las vistas se puedan acceder por APPATH
-13.3.29 La base de datos ha perdido relaciones, hay que volver a relacionarlo.

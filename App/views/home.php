@@ -51,7 +51,14 @@ defined("APPPATH") OR die("Access denied");
 									</ul>
 									<ul class="nav navbar-top-links navbar-right">
 										<li>
-											<a href="<?php echo $url; ?>App/controllers/logout.php">Salir</a>
+											<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+												<span class="clear"> <span class="block m-t-xs"> <strong class="font-bold"><?php echo $realname;?></strong>
+												 </span> <span class="text-muted text-xs block"><b class="caret"></b></span> </span> </a>
+												<ul class="dropdown-menu animated fadeInRight m-t-xs">
+													<?php echo $currentBO;?>													
+													<li class="divider"></li>
+													<li><a href="<?php echo $url; ?>App/controllers/logout.php">Salir</a></li>
+												</ul>
 										</li>
 									</ul>
 								</div>

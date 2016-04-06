@@ -27,15 +27,12 @@ use \App\data\DataGridView as DGV;
 		->enableSorting(false)
 		->removeColumn('pkCompany')
 		->setup(array(
-			'legalName' => array('header' => 'Nombre fiscal'),
-			'commercialName' => array('header' => 'Nombre comercial'),
-			'Street' => array('header' => 'Calle'),
-			'extNumber' => array('header' => 'N&uacute;mero exterior'),
-			'intNumber' => array('header' => 'N&uacute;mero interior'),
-			'Region' => array('header' => 'Regi&oacute;n'),
-			'Zone' => array('header' => 'Zona'),
-			'Province' => array('header' => 'Provincia'),
-			'ZipCode' => array('header' => 'C&oacute;digo Postal')
+			'@oint_pkCompany_m' => array('header' => 'Master_Account_ID'),
+			'@ostr_CompanyCommercialName_m' => array('header' => 'Commercial_Name'),
+			'@ostr_CompanyLegalName_m' => array('header' => 'Legal_Name'),
+			'@oint_SubCompanies_m' => array('header' => 'SubCompanies'),
+			'@oint_BranchOffices_m' => array('header' => 'Branch Offices'),
+			'@oint_Users_m' => array('header' => 'Users')
 		))
 		->addColumnAfter('actions', 
 									'<a href="'.$url.'private/EnterpriseGroup/showBranchOffice">Ver ASP\'s</a>',

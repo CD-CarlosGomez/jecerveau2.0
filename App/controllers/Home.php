@@ -4,6 +4,7 @@
 // | @date 5 de Marzo del 2016
 // | @Version 1.0
 // +-----------------------------------------------
+
 namespace App\Controllers;
 defined("APPPATH") OR die("Access denied");
 use \Core\View;
@@ -37,17 +38,34 @@ public function __construct(){
 			  Necesita Hacer Login</a>";
 		exit;
 		}
-		$directoryPath= Globales::$absoluteURL;
+		#Objetos e Instancias
 		$currentUser=new CurrentUser;
-		$currentMainMenu=$currentUser->getMainMenu2($this->_sesionpkiBUser);
-		$this->_sesionMenu=$currentMainMenu;
-		$_SESSION['realname']=$currentUser->getCurrentRealName($this->_sesionpkiBUser);
-		$_SESSION['mainMenu']=$currentMainMenu;
-		View::set("currentMainMenu", $currentMainMenu);
+		#get main variables
+		$directoryPath= Globales::$absoluteURL;
+		#set main variables
 		View::set("url",$directoryPath);
-        //View::set("pkiBUser", $this->_sesionpkiBUser);
-        View::set("title","Home");
+		View::set("title","Home");
+		#get data variables
+		$currentMainMenu=	$currentUser->getMainMenu2($this->_sesionpkiBUser);
+		$realname=			$currentUser->getCurrentRealName($this->_sesionpkiBUser);
+		$currentBO=			$currentUser->getCurrentBO($this->_sesionpkiBUser);
+		
+		#set data variables
+		View::set("currentMainMenu", $currentMainMenu);
+		View::set("pkiBUser", $this->_sesionpkiBUser);
+		View::set("realname",$realname);
+		View::set("currentBO",$currentBO);
+		#Renderizar
+		$_SESSION['mainMenu']=$currentMainMenu;
 		View::render("home");}
+		
+
+		
+		
+		
+        
+        
+		
 	/**
      * [index]
     */

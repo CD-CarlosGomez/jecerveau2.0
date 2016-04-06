@@ -91,7 +91,7 @@
 										}*/
 										if ($.isNumeric(index)){
 											slt_AASP_j.append("<option value='-1'>Seleccione un AASP...</option>");
-											slt_AASP_j.append("<option value='0'>" + record.nombre + "</option>");
+											slt_AASP_j.append("<option value='" + record.id + "'>" + record.nombre + "</option>");
 										}
 									}
 								);
