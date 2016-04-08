@@ -102,6 +102,22 @@ class Profiles implements iCrud{
             print "Error!: " . $e->getMessage();
         }
     }
+	public static function selectKanbanProfile($pkiBUser){
+		try{
+			$PDOcnn=Database::instance();
+			$PDOQuery=
+			"
+			SELECT up.* 
+				FROM (SELECT @u1:=[$pkiBUser p) pcxu , v_kanbanprofilebyuser up;
+			";
+		
+			$resultSet=$PDOcnn->query($PDOQuery);
+			return $resultSet;
+		}
+		catch(\PDOException $e){
+			print "Error!: " . $e->getMessage();
+		}
+	}
     public static function insertData($data){
 		try {
             $connection = Database::instance();

@@ -6,32 +6,31 @@ defined("APPPATH") OR die("Access denied");
 
 use \App\data\DataGridView as DGV;
 		
-		$_SESSION["nombreUsuario"];
-		$_SESSION['pkiBUser_p'];
+		//session_start();
+		//$this->_sesionUsuario=$_SESSION["nombreUsuario"];
+		//$this->_sesionpkiBUser=$_SESSION['pkiBUser_p'];
 		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
 		else{
 				echo "Esta pagina es solo para usuarios registrados.<br>";
-			echo "<a href='$url'>Login Here!</a>";
+			echo "<a href='http://localhost:8012/ibrain2.0'>Login Here!</a>";
 			exit;
 		}
 		$now = time(); 
 		if($now > $_SESSION['expire']){
 		session_destroy();
-		echo "Su sesion a terminado, <a href='$url'>
+		echo "Su sesion a terminado, <a href='http://localhost:8012/ibrain2.0'>
 			  Necesita Hacer Login</a>";
 		exit;
-
 		}
 		$outputTableCompany=DGV::getInstance($dt_Company)
 		->setGridAttributes(array('class' => 'table table-striped table-bordered table-hover dataTables-example'))
 		->enableSorting(false)
 		->removeColumn('pkiBUser')
-		->removeColumn('fkiBUserProfile')
 		->setup(array(
 			'username' => array('header' => 'Usuario'),
 			'realname' => array('header' => 'Nombre del usuario'),
-			'email' => array('header' => 'Correo electr&oacute;nico'),
-			'profileName' => array('header' => 'Perfil asignado')
+			'BOName' => array('header' => 'Sucursal'),
+			'Name' => array('header' => 'Perfil asignado')
 		))
 		->addColumnAfter('actions', 
 									'<a href="'.$url.'private/User/showProfile">Ver Perfil</a>',
@@ -194,7 +193,6 @@ use \App\data\DataGridView as DGV;
 				succes: function (data){
 					if (data.succes){
 						$.each(data,function (index,record ){
-							if 
 						})
 					}
 				}

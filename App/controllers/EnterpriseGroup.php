@@ -112,19 +112,33 @@ private $_sesionpkiBUser;
 			  Necesita Hacer Login</a>";
 		exit;
 		}*/
+		#Objetos e instancias
+		$cu=CU::getInstance();
+		#get main variables
+		$url= Globales::$absoluteURL;
+		View::set("title", "AddCompany");
+		#set main variables
+		View::set("url", $url);
+		
+		#get data variables
+		$currentMainMenu=getMainMenu2($this->_sesionpkiBUser);
+		$dsSlcCompany=MA::getpknaSelect();
 		$dsCompanyGrid=MA::getParcialSelect();
 		while ($row =$dsCompanyGrid->fetch( \PDO::FETCH_ASSOC )){
 			$dt_Company[] = $row;
 		}
-		$dsSlcCompany=MA::getpknaSelect();
-		$url= Globales::$absoluteURL;
-		$currentMainMenu=$this->_sesionMenu;
+		#set data variables
+		View::set("currentMainMenu", $currentMainMenu);
 		View::set("drows_Company",$dsSlcCompany);
 		View::set("dt_Company",$dt_Company);
-		View::set("url", $url);
-		View::set("currentMainMenu", $currentMainMenu);
-        View::set("title", "AddCompany");
-        View::render("addCompany");
+		#render
+		View::render("addCompany");
+		
+
+		
+		
+        
+        
 	}
 	public function showBranchOffice() {
 	//session_start();
@@ -143,17 +157,34 @@ private $_sesionpkiBUser;
 			  Necesita Hacer Login</a>";
 		exit;
 		*/
+		#Objetos e instancias
+		
+		#get main variables
+		$url= Globales::$absoluteURL;
+		
+		#set main variables
+		View::set("url", $url);
+		View::set("title", "AASP");
+		#get data variables
 		$dsGrid=BO::selectKanbanBO($this->_sesionpkiBUser);
+		$currentMainMenu=CU::getMainMenu2($this->_sesionpkiBUser);
 		while ($row =$dsGrid->fetch( \PDO::FETCH_ASSOC )){
 			$dt_Company[] = $row;
 		}
-		$url= Globales::$absoluteURL;
-		$currentMainMenu=$this->_sesionMenu;
-		View::set("dt_Company",$dt_Company);
-		View::set("url", $url);
+		#set data variables
 		View::set("currentMainMenu", $currentMainMenu);
-        View::set("title", "AASP");
-        View::render("showBO");
+		View::set("dt_Company",$dt_Company);
+		#render
+		View::render("showBO");
+		
+		
+		
+		
+		
+		
+		
+        
+        
 	}
 	public function addBranchOffice(){
 		/*session_start();

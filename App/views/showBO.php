@@ -25,13 +25,13 @@ use \App\data\DataGridView as DGV;
 		->setGridAttributes(array('class' => 'table table-striped table-bordered table-hover dataTables-example'))
 		->enableSorting(false)
 		->removeColumn('pkCompany')
-		->removeColumn('pkSubcompany')
+		->removeColumn('pkSubCompany')
 		->removeColumn('pkBranchOffice')
 		->setup(array(
 			'' => array('header' => 'Cuenta maestra'),
 			'BOName' => array('header' => 'AASP'),
 			'BOStreet' => array('header' => 'Calle'),
-			'totalUsers' => array('header' => 'Usuarios registrados')
+			'totalUsers' => array('header' => 'Usuarios')
 		))
 		/*->addColumnAfter('actions', 
 									'<a href="'.$url.'private/Company">Ver ASP\'s</a>',
@@ -197,7 +197,6 @@ use \App\data\DataGridView as DGV;
 				succes: function (data){
 					if (data.succes){
 						$.each(data,function (index,record ){
-							if 
 						})
 					}
 				}

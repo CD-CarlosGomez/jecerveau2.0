@@ -17,8 +17,8 @@ class CurrentUser {
 //REQUEST############################################
 //CONSTANTES#########################################
 //ATRIBUTOS##########################################
-	public $pMainMenu="";
-	public $ppkiBUser_p="";
+	public $pMainMenu;
+	public $ppkiBUser_p;
 	private static $_instancia;
 //PROPIEDADES########################################
 	public function setppkiBUser_p($value){
@@ -28,6 +28,7 @@ class CurrentUser {
 		return $this->ppkiBUser_p;
 	}
 	public function getMainMenu2($pkiBUser){
+		$this->pMainMenu="";
 		$PDOcnn = Database::instance();
 		$sql = 
 		"
@@ -58,10 +59,9 @@ class CurrentUser {
 		GROUP BY ibFunctionGroupName
 		";
 		foreach ($PDOcnn->query($sql) as $firstLevels) {
-				
 				$this->pMainMenu .="<li class=\"dropdown\">";
 				$this->pMainMenu .="<a aria-expanded=\"false\" role=\"button\" href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">";
-				$this->pMainMenu .=		$firstLevels['ibFunctionGroupName']."<span class=\"caret\"></span>";
+				$this->pMainMenu .="".	$firstLevels['ibFunctionGroupName']."<span class=\"caret\"></span>";
 				$this->pMainMenu .="</a>";
 				$this->pMainMenu .="";
 				$this->pMainMenu .="	<ul class='dropdown-menu multi-level' role=\"menu\" aria-labelledby=\"dropdownMenu\">";
@@ -147,6 +147,8 @@ class CurrentUser {
 	}
 //MÉTODOS ABSTRACTOS#################################
 //CONSTRUCTORES Y DESTRUCTORES#######################
+	public function __construct(){
+	}
 	public static function getInstance(){
 		if(!isset(self::$_instancia)){
 			$class=__CLASS__;

@@ -102,6 +102,25 @@ class Users implements iCrud{
             print "Error!: " . $e->getMessage();
         }
     }
+	public static function selectKanbanUser($pkiBUser){
+		try{
+			$PDOcnn=Database::instance();
+			$PDOQuery=
+			"
+			SELECT
+				u.* 
+			FROM (SELECT
+					@u1:=$pkiBUser p) pcxu ,
+				v_kanbanuserbybo u;
+			";
+		
+			$resultSet=$PDOcnn->query($PDOQuery);
+			return $resultSet;
+		}
+		catch(\PDOException $e){
+			print "Error!: " . $e->getMessage();
+		}
+	}
     public static function insertData($data){
 		try {
             $connection = Database::instance();

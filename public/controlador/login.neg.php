@@ -7,8 +7,6 @@ require('../model/login.php');
 // +-----------------------------------------------
 // +---------------------------Comentarios de versión
 #Agregar seguridad al momento de hacer el login
-session_start();
-
 
 //REQUEST############################################
 $pkiBCurrentUser="";
@@ -48,6 +46,7 @@ switch($btn_Acceder_p){
 		$login->setNombreUsuario($GLOBALS['txt_usuario_p']);
 		$login->setContrasenaUsuario($GLOBALS['txt_contrasena_p']);
 		if($login->Acceder()){
+			SESSION_START();
 			$_SESSION['pkiBUser_p']=$login->getpkiBUser();
 			$_SESSION["nombreUsuario"]=$login->getNombreUsuario();
 			$_SESSION["pkBranchOffice"]=$login->getNombreUsuario();

@@ -12,19 +12,8 @@ use \Core\Database;
 use \App\Models\CurrentUser as CU;
 use \App\Config\Globales as Globales;
 use \Core\Controller;
-	
-class Home extends Controller{
-//CONSTANTES#########################################
-//ATRIBUTOS##########################################
-private $_sesionUsuario;
-private $_sesionpkiBUser;
-//PROPIEDADES########################################
-//MÉTODOS ABSTRACTOS#################################
-//MÉTODOS PÚBLICOS###################################
-public function __construct(){
-		session_start();
-		$this->_sesionUsuario=$_SESSION["nombreUsuario"];
-		$this->_sesionpkiBUser=$_SESSION['pkiBUser_p'];
+
+	session_start();
 		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
 		else{
 				echo "Esta pagina es solo para usuarios registrados.<br>";
@@ -38,6 +27,21 @@ public function __construct(){
 			  Necesita Hacer Login</a>";
 		exit;
 		}
+
+
+
+class Home extends Controller{
+//CONSTANTES#########################################
+//ATRIBUTOS##########################################
+	private $_sesionUsuario;
+	private $_sesionpkiBUser;
+//PROPIEDADES########################################
+//MÉTODOS ABSTRACTOS#################################
+//MÉTODOS PÚBLICOS###################################
+	public function __construct(){
+		$this->_sesionUsuario=$_SESSION["nombreUsuario"];
+		$this->_sesionpkiBUser=$_SESSION['pkiBUser_p'];
+		
 		#Objetos e Instancias
 		$currentUser=CU::getInstance();
 		#get main variables

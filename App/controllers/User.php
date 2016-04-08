@@ -12,37 +12,12 @@ use \Core\View;
 use \Core\Controller;
 use \App\Config\Globales as Globales;
 use \App\Models\Users as Users;
+use \App\Models\CurrentUser as CU;
 use \App\Models\Profiles as Profiles;
 use \App\web\lib\Mailer\PHPMailer;
 
+		//session_start();
 	
-class User extends Controller{
-//CONSTANTES#########################################
-//ATRIBUTOS##########################################
-private $_sesionUsuario;
-private $_sesionpkiBUser;
-private $_sesionMenu;
-//PROPIEDADES########################################
-//MÉTODOS ABSTRACTOS#################################
-//MÉTODOS PÚBLICOS###################################
-	public function __construct(){
-		
-	}
-	/**
-     * [index]
-    */
-    public function index(){
-		//$layout=new WithSiteMap(new WithTemplate(new WithMenu(new LayoutCSS())));
-		//$layout= Layouts::render();
-		self::showUser();
-		View::set("foo",true);
-		//View::render("z_testPost");
-	}
-	public function showUser(){
-		session_start();
-		$this->_sesionUsuario=$_SESSION["nombreUsuario"];
-		$this->_sesionpkiBUser=$_SESSION['pkiBUser_p'];
-		$this->_sesionMenu=$_SESSION['mainMenu'];
 		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
 		else{
 				echo "Esta pagina es solo para usuarios registrados.<br>";
@@ -56,14 +31,40 @@ private $_sesionMenu;
 			  Necesita Hacer Login</a>";
 		exit;
 		}
+
+
+	
+class User extends Controller{
+//CONSTANTES#########################################
+//ATRIBUTOS##########################################
+private $_sesionUsuario;
+private $_sesionpkiBUser;
+//PROPIEDADES########################################
+//MÉTODOS ABSTRACTOS#################################
+//MÉTODOS PÚBLICOS###################################
+	public function __construct(){
+		$this->_sesionUsuario=$_SESSION["nombreUsuario"];
+		$this->_sesionpkiBUser=$_SESSION['pkiBUser_p'];		
+	}
+	/**
+     * [index]
+    */
+    public function index(){
+		//$layout=new WithSiteMap(new WithTemplate(new WithMenu(new LayoutCSS())));
+		//$layout= Layouts::render();
+		//self::showUser();
+		//View::set("foo",true);
+		//View::render("z_testPost");
+	}
+	public function showUser(){
 	#get main Variables
 		$url= Globales::$absoluteURL;
-		$currentMainMenu=$this->_sesionMenu;
+		$currentMainMenu=CU::getMainMenu2($this->_sesionpkiBUser);
 	#set main variables
 		View::set("url", $url);
 		View::set("currentMainMenu", $currentMainMenu);	
 	#get data variables
-		$dsCompanyGrid=Users::getParcialSelect();
+		$dsCompanyGrid=Users::selectKanbanUser($this->_sesionpkiBUser);
 		while ($row =$dsCompanyGrid->fetch( \PDO::FETCH_ASSOC )){$dt_Company[] = $row;}
 	#set data variables
 		View::set("dt_Company",$dt_Company);
@@ -76,8 +77,8 @@ private $_sesionMenu;
         
 	}
 	public function showProfile(){
-		session_start();
-		$this->_sesionUsuario=$_SESSION["nombreUsuario"];
+		//session_start();
+		/*$this->_sesionUsuario=$_SESSION["nombreUsuario"];
 		$this->_sesionpkiBUser=$_SESSION['pkiBUser_p'];
 		$this->_sesionMenu=$_SESSION['mainMenu'];
 		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
@@ -92,22 +93,31 @@ private $_sesionMenu;
 		echo "Su sesion a terminado, <a href='http://localhost:8012/ibrain2.0'>
 			  Necesita Hacer Login</a>";
 		exit;
-		}
-		$dsCompanyGrid=Profiles::getParcialSelect();
+		}*/
+		#objetos e instancias
+		
+		
+		#get main variables
+		$url= Globales::$absoluteURL;
+		
+		#set main variables
+		View::set("url", $url);
+		View::set("title", "Users");
+		#get data variables
+		$currentMainMenu=CU::getMainMenu2($this->_sesionpkiBUser);
+		$dsCompanyGrid=Profiles::selectKanbanProfile($this->_sesionpkiBUser);
 		while ($row =$dsCompanyGrid->fetch( \PDO::FETCH_ASSOC )){
 			$dt_Company[] = $row;
 		}
-		$url= Globales::$absoluteURL;
-		$currentMainMenu=$this->_sesionMenu;
+		#set data variables
 		View::set("dt_Company",$dt_Company);
-		View::set("url", $url);
 		View::set("currentMainMenu", $currentMainMenu);
-        View::set("title", "Grupo Empresarial");
-        View::render("showProfile");
+		#render
+		View::render("showProfile");   
 	}
 	public function addUser(){
-		session_start();
-		$this->_sesionUsuario=$_SESSION["nombreUsuario"];
+		//session_start();
+		/*$this->_sesionUsuario=$_SESSION["nombreUsuario"];
 		$this->_sesionpkiBUser=$_SESSION['pkiBUser_p'];
 		$this->_sesionMenu=$_SESSION['mainMenu'];
 		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
@@ -122,7 +132,7 @@ private $_sesionMenu;
 		echo "Su sesion a terminado, <a href='$url'>
 			  Necesita Hacer Login</a>";
 		exit;
-		}
+		}*/
 	#get main variables
 		$url= Globales::$absoluteURL;
 		$currentMainMenu=$this->_sesionMenu;
@@ -142,8 +152,8 @@ private $_sesionMenu;
        
 	}
 	public function addProfile(){
-		session_start();
-		$this->_sesionUsuario=$_SESSION["nombreUsuario"];
+		//session_start();
+		/*$this->_sesionUsuario=$_SESSION["nombreUsuario"];
 		$this->_sesionpkiBUser=$_SESSION['pkiBUser_p'];
 		$this->_sesionMenu=$_SESSION['mainMenu'];
 		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
@@ -158,7 +168,7 @@ private $_sesionMenu;
 		echo "Su sesion a terminado, <a href='http://localhost:8012/ibrain2.0'>
 			  Necesita Hacer Login</a>";
 		exit;
-		}
+		}*/
 	#get main variables
 		$url= Globales::$absoluteURL;
 		$currentMainMenu=$this->_sesionMenu;
