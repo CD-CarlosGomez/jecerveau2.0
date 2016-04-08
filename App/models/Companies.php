@@ -93,54 +93,20 @@ class Companies implements iCrud{
 			print "Error!: " . $e->getMessage();
 		}
     }
-	public static function callKanban($pkCompany){
+	public static function callKanban($pkiBUser){
 		try{
 			$PDOcnn=Database::instance();
-			$PDOquery=
-			"CALL getKanbanCompany(
-				:company,
-				@oint_pkCompany_m,
-				@ostr_CompanyCommercialName_m,
-				@ostr_CompanyLegalName_m,
-				@oint_SubCompanies_m,
-				@oint_BranchOffices_m,
-				@oint_Users_m
-			)";
-			$PDOstmt=$PDOcnn->prepare($PDOquery);
-			$PDOstmt->bindParam('company',$pkCompany,\PDO::PARAM_INT);
-			$PDOstmt->execute();
-			$PDOstmt->closeCursor();
-			
-			$resultSet=$PDOcnn->query(
+			$PDOQuery=
 			"
-			SELECT 
-				@oint_pkCompany_m,
-				@ostr_CompanyCommercialName_m,
-				@ostr_CompanyLegalName_m,
-				@oint_SubCompanies_m,
-				@oint_BranchOffices_m,
-				@oint_Users_m;
-			"	
-			);
+			SELECT
+				c.* 
+			FROM (SELECT
+					@u1:=$pkiBUser p) pcxu ,
+				v_kanbanCompanyByUser c;
+			";
+		
+			$resultSet=$PDOcnn->query($PDOQuery);
 			return $resultSet;
-			
-			/*if($datatable){
-				printf(
-				'oint_pkCompany_m:%d,
-				ostr_CompanyCommercialName_m:%s,
-				ostr_CompanyLegalName_m:%s,
-				oint_SubCompanies_m:%d,
-				oint_BranchOffices_m:d,
-				oint_Users_m:%d',
-					$datatable['@oint_pkCompany_m'],
-					$datatable['@ostr_CompanyCommercialName_m'],
-					$datatable['@ostr_CompanyLegalName_m'],
-					$datatable['@oint_SubCompanies_m'],
-					$datatable['@oint_BranchOffices_m'],
-					$datatable['@oint_Users_m']
-				);
-				
-			}*/
 		}
 		catch(\PDOException $e){
 			print "Error!: " . $e->getMessage();

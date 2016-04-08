@@ -14,10 +14,12 @@ use \Core\Database;
 use \App\Config\Globales as Globales;
 
 class CurrentUser {
+//REQUEST############################################
 //CONSTANTES#########################################
 //ATRIBUTOS##########################################
 	public $pMainMenu="";
 	public $ppkiBUser_p="";
+	private static $_instancia;
 //PROPIEDADES########################################
 	public function setppkiBUser_p($value){
 		$this->ppkiBUser_p=$value;
@@ -91,7 +93,8 @@ class CurrentUser {
 				WHERE pkiBUser= '$pkiBUser'
 					AND u.Active='1'
 					AND f.Active='1'
-					AND fg.pkiBFunctionGroup=".$firstLevels['pkiBFunctionGroup'].";
+					AND fg.pkiBFunctionGroup=".$firstLevels['pkiBFunctionGroup']."
+				GROUP BY f.ibfunctionName;
 				";
 			foreach($PDOcnn->query($PDOQuery) as $secondLevel){
 					$directoryPath= Globales::$absoluteURL;
@@ -125,7 +128,9 @@ class CurrentUser {
 					WHERE pkiBUser='$pkiBUser'
 						AND u.Active='1'
 						AND fd.Active='1'
-						AND f.pkiBFunction=".$secondLevel['pkiBFunction'].";
+						AND f.pkiBFunction=".$secondLevel['pkiBFunction']."
+					GROUP BY fd.ibfunctionDetailName	
+						;
 					";
 				foreach($PDOcnn->query($PDOQuery) as $thirdLevels){
 					$this->pMainMenu .=			"<li>";
@@ -141,6 +146,22 @@ class CurrentUser {
 		return $this->pMainMenu;
 	}
 //MÉTODOS ABSTRACTOS#################################
+//CONSTRUCTORES Y DESTRUCTORES#######################
+	public static function getInstance(){
+		if(!isset(self::$_instancia)){
+			$class=__CLASS__;
+			self::$_instancia= new $class;
+		}
+		return self::$_instancia;
+	}
+//MÉTODOS MÁGICOS####################################
+	/**
+     * [__clone Evita que el objeto se pueda clonar]
+     * @return [type] [message]
+     */
+    public function __clone(){
+        trigger_error('La clonación de este objeto no está permitida', E_USER_ERROR);
+    }
 //MÉTODOS PÚBLICOS###################################
 	public function Logout(){
 		session_start();
@@ -156,30 +177,38 @@ class CurrentUser {
 		return $realname;
 	}
 	public function getCurrentBO($pkiBUser){
-		$PDOcnn = Database::instance();
-        $PDOQuery = 
-		"
-		SELECT 
-			pkBranchOffice, 
-			BOName 
-		FROM branchoffice bo
-			INNER JOIN branchoffice_has_ibuserprofile bohup 
-				ON bo.pkBranchOffice=bohup.branchoffice_pkBranchOffice 
-			INNER JOIN ibuser u
-				ON bohup.ibuser_pkiBUser=u.pkiBUser
-		WHERE U.pkiBUser='$pkiBUser'
-			AND bo.Active=1
-		";
-		
-		foreach ($PDOcnn->query($PDOQuery) as $resultSet) {
-			$output  ="<li>";
-			$output .=	"<a href=#";
-			$output .= 		$resultSet['BOName'];
-			$output .= 	"</a>";
-			$output .="</li>";
+		try{
+			$PDOcnn = Database::instance();
+			$PDOQuery = 
+			"
+			SELECT 
+				pkBranchOffice, 
+				BOName 
+			FROM branchoffice bo
+				INNER JOIN branchoffice_has_ibuserprofile bohup 
+					ON bo.pkBranchOffice=bohup.branchoffice_pkBranchOffice 
+				INNER JOIN ibuser u
+					ON bohup.ibuser_pkiBUser=u.pkiBUser
+			WHERE U.pkiBUser='$pkiBUser'
+				AND bo.Active=1;
+			";
+			
+			foreach ($PDOcnn->query($PDOQuery) as $resultSet) {
+				$output  ="<li>";
+				$output .=	"<a href='#'>";
+				$output .= 		$resultSet['BOName'];
+				$output .= 	"</a>";
+				$output .="</li>";
+				
+			}
+			return $output;
 			
 		}
-		return $output;
+		catch(\PDOException $e){
+            print "Error!: " . $e->getMessage();
+        }
+		
+			
 	}
 //MÉTODOS PRIVADOS###################################
 //EVENTOS############################################

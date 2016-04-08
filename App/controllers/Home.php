@@ -9,7 +9,7 @@ namespace App\Controllers;
 defined("APPPATH") OR die("Access denied");
 use \Core\View;
 use \Core\Database;
-use \App\Models\CurrentUser as CurrentUser;
+use \App\Models\CurrentUser as CU;
 use \App\Config\Globales as Globales;
 use \Core\Controller;
 	
@@ -39,7 +39,7 @@ public function __construct(){
 		exit;
 		}
 		#Objetos e Instancias
-		$currentUser=new CurrentUser;
+		$currentUser=CU::getInstance();
 		#get main variables
 		$directoryPath= Globales::$absoluteURL;
 		#set main variables
@@ -56,14 +56,8 @@ public function __construct(){
 		View::set("realname",$realname);
 		View::set("currentBO",$currentBO);
 		#Renderizar
-		$_SESSION['mainMenu']=$currentMainMenu;
-		View::render("home");}
-		
-
-		
-		
-		
-        
+		View::render("home");
+	} 
         
 		
 	/**

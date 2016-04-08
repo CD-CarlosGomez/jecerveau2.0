@@ -53,23 +53,19 @@ private $_sesionpkiBUser;
 			  Necesita Hacer Login</a>";
 		exit;
 		}
+		
 		#Objetos e instancias
-		$cu=new CU;
+		$cu=CU::getInstance();
 		
 		#get main variables
-		
+		$directoryPath= Globales::$absoluteURL;
 		#set main variables
-		$url= Globales::$absoluteURL;
 		View::set("title", "Companies");
-		View::set("url", $url);
+		View::set("url", $directoryPath);
 		#get data variables
 		$currentMainMenu=$cu->getMainMenu2($this->_sesionpkiBUser);
 		$dsSlcCompany=MA::getpknaSelect();
-		//$dsCompanyGrid=MA::getParcialSelect();
-		/*while ($row =$dsCompanyGrid->fetch( \PDO::FETCH_ASSOC )){
-			$dt_Company[] = $row;
-		}*/
-		$dsKanBanCompanies=MA::callKanban(0);
+		$dsKanBanCompanies=MA::callKanban($this->_sesionpkiBUser);
 		while ($row =$dsKanBanCompanies->fetch(\PDO::FETCH_ASSOC)){
 			$dt_Company[] = $row;
 		}

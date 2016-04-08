@@ -23,16 +23,15 @@ use \App\data\DataGridView as DGV;
 
 		}
 		$outputTableCompany=DGV::getInstance($dt_Company)
-		->setGridAttributes(array('class' => 'table table-striped table-bordered table-hover dataTables-example'))
+		->setGridAttributes(array('class' => 'table table-striped table-bordered table-hover dataTables'))
 		->enableSorting(false)
 		->removeColumn('pkCompany')
 		->setup(array(
-			'@oint_pkCompany_m' => array('header' => 'Master_Account_ID'),
-			'@ostr_CompanyCommercialName_m' => array('header' => 'Commercial_Name'),
-			'@ostr_CompanyLegalName_m' => array('header' => 'Legal_Name'),
-			'@oint_SubCompanies_m' => array('header' => 'SubCompanies'),
-			'@oint_BranchOffices_m' => array('header' => 'Branch Offices'),
-			'@oint_Users_m' => array('header' => 'Users')
+			'legalName' => array('header' => 'Master_Account'),
+			'commercialName' => array('header' => 'Commercial_Name'),
+			'totalSubCompany' => array('header' => 'SubCompa&ntilde;&iacute;as'),
+			'totalBO' => array('header' => 'Sucursales'),
+			'totalUsers' => array('header' => 'Usuarios')
 		))
 		->addColumnAfter('actions', 
 									'<a href="'.$url.'private/EnterpriseGroup/showBranchOffice">Ver ASP\'s</a>',
@@ -144,11 +143,12 @@ use \App\data\DataGridView as DGV;
 
     <!-- Mainly scripts -->
     <script src="<?php echo $url; ?>/App/web/js/jquery-2.1.1.js"></script>
-    <script src="<?php echo $url; ?>/App/web/js/bootstrap.min.js"></script>
-    <script src="<?php echo $url; ?>/App/web/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="<?php echo $url; ?>/App/web/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-	
-	
+	<script src="<?php echo $url; ?>/App/web/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+	<script src="<?php echo $url; ?>/App/web/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+	<script src="<?php echo $url; ?>/App/web/js/bootstrap.min.js"></script>
+	<!-- dataTables-->
+	<script src="<?php echo $url; ?>/App/web/js/plugins/jeditable/jquery.jeditable.js"></script>
+	<script src="<?php echo $url; ?>/App/web/js/plugins/dataTables/datatables.min.js"></script>	
     <!-- Custom and plugin javascript -->
     <script src="<?php echo $url; ?>/App/web/js/inspinia.js"></script>
     <script src="<?php echo $url; ?>/App/web/js/plugins/pace/pace.min.js"></script>
@@ -159,13 +159,11 @@ use \App\data\DataGridView as DGV;
     <!-- Jquery Validate -->
     <script src="<?php echo $url; ?>/App/web/js/plugins/validate/jquery.validate.min.js"></script>
 
-	<!-- dataTables-->
-	<script src="<?php echo $url; ?>/App/web/js/plugins/dataTables/datatables.min.js"></script>
-	<script src="<?php echo $url; ?>/App/web/js/plugins/jeditable/jquery.jeditable.js"></script>
+	
 	
    <script>
         $(document).ready(function(){
-            $('.dataTables-example').DataTable({
+            $('.dataTables').DataTable({
                 dom: '<"html5buttons"B>lTfgitp',
                 buttons: [
                     { extend: 'copy'},
@@ -194,8 +192,7 @@ use \App\data\DataGridView as DGV;
 				dataType:'json',
 				succes: function (data){
 					if (data.succes){
-						$.each(data,function (index,record ){
-							if 
+						$.each(data,function (index,record ){ 
 						})
 					}
 				}

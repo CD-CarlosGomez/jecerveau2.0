@@ -28,12 +28,6 @@
                 <div class="form-group">
                     <input type="email" id="txt_usuario_h" class="form-control" placeholder="Username" required="" name="txt_usuario_h">
                 </div>
-				<div id="show1" class="form-group hidden1">
-					<select id="slt_AASP_h" class="form-control" required="" name="slt_AASP_h">
-						<option value=-1>Seleccion un AASP...</option>
-						<!--input type="hidden" value="1" name="vstr_username_j"/-->
-					</select>
-				</div>
 				<div id="show2" class="form-group hidden1">
 					<div class="form-group">
 						<input type="password" id="txt_contrasena_h" class="form-control" placeholder="Password" required="" name="txt_contrasena_h">
@@ -57,63 +51,7 @@
 	<script>
 	$(document).ready(
 		function(){
-			var slt_AASP_j=$("#slt_AASP_h");
-			var txt_usuario_j=$("#txt_usuario_h");
-			var divSltAASP=$(".hidden1");
-			
-			divSltAASP.hide();
-			
-			txt_usuario_j.focus(
-				function(){
-					divSltAASP.hide();
-				}
-			);
-			
-			
-			txt_usuario_j.on("keypress",
-				function(e){
-					keypressed_j=txt_usuario_j?e.keyCode:e.which;
-					if(keypressed_j==13 || keypressed_j==9 ){
-						/*Si el textbos no está vacío*/
-						if(txt_usuario_j.val()!=''){
-							/*Datos a postear*/
-							var datos={
-								vstr_username_j:txt_usuario_j.val()
-							};
-							$.post("App/web/ajax/slt_AASP_h.php", datos, function (BO){
-								slt_AASP_j.empty();
-								$.each(
-									BO,
-									function (index,record){
-										/*Validar que aparezca algo cuando el json está vacío
-										if(json.length()==0){
-											slt_AASP_j.append("<option>Intente con otra cuenta</option>");
-										}*/
-										if ($.isNumeric(index)){
-											slt_AASP_j.append("<option value='-1'>Seleccione un AASP...</option>");
-											slt_AASP_j.append("<option value='" + record.id + "'>" + record.nombre + "</option>");
-										}
-									}
-								);
-							}, 'json'
-							);
-						}
-						else{
-							slt_AASP_j.empty();
-							slt_AASP_j.append("<option>Seleccione un AASP...</option>");
-						}
-						//muestra el div de seleccionar un aasp
-						$("#show1").show("slow");
-					}
-				}				
-			);
-			
-			slt_AASP_j.on("change",
-				function(){
-					$("#show2").show("slow");
-					$("#show3").show("slow");
-				}				
-			);
+
 		}
 	);
 	</script>

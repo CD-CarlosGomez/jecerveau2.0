@@ -22,7 +22,7 @@ defined("APPPATH") OR die("Access denied");
 		<html>
 			<head>
 					<meta charset="utf-8">
-					<meta name="viewport" content="<? echo $this->pviewport?>">
+					<meta name="viewport" content="width=device-width, initial-scale=1.0">
 					<meta http-equiv="X-UA-Compatible" content="IE=edge">
 					<title><?php echo $title ?></title>
 					<link href="<?php echo $url; ?>App/web/css/bootstrap.min.css" rel="stylesheet">
@@ -52,11 +52,15 @@ defined("APPPATH") OR die("Access denied");
 									<ul class="nav navbar-top-links navbar-right">
 										<li>
 											<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-												<span class="clear"> <span class="block m-t-xs"> <strong class="font-bold"><?php echo $realname;?></strong>
-												 </span> <span class="text-muted text-xs block"><b class="caret"></b></span> </span> </a>
+												<span class="clear"> 
+													<span class="block m-t-xs"> 
+														<strong class="font-bold"><?php echo $realname;?></strong>
+													</span>
+													<span class="text-muted text-xs block">Cuenta<b class="caret"></b>
+													</span> 
+												</span> 
+											</a>
 												<ul class="dropdown-menu animated fadeInRight m-t-xs">
-													<?php echo $currentBO;?>													
-													<li class="divider"></li>
 													<li><a href="<?php echo $url; ?>App/controllers/logout.php">Salir</a></li>
 												</ul>
 										</li>
@@ -72,6 +76,14 @@ defined("APPPATH") OR die("Access denied");
 										<a href="<?php echo $url; ?>private/home">Inicio</a>
 									</li>
 								</ol>
+							</div>
+							<div class="pull-right">
+								<div id="" class="form-group">
+									<select id="slt_AASP_h" class="form-control" required="" name="slt_AASP_h">
+										<option value=-1>Seleccion un AASP...</option>
+											<!--input type="hidden" value="1" name="vstr_username_j"/-->
+									</select>
+								</div>
 							</div>
 						</div>	
 						<div class="wrapper wrapper-content">
@@ -123,140 +135,5 @@ defined("APPPATH") OR die("Access denied");
 
 					<!-- Toastr -->
 					<script src="<?php echo $url; ?>App/web/js/plugins/toastr/toastr.min.js"></script>
-
-
-					<script>
-						$(document).ready(function() {
-							/*setTimeout(function() {
-								toastr.options = {
-									closeButton: true,
-									progressBar: true,
-									showMethod: 'slideDown',
-									timeOut: 4000
-								};
-								toastr.success('Responsive Admin Theme', 'Welcome to INSPINIA');
-							}, 1300);*/
-
-
-							var data1 = [
-								[0,4],[1,8],[2,5],[3,10],[4,4],[5,16],[6,5],[7,11],[8,6],[9,11],[10,30],[11,10],[12,13],[13,4],[14,3],[15,3],[16,6]
-							];
-							var data2 = [
-								[0,1],[1,0],[2,2],[3,0],[4,1],[5,3],[6,1],[7,5],[8,2],[9,3],[10,2],[11,1],[12,0],[13,2],[14,8],[15,0],[16,0]
-							];
-							$("#flot-dashboard-chart").length && $.plot($("#flot-dashboard-chart"), [
-								data1, data2
-							],
-									{
-										series: {
-											lines: {
-												show: false,
-												fill: true
-											},
-											splines: {
-												show: true,
-												tension: 0.4,
-												lineWidth: 1,
-												fill: 0.4
-											},
-											points: {
-												radius: 0,
-												show: true
-											},
-											shadowSize: 2
-										},
-										grid: {
-											hoverable: true,
-											clickable: true,
-											tickColor: "#d5d5d5",
-											borderWidth: 1,
-											color: '#d5d5d5'
-										},
-										colors: ["#1ab394", "#1C84C6"],
-										xaxis:{
-										},
-										yaxis: {
-											ticks: 4
-										},
-										tooltip: false
-									}
-							);
-
-							var doughnutData = [
-								{
-									value: 300,
-									color: "#a3e1d4",
-									highlight: "#1ab394",
-									label: "App"
-								},
-								{
-									value: 50,
-									color: "#dedede",
-									highlight: "#1ab394",
-									label: "Software"
-								},
-								{
-									value: 100,
-									color: "#A4CEE8",
-									highlight: "#1ab394",
-									label: "Laptop"
-								}
-							];
-
-							var doughnutOptions = {
-								segmentShowStroke: true,
-								segmentStrokeColor: "#fff",
-								segmentStrokeWidth: 2,
-								percentageInnerCutout: 45, // This is 0 for Pie charts
-								animationSteps: 100,
-								animationEasing: "easeOutBounce",
-								animateRotate: true,
-								animateScale: false
-							};
-
-							var ctx = document.getElementById("doughnutChart").getContext("2d");
-							var DoughnutChart = new Chart(ctx).Doughnut(doughnutData, doughnutOptions);
-
-							var polarData = [
-								{
-									value: 300,
-									color: "#a3e1d4",
-									highlight: "#1ab394",
-									label: "App"
-								},
-								{
-									value: 140,
-									color: "#dedede",
-									highlight: "#1ab394",
-									label: "Software"
-								},
-								{
-									value: 200,
-									color: "#A4CEE8",
-									highlight: "#1ab394",
-									label: "Laptop"
-								}
-							];
-
-							var polarOptions = {
-								scaleShowLabelBackdrop: true,
-								scaleBackdropColor: "rgba(255,255,255,0.75)",
-								scaleBeginAtZero: true,
-								scaleBackdropPaddingY: 1,
-								scaleBackdropPaddingX: 1,
-								scaleShowLine: true,
-								segmentShowStroke: true,
-								segmentStrokeColor: "#fff",
-								segmentStrokeWidth: 2,
-								animationSteps: 100,
-								animationEasing: "easeOutBounce",
-								animateRotate: true,
-								animateScale: false
-							};
-							var ctx = document.getElementById("polarChart").getContext("2d");
-							var Polarchart = new Chart(ctx).PolarArea(polarData, polarOptions);
-
-						});
-					</script>
 			</body>
 		</html>
