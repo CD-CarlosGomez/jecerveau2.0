@@ -91,6 +91,25 @@ class BranchOffices implements iCrud{
 			print "Error!: " . $e->getMessage();
 		}
     }
+	public static function selectKanbanBO($pkiBUser){
+		try{
+			$PDOcnn=Database::instance();
+			$PDOQuery=
+			"
+			SELECT
+				bo.* 
+			FROM (SELECT
+					@u1:=$pkiBUser p) pboxu ,
+				v_kanbanaaspbyuser bo;
+			";
+		
+			$resultSet=$PDOcnn->query($PDOQuery);
+			return $resultSet;
+		}
+		catch(\PDOException $e){
+			print "Error!: " . $e->getMessage();
+		}
+	}
     public static function getById($id) {
 	    try {
             $connection = Database::instance();

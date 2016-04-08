@@ -27,7 +27,22 @@ private $_sesionpkiBUser;
 //MÉTODOS ABSTRACTOS#################################
 //MÉTODOS PÚBLICOS###################################
 	public function __construct(){
-	
+	session_start();
+	$this->_sesionUsuario=$_SESSION["nombreUsuario"];
+	$this->_sesionpkiBUser=$_SESSION['pkiBUser_p'];
+		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
+		else{
+				echo "Esta pagina es solo para usuarios registrados.<br>";
+			echo "<a href='http://localhost:8012/ibrain2.0'>Login Here!</a>";
+			exit;
+		}
+		$now = time(); 
+		if($now > $_SESSION['expire']){
+		session_destroy();
+		echo "Su sesion a terminado, <a href='http://localhost:8012/ibrain2.0'>
+			  Necesita Hacer Login</a>";
+		exit;
+		}
 	}
 	/**
      * [index]
@@ -36,8 +51,8 @@ private $_sesionpkiBUser;
 		self::showCompany();
 	}
     public function showCompany(){
-		session_start();
-		$this->_sesionUsuario=$_SESSION["nombreUsuario"];
+		//session_start();
+		/*$this->_sesionUsuario=$_SESSION["nombreUsuario"];
 		$this->_sesionpkiBUser=$_SESSION['pkiBUser_p'];
 		
 		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
@@ -52,7 +67,7 @@ private $_sesionpkiBUser;
 		echo "Su sesion a terminado, <a href='$url'>
 			  Necesita Hacer Login</a>";
 		exit;
-		}
+		}*/
 		
 		#Objetos e instancias
 		$cu=CU::getInstance();
@@ -65,7 +80,7 @@ private $_sesionpkiBUser;
 		#get data variables
 		$currentMainMenu=$cu->getMainMenu2($this->_sesionpkiBUser);
 		$dsSlcCompany=MA::getpknaSelect();
-		$dsKanBanCompanies=MA::callKanban($this->_sesionpkiBUser);
+		$dsKanBanCompanies=MA::selectKanbanCompany($this->_sesionpkiBUser);
 		while ($row =$dsKanBanCompanies->fetch(\PDO::FETCH_ASSOC)){
 			$dt_Company[] = $row;
 		}
@@ -80,8 +95,8 @@ private $_sesionpkiBUser;
         
 	}
 	public function addCompany(){
-		session_start();
-		$this->_sesionUsuario=$_SESSION["nombreUsuario"];
+		//session_start();
+		/*$this->_sesionUsuario=$_SESSION["nombreUsuario"];
 		$this->_sesionpkiBUser=$_SESSION['pkiBUser_p'];
 		$this->_sesionMenu=$_SESSION['mainMenu'];
 		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
@@ -96,7 +111,7 @@ private $_sesionpkiBUser;
 		echo "Su sesion a terminado, <a href='$url'>
 			  Necesita Hacer Login</a>";
 		exit;
-		}
+		}*/
 		$dsCompanyGrid=MA::getParcialSelect();
 		while ($row =$dsCompanyGrid->fetch( \PDO::FETCH_ASSOC )){
 			$dt_Company[] = $row;
@@ -112,10 +127,9 @@ private $_sesionpkiBUser;
         View::render("addCompany");
 	}
 	public function showBranchOffice() {
-	session_start();
-		$this->_sesionUsuario=$_SESSION["nombreUsuario"];
+	//session_start();
+		/*$this->_sesionUsuario=$_SESSION["nombreUsuario"];
 		$this->_sesionpkiBUser=$_SESSION['pkiBUser_p'];
-		$this->_sesionMenu=$_SESSION['mainMenu'];
 		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
 		else{
 				echo "Esta pagina es solo para usuarios registrados.<br>";
@@ -128,9 +142,9 @@ private $_sesionpkiBUser;
 		echo "Su sesion a terminado, <a href='http://localhost:8012/ibrain2.0'>
 			  Necesita Hacer Login</a>";
 		exit;
-		}
-		$dsCompanyGrid=BO::getParcialSelect();
-		while ($row =$dsCompanyGrid->fetch( \PDO::FETCH_ASSOC )){
+		*/
+		$dsGrid=BO::selectKanbanBO($this->_sesionpkiBUser);
+		while ($row =$dsGrid->fetch( \PDO::FETCH_ASSOC )){
 			$dt_Company[] = $row;
 		}
 		$url= Globales::$absoluteURL;
@@ -142,7 +156,7 @@ private $_sesionpkiBUser;
         View::render("showBO");
 	}
 	public function addBranchOffice(){
-		session_start();
+		/*session_start();
 		$this->_sesionUsuario=$_SESSION["nombreUsuario"];
 		$this->_sesionpkiBUser=$_SESSION['pkiBUser_p'];
 		$this->_sesionMenu=$_SESSION['mainMenu'];
@@ -158,7 +172,7 @@ private $_sesionpkiBUser;
 		echo "Su sesion a terminado, <a href='$url'>
 			  Necesita Hacer Login</a>";
 		exit;
-		}
+		}*/
 		$dsCompanyGrid=MA::getParcialSelect();
 		while ($row =$dsCompanyGrid->fetch( \PDO::FETCH_ASSOC )){
 			$dt_Company[] = $row;
@@ -177,24 +191,7 @@ private $_sesionpkiBUser;
 //MÉTODOS PRIVADOS###################################
 //EVENTOS############################################
 //CONTROLES##########################################
-//MAIN###############################################
-		//session_start();
-		/*$userName=$_SESSION["nombreUsuario"];
-		$pkiBUser=$_SESSION['pkiBUser_p'];
-		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
-		else{
-				echo "Esta pagina es solo para usuarios registrados.<br>";
-			echo "<a href='http://localhost:8012/ibrain2.0'>Login Here!</a>";
-			exit;
-		}
-		$now = time(); 
-		if($now > $_SESSION['expire']){
-		session_destroy();
-		echo "Su sesion a terminado, <a href='http://localhost:8012/ibrain2.0'>
-			  Necesita Hacer Login</a>";
-		exit;
-		}*/
-		
+//MAIN###############################################		
 	switch(@$_POST['hdn_toDo_h']){
 		case "AddCompany":
 			CreateCompany();

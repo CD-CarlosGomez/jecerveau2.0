@@ -24,18 +24,14 @@ use \App\data\DataGridView as DGV;
 		$outputTableCompany=DGV::getInstance($dt_Company)
 		->setGridAttributes(array('class' => 'table table-striped table-bordered table-hover dataTables-example'))
 		->enableSorting(false)
+		->removeColumn('pkCompany')
+		->removeColumn('pkSubcompany')
 		->removeColumn('pkBranchOffice')
-		->removeColumn('Company_pkCompany')
 		->setup(array(
-			'commercialName' => array('header' => 'Cuenta maestra'),
+			'' => array('header' => 'Cuenta maestra'),
 			'BOName' => array('header' => 'AASP'),
 			'BOStreet' => array('header' => 'Calle'),
-			'BOExtNumber' => array('header' => 'N&uacute;mero exterior'),
-			'BOIntNumber' => array('header' => 'N&uacute;mero interior'),
-			'BORegion' => array('header' => 'Regi&oacute;n'),
-			'BOZone' => array('header' => 'Zona'),
-			'BOProvince' => array('header' => 'Provincia'),
-			'BOZipCode' => array('header' => 'C&oacute;digo Postal')
+			'totalUsers' => array('header' => 'Usuarios registrados')
 		))
 		/*->addColumnAfter('actions', 
 									'<a href="'.$url.'private/Company">Ver ASP\'s</a>',

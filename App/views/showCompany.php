@@ -138,9 +138,6 @@ use \App\data\DataGridView as DGV;
             </div>
         </div>
     </div>
-
-
-
     <!-- Mainly scripts -->
     <script src="<?php echo $url; ?>/App/web/js/jquery-2.1.1.js"></script>
 	<script src="<?php echo $url; ?>/App/web/js/plugins/metisMenu/jquery.metisMenu.js"></script>

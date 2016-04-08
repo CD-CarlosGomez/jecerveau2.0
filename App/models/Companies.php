@@ -93,7 +93,7 @@ class Companies implements iCrud{
 			print "Error!: " . $e->getMessage();
 		}
     }
-	public static function callKanban($pkiBUser){
+	public static function selectKanbanCompany($pkiBUser){
 		try{
 			$PDOcnn=Database::instance();
 			$PDOQuery=
