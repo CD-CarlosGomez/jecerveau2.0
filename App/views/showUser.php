@@ -6,9 +6,6 @@ defined("APPPATH") OR die("Access denied");
 
 use \App\data\DataGridView as DGV;
 		
-		//session_start();
-		//$this->_sesionUsuario=$_SESSION["nombreUsuario"];
-		//$this->_sesionpkiBUser=$_SESSION['pkiBUser_p'];
 		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
 		else{
 				echo "Esta pagina es solo para usuarios registrados.<br>";

@@ -11,7 +11,7 @@ class Companies implements iCrud{
 	private static $_pkCompany_p;
 	private static $_legalName_p;
 	private static $_commercialName_p;
-	private static $_taxId_p;
+	/*private static $_taxId_p;
 	private static $_logoFile_p;//Agregar Método
 	private static $_street_p;
 	private static $_extNumber_p;
@@ -19,7 +19,7 @@ class Companies implements iCrud{
 	private static $_region_p;
 	private static $_zone_p;
 	private static $_province_p;
-	private static $_zipCode_p;
+	private static $_zipCode_p;*/
 	private static $_created_p;
 	private static $_createdBy_p;
 	private static $_modified_p;//Agregar método

@@ -18,19 +18,8 @@ use \App\Models\BranchOffices as BO;
 use \App\Models\CurrentUser as CU;
 use \App\data\DataGridView as DGB;
 
-class EnterpriseGroup extends Controller{
-//CONSTANTES#########################################
-//ATRIBUTOS##########################################
-private $_sesionUsuario;
-private $_sesionpkiBUser;
-//PROPIEDADES########################################
-//MÉTODOS ABSTRACTOS#################################
-//MÉTODOS PÚBLICOS###################################
-	public function __construct(){
 	session_start();
-	$this->_sesionUsuario=$_SESSION["nombreUsuario"];
-	$this->_sesionpkiBUser=$_SESSION['pkiBUser_p'];
-		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
+	if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
 		else{
 				echo "Esta pagina es solo para usuarios registrados.<br>";
 			echo "<a href='http://localhost:8012/ibrain2.0'>Login Here!</a>";
@@ -43,6 +32,19 @@ private $_sesionpkiBUser;
 			  Necesita Hacer Login</a>";
 		exit;
 		}
+class EnterpriseGroup extends Controller{
+//CONSTANTES#########################################
+//ATRIBUTOS##########################################
+private $_sesionUsuario;
+private $_sesionpkiBUser;
+//PROPIEDADES########################################
+//MÉTODOS ABSTRACTOS#################################
+//MÉTODOS PÚBLICOS###################################
+	public function __construct(){
+	
+	$this->_sesionUsuario=$_SESSION["nombreUsuario"];
+	$this->_sesionpkiBUser=$_SESSION['pkiBUser_p'];
+		
 	}
 	/**
      * [index]
@@ -95,23 +97,6 @@ private $_sesionpkiBUser;
         
 	}
 	public function addCompany(){
-		//session_start();
-		/*$this->_sesionUsuario=$_SESSION["nombreUsuario"];
-		$this->_sesionpkiBUser=$_SESSION['pkiBUser_p'];
-		$this->_sesionMenu=$_SESSION['mainMenu'];
-		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
-		else{
-				echo "Esta pagina es solo para usuarios registrados.<br>";
-			echo "<a href='$url'>Login Here!</a>";
-			exit;
-		}
-		$now = time(); 
-		if($now > $_SESSION['expire']){
-		session_destroy();
-		echo "Su sesion a terminado, <a href='$url'>
-			  Necesita Hacer Login</a>";
-		exit;
-		}*/
 		#Objetos e instancias
 		$cu=CU::getInstance();
 		#get main variables
@@ -121,7 +106,7 @@ private $_sesionpkiBUser;
 		View::set("url", $url);
 		
 		#get data variables
-		$currentMainMenu=getMainMenu2($this->_sesionpkiBUser);
+		$currentMainMenu=CU::getMainMenu2($this->_sesionpkiBUser);
 		$dsSlcCompany=MA::getpknaSelect();
 		$dsCompanyGrid=MA::getParcialSelect();
 		while ($row =$dsCompanyGrid->fetch( \PDO::FETCH_ASSOC )){

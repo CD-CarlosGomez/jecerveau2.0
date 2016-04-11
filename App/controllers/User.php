@@ -16,8 +16,8 @@ use \App\Models\CurrentUser as CU;
 use \App\Models\Profiles as Profiles;
 use \App\web\lib\Mailer\PHPMailer;
 
-		//session_start();
 	
+	session_start();
 		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
 		else{
 				echo "Esta pagina es solo para usuarios registrados.<br>";
@@ -31,7 +31,6 @@ use \App\web\lib\Mailer\PHPMailer;
 			  Necesita Hacer Login</a>";
 		exit;
 		}
-
 
 	
 class User extends Controller{
@@ -76,27 +75,7 @@ private $_sesionpkiBUser;
 
         
 	}
-	public function showProfile(){
-		//session_start();
-		/*$this->_sesionUsuario=$_SESSION["nombreUsuario"];
-		$this->_sesionpkiBUser=$_SESSION['pkiBUser_p'];
-		$this->_sesionMenu=$_SESSION['mainMenu'];
-		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
-		else{
-				echo "Esta pagina es solo para usuarios registrados.<br>";
-			echo "<a href='http://localhost:8012/ibrain2.0'>Login Here!</a>";
-			exit;
-		}
-		$now = time(); 
-		if($now > $_SESSION['expire']){
-		session_destroy();
-		echo "Su sesion a terminado, <a href='http://localhost:8012/ibrain2.0'>
-			  Necesita Hacer Login</a>";
-		exit;
-		}*/
-		#objetos e instancias
-		
-		
+	public function showProfile(){		
 		#get main variables
 		$url= Globales::$absoluteURL;
 		
@@ -116,23 +95,6 @@ private $_sesionpkiBUser;
 		View::render("showProfile");   
 	}
 	public function addUser(){
-		//session_start();
-		/*$this->_sesionUsuario=$_SESSION["nombreUsuario"];
-		$this->_sesionpkiBUser=$_SESSION['pkiBUser_p'];
-		$this->_sesionMenu=$_SESSION['mainMenu'];
-		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
-		else{
-				echo "Esta pagina es solo para usuarios registrados.<br>";
-			echo "<a href='$url'>Login Here!</a>";
-			exit;
-		}
-		$now = time(); 
-		if($now > $_SESSION['expire']){
-		session_destroy();
-		echo "Su sesion a terminado, <a href='$url'>
-			  Necesita Hacer Login</a>";
-		exit;
-		}*/
 	#get main variables
 		$url= Globales::$absoluteURL;
 		$currentMainMenu=$this->_sesionMenu;
@@ -152,23 +114,6 @@ private $_sesionpkiBUser;
        
 	}
 	public function addProfile(){
-		//session_start();
-		/*$this->_sesionUsuario=$_SESSION["nombreUsuario"];
-		$this->_sesionpkiBUser=$_SESSION['pkiBUser_p'];
-		$this->_sesionMenu=$_SESSION['mainMenu'];
-		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
-		else{
-				echo "Esta pagina es solo para usuarios registrados.<br>";
-			echo "<a href='http://localhost:8012/ibrain2.0'>Login Here!</a>";
-			exit;
-		}
-		$now = time(); 
-		if($now > $_SESSION['expire']){
-		session_destroy();
-		echo "Su sesion a terminado, <a href='http://localhost:8012/ibrain2.0'>
-			  Necesita Hacer Login</a>";
-		exit;
-		}*/
 	#get main variables
 		$url= Globales::$absoluteURL;
 		$currentMainMenu=$this->_sesionMenu;
@@ -191,24 +136,6 @@ private $_sesionpkiBUser;
 //EVENTOS############################################
 //CONTROLES##########################################
 //MAIN###############################################
-		/*session_start();
-		$userName=$_SESSION["nombreUsuario"];
-		$pkiBUser=$_SESSION['pkiBUs
-		er_p'];
-		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
-		else{
-				echo "Esta pagina es solo para usuarios registrados.<br>";
-			echo "<a href='http://localhost:8012/ibrain2.0'>Login Here!</a>";
-			exit;
-		}
-		$now = time(); 
-		if($now > $_SESSION['expire']){
-		session_destroy();
-		echo "Su sesion a terminado, <a href='http://localhost:8012/ibrain2.0'>
-			  Necesita Hacer Login</a>";
-		exit;
-		}*/
-		
 	switch(@$_POST['hdn_toDo_h']){
 		case "AddProfile_1":
 			CreateProfile();

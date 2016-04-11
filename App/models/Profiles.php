@@ -108,7 +108,7 @@ class Profiles implements iCrud{
 			$PDOQuery=
 			"
 			SELECT up.* 
-				FROM (SELECT @u1:=[$pkiBUser p) pcxu , v_kanbanprofilebyuser up;
+				FROM (SELECT @u1:=$pkiBUser p) pcxu , v_kanbanprofilebyuser up;
 			";
 		
 			$resultSet=$PDOcnn->query($PDOQuery);
