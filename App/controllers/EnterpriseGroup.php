@@ -50,27 +50,11 @@ private $_sesionpkiBUser;
      * [index]
     */
 	public function index(){
-		self::showCompany();
+		//self::showCompany();
+		View::set("foo",true);
+		View::render("z_testPost");
 	}
     public function showCompany(){
-		//session_start();
-		/*$this->_sesionUsuario=$_SESSION["nombreUsuario"];
-		$this->_sesionpkiBUser=$_SESSION['pkiBUser_p'];
-		
-		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
-		else{
-				echo "Esta pagina es solo para usuarios registrados.<br>";
-			echo "<a href='$url'>Login Here!</a>";
-			exit;
-		}
-		$now = time(); 
-		if($now > $_SESSION['expire']){
-		session_destroy();
-		echo "Su sesion a terminado, <a href='$url'>
-			  Necesita Hacer Login</a>";
-		exit;
-		}*/
-		
 		#Objetos e instancias
 		$cu=CU::getInstance();
 		
@@ -126,22 +110,7 @@ private $_sesionpkiBUser;
         
 	}
 	public function showBranchOffice() {
-	//session_start();
-		/*$this->_sesionUsuario=$_SESSION["nombreUsuario"];
-		$this->_sesionpkiBUser=$_SESSION['pkiBUser_p'];
-		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
-		else{
-				echo "Esta pagina es solo para usuarios registrados.<br>";
-			echo "<a href='http://localhost:8012/ibrain2.0'>Login Here!</a>";
-			exit;
-		}
-		$now = time(); 
-		if($now > $_SESSION['expire']){
-		session_destroy();
-		echo "Su sesion a terminado, <a href='http://localhost:8012/ibrain2.0'>
-			  Necesita Hacer Login</a>";
-		exit;
-		*/
+	
 		#Objetos e instancias
 		
 		#get main variables
@@ -172,43 +141,33 @@ private $_sesionpkiBUser;
         
 	}
 	public function addBranchOffice(){
-		/*session_start();
-		$this->_sesionUsuario=$_SESSION["nombreUsuario"];
-		$this->_sesionpkiBUser=$_SESSION['pkiBUser_p'];
-		$this->_sesionMenu=$_SESSION['mainMenu'];
-		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
-		else{
-				echo "Esta pagina es solo para usuarios registrados.<br>";
-			echo "<a href='$url'>Login Here!</a>";
-			exit;
-		}
-		$now = time(); 
-		if($now > $_SESSION['expire']){
-		session_destroy();
-		echo "Su sesion a terminado, <a href='$url'>
-			  Necesita Hacer Login</a>";
-		exit;
-		}*/
+		#Objetos_e_instancias
+		$cu=CU::getInstance();
+		#get_main_variables
+		$url= Globales::$absoluteURL;
+		#set_main_variables
+		View::set("url", $url);
+		View::set("title", "AddCompany");
+		#get_data_variables
+		$currentMainMenu=CU::getMainMenu2($this->_sesionpkiBUser);
 		$dsCompanyGrid=MA::getParcialSelect();
 		while ($row =$dsCompanyGrid->fetch( \PDO::FETCH_ASSOC )){
 			$dt_Company[] = $row;
 		}
 		$dsSlcCompany=MA::getpknaSelect();
-		$url= Globales::$absoluteURL;
-		$currentMainMenu=$this->_sesionMenu;
+		#set_data_variables
 		View::set("drows_Company",$dsSlcCompany);
 		View::set("dt_Company",$dt_Company);
-		View::set("url", $url);
 		View::set("currentMainMenu", $currentMainMenu);
-        View::set("title", "AddCompany");
-        View::render("addBO");
+		#render
+		View::render("addBO");
 	}
 }
 //MÉTODOS PRIVADOS###################################
 //EVENTOS############################################
 //CONTROLES##########################################
 //MAIN###############################################		
-	switch(@$_POST['hdn_toDo_h']){
+	switch(@$_POST['btn_toDo_h']){
 		case "AddCompany":
 			CreateCompany();
 		break;
@@ -224,31 +183,22 @@ private $_sesionpkiBUser;
  	}
 	function CreateCompany(){
 	$c=new MA;
-	$c->setpkCompany($c->getNextId("pkCompany","Company"));
 	$c->setLegalName($_POST['txt_legalName_h']);
 	$c->setCommercialName($_POST["txt_commercialName_h"]);
-	$c->setTaxId("No definido");
-	$c-> setLogoFile("No definido");
-	$c->setStreet($_POST["txt_street_h"]);
-	$c->setExtNumber($_POST["txt_extNumber_h"]);
-	$c->setIntNumber($_POST["txt_intNumber_h"]);
-	$c->setRegion($_POST["txt_region_h"]);
-	$c->setZone($_POST["txt_zone_h"]);
-	$c->setProvince($_POST["txt_province_h"]);
-	$c->setZipCode($_POST["txt_zipCode_h"]);
-	$c->setCreated("null");
-	$c->setCreatedBy("1");
+	$c->setActive("1");
+	$c->setCreated('2016-04-11');
+	$c->setCreatedBy($_SESSION['pkiBUser_p']);
 	$c->setModified("null");
 	$c->setModifiedBy("null");
-	$c->setActive("1");
+	
 	$c->insertData("Company");
 	
 	
 	}
 	function CreateBO(){
 	$bo=new BO;
-	$bo->setpkBO($bo->getNextId("pkBranchOffice","BranchOffice"));
-	$bo->setfkCompany($_POST['slt_pkCompany_h']);
+	
+	$bo->getpkSC($_POST['slt_pkSubCompany_h']);
 	$bo->setBOName($_POST["txt_BOName_h"]);
 	$bo->setBOStreet($_POST["txt_BOStreet_h"]);
 	$bo->setBOExtNumber($_POST["txt_BOExtNumber_h"]);
@@ -257,77 +207,19 @@ private $_sesionpkiBUser;
 	$bo->setBOZone($_POST["txt_BOZone_h"]);
 	$bo->setBOProvince($_POST["txt_BOProvince_h"]);
 	$bo->setBOZipCode($_POST["txt_BOZipCode_h"]);
-	$bo->setCreated("null");
-	$bo->setCreatedBy("1");
+	$bo->setServiceAddress($_POST['txt_serviceAddress_h']);
+	$bo->setServiceManager($_POST['txt_serviceManager_h']);
+	$bo->setServiceEmail($_POST['txt_serviceEmail_h']);
+	$bo->setLogoFile('null');
+	$bo->setOfficeHour($_POST['txt_officeHour_h']);
+	$bo->setServicePhone($_POST['txt_servicePhone_h']);
+	$bo->setActive("1");
+	$bo->setCreated('null');
+	$bo->setCreatedBy($_SESSION['pkiBUser_p']);
 	$bo->setModified("null");
 	$bo->setModifiedBy("null");
-	$bo->setActive("1");
-	$bo->insertData("branchoffice");
-	header("Location:http://localhost:8012/iBrain2.0/private/EnterpriseGroup/showBranchOffice");
-	}
 	
-	/*function CreateUser(){
-		$u=new User;
-		$nextId=$u->getNextId("pkiBUser","ibuser");
-		$u->setpkiBUser($nextId);
-		$u->setfkiBUserProfile(1);
-		$u->setUserName($_POST['txt_userName_h']);
-		$u->setPWD($_POST['txt_password_h']);
-		$u->setPwdTmp($_POST['txt_password_h']);
-		$u->setRealName($_POST['txt_realName_h']);
-		$u->setEmail($_POST['txt_email_h']);
-		$u->setDefaultF("null");
-		$u->setActive("2");
-		$u->setCreated($_SESSION['pkiBUser_p']);
-		$u->setCreatedBy('null');
-		$u->setModified('null');
-		$u->setModifiedBy('null');
-		if ($u->insertData('ibuser')){
-			$destinatario=$u->getEmail();
-			$asunto="Bienvenido a iBrain 2.0";
-			$cuerpo = "";
-			
-			//include_once "../App/web/lib/Mailer/PHPMailerAutoload.php";
-			include_once "../App/views/htmlTemplates/BienvenidoUsuario.php";
-			$micorreo="cgomez@consultoriadual.com";
-			$nombreFrom="iBrain info";
-			$nombreadmin="";
-			$asunto="Bienvenida a usuario";
-			$sucorreo="andres@consultoriadual.com";
-//////////////////////////////////////////////DATOS DE EMAIL DE confirmacion////////////////////////////////////
-			date_default_timezone_set('Etc/UTC');
-			$mail= new PHPMailer(false);
-			$mail->IsSMTP();
-			$mail->SMTPDebug = 0;
-			$mail->Debugoutput = 'html';
-			$mail->Host       = "smtp.gmail.com";
-			$mail->Port       = 587;
-			$mail->SMTPSecure = "tls";  
-			$mail->SMTPAuth = true;
-			$mail->Username = 'santi.notificaciones@gmail.com';
-			$mail->Password = 'envios2015';
-			$mail->setFrom($micorreo,"Carlos Gómez");
-			$mail->AddReplyTo($micorreo,"Carlos Gómez 2");
-			$mail->AddAddress ("cgomez@consultoriadual.com","Andrés");
-			$mail->Subject = "$asunto";
-			$mail->MsgHTML($bodyMessage);
-			$mail->AltBody='This is a plain-text message body';
-			$mail->isHTML(true);
-			$mail->SMTPOptions = array(
-				'ssl' => array(
-				'verify_peer' => false,
-				'verify_peer_name' => false,
-				'allow_self_signed' => true));
-			
-			if(!$mail->Send()){
-				$msg='Mailer Error: '.$mail->ErrorInfo;
-			}
-			else{
-				$msg="<p>Tu informacion se recibio correctamente <br> Se ha enviado una confirmacion al correo <b>correo</b></p>";
-			}
-		}	
-		else
-			echo "Error,no se puede enviar el correo electrónico ";
-		//View::render("EnterpriseGroup");
-	}*/
+	$bo->insertData("branchoffice");
+	//header("Location:http://localhost:8012/iBrain2.0/private/EnterpriseGroup/showBranchOffice");
+	}
 ?>

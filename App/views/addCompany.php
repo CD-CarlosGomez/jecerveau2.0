@@ -1,3 +1,27 @@
+<?php
+#16.3.26 mensaje modal de confirmación de movimiento CRUD
+namespace App\View;
+defined("APPPATH") OR die("Access denied");
+
+use \Core\View;
+use \Core\Controller;
+		
+		$_SESSION["nombreUsuario"];
+		$_SESSION['pkiBUser_p'];
+		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
+		else{
+				echo "Esta pagina es solo para usuarios registrados.<br>";
+			echo "<a href='http://localhost:8012/ibrain2.0'>Login Here!</a>";
+			exit;
+		}
+		$now = time(); 
+		if($now > $_SESSION['expire']){
+		session_destroy();
+		echo "Su sesion a terminado, <a href='http://localhost:8012/ibrain2.0'>
+			  Necesita Hacer Login</a>";
+		exit;
+		}
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -106,7 +130,7 @@
 													<div class="form-group">&nbsp;</div>
 													<div class="col-md-4 pull-right">
 														<div class="form-group">
-															<button type="submit" id="" class="btn btn-primary btn-md btn-block" name="btn-AddBO">Guardar</button>
+															<button type="submit" id="" class="btn btn-primary btn-md btn-block" value="AddCompany" name="btn_toDo_h">Guardar</button>
 														</div>
 													</div>
 											</form>

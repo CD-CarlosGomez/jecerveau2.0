@@ -1,5 +1,10 @@
 <?php
-#Crear las vistas
+// +-----------------------------------------------
+// | @author Carlos M. Gómez
+// | @date Miércoles 5 de diciembre de 2012
+// | @Version 1.0
+// +-----------------------------------------------
+// +---------------------------Comentarios de versión
 namespace App\Models;
 defined("APPPATH") OR die("Access denied");
 
@@ -7,25 +12,18 @@ use \Core\Database;
 use \App\Interfaces\iCrud;
 
 class Companies implements iCrud{
-
+//REQUEST############################################
+//CONSTANTES#########################################
+//ATRIBUTOS##########################################
 	private static $_pkCompany_p;
 	private static $_legalName_p;
 	private static $_commercialName_p;
-	/*private static $_taxId_p;
-	private static $_logoFile_p;//Agregar Método
-	private static $_street_p;
-	private static $_extNumber_p;
-	private static $_intNumber_p;
-	private static $_region_p;
-	private static $_zone_p;
-	private static $_province_p;
-	private static $_zipCode_p;*/
 	private static $_created_p;
 	private static $_createdBy_p;
 	private static $_modified_p;//Agregar método
 	private static $_modifiedBy_p;//Agregar método
 	private static $_active_p;
-	
+//PROPIEDADES########################################
 	public static function setpkCompany($valor){self::$_pkCompany_p=$valor;}
 	public static function getpkCompany() {return self::$_pkCompany_p;}
 
@@ -35,33 +33,6 @@ class Companies implements iCrud{
 	public static function setCommercialName($valor){self::$_commercialName_p=$valor;}
 	public static function getCommercialName(){return self::$_commercialName_p;}
 	
-	public static function setTaxId($valor){self::$_taxId_p=$valor;}
-	public static function getTaxId()	{return self::$_taxId_p;}
-	
-	public static function setLogoFile($valor){self::$_logoFile_p=$valor;}
-	public static function getLogoFile()	{return self::$_logoFile_p;}
-
-	public static function setStreet($valor){self::$_street_p=$valor;}
-	public static function getStreet(){return self::$_street_p;}
-	
-	public static function setExtNumber($valor){self::$_extNumber_p=$valor;}
-	public static function getExtnumber() {return self::$_extNumber_p;}
-	
-	public static function setIntNumber($valor){self::$_intNumber_p=$valor;}
-	public static function getIntNumber(){return self::$_intNumber_p;}
-	
-	public static function setRegion($valor){self::$_region_p=$valor;}
-	public static function getRegion(){return self::$_region_p;}
-
-	public static function setZone($valor){self::$_zone_p=$valor;}
-	public static function getZone(){return self::$_zone_p;}
-
-	public static function setProvince($valor){self::$_province_p=$valor;}
-	public static function getProvince(){return self::$_province_p;}
-
-	public static function setZipCode($valor){self::$_zipCode_p=$valor;}
-	public static function getZipCode(){return self::$_zipCode_p;}
-
 	public static function setCreated($valor){self::$_created_p=$valor;}
 	public static function getCreated()	{return self::$_created_p;}
 
@@ -76,11 +47,14 @@ class Companies implements iCrud{
 	
 	public static function setActive($valor){self::$_active_p=$valor;}
 	public static function getActive()	{return self::$_active_p;}
-	
+//MÉTODOS ABSTRACTOS#################################
+//CONSTRUCTORES Y DESTRUCTORES#######################
 	public function __construct(){
 	//Inicializar los atributos
 	}
-    public static function getAll(){
+//MÉTODOS MÁGICOS####################################
+//MÉTODOS PÚBLICOS###################################
+ public static function getAll(){
         try {
 			$connection = Database::instance();
 			$sql = "SELECT * from Company";
@@ -112,7 +86,6 @@ class Companies implements iCrud{
 			print "Error!: " . $e->getMessage();
 		}
 	}
-	
     public static function getById($id) {
 	    try {
             $connection = Database::instance();
@@ -129,26 +102,18 @@ class Companies implements iCrud{
     public static function insertData($data){
 		try {
             $connection = Database::instance();
-			//self::setpkiBUser(self::getNextId("pkiBUser","ibuser"));
-            $sql = "INSERT INTO $data VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+			
+			$pkTable=self::getNextId("pkCompany","company");
+            $sql = "INSERT INTO $data VALUES (?,?,?,?,?,?,?,?);";
             $query = $connection->prepare($sql);
-            $query->bindParam(1, self::$_pkCompany_p, \PDO::PARAM_INT);
+            $query->bindParam(1, $pkTable, \PDO::PARAM_INT);
 			$query->bindParam(2, self::$_legalName_p, \PDO::PARAM_STR);
 			$query->bindParam(3, self::$_commercialName_p, \PDO::PARAM_STR);
-			$query->bindParam(4, self::$_taxId_p, \PDO::PARAM_STR);
-            $query->bindParam(5, self::$_logoFile_p, \PDO::PARAM_STR);
-			$query->bindParam(6, self::$_street_p, \PDO::PARAM_STR);
-			$query->bindParam(7, self::$_extNumber_p, \PDO::PARAM_STR);
-			$query->bindParam(8, self::$_intNumber_p, \PDO::PARAM_STR);
-            $query->bindParam(9, self::$_region_p, \PDO::PARAM_STR);
-			$query->bindParam(10, self::$_zone_p, \PDO::PARAM_STR);
-			$query->bindParam(11, self::$_province_p, \PDO::PARAM_STR);
-			$query->bindParam(12, self::$_zipCode_p, \PDO::PARAM_STR);
-			$query->bindParam(13, self::$_created_p, \PDO::PARAM_STR);
-			$query->bindParam(14, self::$_createdBy_p, \PDO::PARAM_STR);
-			$query->bindParam(15, self::$_modified_p, \PDO::PARAM_STR);
-			$query->bindParam(16, self::$_modifiedBy_p, \PDO::PARAM_STR);
-            $query->bindParam(17, self::$_active_p, \PDO::PARAM_STR);
+			$query->bindParam(4, self::$_active_p, \PDO::PARAM_STR);
+			$query->bindParam(5, self::$_created_p, \PDO::PARAM_STR);
+			$query->bindParam(6, self::$_createdBy_p, \PDO::PARAM_STR);
+			$query->bindParam(7, self::$_modified_p, \PDO::PARAM_STR);
+			$query->bindParam(8, self::$_modifiedBy_p, \PDO::PARAM_STR);
 			$query->execute();
             return true;
         }
@@ -171,7 +136,39 @@ class Companies implements iCrud{
             print "Error!: " . $e->getMessage();
         }
 	}
-	public static function getNextId($column,$table){
+	public static function getParcialSelect(){
+		 try {
+			$PDOcnn = Database::instance();
+			$PDOQuery="SELECT 
+						`pkCompany`, 
+						`legalName`, 
+						`commercialName`
+					FROM `company` WHERE `Active`=1;";
+			$PDOResultSet = $PDOcnn->query($PDOQuery);
+			return $PDOResultSet;
+		}
+        catch(\PDOException $e)
+        {
+			print "Error!: " . $e->getMessage();
+		}
+	}
+	public static function getpknaSelect(){
+		 try {
+			$PDOcnn = Database::instance();
+			$PDOQuery="SELECT 
+						`pkSubCompany`,  
+						`subCompanyName` 
+					FROM `subcompany` WHERE `Active`=1;";
+			$PDOResultSet = $PDOcnn->query($PDOQuery);
+			return $PDOResultSet;
+		}
+        catch(\PDOException $e)
+        {
+			print "Error!: " . $e->getMessage();
+		}
+	}
+//MÉTODOS PRIVADOS###################################
+		private static function getNextId($column,$table){
 		try {
 				$cnn=Database::instance();
 				$PDOQuery = "SELECT MAX($column) AS Maximo FROM $table;";
@@ -195,37 +192,8 @@ class Companies implements iCrud{
 		}
 		
 	}
-	public static function getParcialSelect(){
-		 try {
-			$PDOcnn = Database::instance();
-			$PDOQuery="SELECT 
-						`pkCompany`, 
-						`legalName`, 
-						`commercialName`
-					FROM `company` WHERE `Active`=1;";
-			$PDOResultSet = $PDOcnn->query($PDOQuery);
-			return $PDOResultSet;
-		}
-        catch(\PDOException $e)
-        {
-			print "Error!: " . $e->getMessage();
-		}
-	}
-	public static function getpknaSelect(){
-		 try {
-			$PDOcnn = Database::instance();
-			$PDOQuery="SELECT 
-						`pkCompany`, 
-						`legalName`, 
-						`commercialName` 
-					FROM `company` WHERE `Active`=1;";
-			$PDOResultSet = $PDOcnn->query($PDOQuery);
-			return $PDOResultSet;
-		}
-        catch(\PDOException $e)
-        {
-			print "Error!: " . $e->getMessage();
-		}
-	}
+//EVENTOS############################################
+//CONTROLES##########################################
+//MAIN###############################################
 }
 
