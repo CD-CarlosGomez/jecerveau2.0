@@ -1,7 +1,11 @@
 ﻿<?php
-$bodyMessage="<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">
-<html xmlns=\"http://www.w3.org/1999/xhtml\" >
+ echo $bodyMessage="<!DOCTYPE html \">
+
 <head>
+	<meta charset=\"utf-8\">
+	<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+	<!--[if lt IE 9]> <script src=\"http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js\"></script>< ![endif]-->
+
     <title>Bienevenido</title>
      <style>
          p{
@@ -29,7 +33,7 @@ $bodyMessage="<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \
         	}
         table td
         {
-        	padding:15px;
+        	padding:15px 15px 15px 55px;
         	vertical-align:top;
         }
         table th
@@ -68,7 +72,7 @@ $bodyMessage="<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \
         	}
         ul
         {
-        	list-style-image:url('http://localhost:8012/ibrain2.0/App/web/img/vineta.png');
+        	list-style-image:url('https://3.bp.blogspot.com/-fnAqlmQAWsc/Vw0riiBD7TI/AAAAAAAAAAY/kPVinjWM-x0ydy4WjsnormYaeT9QzGsHQCLcB/s1600/vineta.png');
         	margin-left:30px;
 			color:#535353;
 			font-family:\"Arial Narrow\", Arial, sans-serif;
@@ -85,7 +89,7 @@ $bodyMessage="<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \
     <tr>
 		
         <td>
-            <img src=\"http://localhost:8012/ibrain2.0/App/web/img/gallery/LOGOBIENVENIDA.jpg\" />
+            <img src=\"https://4.bp.blogspot.com/-TiJF72bggyI/Vw0qqXRVaRI/AAAAAAAAAAM/PprdxwVDmVUvAhZd35t1CGfZsfO3I2MCQCLcB/s1600/img_jc2_logo.jpg\" />
         </td>
 		<td>
             <h1>
@@ -103,7 +107,7 @@ $bodyMessage="<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \
 		
         <td style=\"border-right:#517ebb solid 4px; width:60%;\">
         <h2>
-		HOLA _usuario_.
+		HOLA " . '$u->getRealName()' . ".
         </h2>
         <p>
 			¡Felicidades!<br/>
@@ -126,21 +130,21 @@ $bodyMessage="<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \
 			</h2>
 		</p>
        <p>
-			Ingresa a: https://www.ibrain.mx/ y conoce todas nuestras herramientas adicionales.
+			Ingresa a: <a href=\"https://www.ibrain.mx/\">https://www.ibrain.mx</a> y conoce todas nuestras herramientas adicionales.
        </p>
         </td>
         <td>
         <h2>
         INFORMACIÓN DE TU NUEVA CUENTA
         </h2>
-		<p>Aquí tienes los datos de acceso a tu portal:<br/><b>https://www.ibrain.mx/tuportal/app</b></p>
+		<p>Aquí tienes los datos de acceso a tu portal:<br/><b><a href=\"https://www.ibrain.mx/tuportal/app\">https://www.ibrain.mx/tuportal/app</a></b></p>
         <table cellspacing=\"0\" cellpadding=\"0\">
             <tr>
                 <td>
                  <span>Usuario</span>
                 </td>
                 <td>
-                <span class=\"span\">[usuario]</span>
+                <span class=\"span\">" . '$u->getUserName()' . "</span>
                 </td>
             </tr>
             <tr>
@@ -148,7 +152,7 @@ $bodyMessage="<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \
                 <span>Contraseña</span>
                 </td>
                 <td>
-                <span class=\"span\">[contraseña]</span>
+                <span class=\"span\">" . '$u->getPwdTmp()' . "</span>
                 </td>
             </tr>
         </table>

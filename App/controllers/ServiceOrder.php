@@ -14,8 +14,7 @@ use \Core\Controller;
 use \App\Config\Globales as Globales;
 use \App\Models\BranchOffices as BO;
 use \App\Models\ServiceOrders as SO;
-
-
+use \App\Models\CurrentUser as CU;
 	
 class ServiceOrder extends Controller{
 //CONSTANTES#########################################

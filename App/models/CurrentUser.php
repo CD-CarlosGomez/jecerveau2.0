@@ -134,7 +134,7 @@ class CurrentUser {
 					";
 				foreach($PDOcnn->query($PDOQuery) as $thirdLevels){
 					$this->pMainMenu .=			"<li>";
-					$this->pMainMenu .=				"<a href='$directoryPath".$thirdLevels['iBFunctionDetailLink'] ."'>".$thirdLevels['iBFunctionDetailName']."</a>";
+					$this->pMainMenu .=				"<a href='$directoryPath"."/private".$thirdLevels['iBFunctionDetailLink'] ."'>".$thirdLevels['iBFunctionDetailName']."</a>";
 					$this->pMainMenu .=			"</li>";
 				}
 					$this->pMainMenu .="		</ul>";	

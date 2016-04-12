@@ -1,4 +1,10 @@
 <?php
+// +-----------------------------------------------
+// | @author Carlos M. Gómez
+// | @date Miércoles 5 de diciembre de 2012
+// | @Version 1.0
+// +-----------------------------------------------
+// +---------------------------Comentarios de versión
 namespace App\Models;
 defined("APPPATH") OR die("Access denied");
 
@@ -6,24 +12,50 @@ use \Core\Database;
 use \App\Interfaces\iCrud;
 
 class Users implements iCrud{
-	
+//REQUEST############################################
+//CONSTANTES#########################################
+//ATRIBUTOS##########################################
 	private static $_pkibuser;
-	private static $_fkiBUserProfile;
 	private static $_username;
 	private static $_pwd;
 	private static $_pwdtmp;
 	private static $_realname;
 	private static $_email;
-	private static $_active;
 	private static $_defaultFunction;
+	private static $_active;
 	private static $_Created;
 	private static $_CreatedBy;
 	private static $_Modified;
 	private static $_ModifiedBy;
-		
+//PROPIEDADES########################################
+	public static function setpkiBUser($valor){self::$_pkibuser=$valor;}
+	public static function getpkiBUser() {return self::$_pkibuser;}
+	public static function setUserName($valor){self::$_username=$valor;}
+	public static function getUserName(){ return self::$_username;}
+	public static function setPWD($valor){self::$_pwd=$valor;}
+	public static function getPWD()	{return self::$_pwd;}
+	public static function setPWDTmp($valor){self::$_pwdtmp=$valor;}
+	public static function getPWDTmp()	{return self::$_pwdtmp;}
+	public static function setRealName($valor){self::$_realname=$valor;}
+	public static function getRealName()	{return self::$_realname;}
+	public static function setEmail($valor){self::$_email=$valor;}
+	public static function getEmail()	{return self::$_email;}
+	public static function setActive($valor){self::$_active=$valor;}
+	public static function getActive(){return self::$_active;}
+	public static function setDefaultF($valor){self::$_defaultFunction=$valor;}
+	public static function getDefaultF(){return self::$_defaultFunction;}
+	public static function setCreated($valor){self::$_Created=$valor;}
+	public static function getCreated()	{return self::$_Created;}
+	public static function setCreatedBy($valor){self::$_CreatedBy=$valor;}
+	public static function getCreatedBy()	{return self::$_CreatedBy;}
+	public static function setModified($valor){self::$_Modified=$valor;}
+	public static function getModified()	{return self::$_modified;}
+	public static function setModifiedBy($valor){self::$_ModifiedBy=$valor;}
+	public static function getModifiedBy()	{return self::$_modifiedBy;}
+//MÉTODOS ABSTRACTOS#################################
+//CONSTRUCTORES Y DESTRUCTORES#######################
 	public function __construct(){
 	$_pkibuser=0;
-	$_fkiBUserProfile=0;
 	$_username="";
 	$_pwd="";
 	$_pwdtmp="";
@@ -36,47 +68,9 @@ class Users implements iCrud{
 	$_Modified="";
 	$_ModifiedBy="";
 	}
-	
-	public static function setpkiBUser($valor){self::$_pkibuser=$valor;}
-	public static function getpkiBUser() {return self::$_pkibuser;}
-	
-	public static function setfkiBUserProfile($valor){self::$_fkiBUserProfile=$valor;}
-	public static function getfkiBUserProfile() {return self::$_fkiBUserProfile;}
-	
-	public static function setUserName($valor){self::$_username=$valor;}
-	public static function getNombre(){return self::$_username;}
-	
-	public static function setPWD($valor){self::$_pwd=$valor;}
-	public static function getPWD()	{return self::$_pwd;}
-	
-	public static function setPWDTmp($valor){self::$_pwdtmp=$valor;}
-	public static function getPWDTmp()	{return self::$_pwdtmp;}
-	
-	public static function setRealName($valor){self::$_realname=$valor;}
-	public static function getRealName()	{return self::$_realname;}
-	
-	public static function setEmail($valor){self::$_email=$valor;}
-	public static function getEmail()	{return self::$_email;}
-	
-	public static function setActive($valor){self::$_active=$valor;}
-	public static function getActive(){return self::$_active;}
-	
-	public static function setDefaultF($valor){self::$_defaultFunction=$valor;}
-	public static function getDefaultF(){return self::$_defaultFunction;}
-	
-	public static function setCreated($valor){self::$_Created=$valor;}
-	public static function getCreated()	{return self::$_Created;}
-
-	public static function setCreatedBy($valor){self::$_CreatedBy=$valor;}
-	public static function getCreatedBy()	{return self::$_CreatedBy;}
-	
-	public static function setModified($valor){self::$_Modified=$valor;}
-	public static function getModified()	{return self::$_modified;}
-	
-	public static function setModifiedBy($valor){self::$_ModifiedBy=$valor;}
-	public static function getModifiedBy()	{return self::$_modifiedBy;}
-	
-    public static function getAll(){
+//MÉTODOS MÁGICOS####################################
+//MÉTODOS PÚBLICOS###################################
+	public static function getAll(){
         try {
 			$connection = Database::instance();
 			$sql = "SELECT * from ibuser";
@@ -124,22 +118,21 @@ class Users implements iCrud{
     public static function insertData($data){
 		try {
             $connection = Database::instance();
-			//self::setpkiBUser(self::getNextId("pkiBUser","ibuser"));
-            $sql = "INSERT INTO $data VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);";
+			$pkTable=self::getNextId("pkiBUser","ibuser");
+            $sql = "INSERT INTO $data VALUES (?,?,?,?,?,?,?,?,?,?,?,?);";
             $query = $connection->prepare($sql);
-            $query->bindParam(1, self::$_pkibuser, \PDO::PARAM_INT);
-			$query->bindParam(2, self::$_fkiBUserProfile, \PDO::PARAM_INT);
-			$query->bindParam(3, self::$_username, \PDO::PARAM_STR);
-			$query->bindParam(4, self::$_pwd, \PDO::PARAM_STR);
-            $query->bindParam(5, self::$_pwdtmp, \PDO::PARAM_STR);
-			$query->bindParam(6, self::$_realname, \PDO::PARAM_STR);
-			$query->bindParam(7, self::$_email, \PDO::PARAM_STR);
-			$query->bindParam(8, self::$_active, \PDO::PARAM_STR);
-            $query->bindParam(9, self::$_defaultFunction, \PDO::PARAM_STR);
-			$query->bindParam(10, self::$_Created, \PDO::PARAM_STR);
-			$query->bindParam(11, self::$_CreatedBy, \PDO::PARAM_STR);
-			$query->bindParam(12, self::$_Modified, \PDO::PARAM_STR);
-			$query->bindParam(13, self::$_ModifiedBy, \PDO::PARAM_STR);
+            $query->bindParam(1, $pkTable, \PDO::PARAM_INT);
+			$query->bindParam(2, self::$_username, \PDO::PARAM_STR);
+			$query->bindParam(3, self::$_pwd, \PDO::PARAM_STR);
+            $query->bindParam(4, self::$_pwdtmp, \PDO::PARAM_STR);
+			$query->bindParam(5, self::$_realname, \PDO::PARAM_STR);
+			$query->bindParam(6, self::$_email, \PDO::PARAM_STR);
+			$query->bindParam(7, self::$_active, \PDO::PARAM_STR);
+            $query->bindParam(8, self::$_defaultFunction, \PDO::PARAM_STR);
+			$query->bindParam(9, self::$_Created, \PDO::PARAM_STR);
+			$query->bindParam(10, self::$_CreatedBy, \PDO::PARAM_STR);
+			$query->bindParam(11, self::$_Modified, \PDO::PARAM_STR);
+			$query->bindParam(12, self::$_ModifiedBy, \PDO::PARAM_STR);
             $query->execute();
             return true;
         }
@@ -210,7 +203,33 @@ class Users implements iCrud{
             print "Error!: " . $e->getMessage();
         }
 	}
-	public static function getNextId($column,$table){
+	public static function getParcialSelect(){
+		 try {
+			$PDOcnn = Database::instance();
+			$PDOQuery=
+			"
+			SELECT 
+				`pkiBUser`,
+				`username`, 
+				`realname`,
+				`email`,
+				Name
+			FROM `ibuser` u
+				INNER JOIN branchoffice_has_ibuserprofile bohup
+					ON  u.pkiBUser=bohup.ibuser_pkiBUser
+				INNER JOIN ibuserprofile up
+					ON bohup.ibuserprofile_pkiBUserProfile=up.pkiBUserProfile
+			WHERE Active=1 or Active=2;";
+			$PDOResultSet = $PDOcnn->query($PDOQuery);
+			return $PDOResultSet;
+		}
+        catch(\PDOException $e)
+        {
+			print "Error!: " . $e->getMessage();
+		}
+	}
+//MÉTODOS PRIVADOS###################################
+	private function getNextId($column,$table){
 		try {
 				$cnn=Database::instance();
 				$PDOQuery = "SELECT MAX($column) AS Maximo FROM $table;";
@@ -229,28 +248,9 @@ class Users implements iCrud{
     		echo 'Incidencia al generar nuevo código ',  $e->getMessage(), ".\n";
 		}
 	}
-	public static function getParcialSelect(){
-		 try {
-			$PDOcnn = Database::instance();
-			$PDOQuery="SELECT 
-							`pkiBUser`,
-							`fkiBUserProfile`, 
-							`username`, 
-							`realname`,
-							`email`,
-							profileName
-						FROM `ibuser` 
-							INNER JOIN ibuserprofile
-								ON fkiBUserProfile=pkiBUserProfile
-						WHERE Active=1 or Active=2;";
-			$PDOResultSet = $PDOcnn->query($PDOQuery);
-			return $PDOResultSet;
-		}
-        catch(\PDOException $e)
-        {
-			print "Error!: " . $e->getMessage();
-		}
-	}
-	
+//EVENTOS############################################
+//CONTROLES##########################################
 }
+//MAIN###############################################
+
 ?>

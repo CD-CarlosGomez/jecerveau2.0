@@ -50,9 +50,9 @@ private $_sesionpkiBUser;
      * [index]
     */
 	public function index(){
-		//self::showCompany();
-		View::set("foo",true);
-		View::render("z_testPost");
+		self::showCompany();
+		//View::set("foo",true);
+		//View::render("z_testPost");
 	}
     public function showCompany(){
 		#Objetos e instancias
@@ -198,7 +198,7 @@ private $_sesionpkiBUser;
 	function CreateBO(){
 	$bo=new BO;
 	
-	$bo->getpkSC($_POST['slt_pkSubCompany_h']);
+	$bo->setpkSC($_POST['slt_pkSubCompany_h']);
 	$bo->setBOName($_POST["txt_BOName_h"]);
 	$bo->setBOStreet($_POST["txt_BOStreet_h"]);
 	$bo->setBOExtNumber($_POST["txt_BOExtNumber_h"]);

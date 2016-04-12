@@ -16,7 +16,7 @@ class BranchOffices implements iCrud{
 //CONSTANTES#########################################
 //ATRIBUTOS##########################################
 	private static $_pkBranchOffice_p;
-	private static $_subCompany_Company_pkCompany_p;
+	private static $_subCompany_pkSubCompany_p;
 	private static $_BOName_p;
 	private static $_BOstreet_p;
 	private static $_BOextNumber_p;
@@ -39,8 +39,8 @@ class BranchOffices implements iCrud{
 //PROPIEDADES########################################
 	public static function setpkBO($valor){self::$_pkBranchOffice_p=$valor;}
 	public static function getpkBO() {return self::$_pkBranchOffice_p;}
-	public static function setpkSC($valor){self::$_subCompany_Company_pkCompany_p=$valor;}
-	public static function getpkSC() {return self::$_subCompany_Company_pkCompany_p;}
+	public static function setpkSC($valor){self::$_subCompany_pkSubCompany_p=$valor;}
+	public static function getpkSC() {return self::$_subCompany_pkSubCompany_p;}
 	public static function setBOName($valor){self::$_BOName_p=$valor;}
 	public static function getBOName(){return self::$_BOName_p;}
 	public static function setBOStreet($valor){self::$_BOstreet_p=$valor;}
@@ -139,7 +139,7 @@ class BranchOffices implements iCrud{
             $sql = "INSERT INTO $data VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
             $query = $connection->prepare($sql);
             $query->bindParam(1, $pkTable, \PDO::PARAM_INT);
-            $query->bindParam(2, self::$_subCompany_Company_pkCompany_p, \PDO::PARAM_STR);
+            $query->bindParam(2, self::$_subCompany_pkSubCompany_p, \PDO::PARAM_STR);
 			$query->bindParam(3, self::$_BOName_p, \PDO::PARAM_STR);
 			$query->bindParam(4, self::$_BOstreet_p, \PDO::PARAM_STR);
 			$query->bindParam(5, self::$_BOextNumber_p, \PDO::PARAM_STR);

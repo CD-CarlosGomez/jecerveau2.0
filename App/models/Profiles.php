@@ -75,7 +75,9 @@ class Profiles implements iCrud{
 		//print_r ('<script>alert("$varinfo");</script>');
 		//redirect('orderManagement/index');
 	}
-	public static function testAttrb(){}
+	public static function testAttrb(){
+		
+	}
     public static function getAll(){
         try {
 			$connection = Database::instance();
@@ -89,6 +91,18 @@ class Profiles implements iCrud{
 			print "Error!: " . $e->getMessage();
 		}
     }
+	public static function getAllIbUserProfile(){
+		try {
+			$PDOcnn = Database::instance();
+			$PDOQuery="SELECT * FROM `ibuserprofile`";
+			$PDOResultSet = $PDOcnn->query($PDOQuery);
+			return $PDOResultSet;
+		}
+        catch(\PDOException $e)
+        {
+			print "Error!: " . $e->getMessage();
+		}
+	}
     public static function getById($id) {
         try {
             $connection = Database::instance();
@@ -190,18 +204,6 @@ class Profiles implements iCrud{
         	}
         catch (\PDOException $e) {
     		echo 'Incidencia al generar nuevo código ',  $e->getMessage(), ".\n";
-		}
-	}
-	public static function getParcialSelect(){
-		 try {
-			$PDOcnn = Database::instance();
-			$PDOQuery="SELECT * FROM `ibuserprofile`";
-			$PDOResultSet = $PDOcnn->query($PDOQuery);
-			return $PDOResultSet;
-		}
-        catch(\PDOException $e)
-        {
-			print "Error!: " . $e->getMessage();
 		}
 	}
 	public static function getSelectibfunctiongroup12(){

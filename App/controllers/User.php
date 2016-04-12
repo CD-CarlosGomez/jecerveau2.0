@@ -51,7 +51,7 @@ private $_sesionpkiBUser;
     public function index(){
 		//$layout=new WithSiteMap(new WithTemplate(new WithMenu(new LayoutCSS())));
 		//$layout= Layouts::render();
-		//self::showUser();
+		self::showUser();
 		//View::set("foo",true);
 		//View::render("z_testPost");
 	}
@@ -97,26 +97,24 @@ private $_sesionpkiBUser;
 	public function addUser(){
 	#get main variables
 		$url= Globales::$absoluteURL;
-		$currentMainMenu=$this->_sesionMenu;
+		$currentMainMenu=CU::getMainMenu2($this->_sesionpkiBUser);
 	#set main variables
 		View::set("url", $url);
 		View::set("currentMainMenu", $currentMainMenu);
 		View::set("title", "Nuevo Usuario");
 	#get data variables
-		$dsProfile=Profiles::getParcialSelect();
+		$dsProfile=Profiles::getAllIbUserProfile();
 		$dsUser=Users::getParcialSelect();
 	#set data variables
 		View::set("drowsP",$dsProfile);
 		View::set("drowsU",$dsUser);
 	#Renderizar
-		View::render("AddUser");
-        
-       
+		View::render("AddUser");       
 	}
 	public function addProfile(){
 	#get main variables
 		$url= Globales::$absoluteURL;
-		$currentMainMenu=$this->_sesionMenu;
+		$currentMainMenu=CU::getMainMenu2($this->_pkiBUser);
 	#set main variables
 		View::set("url", $url);
 		View::set("currentMainMenu", $currentMainMenu);
@@ -130,7 +128,6 @@ private $_sesionpkiBUser;
 	#Renderizar Vista
 		View::render("addProfile");
 	}
-
 }
 //MÉTODOS PRIVADOS###################################
 //EVENTOS############################################
@@ -160,9 +157,6 @@ private $_sesionpkiBUser;
  	}
 	function CreateUser(){
 		$u=new Users;
-		$nextId=$u->getNextId("pkiBUser","ibuser");
-		$u->setpkiBUser($nextId);
-		$u->setfkiBUserProfile(1);
 		$u->setUserName($_POST['txt_userName_h']);
 		$u->setPWD($_POST['txt_password_h']);
 		$u->setPwdTmp($_POST['txt_password_h']);
@@ -180,7 +174,7 @@ private $_sesionpkiBUser;
 			$cuerpo = "";
 			
 			//include_once "../App/web/lib/Mailer/PHPMailerAutoload.php";
-			include_once "../App/views/htmlTemplates/BienvenidoUsuario.php";
+			include_once "../App/views/htmlTemplates/BienvenidoUsuario2.php";
 			$micorreo="cgomez@consultoriadual.com";
 			$nombreFrom="iBrain info";
 			$nombreadmin="";
@@ -217,10 +211,11 @@ private $_sesionpkiBUser;
 			else{
 				$msg="<p>Tu informacion se recibio correctamente <br> Se ha enviado una confirmacion al correo <b>correo</b></p>";
 			}
+			header("Location:http://localhost:8012/iBrain2.0/private/user");
 		}	
 		else
 			echo "Error,no se puede enviar el correo electrónico ";
-		//View::render("EnterpriseGroup");
+			
 	}
 	function CreateProfile(){
 		
