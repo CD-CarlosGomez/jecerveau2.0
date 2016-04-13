@@ -130,15 +130,14 @@ use \Core\Controller;
 													</div>
 												</div>													
 											</div>
-													<div class="form-group">&nbsp;</div>
-													<div class="col-md-4 pull-right">
-														<div class="form-group">
-															<button type="submit" id="" class="btn btn-primary btn-md btn-block" value="AddCompany" name="btn_toDo_h">Guardar</button>
-														</div>
-													</div>
-											</form>
-										</fieldset>
-									
+												<div class="form-group">&nbsp;</div>
+											<div class="col-md-4 pull-right">
+												<div class="form-group">
+													<button type="submit" id="" class="btn btn-primary btn-md btn-block" value="AddCompany" name="btn_toDo_h">Guardar</button>
+												</div>
+											</div>
+										</form>
+									</fieldset>									
 								</div>
 							</div>
                         </div>

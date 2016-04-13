@@ -211,8 +211,7 @@ use \Core\Controller;
 														</div>
 												</div>
 											</form>
-										</fieldset>
-									
+										</fieldset>								
 								</div>
 							</div>
                         </div>
