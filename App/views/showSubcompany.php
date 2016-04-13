@@ -26,15 +26,14 @@ use \App\data\DataGridView as DGV;
 		->setGridAttributes(array('class' => 'table table-striped table-bordered table-hover dataTables'))
 		->enableSorting(false)
 		->removeColumn('pkCompany')
+		->removeColumn('pkSubCompany')
 		->setup(array(
-			'legalName' => array('header' => 'Master_Account'),
-			'commercialName' => array('header' => 'Commercial_Name'),
-			'totalSubCompany' => array('header' => 'SubCompa&ntilde;&iacute;as'),
+			'subCompanyName' => array('header' => 'Commercial_Name'),
 			'totalBO' => array('header' => 'Sucursales'),
 			'totalUsers' => array('header' => 'Usuarios')
 		))
 		->addColumnAfter('actions', 
-									'<a href="'.$url.'private/EnterpriseGroup/showBranchOffice">Ver ASP\'s</a>',
+									'<a href="'.$url.'private/EnterpriseGroup/showBranchOffice">Ver Subcompanie\'s</a>',
 									'Actions', array('align' => 'center'))
 		//->addColumnBefore('counter', '%counter%.', 'Counter', array('align' => 'right'))
 		//->setStartingCounter(1)
@@ -94,7 +93,7 @@ use \App\data\DataGridView as DGV;
 						<a href="<?php echo $url; ?>private/home">Inicio</a>
 					</li>
 					<li class="active">
-						<strong>Cuentas maestras</strong>
+						<strong>Sub cuenta maestras</strong>
 					</li>
 				</ol>
 			</div>
@@ -104,7 +103,7 @@ use \App\data\DataGridView as DGV;
 				<div class="col-lg-12">
 					<div class="ibox float-e-margins">
 						<div class="ibox-title">
-							<h5>Cuentas maestra</h5>
+							<h5>sub cuentas maestra</h5>
 							<div class="ibox-tools">
 								<a class="collapse-link">
 									<i class="fa fa-chevron-up"></i>
@@ -116,7 +115,7 @@ use \App\data\DataGridView as DGV;
 						</div>
 						<div class="ibox-content">					
 						<div class="pull-right">
-							<a onclick="" href="<?php echo $url; ?>private/EnterpriseGroup/AddCompany" class="btn btn-primary ">Agregar nueva cuenta maestra</a>
+							<a onclick="" href="<?php echo $url; ?>private/EnterpriseGroup/AddSubcompany" class="btn btn-primary ">Agregar nueva subcuenta maestra</a>
 						</div>
 						<br />
 						<br />

@@ -174,12 +174,12 @@ private $_sesionpkiBUser;
 			$cuerpo = "";
 			
 			//include_once "../App/web/lib/Mailer/PHPMailerAutoload.php";
-			include_once "../App/views/htmlTemplates/BienvenidoUsuario2.php";
+			include_once "../App/views/htmlTemplates/BienvenidoUsuario.php";
 			$micorreo="cgomez@consultoriadual.com";
 			$nombreFrom="iBrain info";
 			$nombreadmin="";
 			$asunto="Bienvenida a usuario";
-			$sucorreo="andres@consultoriadual.com";
+			//$sucorreo=$u->getEmail();
 //////////////////////////////////////////////DATOS DE EMAIL DE confirmacion////////////////////////////////////
 			date_default_timezone_set('Etc/UTC');
 			$mail= new PHPMailer(false);
@@ -193,8 +193,8 @@ private $_sesionpkiBUser;
 			$mail->Username = 'santi.notificaciones@gmail.com';
 			$mail->Password = 'envios2015';
 			$mail->setFrom($micorreo,"Carlos Gómez");
-			$mail->AddReplyTo($micorreo,"Carlos Gómez 2");
-			$mail->AddAddress ("cgomez@consultoriadual.com","Andrés");
+			//$mail->AddReplyTo($micorreo,"Carlos Gómez 2");
+			$mail->AddAddress ("$destinatario","andres@consultoriadual");
 			$mail->Subject = "$asunto";
 			$mail->MsgHTML($bodyMessage);
 			$mail->AltBody='This is a plain-text message body';

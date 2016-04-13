@@ -117,7 +117,7 @@ $bodyMessage= "
 																		<tr>
 																			<td>
 																	            <h1>
-																					Bienvenido [User]
+																					Bienvenido " . $u->getRealName() . "
 																				</h1>
 																			</td>
 																		</tr>
@@ -187,7 +187,7 @@ $bodyMessage= "
 																										color:#535353;
 																										background:#fff;
 																										border-radius: 10px;
-																									\">" . '$u->getUserName()' . "</span>
+																									\">" . $u->getUserName() . "</span>
 																									</td>
 																								</tr>
 																								<tr>
@@ -202,7 +202,7 @@ $bodyMessage= "
 																										color:#535353;
 																										background:#fff;
 																										border-radius: 10px;
-																									\">" . '$u->getPwdTmp()' . "</span>
+																									\">" . $u->getPwdTmp() . "</span>
 																									</td>
 																								</tr>
 																							</table>
