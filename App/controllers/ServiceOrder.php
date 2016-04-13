@@ -15,33 +15,9 @@ use \App\Config\Globales as Globales;
 use \App\Models\BranchOffices as BO;
 use \App\Models\ServiceOrders as SO;
 use \App\Models\CurrentUser as CU;
-	
-class ServiceOrder extends Controller{
-//CONSTANTES#########################################
-//ATRIBUTOS##########################################
-private $_sesionUsuario;
-private $_sesionpkiBUser;
-private $_sesionMenu;
-//PROPIEDADES########################################
-//MÉTODOS ABSTRACTOS#################################
-//MÉTODOS PÚBLICOS###################################
-	public function __construct(){
-		
-	}
-	/**
-     * [index]
-    */
-    public function index(){
-	//$layout=new WithSiteMap(new WithTemplate(new WithMenu(new LayoutCSS())));
-	//$layout= Layouts::render();
-		self::showSO();
-	}
-	public function showSO(){
-		session_start();
-		$this->_sesionUsuario=$_SESSION["nombreUsuario"];
-		$this->_sesionpkiBUser=$_SESSION['pkiBUser_p'];
-		$this->_sesionMenu=$_SESSION['mainMenu'];
-		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
+
+	session_start();
+	if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
 		else{
 				echo "Esta pagina es solo para usuarios registrados.<br>";
 			echo "<a href='http://localhost:8012/ibrain2.0'>Login Here!</a>";
@@ -54,17 +30,45 @@ private $_sesionMenu;
 			  Necesita Hacer Login</a>";
 		exit;
 		}
+	
+class ServiceOrder extends Controller{
+//CONSTANTES#########################################
+//ATRIBUTOS##########################################
+private $_sesionUsuario;
+private $_sesionpkiBUser;
+private $_sesionMenu;
+//PROPIEDADES########################################
+//MÉTODOS ABSTRACTOS#################################
+//MÉTODOS PÚBLICOS###################################
+	public function __construct(){
+		$this->_sesionUsuario=$_SESSION["nombreUsuario"];
+		$this->_sesionpkiBUser=$_SESSION['pkiBUser_p'];
+	
+	}
+	/**
+     * [index]
+    */
+    public function index(){
+	//$layout=new WithSiteMap(new WithTemplate(new WithMenu(new LayoutCSS())));
+	//$layout= Layouts::render();
+		self::showSO();
+	}
+	public function showSO(){
+		#get_main_variables
+		$url= Globales::$absoluteURL;
+		#set_main_variables
+		View::set("url", $url);
+		View::set("title", "Ordenes de servicio");
+		#get_data_variables
+		$currentMainMenu=CU::getMainMenu2($this->_sesionpkiBUser);
 		$dsSO=SO::getSelectIbSO189A1();
 		while ($row =$dsSO->fetch( \PDO::FETCH_ASSOC )){
 			$dt_SO[] = $row;
 		}
-		
-		$currentMainMenu=$this->_sesionMenu;
-		$url= Globales::$absoluteURL;
+		#set_data_variables
 		View::set("dt_SO",$dt_SO);
-		View::set("url", $url);
 		View::set("currentMainMenu", $currentMainMenu);
-        View::set("title", "Grupo Empresarial");
+		#render      
         View::render("showSO");
 	}
 	public function addSO(){

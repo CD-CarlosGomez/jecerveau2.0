@@ -85,7 +85,7 @@ class ServiceOrders implements iCrud{
 	public static function getAll(){
         try {
 			$PDOcnn = Database::instance();
-			$PDOQuery = "SELECT * from ibsorder";
+			$PDOQuery = "SELECT * from sorder";
 			/*$query = $connection->prepare($sql);
 			$query->execute();
 			$resultSet=$query->fetchAll();*/
@@ -138,7 +138,7 @@ class ServiceOrders implements iCrud{
 												ibSOrderDesc,
 												ibSOrderGSX,
 												ibSOrderObs
-						FROM `ibsorder`;";
+						FROM `sorder`;";
 			$PDOResultSet = $PDOcnn->query($PDOQuery);
 			return $PDOResultSet;
 		}
@@ -166,7 +166,7 @@ class ServiceOrders implements iCrud{
 	public static function insertIbSO189A1($a,$b,$c,$d,$e){
 		try {
             $connection = Database::instance();
-            $sql = "INSERT INTO ibsorder (
+            $sql = "INSERT INTO sorder (
 															pkibSOrder,
 															ibSOrderName,
 															ibSOrderDesc,
