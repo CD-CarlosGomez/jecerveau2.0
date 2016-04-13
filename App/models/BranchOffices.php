@@ -105,11 +105,7 @@ class BranchOffices implements iCrud{
 			$PDOcnn=Database::instance();
 			$PDOQuery=
 			"
-			SELECT
-				bo.* 
-			FROM (SELECT
-					@u1:=$pkiBUser p) pboxu ,
-				v_kanbanaaspbyuser bo;
+			SELECT * FROM `v_kanbanbo`;
 			";
 		
 			$resultSet=$PDOcnn->query($PDOQuery);

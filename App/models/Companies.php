@@ -72,11 +72,7 @@ class Companies implements iCrud{
 			$PDOcnn=Database::instance();
 			$PDOQuery=
 			"
-			SELECT
-				c.* 
-			FROM (SELECT
-					@u1:=$pkiBUser p) pcxu ,
-				v_kanbanCompanyByUser c;
+			SELECT * FROM `v_kanbancompany`;
 			";
 		
 			$resultSet=$PDOcnn->query($PDOQuery);

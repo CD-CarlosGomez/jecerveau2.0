@@ -70,12 +70,12 @@ class Subcompanies implements iCrud{
 			print "Error!: " . $e->getMessage();
 		}
     }
-	public static function selectKanbanCompany($pkiBUser){
+	public static function selectKanbanSubcompany($pkiBUser){
 		try{
 			$PDOcnn=Database::instance();
 			$PDOQuery=
 			"
-			SELECT sc.* FROM (SELECT @u1:=$pkiBUser p) pcxu , v_kanbansubcompanybyuser sc;
+			SELECT * FROM `v_kanbansubcompany`
 			";
 		
 			$resultSet=$PDOcnn->query($PDOQuery);

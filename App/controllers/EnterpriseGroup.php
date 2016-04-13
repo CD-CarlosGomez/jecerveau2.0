@@ -88,7 +88,7 @@ private $_sesionpkiBUser;
 		#get data variables
 		$currentMainMenu=$cu->getMainMenu2($this->_sesionpkiBUser);
 		$dsSlcCompany=SC::getpknaSelect();
-		$dsKanBanCompanies=SC::selectKanbanCompany($this->_sesionpkiBUser);
+		$dsKanBanCompanies=SC::selectKanbanSubcompany($this->_sesionpkiBUser);
 		while ($row =$dsKanBanCompanies->fetch(\PDO::FETCH_ASSOC)){
 			$dt_Company[] = $row;
 		}
