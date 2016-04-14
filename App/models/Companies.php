@@ -54,7 +54,7 @@ class Companies implements iCrud{
 	}
 //MÉTODOS MÁGICOS####################################
 //MÉTODOS PÚBLICOS###################################
- public static function getAll(){
+	public static function getAll(){
         try {
 			$connection = Database::instance();
 			$sql = "SELECT * from Company";
@@ -98,11 +98,9 @@ class Companies implements iCrud{
     public static function insertData($data){
 		try {
             $connection = Database::instance();
-			
-			$pkTable=self::getNextId("pkCompany","company");
             $sql = "INSERT INTO $data VALUES (?,?,?,?,?,?,?,?);";
             $query = $connection->prepare($sql);
-            $query->bindParam(1, $pkTable, \PDO::PARAM_INT);
+            $query->bindParam(1, self::$_pkCompany_p, \PDO::PARAM_INT);
 			$query->bindParam(2, self::$_legalName_p, \PDO::PARAM_STR);
 			$query->bindParam(3, self::$_commercialName_p, \PDO::PARAM_STR);
 			$query->bindParam(4, self::$_active_p, \PDO::PARAM_STR);
@@ -163,8 +161,7 @@ class Companies implements iCrud{
 			print "Error!: " . $e->getMessage();
 		}
 	}
-//MÉTODOS PRIVADOS###################################
-		private static function getNextId($column,$table){
+	public static function getNextId($column,$table){
 		try {
 				$cnn=Database::instance();
 				$PDOQuery = "SELECT MAX($column) AS Maximo FROM $table;";
@@ -188,6 +185,7 @@ class Companies implements iCrud{
 		}
 		
 	}
+//MÉTODOS PRIVADOS###################################
 //EVENTOS############################################
 //CONTROLES##########################################
 //MAIN###############################################

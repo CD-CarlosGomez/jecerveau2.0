@@ -49,9 +49,9 @@ private $_sesionpkiBUser;
      * [index]
     */
 	public function index(){
-		self::showCompany();
-		//View::set("foo",true);
-		//View::render("z_testPost");
+		//self::showCompany();
+		View::set("foo",true);
+		View::render("z_testPost");
 	}
     public function showCompany(){
 		#Objetos e instancias
@@ -99,7 +99,6 @@ private $_sesionpkiBUser;
 		#Render
 		View::render("showSubcompany");        
 	}
-
 	public function showBranchOffice() {
 	
 		#Objetos e instancias
@@ -121,6 +120,29 @@ private $_sesionpkiBUser;
 		View::set("dt_Company",$dt_Company);
 		#render
 		View::render("showBO");
+	}
+	public function addEnterpriseGroup(){
+		#Objetos e instancias
+		$cu=CU::getInstance();
+		#get main variables
+		$url= Globales::$absoluteURL;
+		View::set("title", "AddCompany");
+		#set main variables
+		View::set("url", $url);
+		
+		#get data variables
+		$currentMainMenu=CU::getMainMenu2($this->_sesionpkiBUser);
+		$dsSlcCompany=MA::getpknaSelect();
+		$dsCompanyGrid=MA::getParcialSelect();
+		while ($row =$dsCompanyGrid->fetch( \PDO::FETCH_ASSOC )){
+			$dt_Company[] = $row;
+		}
+		#set data variables
+		View::set("currentMainMenu", $currentMainMenu);
+		View::set("drows_Company",$dsSlcCompany);
+		View::set("dt_Company",$dt_Company);
+		#render
+		View::render("addEnterpriseGroup");        
 	}
 	public function addCompany(){
 		#Objetos e instancias

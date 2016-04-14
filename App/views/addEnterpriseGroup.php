@@ -81,7 +81,8 @@ use \Core\Controller;
             </div>
             <div class="wrapper wrapper-content">
 				<div class="container">
-                    <div class="row">
+				<form id="frm_EG_h" class="form-horizontal" action="<?php echo $url; ?>private/EnterpriseGroup" method="POST" class="">
+                    <div class="row">						
 						<div class="col-lg-12">
 							<div class="ibox float-e-margins">
 								<div class="ibox-title">
@@ -106,7 +107,7 @@ use \Core\Controller;
 								</div>
 								<div class="ibox-content" >
 									<fieldset>
-										<form id="frm_company_h" class="form-horizontal" action="<?php echo $url; ?>private/EnterpriseGroup" method="POST" class="">
+										<!--form id="frm_company_h" class="form-horizontal" action="<?php//$url; ?>private/EnterpriseGroup" method="POST" class=""-->
 											<div class="col-lg-6 form-group-dark">
 												<div class="form-group">&nbsp;</div>
 												<div class="form-group">
@@ -130,12 +131,11 @@ use \Core\Controller;
 													<div class="form-group">&nbsp;</div>
 													<div class="col-md-4 pull-right">
 														<div class="form-group">
-															<button type="" id="btn_addSubcuenta_h" class="btn btn-primary btn-md btn-block" value="" onclick="showFormSubcuenta()" name="btn_addSubcuenta_h">Guardar</button>
+															<button type="" id="btn_addSubcuenta_h" class="btn btn-primary btn-md btn-block" value="" onclick="showFormSubcuenta()" name="btn_addSubcuenta_h">Siguiente</button>
 														</div>
 													</div>
-											</form>
+											<!--/form-->
 										</fieldset>
-									
 								</div>
 							</div>
                         </div>
@@ -165,13 +165,13 @@ use \Core\Controller;
 								</div>
 								<div class="ibox-content">
 									<fieldset>
-										<form id="frm_subcompany_h" class="form-horizontal" action="<?php echo $url; ?>private/EnterpriseGroup" method="POST" class="">
+										<!--form id="frm_subcompany_h" class="form-horizontal" action="<?php //$url; ?>private/EnterpriseGroup" method="POST" class=""-->
 											<div class="col-lg-6 form-group-dark">
 												<div class="form-group">&nbsp;</div>
 												<div class="form-group">
 													<label class="col-md-4 control-label">Subcuenta maestra:*</label>
 													<div class="col-lg-8">
-														<input id="txt_userName_h" class="form-control required" name="txt_legalName_h" type="text">
+														<input id="txt_sclegalName_h" class="form-control required" name="txt_sclegalName_h" type="text">
 														<input id="" name="hdn_toDo_h" class="" value="AddUser" type="hidden">
 													</div>
 												</div>
@@ -189,10 +189,10 @@ use \Core\Controller;
 												<div class="form-group">&nbsp;</div>
 											<div class="col-md-4 pull-right">
 												<div class="form-group">
-													<button type="" id="btn_addBO_h" class="btn btn-primary btn-md btn-block" onclick="validateSubcompanyIfIsShowed()" value="" name="btn_AddBO_h">Guardar</button>
+													<button type="" id="btn_addBO_h" class="btn btn-primary btn-md btn-block" onclick="validateSubcompanyIfIsShowed()" value="" name="btn_AddBO_h">Siguiente</button>
 												</div>
 											</div>
-										</form>
+										<!--/form-->
 									</fieldset>
 								</div>
 							</div>
@@ -223,7 +223,7 @@ use \Core\Controller;
 								</div>
 								<div class="ibox-content">
 									<fieldset>
-											<form id="frm_BO_h" class="form-horizontal" action="<?php echo $url; ?>private/EnterpriseGroup" method="POST" class="">
+											<!---form id="frm_BO_h" class="form-horizontal" action="<?php //$url; ?>private/EnterpriseGroup" method="POST" class=""--->
 												<div class="col-lg-6 form-group-dark">
 													<div class="form-group">&nbsp;</div>
 													<!--div class="form-group">
@@ -324,19 +324,22 @@ use \Core\Controller;
 																&nbsp;
 															</div>
 														</div>
+														<div class="col-md-4 pull-right">
+													<div class="form-group">
+														<button type="" id="" class="btn btn-primary btn-md btn-block" value="AddBO" onclick="validateBOIfIsShowed()" name="btn_nextBO_h">Siguiente</button>
+													</div>
+												</div>
 												</div>
 												<div class="form-group">&nbsp;</div>
-												<div class="col-md-4 pull-right">
-													<div class="form-group">
-														<button type="" id="" class="btn btn-primary btn-md btn-block" value="AddBO" onclick="validateBOIfIsShowed()" name="btn_command_h">Guardar</button>
-														</div>
+												<div class="form-group" id="div_btnSaveAll_h">
+														<button type="button" id="btn_command_h" class="btn btn-primary btn-md btn-block" value="AddEG" onclick="submitAll()" name="btn_command_h">Guardar Todo</button>
 												</div>
-											</form>
 										</fieldset>
 								</div>
 							</div>
                         </div>
 					</div>
+				</form>
 				</div>
 			</div>
 			<div class="footer">
@@ -362,25 +365,39 @@ use \Core\Controller;
 		function(){
 			var div_subcuenta_j=$("#nuevaSubcuenta");
 			var div_sucursal_j=$("#nuevaSucursal");
+			var div_btnSaveAll_j=$("#div_btnSaveAll_h");
 						
 			div_subcuenta_j.hide();
-			div_sucursal_j.hide();		
-    });
-	
+			div_sucursal_j.hide();
+			div_btnSaveAll_j.hide();
+		}
+	);
+	/*JQuery.validator.setDefaults({
+		debug:true,
+		success:"validate"
+		});*/
+		$("#frm_EG_h").validate({
+			rules:{
+				field:{
+					required:true,
+					step:3
+				}
+			}
+		});
 	function showFormSubcuenta(){
 		var div_subcuenta_j=$("#nuevaSubcuenta");
 		var frm_company_j=$("#frm_company_h");
 		
-		frm_company_j.validate(
+		/*frm_company_j.validate(
 			{
-				submitHandler:function(frm_subcompany_h){
+				submitHandler:function(frm_subcompany_h){*/
 					div_subcuenta_j.show("slow");
-				},
+				/*},
 				errorPlacement: function (error, element){
                     element.before(error);
                 }
 			}
-		);	
+		);*/	
 		
 	}
 	function validateSubcompanyIfIsShowed(){
@@ -388,40 +405,40 @@ use \Core\Controller;
 		var div_sucursal_j=$("#nuevaSucursal");
 		var frm_subcompany_j=$("#frm_subcompany_h");
 		
-		if (div_subcuenta_j.is(":visible")){
+		/*if (div_subcuenta_j.is(":visible")){
 			frm_subcompany_j.validate(
 			{
-				submitHandler:function(frm_subcompany_h){
+				submitHandler:function(frm_subcompany_h){*/
 					div_sucursal_j.show("slow");
-				},
+				/*},
 				errorPlacement: function (error, element){
                     element.before(error);
                 }
 			}
 			);			
-		}
+		}*/
 	}	
 	function validateBOIfIsShowed(){
 		var div_BO_j=$("#nuevaSucursal");
-		var frm_company_j=$("#frm_company_j");
+		var div_subcuenta_j=$("#nuevaSubcuenta");
+		var div_btnSaveAll_j=$("#div_btnSaveAll_h");
+		var frm_company_j=$("#frm_company_h");
 		var frm_subcompany_j=$("#frm_subcompany_h");
 		var frm_BO_j=$("#frm_BO_h");
 		
-		if (div_BO_j.is(":visible")){
+		/*if (div_BO_j.is(":visible")){
 			frm_BO_j.validate(
 			{
-				submitHandler:function(frm_company_j,frm_subcompany_j,frm_BO_j){
-					frm_company_j.submit();
-					frm_subcompany_j.submit();
-					frm_BO_j.submit();
-				},
+				submitHandler:function(frm_BO_h){*/
+					div_btnSaveAll_j.show("slow");
+				/*},
 				errorPlacement: function (error, element){
                     element.before(error);
                 }
 			}
 			);			
-		}
-	}	
+		}*/		
+	}
 	</script>
 </body>
 
