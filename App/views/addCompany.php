@@ -106,7 +106,7 @@ use \Core\Controller;
 								</div>
 								<div class="ibox-content" >
 									<fieldset>
-										<form id="formCompany" class="form-horizontal" action="<?php echo $url; ?>private/EnterpriseGroup" method="POST" class="">
+										<form id="frm_company_h" class="form-horizontal" action="<?php echo $url; ?>private/EnterpriseGroup" method="POST" class="">
 											<div class="col-lg-6 form-group-dark">
 												<div class="form-group">&nbsp;</div>
 												<div class="form-group">
@@ -130,7 +130,7 @@ use \Core\Controller;
 													<div class="form-group">&nbsp;</div>
 													<div class="col-md-4 pull-right">
 														<div class="form-group">
-															<button type="submit" id="" class="btn btn-primary btn-md btn-block" value="AddCompany" name="btn_toDo_h">Guardar</button>
+															<button type="button" id="btn_addSubcuenta_h" class="btn btn-primary btn-md btn-block" value="" onclick="showFormSubcuenta()" name="btn_addSubcuenta_h">Guardar</button>
 														</div>
 													</div>
 											</form>
@@ -165,7 +165,7 @@ use \Core\Controller;
 								</div>
 								<div class="ibox-content">
 									<fieldset>
-										<form id="formCompany" class="form-horizontal" action="<?php echo $url; ?>private/EnterpriseGroup" method="POST" class="">
+										<form id="frm_subcompany_h" class="form-horizontal" action="<?php echo $url; ?>private/EnterpriseGroup" method="POST" class="">
 											<div class="col-lg-6 form-group-dark">
 												<div class="form-group">&nbsp;</div>
 												<div class="form-group">
@@ -189,7 +189,7 @@ use \Core\Controller;
 												<div class="form-group">&nbsp;</div>
 											<div class="col-md-4 pull-right">
 												<div class="form-group">
-													<button type="submit" id="" class="btn btn-primary btn-md btn-block" value="AddCompany" name="btn_toDo_h">Guardar</button>
+													<button type="button" id="btn_addBO_h" class="btn btn-primary btn-md btn-block" onclick="validateifisShowed()" value="" name="btn_AddBO_h">Guardar</button>
 												</div>
 											</div>
 										</form>
@@ -356,19 +356,36 @@ use \Core\Controller;
 		function(){
 			var div_subcuenta_j=$("#nuevaSubcuenta");
 			var div_sucursal_j=$("#nuevaSucursal");
-			var frm_company_j=$("#formCompany");
-			
+						
 			div_subcuenta_j.hide();
-			div_sucursal_j.hide();
-			
-			
-			frm_company_j.validate({
+			div_sucursal_j.hide();		
+    });
+	
+	function showFormSubcuenta(){
+		var div_subcuenta_j=$("#nuevaSubcuenta");
+		var frm_company_j=$("#frm_company_h");
+		
+		frm_company_j.validate({
 				errorPlacement: function (error, element){
                             element.before(error);
                         }
-					
-			});    
-    });
+				//div_subcuenta_j.show("slow");	
+			});	
+		
+	}
+	
+	function validateifisShowed(){
+		var div_subcuenta_j=$("#nuevaSubcuenta");
+		var frm_subcompany_j=$("#frm_subcompany_h");
+		if (div_subcuenta_j.is(":visible")){
+			frm_subcompany_j.validate({
+				errorPlacement: function (error, element){
+                            element.before(error);
+                        }
+			});			
+		}
+	}
+	
 	</script>
 </body>
 
