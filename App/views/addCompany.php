@@ -5,19 +5,20 @@ defined("APPPATH") OR die("Access denied");
 
 use \Core\View;
 use \Core\Controller;
-		
+
+		if (strlen(session_id()) < 1){session_start();}
 		$_SESSION["nombreUsuario"];
 		$_SESSION['pkiBUser_p'];
 		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
 		else{
 				echo "Esta pagina es solo para usuarios registrados.<br>";
-			echo "<a href='http://localhost:8012/ibrain2.0'>Login Here!</a>";
+			echo "<a href='" . Globales::$absoluteURL. "'>Login Here!</a>";
 			exit;
 		}
 		$now = time(); 
 		if($now > $_SESSION['expire']){
 		session_destroy();
-		echo "Su sesion a terminado, <a href='http://localhost:8012/ibrain2.0'>
+		echo "Su sesion a terminado, <a href='" . Globales::$absoluteURL . "'>
 			  Necesita Hacer Login</a>";
 		exit;
 		}
@@ -30,7 +31,8 @@ use \Core\Controller;
 		<title>iBrain2.0</title>
 		   <!-- Mainly CSS -->
 		<link href="<?php echo $url; ?>App/web/css/bootstrap.min.css" rel="stylesheet">
-		<link href="<?php echo $url; ?>App/web/font-awesome/css/font-awesome.css" rel="stylesheet">		<link href="http://localhost:8012/iBrain2.0/App/web/css/animate.css" rel="stylesheet">
+		<link href="<?php echo $url; ?>App/web/font-awesome/css/font-awesome.css" rel="stylesheet">
+		<link href="<?php echo $url; ?>/App/web/css/animate.css" rel="stylesheet">
 		<link href="<?php echo $url; ?>App/web/css/style.css" rel="stylesheet">
 		<!-- iCheck CSS -->
 		<link href="<?php echo $url; ?>App/web/css/plugins/iCheck/custom.css" rel="stylesheet">
@@ -107,22 +109,21 @@ use \Core\Controller;
 								<div class="ibox-content" >
 									<fieldset>
 										<form id="frm_company_h" class="form-horizontal" action="<?php echo $url; ?>private/EnterpriseGroup" method="POST" class="">
-											<div class="col-lg-6 form-group-dark">
+											<div class="col-md-6">
 												<div class="form-group">&nbsp;</div>
 												<div class="form-group">
 													<label class="col-md-4 control-label">Nombre legal:*</label>
-													<div class="col-lg-8">
+													<div class="col-md-8">
 														<input id="txt_userName_h" class="form-control required" name="txt_legalName_h" type="text">
-														<input id="" name="hdn_toDo_h" class="" value="AddUser" type="hidden">
 													</div>
 												</div>
 												
 											</div>
-											<div class="col-md-6 form-group-dark">
+											<div class="col-md-6">
 												<div class="form-group">&nbsp;</div>
 												<div class="form-group">
 													<label class="col-md-4 control-label">Nombre comercial:*</label>
-													<div class="col-lg-8">
+													<div class="col-md-8">
 														<input id="txt_realName_h" class="form-control required" name="txt_commercialName_h" type="text">
 													</div>
 												</div>													
@@ -130,7 +131,7 @@ use \Core\Controller;
 													<div class="form-group">&nbsp;</div>
 													<div class="col-md-4 pull-right">
 														<div class="form-group">
-															<button type="" id="btn_addSubcuenta_h" class="btn btn-primary btn-md btn-block" value="" onclick="showFormSubcuenta()" name="btn_addSubcuenta_h">Guardar</button>
+															<button type="" id="btn_command_h" class="btn btn-primary btn-md btn-block" value="AddCompany" name="btn_command_h">Guardar</button>
 														</div>
 													</div>
 											</form>
@@ -140,7 +141,7 @@ use \Core\Controller;
 							</div>
                         </div>
                     </div>
-					<div class="row" id="nuevaSubcuenta">
+					<!--div class="row" id="nuevaSubcuenta">
 						<div class="col-lg-12">
 							<div class="ibox float-e-margins">
 								<div class="ibox-title">
@@ -197,8 +198,8 @@ use \Core\Controller;
 								</div>
 							</div>
                         </div>
-					</div>
-					<div class="row" id="nuevaSucursal">
+					</div-->
+					<!--div class="row" id="nuevaSucursal">
 						<div class="col-lg-12">
 							<div class="ibox float-e-margins">
 								<div class="ibox-title">
@@ -237,7 +238,7 @@ use \Core\Controller;
 															</select>
 														</div>
 													</div-->
-													<div class="form-group">
+													<!--div class="form-group">
 															<label class="col-md-4 control-label">Sucursal:*</label>
 															<div class="col-lg-8">
 																<input id="txt_BOName_h" class="form-control required" name="txt_BOName_h" type="text">
@@ -336,7 +337,7 @@ use \Core\Controller;
 								</div>
 							</div>
                         </div>
-					</div>
+					</div-->
 				</div>
 			</div>
 			<div class="footer">
@@ -360,68 +361,8 @@ use \Core\Controller;
 	<script>
 	$(document).ready(
 		function(){
-			var div_subcuenta_j=$("#nuevaSubcuenta");
-			var div_sucursal_j=$("#nuevaSucursal");
-						
-			div_subcuenta_j.hide();
-			div_sucursal_j.hide();		
+			$("#frm_company_h").validate();	
     });
-	
-	function showFormSubcuenta(){
-		var div_subcuenta_j=$("#nuevaSubcuenta");
-		var frm_company_j=$("#frm_company_h");
-		
-		frm_company_j.validate(
-			{
-				submitHandler:function(frm_subcompany_h){
-					div_subcuenta_j.show("slow");
-				},
-				errorPlacement: function (error, element){
-                    element.before(error);
-                }
-			}
-		);	
-		
-	}
-	function validateSubcompanyIfIsShowed(){
-		var div_subcuenta_j=$("#nuevaSubcuenta");
-		var div_sucursal_j=$("#nuevaSucursal");
-		var frm_subcompany_j=$("#frm_subcompany_h");
-		
-		if (div_subcuenta_j.is(":visible")){
-			frm_subcompany_j.validate(
-			{
-				submitHandler:function(frm_subcompany_h){
-					div_sucursal_j.show("slow");
-				},
-				errorPlacement: function (error, element){
-                    element.before(error);
-                }
-			}
-			);			
-		}
-	}	
-	function validateBOIfIsShowed(){
-		var div_BO_j=$("#nuevaSucursal");
-		var frm_company_j=$("#frm_company_j");
-		var frm_subcompany_j=$("#frm_subcompany_h");
-		var frm_BO_j=$("#frm_BO_h");
-		
-		if (div_BO_j.is(":visible")){
-			frm_BO_j.validate(
-			{
-				submitHandler:function(frm_company_j,frm_subcompany_j,frm_BO_j){
-					frm_company_j.submit();
-					frm_subcompany_j.submit();
-					frm_BO_j.submit();
-				},
-				errorPlacement: function (error, element){
-                    element.before(error);
-                }
-			}
-			);			
-		}
-	}	
 	</script>
 </body>
 

@@ -6,7 +6,7 @@ defined("APPPATH") OR die("Access denied");
 use \Core\View;
 use \Core\Controller;
 		
-		$_SESSION["nombreUsuario"];
+		/*$_SESSION["nombreUsuario"];
 		$_SESSION['pkiBUser_p'];
 		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
 		else{
@@ -20,6 +20,22 @@ use \Core\Controller;
 		echo "Su sesion a terminado, <a href='http://localhost:8012/ibrain2.0'>
 			  Necesita Hacer Login</a>";
 		exit;
+		}*/
+		if (strlen(session_id()) < 1){session_start();}
+		$_SESSION["nombreUsuario"];
+		$_SESSION['pkiBUser_p'];
+		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
+		else{
+				echo "Esta pagina es solo para usuarios registrados.<br>";
+			echo "<a href='" . Globales::$absoluteURL. "'>Login Here!</a>";
+			exit;
+		}
+		$now = time(); 
+		if($now > $_SESSION['expire']){
+		session_destroy();
+		echo "Su sesion a terminado, <a href='" . Globales::$absoluteURL . "'>
+			  Necesita Hacer Login</a>";
+		exit;
 		}
 ?>
 <!DOCTYPE html>
@@ -30,7 +46,8 @@ use \Core\Controller;
 		<title>iBrain2.0</title>
 		   <!-- Mainly CSS -->
 		<link href="<?php echo $url; ?>App/web/css/bootstrap.min.css" rel="stylesheet">
-		<link href="<?php echo $url; ?>App/web/font-awesome/css/font-awesome.css" rel="stylesheet">		<link href="http://localhost:8012/iBrain2.0/App/web/css/animate.css" rel="stylesheet">
+		<link href="<?php echo $url; ?>App/web/font-awesome/css/font-awesome.css" rel="stylesheet">
+		<link href="<?php echo $url; ?>App/web/css/animate.css" rel="stylesheet">
 		<link href="<?php echo $url; ?>App/web/css/style.css" rel="stylesheet">
 		<!-- iCheck CSS -->
 		<link href="<?php echo $url; ?>App/web/css/plugins/iCheck/custom.css" rel="stylesheet">
@@ -107,34 +124,31 @@ use \Core\Controller;
 								</div>
 								<div class="ibox-content" >
 									<fieldset>
-										<!--form id="frm_company_h" class="form-horizontal" action="<?php//$url; ?>private/EnterpriseGroup" method="POST" class=""-->
-											<div class="col-lg-6 form-group-dark">
+											<div class="col-lg-6">
 												<div class="form-group">&nbsp;</div>
 												<div class="form-group">
 													<label class="col-md-4 control-label">Nombre legal:*</label>
 													<div class="col-lg-8">
-														<input id="txt_userName_h" class="form-control required" name="txt_legalName_h" type="text">
-														<input id="" name="hdn_toDo_h" class="" value="AddUser" type="hidden">
+														<input id="txt_legalName_h" class="form-control required" name="txt_legalName_h" type="text">
 													</div>
 												</div>
 												
 											</div>
-											<div class="col-md-6 form-group-dark">
+											<div class="col-md-6">
 												<div class="form-group">&nbsp;</div>
 												<div class="form-group">
 													<label class="col-md-4 control-label">Nombre comercial:*</label>
 													<div class="col-lg-8">
-														<input id="txt_realName_h" class="form-control required" name="txt_commercialName_h" type="text">
+														<input id="txt_commercialName_h" class="form-control required" name="txt_commercialName_h" type="text">
 													</div>
 												</div>													
-											</div>
-													<div class="form-group">&nbsp;</div>
+												<div class="form-group">&nbsp;</div>
 													<div class="col-md-4 pull-right">
 														<div class="form-group">
-															<button type="" id="btn_addSubcuenta_h" class="btn btn-primary btn-md btn-block" value="" onclick="showFormSubcuenta()" name="btn_addSubcuenta_h">Siguiente</button>
+															<button type="" id="btn_showFormSubcuenta_h" class="btn btn-primary btn-md btn-block" value="" name="btn_showFormSubcuenta_h">Siguiente</button>
 														</div>
 													</div>
-											<!--/form-->
+											</div>
 										</fieldset>
 								</div>
 							</div>
@@ -165,19 +179,17 @@ use \Core\Controller;
 								</div>
 								<div class="ibox-content">
 									<fieldset>
-										<!--form id="frm_subcompany_h" class="form-horizontal" action="<?php //$url; ?>private/EnterpriseGroup" method="POST" class=""-->
-											<div class="col-lg-6 form-group-dark">
+											<div class="col-lg-6">
 												<div class="form-group">&nbsp;</div>
 												<div class="form-group">
 													<label class="col-md-4 control-label">Subcuenta maestra:*</label>
 													<div class="col-lg-8">
 														<input id="txt_sclegalName_h" class="form-control required" name="txt_sclegalName_h" type="text">
-														<input id="" name="hdn_toDo_h" class="" value="AddUser" type="hidden">
 													</div>
 												</div>
 												
 											</div>
-											<div class="col-md-6 form-group-dark">
+											<div class="col-md-6">
 												<div class="form-group">&nbsp;</div>
 												<div class="form-group">
 													<label class="col-md-4 control-label">&nbsp;</label>
@@ -186,13 +198,14 @@ use \Core\Controller;
 													</div>
 												</div>													
 											</div>
+											<div class="col-md-6">
 												<div class="form-group">&nbsp;</div>
-											<div class="col-md-4 pull-right">
-												<div class="form-group">
-													<button type="" id="btn_addBO_h" class="btn btn-primary btn-md btn-block" onclick="validateSubcompanyIfIsShowed()" value="" name="btn_AddBO_h">Siguiente</button>
+												<div class="col-md-4 pull-right">
+													<div class="form-group">
+														<button type="" id="btn_showFormBO_h" class="btn btn-primary btn-md btn-block" value="" name="btn_showFormBO_h">Siguiente</button>
+													</div>
 												</div>
 											</div>
-										<!--/form-->
 									</fieldset>
 								</div>
 							</div>
@@ -223,20 +236,8 @@ use \Core\Controller;
 								</div>
 								<div class="ibox-content">
 									<fieldset>
-											<!---form id="frm_BO_h" class="form-horizontal" action="<?php //$url; ?>private/EnterpriseGroup" method="POST" class=""--->
-												<div class="col-lg-6 form-group-dark">
+												<div class="col-lg-6">
 													<div class="form-group">&nbsp;</div>
-													<!--div class="form-group">
-														<label class="col-md-4 control-label">Cuenta maestra:*</label>
-														<div class="col-lg-8">
-															<select id="" class="form-control m-b" name="slt_pkSubCompany_h">
-																<option value="-1">Selecciona una cuenta maestra ...</option>
-															<?php //foreach ($drows_Company as $companyOption) {?>
-																	<option value="<?php //echo $companyOption['pkSubCompany'] ?>"><?php //echo $companyOption['subCompanyName'] ?></option>
-															<?php //} ?>
-															</select>
-														</div>
-													</div-->
 													<div class="form-group">
 															<label class="col-md-4 control-label">Sucursal:*</label>
 															<div class="col-lg-8">
@@ -280,7 +281,7 @@ use \Core\Controller;
 														</div>
 													</div>
 												</div>
-												<div class="col-md-6 form-group-dark">
+												<div class="col-md-6">
 														<div class="form-group">&nbsp;</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">Regi&oacute;n:*</label>
@@ -325,14 +326,10 @@ use \Core\Controller;
 															</div>
 														</div>
 														<div class="col-md-4 pull-right">
-													<div class="form-group">
-														<button type="" id="" class="btn btn-primary btn-md btn-block" value="AddBO" onclick="validateBOIfIsShowed()" name="btn_nextBO_h">Siguiente</button>
-													</div>
-												</div>
-												</div>
-												<div class="form-group">&nbsp;</div>
-												<div class="form-group" id="div_btnSaveAll_h">
-														<button type="button" id="btn_command_h" class="btn btn-primary btn-md btn-block" value="AddEG" onclick="submitAll()" name="btn_command_h">Guardar Todo</button>
+															<div class="form-group">
+																<button type="" id="btn_command_h" class="btn btn-primary btn-md btn-block" value="AddAll" name="btn_command_h">Guardar</button>
+															</div>
+														</div>
 												</div>
 										</fieldset>
 								</div>
@@ -361,84 +358,47 @@ use \Core\Controller;
 	<!-- Jquery Validate -->
     <script src="<?php echo $url; ?>App/web/js/plugins/validate/jquery.validate.min.js"></script>
 	<script>
-	$(document).ready(
-		function(){
-			var div_subcuenta_j=$("#nuevaSubcuenta");
-			var div_sucursal_j=$("#nuevaSucursal");
-			var div_btnSaveAll_j=$("#div_btnSaveAll_h");
-						
-			div_subcuenta_j.hide();
-			div_sucursal_j.hide();
-			div_btnSaveAll_j.hide();
+	/*$.validator.setDefaults({
+		submitHandler: function() {
+			alert("submitted!");
 		}
-	);
-	/*JQuery.validator.setDefaults({
-		debug:true,
-		success:"validate"
-		});*/
-		$("#frm_EG_h").validate({
-			rules:{
-				field:{
-					required:true,
-					step:3
-				}
-			}
-		});
-	function showFormSubcuenta(){
-		var div_subcuenta_j=$("#nuevaSubcuenta");
-		var frm_company_j=$("#frm_company_h");
-		
-		/*frm_company_j.validate(
-			{
-				submitHandler:function(frm_subcompany_h){*/
-					div_subcuenta_j.show("slow");
-				/*},
-				errorPlacement: function (error, element){
-                    element.before(error);
-                }
-			}
-		);*/	
-		
-	}
-	function validateSubcompanyIfIsShowed(){
+	});*/
+
+	$().ready(function() {
 		var div_subcuenta_j=$("#nuevaSubcuenta");
 		var div_sucursal_j=$("#nuevaSucursal");
-		var frm_subcompany_j=$("#frm_subcompany_h");
-		
-		/*if (div_subcuenta_j.is(":visible")){
-			frm_subcompany_j.validate(
-			{
-				submitHandler:function(frm_subcompany_h){*/
-					div_sucursal_j.show("slow");
-				/*},
-				errorPlacement: function (error, element){
-                    element.before(error);
-                }
-			}
-			);			
-		}*/
-	}	
-	function validateBOIfIsShowed(){
-		var div_BO_j=$("#nuevaSucursal");
-		var div_subcuenta_j=$("#nuevaSubcuenta");
 		var div_btnSaveAll_j=$("#div_btnSaveAll_h");
-		var frm_company_j=$("#frm_company_h");
-		var frm_subcompany_j=$("#frm_subcompany_h");
-		var frm_BO_j=$("#frm_BO_h");
+		var btn_addSubcuenta_j=$("#btn_showFormSubcuenta_h");
+		var btn_addBO_j=$("#btn_showFormBO_h");
 		
-		/*if (div_BO_j.is(":visible")){
-			frm_BO_j.validate(
+		div_subcuenta_j.hide();
+		div_sucursal_j.hide();
+		div_btnSaveAll_j.hide();
+					
+		$("#frm_EG_h").validate(
 			{
-				submitHandler:function(frm_BO_h){*/
-					div_btnSaveAll_j.show("slow");
-				/*},
-				errorPlacement: function (error, element){
-                    element.before(error);
-                }
+				rules:{
+					field:{
+						required:true,
+						step:3
+					}
+				}
+			}		
+		);
+
+		btn_addSubcuenta_j.on(
+			'click',function(){
+				div_subcuenta_j.show("slow");
 			}
-			);			
-		}*/		
-	}
+		);
+		btn_addBO_j.on(
+			'click',function(){
+				div_sucursal_j.show("slow");
+			}
+		);
+		
+		
+	});
 	</script>
 </body>
 

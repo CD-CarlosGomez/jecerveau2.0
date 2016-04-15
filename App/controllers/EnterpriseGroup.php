@@ -14,22 +14,24 @@ use \Core\View;
 use \Core\Controller;
 use \App\Config\Globales as Globales;
 use \App\Models\Companies as MA;
+use \App\Models\enterpriseGroup\Subcompanies as SC;
 use \App\Models\BranchOffices as BO;
 use \App\Models\CurrentUser as CU;
-use \App\Models\enterpriseGroup\Subcompanies as SC;
 use \App\data\DataGridView as DGB;
 
-	session_start();
+	if (strlen(session_id()) < 1){session_start();}
+		$_SESSION["nombreUsuario"];
+		$_SESSION['pkiBUser_p'];
 	if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
 		else{
 				echo "Esta pagina es solo para usuarios registrados.<br>";
-			echo "<a href='http://localhost:8012/ibrain2.0'>Login Here!</a>";
+			echo "<a href='" . Globales::$absoluteURL. "'>Login Here!</a>";
 			exit;
 		}
 		$now = time(); 
 		if($now > $_SESSION['expire']){
 		session_destroy();
-		echo "Su sesion a terminado, <a href='http://localhost:8012/ibrain2.0'>
+		echo "Su sesion a terminado, <a href='" . Globales::$absoluteURL . "'>
 			  Necesita Hacer Login</a>";
 		exit;
 		}
@@ -212,26 +214,42 @@ private $_sesionpkiBUser;
 		#render
 		View::render("addBO");
 	}
-}
 //MÉTODOS PRIVADOS###################################
 //EVENTOS############################################
 //CONTROLES##########################################
-//MAIN###############################################		
-	switch(@$_POST['btn_toDo_h']){
+}
+//MAIN###############################################	
+	switch(@$_POST['btn_command_h2']){
 		case "AddCompany":
 			CreateCompany();
 		break;
 			case "AddBO":
 			CreateBO();
 		break;
-		case "AddUser":
-			CreateUser();
+		case "AddSubcompany":
+			CreateSubCompany();
 		break;
-		case "Eliminar":
-			Delete();
+		case "addAll":
+			CreateEnterpriceGroup();
 		break;
  	}
+	
 	function CreateCompany(){
+	$c=new MA;
+	$nextPKCompany=$c->getNextId("pkCompany","company");
+	$c->setpkCompany($nextPKCompany);
+	$c->setLegalName($_POST['txt_legalName_h']);
+	$c->setCommercialName($_POST["txt_commercialName_h"]);
+	$c->setActive("1");
+	$c->setCreated(date("Y-m-d"));
+	$c->setCreatedBy($_SESSION['pkiBUser_p']);
+	$c->setModified("null");
+	$c->setModifiedBy("null");
+	$c->insertData("Company");
+	//header("Location:http://localhost:8012/iBrain2.0/private/EnterpriseGroup/showCompany");
+	}
+	
+	function CreateSubCompany(){
 	$c=new MA;
 	$c->setLegalName($_POST['txt_legalName_h']);
 	$c->setCommercialName($_POST["txt_commercialName_h"]);
@@ -240,11 +258,10 @@ private $_sesionpkiBUser;
 	$c->setCreatedBy($_SESSION['pkiBUser_p']);
 	$c->setModified("null");
 	$c->setModifiedBy("null");
-	
 	$c->insertData("Company");
-	
-	
 	}
+	
+	
 	function CreateBO(){
 	$bo=new BO;
 	

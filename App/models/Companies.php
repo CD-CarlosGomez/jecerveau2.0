@@ -165,10 +165,6 @@ class Companies implements iCrud{
 		try {
 				$cnn=Database::instance();
 				$PDOQuery = "SELECT MAX($column) AS Maximo FROM $table;";
-				//$dso=$cnn->prepare($PDOQuery);
-				//$dso->bindParam(1,$column,\PDO::PARAM_INT);
-				//$dso->bindParam(2,$table,\PDO::PARAM_INT);
-				//$dso->execute();
 				$dso=$cnn->query($PDOQuery);
 				$ultimo=$dso->fetch();
 				$plusid=$ultimo['Maximo'];
