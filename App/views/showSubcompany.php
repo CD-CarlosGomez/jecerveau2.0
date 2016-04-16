@@ -25,7 +25,7 @@ use \App\data\DataGridView as DGV;
 		$outputTableCompany=DGV::getInstance($dt_Company)
 		->setGridAttributes(array('class' => 'table table-striped table-bordered table-hover dataTables'))
 		->enableSorting(false)
-		->removeColumn('pkCompany')
+		->removeColumn('pkcompany')
 		->removeColumn('pkSubCompany')
 		->setup(array(
 			'subCompanyName' => array('header' => 'Commercial_Name'),

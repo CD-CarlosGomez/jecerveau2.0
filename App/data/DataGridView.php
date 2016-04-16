@@ -26,7 +26,7 @@ class DataGridView{
     protected $_cellAttributes  = array();
     protected $_gridAttributes  = array();
     protected $_startingCounter = 0;
-	protected $_pkTable=null;
+	protected $_cellLink		=null;
     protected static $_staticTableId    = 0;
 	
 
@@ -77,6 +77,11 @@ class DataGridView{
             if (isset($setting['attributes'])) {
                 $this->_cellAttributes[$field] = $setting['attributes'];
             }
+			
+			if (isset($setting['link'])) {
+                $this->_cellLink[$field] = $setting['link'];
+            }
+			
         }
 
         return $this;
@@ -154,6 +159,14 @@ class DataGridView{
         return $this;
     }
     /**
+	* @param string $field
+    * @param string $link
+    * @return Fete_ViewControl_DataGrid
+	**/
+	public function &setCellLink($field,$link){
+		$this->_cellLink[$field]=$link;
+	}
+	/**
      *
      * @param string $columnName
      * @return Fete_ViewControl_DataGrid
@@ -169,11 +182,6 @@ class DataGridView{
         }
         return $this;
     }
-	/**
-	**/
-	public function &setpkColumn($value){
-		
-	}
     /**
      *
      * @param string $columnName
@@ -285,6 +293,7 @@ class DataGridView{
 							foreach ($this->_columns as $field){
 								$data       = isset($row[$field]) ? $row[$field] : '';
 								$template   = isset($this->_cellTemplates[$field]) ? $this->_cellTemplates[$field] : '';
+								$link		= isset($this->_cellLink[$field])? $this->_cellLink[$field]:'';
 								//$output .= '<input type="hidden" id=""  class="" value="'.$row['pkCompany'].'" name="pkCompany">';
 								$output .= "\t" . '<td';
 								if (isset($this->_cellAttributes[$field])) {
@@ -303,7 +312,7 @@ class DataGridView{
 								}
 
 								$output .= '>';
-								$output .= "$row[0]";
+								//$output .= "$row[0]";
 								if (!empty($template)) {
 									$data = str_replace('%data%', $data, $template);
 									$data = str_replace('%counter%', $rowCounter, $data);
@@ -319,7 +328,15 @@ class DataGridView{
 										$data = str_replace($match[0], call_user_func_array($match[1], $params), $data);
 									}
 								}
+								if(!empty($link)){
+									$output .='<a href="' . $link . '">';
+								}
 								$output .= $data . '</td>' . "\n";
+								
+								if(!empty($link)){
+									$output .='</a>';
+								}
+								
 							}
 							$output .= '</tr>' . "\n";
 						}

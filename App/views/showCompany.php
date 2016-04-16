@@ -35,8 +35,8 @@ use \App\data\DataGridView as DGV;
 		->setup(array(
 			'legalName' => array('header' => 'Master_Account'),
 			'commercialName' => array('header' => 'Commercial_Name'),
-			'totalSubCompany' => array('header' => 'SubCompa&ntilde;&iacute;as'),
-			'totalBO' => array('header' => 'Sucursales'),
+			'totalSubCompany' => array('header' => 'SubCompa&ntilde;&iacute;as','link'=>$url . 'private/EnterpriseGroup/showSubcompany' ),
+			'totalBO' => array('header' => 'Sucursales','link'=>$url . 'private/EnterpriseGroup/showBranchOffice'),
 			'totalUsers' => array('header' => 'Usuarios')
 		))
 		->addColumnAfter('actions', 
