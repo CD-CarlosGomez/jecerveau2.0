@@ -1,8 +1,13 @@
 <?php
-/* 
- * Copyright (c) 2009 Nguyen Duc Thuan <me@ndthuan.com>
- * All rights reserved.
- */
+// +-----------------------------------------------
+// | @author Copyright (c) 2009 Nguyen Duc Thuan <me@ndthuan.com> All rights reserved. Versión 1.0
+// | @Modified by Carlos M.
+// | @date 5 de Marzo del 2016
+// | @Version 2.0
+// +-----------------------------------------------
+#16.3.22 Agregar validación del lado del servidor
+#16.3.27 Arreglar problemas de sesión, condición: si no ha iniciado sesión, que la inicie, de lo contrario que no...
+
 namespace App\data;
 defined("APPPATH") OR die("Access denied");
 
@@ -230,7 +235,7 @@ class DataGridView{
 
         return $this;
     }
-     public function getString(){
+    public function getString(){
         $sortField  = '';
         $sortOrder  = '';
         $data       = $this->_datarows;
@@ -298,7 +303,7 @@ class DataGridView{
 								}
 
 								$output .= '>';
-
+								$output .= "$row[0]";
 								if (!empty($template)) {
 									$data = str_replace('%data%', $data, $template);
 									$data = str_replace('%counter%', $rowCounter, $data);

@@ -68,7 +68,7 @@ private $_sesionpkiBUser;
 		$currentMainMenu=$cu->getMainMenu2($this->_sesionpkiBUser);
 		$dsSlcCompany=MA::getpknaSelect();
 		$dsKanBanCompanies=MA::selectKanbanCompany($this->_sesionpkiBUser);
-		while ($row =$dsKanBanCompanies->fetch(\PDO::FETCH_ASSOC)){
+		while ($row =$dsKanBanCompanies->fetch(\PDO::FETCH_BOTH)){
 			$dt_Company[] = $row;
 		}
 		#set data variables
@@ -224,11 +224,12 @@ private $_sesionpkiBUser;
 		case "AddSubCompany":
 			CreateSubCompany();
 		break;
-		case "addAll":
+		case "AddAll":
 			CreateEnterpriceGroup();
 		break;
  	}
 	function CreateEnterpriceGroup(){
+		#Podemos utilizar el PDO::lastInsertID para mejorar el código
 		$c=new MA;
 		$nextPKCompany=$c->getNextId("pkCompany","company");
 		$c->setpkCompany($nextPKCompany);

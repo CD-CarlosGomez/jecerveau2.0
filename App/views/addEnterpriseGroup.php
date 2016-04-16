@@ -6,7 +6,7 @@ defined("APPPATH") OR die("Access denied");
 use \Core\View;
 use \Core\Controller;
 		
-		/*$_SESSION["nombreUsuario"];
+		$_SESSION["nombreUsuario"];
 		$_SESSION['pkiBUser_p'];
 		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
 		else{
@@ -20,23 +20,8 @@ use \Core\Controller;
 		echo "Su sesion a terminado, <a href='http://localhost:8012/ibrain2.0'>
 			  Necesita Hacer Login</a>";
 		exit;
-		}*/
-		if (strlen(session_id()) < 1){session_start();}
-		$_SESSION["nombreUsuario"];
-		$_SESSION['pkiBUser_p'];
-		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
-		else{
-				echo "Esta pagina es solo para usuarios registrados.<br>";
-			echo "<a href='" . Globales::$absoluteURL. "'>Login Here!</a>";
-			exit;
 		}
-		$now = time(); 
-		if($now > $_SESSION['expire']){
-		session_destroy();
-		echo "Su sesion a terminado, <a href='" . Globales::$absoluteURL . "'>
-			  Necesita Hacer Login</a>";
-		exit;
-		}
+		
 ?>
 <!DOCTYPE html>
 <html>

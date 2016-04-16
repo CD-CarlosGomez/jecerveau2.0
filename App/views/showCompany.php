@@ -26,6 +26,12 @@ use \App\data\DataGridView as DGV;
 		->setGridAttributes(array('class' => 'table table-striped table-bordered table-hover dataTables'))
 		->enableSorting(false)
 		->removeColumn('pkCompany')
+		->removeColumn(0)//pkCompany
+		->removeColumn(1)//legalName
+		->removeColumn(2)//totalSubCompany
+		->removeColumn(3)//totalBO
+		->removeColumn(4)//totalSubCompany
+		->removeColumn(5)//totalUsers
 		->setup(array(
 			'legalName' => array('header' => 'Master_Account'),
 			'commercialName' => array('header' => 'Commercial_Name'),
