@@ -131,11 +131,11 @@ class BranchOffices implements iCrud{
     public static function insertData($data){
 		try {
             $connection = Database::instance();
-			$pkTable=self::getNextId("pkBranchOffice","branchoffice");
+			//$pkTable=self::getNextId("pkBranchOffice","branchoffice");
             $sql = "INSERT INTO $data VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
             $query = $connection->prepare($sql);
-            $query->bindParam(1, $pkTable, \PDO::PARAM_INT);
-            $query->bindParam(2, self::$_subCompany_pkSubCompany_p, \PDO::PARAM_STR);
+            $query->bindParam(1, self::$_pkBranchOffice_p, \PDO::PARAM_INT);
+            $query->bindParam(2, self::$_subCompany_pkSubCompany_p, \PDO::PARAM_INT);
 			$query->bindParam(3, self::$_BOName_p, \PDO::PARAM_STR);
 			$query->bindParam(4, self::$_BOstreet_p, \PDO::PARAM_STR);
 			$query->bindParam(5, self::$_BOextNumber_p, \PDO::PARAM_STR);
@@ -204,8 +204,7 @@ class BranchOffices implements iCrud{
 			print "Error!: " . $e->getMessage();
 		}
 	}
-//MÉTODOS PRIVADOS###################################
-	private function getNextId($column,$table){
+	public static function getNextId($column,$table){
 		try {
 				$cnn=Database::instance();
 				$PDOQuery = "SELECT MAX($column) AS Maximo FROM $table;";
@@ -224,6 +223,7 @@ class BranchOffices implements iCrud{
     		echo 'Incidencia al generar nuevo código ',  $e->getMessage(), ".\n";
 		}		
 	}
+//MÉTODOS PRIVADOS###################################
 //EVENTOS############################################
 //CONTROLES##########################################
 }

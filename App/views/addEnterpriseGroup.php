@@ -184,7 +184,7 @@ use \Core\Controller;
 												<div class="form-group">
 													<label class="col-md-4 control-label">Subcuenta maestra:*</label>
 													<div class="col-lg-8">
-														<input id="txt_sclegalName_h" class="form-control required" name="txt_sclegalName_h" type="text">
+														<input id="txt_subCompanyName_h" class="form-control required" name="txt_subCompanyName_h" type="text">
 													</div>
 												</div>
 												

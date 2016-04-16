@@ -109,31 +109,34 @@ use \Core\Controller;
 								</div>
 								<div class="ibox-content" >
 									<fieldset>
-										<form id="formCompany" class="form-horizontal" action="<?php echo $url; ?>private/EnterpriseGroup" method="POST" class="">
-											<div class="col-lg-6 form-group-dark">
+										<form id="frm_subCompany_h" class="form-horizontal" action="<?php echo $url; ?>private/EnterpriseGroup" method="POST">
+											<div class="col-lg-6">
 												<div class="form-group">&nbsp;</div>
 												<div class="form-group">
-													<label class="col-md-4 control-label">Cuenta maestra:*</label>
-													<div class="col-lg-8">
-														<input id="txt_userName_h" class="form-control required" name="txt_legalName_h" type="text">
-														<input id="" name="hdn_toDo_h" class="" value="AddUser" type="hidden">
-													</div>
-												</div>
-												
+														<label class="col-md-4 control-label">Cuenta maestra:*</label>
+														<div class="col-lg-8">
+															<select id="" class="form-control m-b" name="slt_fkCompany_h">
+																<option value="-1">Selecciona una cuenta maestra ...</option>
+															<?php foreach ($drows_Company as $companyOption) {?>
+																	<option value="<?php echo $companyOption['pkSubCompany'] ?>"><?php echo $companyOption['subCompanyName'] ?></option>
+															<?php } ?>
+															</select>
+														</div>
+												</div>												
 											</div>
-											<div class="col-md-6 form-group-dark">
+											<div class="col-md-6">
 												<div class="form-group">&nbsp;</div>
 												<div class="form-group">
 													<label class="col-md-4 control-label">Sub cuenta maestra:*</label>
 													<div class="col-lg-8">
-														<input id="txt_realName_h" class="form-control required" name="txt_commercialName_h" type="text">
+														<input id="txt_subCompanyName_h" class="form-control required" name="txt_subCompanyName_h" type="text">
 													</div>
 												</div>													
 											</div>
 												<div class="form-group">&nbsp;</div>
 											<div class="col-md-4 pull-right">
 												<div class="form-group">
-													<button type="submit" id="" class="btn btn-primary btn-md btn-block" value="AddCompany" name="btn_toDo_h">Guardar</button>
+													<button type="submit" id="btn_command_h" class="btn btn-primary btn-md btn-block" value="AddSubCompany" name="btn_command_h">Guardar</button>
 												</div>
 											</div>
 										</form>
@@ -211,13 +214,33 @@ use \Core\Controller;
     </div>
 
     <!-- Mainly scripts -->
-    <script src="http://localhost:8012/iBrain2.0/App/web/js/jquery-2.1.1.js"></script>
-    <script src="http://localhost:8012/iBrain2.0/App/web/js/bootstrap.min.js"></script>
-    <script src="http://localhost:8012/iBrain2.0/App/web/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="http://localhost:8012/iBrain2.0/App/web/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-    <!-- Custom and plugin javascript -->
-    <script src="http://localhost:8012/iBrain2.0/App/web/js/inspinia.js"></script>
-    <script src="http://localhost:8012/iBrain2.0/App/web/js/plugins/pace/pace.min.js"></script>
+    <script src="<?php echo $url; ?>App/web/js/jquery-2.1.1.js"></script>
+    <script src="<?php echo $url; ?>App/web/js/bootstrap.min.js"></script>
+    <script src="<?php echo $url; ?>App/web/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="<?php echo $url; ?>App/web/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+	<!-- Custom and plugin javascript -->
+    <script src="<?php echo $url; ?>App/web/js/inspinia.js"></script>
+    <script src="<?php echo $url; ?>App/web/js/plugins/pace/pace.min.js"></script>
+	<!-- Jquery Validate -->
+    <script src="<?php echo $url; ?>App/web/js/plugins/validate/jquery.validate.min.js"></script>
+	<script>
+	$(document).ready(
+		function(){
+			$("#frm_subCompany_h").validate(
+			{
+				rules: {
+					slt_fkCompany_h: {
+					  required: true,
+					  min: 0
+					}
+				},
+				messages:{
+				slt_pkSubCompany_h:"Please, choose a Company."
+				}
+			}
+			);	
+    });
+	</script>
 
 
 </body>

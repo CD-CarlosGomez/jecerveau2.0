@@ -24,8 +24,6 @@ use \App\data\DataGridView as DGV;
 		$outputTableCompany=DGV::getInstance($dt_Company)
 		->setGridAttributes(array('class' => 'table table-striped table-bordered table-hover dataTables-example'))
 		->enableSorting(false)
-		->removeColumn('pkCompany')
-		->removeColumn('pkSubCompany')
 		->removeColumn('pkBranchOffice')
 		->setup(array(
 			'' => array('header' => 'Cuenta maestra'),
@@ -67,78 +65,80 @@ use \App\data\DataGridView as DGV;
     <div id="wrapper">
         <div id="page-wrapper" class="gray-bg">
 			<div class="row wrapper border-bottom white-bg">
-			<nav class="navbar navbar-static-top" role="navigation">
-				<div class="navbar-header">
-					<button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
-					<i class="fa fa-reorder"></i>
-					</button>
-					<a href="<?php echo $url; ?>private/home" class="navbar-brand">Inicio</a>
+				<nav class="navbar navbar-static-top" role="navigation">
+					<div class="navbar-header">
+						<button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+						<i class="fa fa-reorder"></i>
+						</button>
+						<a href="<?php echo $url; ?>private/home" class="navbar-brand">Inicio</a>
 					</div>
 					<div class="navbar-collapse collapse" id="navbar">
-					<ul class="nav navbar-nav">
-						<?php print_r($currentMainMenu);?>
-					</ul>
-					<ul class="nav navbar-top-links navbar-right">
+						<ul class="nav navbar-nav">
+							<?php print_r($currentMainMenu);?>
+						</ul>
+						<ul class="nav navbar-top-links navbar-right">
+							<li>
+								<a href="<?php echo $url; ?>App/controllers/logout.php">Salir</a>
+							</li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+			<div class="row wrapper border-bottom white-bg page-heading">
+				<div class="col-sm-4">
+					<h2>AASP</h2>
+					<ol class="breadcrumb">
 						<li>
-							<a href="<?php echo $url; ?>App/controllers/logout.php">Salir</a>
+							<a href="<?php echo $url; ?>private/home">Inicio</a>
+						</li
+						><li>
+							<a href="<?php echo $url; ?>private/EnterpriseGroup/showCompany">Cuentas maestras</a>
 						</li>
-					</ul>
+						<li class="active">
+							<strong> AASP </strong>
+						</li>
+					</ol>
 				</div>
-			</nav>
-			</div>
-		<div class="row wrapper border-bottom white-bg page-heading">
-			<div class="col-sm-4">
-				<h2>AASP</h2>
-				<ol class="breadcrumb">
-					<li>
-						<a href="<?php echo $url; ?>private/home">Inicio</a>
-					</li
-					><li>
-						<a href="<?php echo $url; ?>private/EnterpriseGroup/showCompany">Cuentas maestras</a>
-					</li>
-					<li class="active">
-						<strong> AASP </strong>
-					</li>
-				</ol>
-			</div>
-		</div>	
-        <div class="wrapper wrapper-content">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="ibox float-e-margins">
-						<div class="ibox-title">
-							<h5>Cuenta maestra</h5>
-							<div class="ibox-tools">
-								<a class="collapse-link">
-									<i class="fa fa-chevron-up"></i>
-								</a>
-								<a class="close-link">
-									<i class="fa fa-times"></i>
-								</a>
-							</div>
-						</div>
-						<div class="ibox-content">					
-						<div class="pull-right">
-							<a onclick="" href="<?php echo $url; ?>private/EnterpriseGroup/addBranchOffice" class="btn btn-primary ">Agregar nuevo AASP</a>
-						</div>
-						<br />
-						<br />
-						<br />
-							<div class="table-responsive">
-							<?php $outputTableCompany->render();?>
+			</div>	
+			<div class="wrapper wrapper-content">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="ibox float-e-margins">
+								<div class="ibox-title">
+									<h5>Cuenta maestra</h5>
+									<div class="ibox-tools">
+										<a class="collapse-link">
+											<i class="fa fa-chevron-up"></i>
+										</a>
+										<a class="close-link">
+											<i class="fa fa-times"></i>
+										</a>
+									</div>
+								</div>
+								<div class="ibox-content">					
+								<div class="pull-right">
+									<a onclick="" href="<?php echo $url; ?>private/EnterpriseGroup/addBranchOffice" class="btn btn-primary ">Agregar nuevo AASP</a>
+								</div>
+								<br />
+								<br />
+								<br />
+									<div class="table-responsive">
+									<?php $outputTableCompany->render();?>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+			</div>	
+			<div class="footer">
+				<div class="pull-right">
+				</div>
+				<div>
+					<strong>Copyright</strong> Example Company © 2014-2015
+				</div>
 			</div>
-        </div>
-		</div>
-        <div class="footer">
-            <div class="pull-right">
-            </div>
-            <div>
-                <strong>Copyright</strong> Example Company © 2014-2015
-            </div>
         </div>
     </div>
 

@@ -108,16 +108,16 @@ use \Core\Controller;
 								</div>
 								<div class="ibox-content" >
 									<fieldset>
-											<form id="formBO" class="form-horizontal" action="<?php echo $url; ?>private/EnterpriseGroup" method="POST" class="">
-												<div class="col-lg-6 form-group-dark">
+											<form id="frm_BO_h" class="form-horizontal" action="<?php echo $url; ?>private/EnterpriseGroup" method="POST">
+												<div class="col-lg-6">
 													<div class="form-group">&nbsp;</div>
 													<div class="form-group">
 														<label class="col-md-4 control-label">Cuenta maestra:*</label>
 														<div class="col-lg-8">
-															<select id="" class="form-control m-b" name="slt_pkSubCompany_h">
-																<option value="-1">Selecciona una cuenta maestra ...</option>
-															<?php foreach ($drows_Company as $companyOption) {?>
-																	<option value="<?php echo $companyOption['pkSubCompany'] ?>"><?php echo $companyOption['subCompanyName'] ?></option>
+															<select id="" class="form-control m-b" name="slt_fkSubCompany_h">
+																<option value="-1">Selecciona una SubCuenta ...</option>
+															<?php foreach ($drows_Subcompany as $subcompanyOption) {?>
+																	<option value="<?php echo $subcompanyOption['pkSubCompany'] ?>"><?php echo $subcompanyOption['subCompanyName'] ?></option>
 															<?php } ?>
 															</select>
 														</div>
@@ -159,7 +159,7 @@ use \Core\Controller;
 														</div>
 													</div>
 												</div>
-												<div class="col-md-6 form-group-dark">
+												<div class="col-md-6">
 														<div class="form-group">&nbsp;</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">Sucursal:*</label>
@@ -203,11 +203,11 @@ use \Core\Controller;
 																<input id="txt_servicePhone_h" class="form-control required" name="txt_servicePhone_h" type="text">
 															</div>
 														</div>
-												</div>
-												<div class="form-group">&nbsp;</div>
-												<div class="col-md-4 pull-right">
-													<div class="form-group">
-														<button type="submit" id="" class="btn btn-primary btn-md btn-block" value="AddBO" name="btn_toDo_h">Guardar</button>
+														
+														<div class="col-md-4 pull-right">
+															<div class="form-group">
+																<button type="submit" id="btn_command_h" class="btn btn-primary btn-md btn-block" value="AddBO" name="btn_command_h">Guardar</button>
+															</div>
 														</div>
 												</div>
 											</form>
@@ -298,7 +298,24 @@ use \Core\Controller;
 
     <!-- Jquery Validate -->
     <script src="<?php echo $url; ?>App/web/js/plugins/validate/jquery.validate.min.js"></script>
-
+	<script>
+	$(document).ready(
+		function(){
+			$("#frm_BO_h").validate(
+			{
+				rules: {
+					slt_fkSubCompany_h: {
+					  required: true,
+					  min: 0
+					}
+				},
+				messages:{
+				slt_pkSubCompany_h:"Please, choose a Company."
+				}
+			}
+			);	
+    });
+	</script>
 
 </body>
 

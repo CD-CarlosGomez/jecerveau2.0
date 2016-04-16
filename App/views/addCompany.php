@@ -108,7 +108,7 @@ use \Core\Controller;
 								</div>
 								<div class="ibox-content" >
 									<fieldset>
-										<form id="frm_company_h" class="form-horizontal" action="<?php echo $url; ?>private/EnterpriseGroup" method="POST" class="">
+										<form id="frm_company_h" class="form-horizontal" action="<?php echo $url; ?>private/EnterpriseGroup" method="POST">
 											<div class="col-md-6">
 												<div class="form-group">&nbsp;</div>
 												<div class="form-group">

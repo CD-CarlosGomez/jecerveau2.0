@@ -51,9 +51,9 @@ private $_sesionpkiBUser;
      * [index]
     */
 	public function index(){
-		//self::showCompany();
-		View::set("foo",true);
-		View::render("z_testPost");
+		self::showCompany();
+		//View::set("foo",true);
+		//View::render("z_testPost");
 	}
     public function showCompany(){
 		#Objetos e instancias
@@ -181,14 +181,14 @@ private $_sesionpkiBUser;
 		#get data variables
 		$currentMainMenu=CU::getMainMenu2($this->_sesionpkiBUser);
 		$dsSlcCompany=MA::getpknaSelect();
-		$dsCompanyGrid=MA::getParcialSelect();
+		/*$dsCompanyGrid=MA::getParcialSelect();
 		while ($row =$dsCompanyGrid->fetch( \PDO::FETCH_ASSOC )){
 			$dt_Company[] = $row;
-		}
+		}*/
 		#set data variables
 		View::set("currentMainMenu", $currentMainMenu);
 		View::set("drows_Company",$dsSlcCompany);
-		View::set("dt_Company",$dt_Company);
+		//View::set("dt_Company",$dt_Company);
 		#render
 		View::render("addSubcompany");        
 	}
@@ -202,14 +202,9 @@ private $_sesionpkiBUser;
 		View::set("title", "AddCompany");
 		#get_data_variables
 		$currentMainMenu=CU::getMainMenu2($this->_sesionpkiBUser);
-		$dsCompanyGrid=MA::getParcialSelect();
-		while ($row =$dsCompanyGrid->fetch( \PDO::FETCH_ASSOC )){
-			$dt_Company[] = $row;
-		}
-		$dsSlcCompany=MA::getpknaSelect();
+		$dsSlcSubCompany=SC::getpknaSelect();
 		#set_data_variables
-		View::set("drows_Company",$dsSlcCompany);
-		View::set("dt_Company",$dt_Company);
+		View::set("drows_Subcompany",$dsSlcSubCompany);
 		View::set("currentMainMenu", $currentMainMenu);
 		#render
 		View::render("addBO");
@@ -219,21 +214,71 @@ private $_sesionpkiBUser;
 //CONTROLES##########################################
 }
 //MAIN###############################################	
-	switch(@$_POST['btn_command_h2']){
+	switch(@$_POST['btn_command_h']){
 		case "AddCompany":
 			CreateCompany();
 		break;
 			case "AddBO":
 			CreateBO();
 		break;
-		case "AddSubcompany":
+		case "AddSubCompany":
 			CreateSubCompany();
 		break;
 		case "addAll":
 			CreateEnterpriceGroup();
 		break;
  	}
-	
+	function CreateEnterpriceGroup(){
+		$c=new MA;
+		$nextPKCompany=$c->getNextId("pkCompany","company");
+		$c->setpkCompany($nextPKCompany);
+		$c->setLegalName($_POST['txt_legalName_h']);
+		$c->setCommercialName($_POST["txt_commercialName_h"]);
+		$c->setActive("1");
+		$c->setCreated(date("Y-m-d"));
+		$c->setCreatedBy($_SESSION['pkiBUser_p']);
+		$c->setModified("null");
+		$c->setModifiedBy("null");
+		$c->insertData("Company");
+		
+		$sc=new SC;
+		$nextPKSubcompany=$sc->getNextId("pkSubCompany","subcompany");
+		$sc->setPkSubCompany($nextPKSubcompany);
+		$sc->setCompany_pkCompany($nextPKCompany);
+		$sc->setSubCompanyName($_POST["txt_subCompanyName_h"]);
+		$sc->setActive("1");
+		$sc->setCreated(date("Y-m-d"));
+		$sc->setCreatedBy($_SESSION['pkiBUser_p']);
+		$sc->setModified("null");
+		$sc->setModifiedBy("null");
+		$sc->insertData("subcompany");
+		
+		$bo=new BO;
+		$nextPKBO=$bo->getNextId("pkBranchOffice","branchoffice");
+		$bo->setpkBO($nextPKBO);
+		$bo->setpkSC($nextPKSubcompany);
+		$bo->setBOName($_POST["txt_BOName_h"]);
+		$bo->setBOStreet($_POST["txt_BOStreet_h"]);
+		$bo->setBOExtNumber($_POST["txt_BOExtNumber_h"]);
+		$bo->setBOIntNumber($_POST["txt_BOIntNumber_h"]);
+		$bo->setBORegion($_POST["txt_BORegion_h"]);
+		$bo->setBOZone($_POST["txt_BOZone_h"]);
+		$bo->setBOProvince($_POST["txt_BOProvince_h"]);
+		$bo->setBOZipCode($_POST["txt_BOZipCode_h"]);
+		$bo->setServiceAddress($_POST['txt_serviceAddress_h']);
+		$bo->setServiceManager($_POST['txt_serviceManager_h']);
+		$bo->setServiceEmail($_POST['txt_serviceEmail_h']);
+		$bo->setLogoFile('null');
+		$bo->setOfficeHour($_POST['txt_officeHour_h']);
+		$bo->setServicePhone($_POST['txt_servicePhone_h']);
+		$bo->setActive("1");
+		$bo->setCreated(date("Y-m-d"));
+		$bo->setCreatedBy($_SESSION['pkiBUser_p']);
+		$bo->setModified("null");
+		$bo->setModifiedBy("null");
+		$bo->insertData("branchoffice");	
+		
+	}
 	function CreateCompany(){
 	$c=new MA;
 	$nextPKCompany=$c->getNextId("pkCompany","company");
@@ -246,26 +291,26 @@ private $_sesionpkiBUser;
 	$c->setModified("null");
 	$c->setModifiedBy("null");
 	$c->insertData("Company");
-	//header("Location:http://localhost:8012/iBrain2.0/private/EnterpriseGroup/showCompany");
-	}
 	
+	}
 	function CreateSubCompany(){
-	$c=new MA;
-	$c->setLegalName($_POST['txt_legalName_h']);
-	$c->setCommercialName($_POST["txt_commercialName_h"]);
-	$c->setActive("1");
-	$c->setCreated('2016-04-11');
-	$c->setCreatedBy($_SESSION['pkiBUser_p']);
-	$c->setModified("null");
-	$c->setModifiedBy("null");
-	$c->insertData("Company");
+	$sc=new SC;
+	$nextPKSubcompany=$sc->getNextId("pkSubCompany","subcompany");
+	$sc->setPkSubCompany($nextPKSubcompany);
+	$sc->setCompany_pkCompany($_POST["slt_fkCompany_h"]);
+	$sc->setSubCompanyName($_POST["txt_subCompanyName_h"]);
+	$sc->setActive("1");
+	$sc->setCreated(date("Y-m-d"));
+	$sc->setCreatedBy($_SESSION['pkiBUser_p']);
+	$sc->setModified("null");
+	$sc->setModifiedBy("null");
+	$sc->insertData("subcompany");
 	}
-	
-	
 	function CreateBO(){
 	$bo=new BO;
-	
-	$bo->setpkSC($_POST['slt_pkSubCompany_h']);
+	$nextPKBO=$bo->getNextId("pkBranchOffice","branchoffice");
+	$bo->setpkBO($nextPKBO);
+	$bo->setpkSC($_POST['slt_fkSubCompany_h']);
 	$bo->setBOName($_POST["txt_BOName_h"]);
 	$bo->setBOStreet($_POST["txt_BOStreet_h"]);
 	$bo->setBOExtNumber($_POST["txt_BOExtNumber_h"]);
@@ -281,11 +326,10 @@ private $_sesionpkiBUser;
 	$bo->setOfficeHour($_POST['txt_officeHour_h']);
 	$bo->setServicePhone($_POST['txt_servicePhone_h']);
 	$bo->setActive("1");
-	$bo->setCreated('null');
+	$bo->setCreated(date("Y-m-d"));
 	$bo->setCreatedBy($_SESSION['pkiBUser_p']);
 	$bo->setModified("null");
 	$bo->setModifiedBy("null");
-	
 	$bo->insertData("branchoffice");
 	//header("Location:http://localhost:8012/iBrain2.0/private/EnterpriseGroup/showBranchOffice");
 	}

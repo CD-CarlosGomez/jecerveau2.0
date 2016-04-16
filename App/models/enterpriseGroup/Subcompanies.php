@@ -102,11 +102,11 @@ class Subcompanies implements iCrud{
 		try {
             $connection = Database::instance();
 			
-			$pkTable=self::getNextId("pkSubCompany","subcompany");
+			//$pkTable=self::getNextId("pkSubCompany","subcompany");
             $sql = "INSERT INTO $data VALUES (?,?,?,?,?,?,?,?);";
             $query = $connection->prepare($sql);
-            $query->bindParam(1, $pkTable, \PDO::PARAM_INT);
-			$query->bindParam(2, self::$_company_pkCompany_p, \PDO::PARAM_STR);
+            $query->bindParam(1, self::$_pkSubCompany_p, \PDO::PARAM_INT);
+			$query->bindParam(2, self::$_company_pkCompany_p, \PDO::PARAM_INT);
 			$query->bindParam(3, self::$_subCompanyName_p, \PDO::PARAM_STR);
 			$query->bindParam(4, self::$_active_p, \PDO::PARAM_STR);
 			$query->bindParam(5, self::$_created_p, \PDO::PARAM_STR);
@@ -139,12 +139,11 @@ class Subcompanies implements iCrud{
 		 try {
 			$PDOcnn = Database::instance();
 			$PDOQuery=
-			"SELECT 
-				`pkSubCompany`,
-				`company_pkCompany`, 
-				`subCompanyName` 
-			FROM `subcompany` 
-			WHERE active=1;
+			"
+				SELECT 
+					`pkSubCompany`, 
+					`subCompanyName`
+				FROM `subcompany` WHERE `active`='1'
 			";
 			$PDOResultSet = $PDOcnn->query($PDOQuery);
 			return $PDOResultSet;
@@ -169,8 +168,7 @@ class Subcompanies implements iCrud{
 			print "Error!: " . $e->getMessage();
 		}
 	}
-//MÉTODOS PRIVADOS###################################
-		private static function getNextId($column,$table){
+	public static function getNextId($column,$table){
 		try {
 				$cnn=Database::instance();
 				$PDOQuery = "SELECT MAX($column) AS Maximo FROM $table;";
@@ -194,6 +192,7 @@ class Subcompanies implements iCrud{
 		}
 		
 	}
+//MÉTODOS PRIVADOS###################################
 //EVENTOS############################################
 //CONTROLES##########################################
 //MAIN###############################################
