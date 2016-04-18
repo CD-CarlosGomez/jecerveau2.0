@@ -43,7 +43,7 @@ Class Fields{
 	public function setName($field,$name){
 		$this->_fields[$field]->Name=$name;
 	}
-	public function setType($field,$type){
+	public function setDataType($field,$type){
 		$this->_fields[$field]->Type=$type;
 	}
 	public function setKey($field,$key){
