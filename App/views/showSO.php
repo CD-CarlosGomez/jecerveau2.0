@@ -85,86 +85,88 @@ use \App\data\DataGridView as DGV;
 				</div>
 			</nav>
 			</div>
-		<div class="row wrapper border-bottom white-bg page-heading">
-			<div class="col-sm-4">
-				<h2>Orden de Servicio</h2>
-				<ol class="breadcrumb">
-					<li>
-						<a href="<?php echo $url; ?>private/home">Inicio</a>
-					</li>
-					<li class="active">
-						<strong> Orden de servicio</strong>
-					</li>
-				</ol>
-			</div>
-		</div>	
-        <div class="wrapper wrapper-content">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="ibox float-e-margins">
-						<div class="ibox-title">
-							<h5>[AASP 1</h5>
-							<div class="ibox-tools">
-								<a class="collapse-link">
-									<i class="fa fa-chevron-up"></i>
-								</a>
-								<a class="close-link">
-									<i class="fa fa-times"></i>
-								</a>
-							</div>
-						</div>
-						<div class="ibox-content">					
-						<div class="pull-right">
-							<a onclick="" href="<?php echo $url; ?>private/ServiceOrder/addSO"  class="btn btn-primary ">Nueva Orden</a>
-						</div>
-						<br />
-						<br />
-						<br />
-							<div class="table-responsive">
-							<?php $outputTableCompany->render();?>
+			<div class="row wrapper border-bottom white-bg page-heading">
+				<div class="col-sm-4">
+					<h2>Orden de Servicio</h2>
+					<ol class="breadcrumb">
+						<li>
+							<a href="<?php echo $url; ?>private/home">Inicio</a>
+						</li>
+						<li class="active">
+							<strong> Orden de servicio</strong>
+						</li>
+					</ol>
+				</div>
+			</div>	
+			<div class="wrapper wrapper-content">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="ibox float-e-margins">
+								<div class="ibox-title">
+									<h5>[AASP 1</h5>
+									<div class="ibox-tools">
+										<a class="collapse-link">
+											<i class="fa fa-chevron-up"></i>
+										</a>
+										<a class="close-link">
+											<i class="fa fa-times"></i>
+										</a>
+									</div>
+								</div>
+								<div class="ibox-content">					
+								<div class="pull-right">
+									<a onclick="" href="<?php echo $url; ?>private/ServiceOrder/addSO"  class="btn btn-primary ">Nueva Orden</a>
+								</div>
+								<br />
+								<br />
+								<br />
+									<div class="table-responsive">
+									<?php $outputTableCompany->render();?>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-				<div class="row">
-				<div class="col-lg-12">
-					<div class="ibox float-e-margins">
-						<div class="ibox-title">
-							<h5>[AASP 2]</h5>
-							<div class="ibox-tools">
-								<a class="collapse-link">
-									<i class="fa fa-chevron-up"></i>
-								</a>
-								<a class="close-link">
-									<i class="fa fa-times"></i>
-								</a>
+					<!--div class="row">
+						<div class="col-lg-12">
+							<div class="ibox float-e-margins">
+								<div class="ibox-title">
+									<h5>[AASP 2]</h5>
+									<div class="ibox-tools">
+										<a class="collapse-link">
+											<i class="fa fa-chevron-up"></i>
+										</a>
+										<a class="close-link">
+											<i class="fa fa-times"></i>
+										</a>
+									</div>
+								</div>
+								<div class="ibox-content">					
+								<div class="pull-right">
+									<a onclick="" href="<?php //$url; ?>private/ServiceOrder/addSO"  class="btn btn-primary ">Nueva Orden</a>
+								</div>
+								<br />
+								<br />
+								<br />
+									<div class="table-responsive">
+									<?php //$outputTableCompany->render();?>
+									</div>
+								</div>
 							</div>
 						</div>
-						<div class="ibox-content">					
-						<div class="pull-right">
-							<a onclick="" href="<?php echo $url; ?>private/ServiceOrder/addSO"  class="btn btn-primary ">Nueva Orden</a>
-						</div>
-						<br />
-						<br />
-						<br />
-							<div class="table-responsive">
-							<?php $outputTableCompany->render();?>
-							</div>
-						</div>
-					</div>
+					</div-->
 				</div>
 			</div>
-        </div>
+			<div class="footer">
+				<div class="pull-right">
+				</div>
+				<div>
+					<strong>Copyright</strong> Example Company © 2014-2015
+				</div>
+			</div>
 		</div>
-        <div class="footer">
-            <div class="pull-right">
-            </div>
-            <div>
-                <strong>Copyright</strong> Example Company © 2014-2015
-            </div>
-        </div>
-    </div>
+	</div>
 
 
 

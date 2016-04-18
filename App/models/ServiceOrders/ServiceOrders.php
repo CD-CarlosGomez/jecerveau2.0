@@ -1,5 +1,5 @@
 <?php
-namespace App\Models;
+namespace App\Models\ServiceOrders;
 defined("APPPATH") OR die("Access denied");
 
 use \Core\Database;
@@ -133,11 +133,9 @@ class ServiceOrders implements iCrud{
 		 try {
 			$PDOcnn = Database::instance();
 			$PDOQuery="SELECT 
-												pkibSOrder,
-												ibSOrderName,
-												ibSOrderDesc,
-												ibSOrderGSX,
-												ibSOrderObs
+												pkSOrder,
+												SONumber,
+												SODate
 						FROM `sorder`;";
 			$PDOResultSet = $PDOcnn->query($PDOQuery);
 			return $PDOResultSet;

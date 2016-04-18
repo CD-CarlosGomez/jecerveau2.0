@@ -40,7 +40,6 @@ interface Incrementable{
 	const SI=0;
 	const NO=1;
 }
-
 Class structureCampos implements TipoDato, PrimaryKey, Incrementable{
 	public $Valor="";
 	public $Nombre="";

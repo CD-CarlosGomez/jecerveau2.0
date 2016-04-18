@@ -1,25 +1,29 @@
 <?php
 // +-----------------------------------------------
 // | @author Carlos M. Gómez
-// | @date 5 de Marzo de 2016
+// | @date Miércoles 18 de abril del 2016
 // | @Version 1.0
 // +-----------------------------------------------
+// +---------------------------Comentarios de versión
 namespace App\Interfaces;
 defined("APPPATH") OR die("Access denied");
-interface iCrud{
+interface iPrimaryKey{
+//REQUEST############################################
 //CONSTANTES#########################################
+	const PK=array(
+			"SI"=>0,
+			"NO"=>1			
+			);
 //ATRIBUTOS##########################################
 //PROPIEDADES########################################
-//MÉTODOS ABSTRACTOS#################################	
-	public static function getAll();
-    public static function getById($id);
-    public static function insertData($data);
-    public static function updateById($data);
-    public static function deleteById($id);
+//MÉTODOS ABSTRACTOS#################################
+//CONSTRUCTORES Y DESTRUCTORES#######################
+//MÉTODOS MÁGICOS####################################
 //MÉTODOS PÚBLICOS###################################
 //MÉTODOS PRIVADOS###################################
 //EVENTOS############################################
 //CONTROLES##########################################
-//MAIN###############################################
-   
 }
+//MAIN###############################################
+
+?>

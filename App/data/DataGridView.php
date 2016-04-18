@@ -1,13 +1,8 @@
 <?php
-// +-----------------------------------------------
-// | @author Copyright (c) 2009 Nguyen Duc Thuan <me@ndthuan.com> All rights reserved. Versión 1.0
-// | @Modified by Carlos M.
-// | @date 5 de Marzo del 2016
-// | @Version 2.0
-// +-----------------------------------------------
-#16.3.22 Agregar validación del lado del servidor
-#16.3.27 Arreglar problemas de sesión, condición: si no ha iniciado sesión, que la inicie, de lo contrario que no...
-
+/* 
+ * Copyright (c) 2009 Nguyen Duc Thuan <me@ndthuan.com>
+ * All rights reserved.
+ */
 namespace App\data;
 defined("APPPATH") OR die("Access denied");
 
@@ -26,7 +21,7 @@ class DataGridView{
     protected $_cellAttributes  = array();
     protected $_gridAttributes  = array();
     protected $_startingCounter = 0;
-	protected $_cellLink		=null;
+	protected $_pkTable=null;
     protected static $_staticTableId    = 0;
 	
 
@@ -77,11 +72,6 @@ class DataGridView{
             if (isset($setting['attributes'])) {
                 $this->_cellAttributes[$field] = $setting['attributes'];
             }
-			
-			if (isset($setting['link'])) {
-                $this->_cellLink[$field] = $setting['link'];
-            }
-			
         }
 
         return $this;
@@ -159,14 +149,6 @@ class DataGridView{
         return $this;
     }
     /**
-	* @param string $field
-    * @param string $link
-    * @return Fete_ViewControl_DataGrid
-	**/
-	public function &setCellLink($field,$link){
-		$this->_cellLink[$field]=$link;
-	}
-	/**
      *
      * @param string $columnName
      * @return Fete_ViewControl_DataGrid
@@ -182,6 +164,11 @@ class DataGridView{
         }
         return $this;
     }
+	/**
+	**/
+	public function &setpkColumn($value){
+		
+	}
     /**
      *
      * @param string $columnName
@@ -243,7 +230,7 @@ class DataGridView{
 
         return $this;
     }
-    public function getString(){
+     public function getString(){
         $sortField  = '';
         $sortOrder  = '';
         $data       = $this->_datarows;
@@ -282,18 +269,17 @@ class DataGridView{
 						}
 						$output .= '</tr></thead>' .  "\n";
 					}
-		$output .= '<tbody>' . "\n";
 					//Comienza a imprimir el cuerpo de la tabla//
 					if (isset($this->_datarows[0])) {
 						$counter = 0;
 						foreach ($data as $offset => $row){
 							++$counter;
 							$rowCounter = $offset + $this->_startingCounter;
-							$output .= '<tr>' . "\n";
+							$output .= '<tbody>' . "\n";
+							$output .= '<tr class="gradeA">' . "\n";
 							foreach ($this->_columns as $field){
 								$data       = isset($row[$field]) ? $row[$field] : '';
 								$template   = isset($this->_cellTemplates[$field]) ? $this->_cellTemplates[$field] : '';
-								$link		= isset($this->_cellLink[$field])? $this->_cellLink[$field]:'';
 								//$output .= '<input type="hidden" id=""  class="" value="'.$row['pkCompany'].'" name="pkCompany">';
 								$output .= "\t" . '<td';
 								if (isset($this->_cellAttributes[$field])) {
@@ -312,7 +298,7 @@ class DataGridView{
 								}
 
 								$output .= '>';
-								//$output .= "$row[0]";
+
 								if (!empty($template)) {
 									$data = str_replace('%data%', $data, $template);
 									$data = str_replace('%counter%', $rowCounter, $data);
@@ -328,20 +314,12 @@ class DataGridView{
 										$data = str_replace($match[0], call_user_func_array($match[1], $params), $data);
 									}
 								}
-								if(!empty($link)){
-									$output .='<a href="' . $link . '">';
-								}
 								$output .= $data . '</td>' . "\n";
-								
-								if(!empty($link)){
-									$output .='</a>';
-								}
-								
 							}
 							$output .= '</tr>' . "\n";
+							$output .= '</tbody>' . "\n";
 						}
 					}
-		$output .= '</tbody>' . "\n";
 					if (!empty($this->_headers)) {
 						$output .= '<tfoot><tr>' .  "\n";
 						foreach ($this->_columns as $field){

@@ -7,7 +7,7 @@ defined("APPPATH") OR die("Access denied");
 
 use \Core\View;
 use \Core\Controller;
-		/*
+		
 		$_SESSION["nombreUsuario"];
 		$_SESSION['pkiBUser_p'];
 		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
@@ -23,7 +23,7 @@ use \Core\Controller;
 			  Necesita Hacer Login</a>";
 		exit;
 
-		}*/
+		}
 ?>
 <!DOCTYPE html>
 <html>
@@ -49,214 +49,288 @@ use \Core\Controller;
 <body class="top-navigation">
     <div id="wrapper">
         <div id="page-wrapper" class="gray-bg">
-		 <div class="row border-bottom white-bg">
-			<div class="row wrapper border-bottom white-bg">
-			<nav class="navbar navbar-static-top" role="navigation">
-				<div class="navbar-header">
-					<button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
-					<i class="fa fa-reorder"></i>
-					</button>
-					<a href="<?php echo $url; ?>private/home" class="navbar-brand">Inicio</a>
-					</div>
-					<div class="navbar-collapse collapse" id="navbar">
-					<ul class="nav navbar-nav">
-						<?php print_r($currentMainMenu);?>
-					</ul>
-					<ul class="nav navbar-top-links navbar-right">
-						<li>
-							<a href="<?php echo $url; ?>App/controllers/logout.php">Log out</a>
-						</li>
-					</ul>
+			<div class="row border-bottom white-bg">
+				<div class="row wrapper border-bottom white-bg">
+					<nav class="navbar navbar-static-top" role="navigation">
+						<div class="navbar-header">
+							<button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+							<i class="fa fa-reorder"></i>
+							</button>
+							<a href="<?php echo $url; ?>private/home" class="navbar-brand">Inicio</a>
+						</div>
+						<div class="navbar-collapse collapse" id="navbar">
+							<ul class="nav navbar-nav">
+								<?php print_r($currentMainMenu);?>
+							</ul>
+							<ul class="nav navbar-top-links navbar-right">
+								<li>
+									<a href="<?php echo $url; ?>App/controllers/logout.php">Log out</a>
+								</li>
+							</ul>
+						</div>
+					</nav>
 				</div>
-			</nav>
-			</div>
-		<div class="row wrapper border-bottom white-bg page-heading">
-			<div class="col-sm-4">
-				<h2>Cuenta maestra</h2>
-				<ol class="breadcrumb">
-					<li>
-						<a href="<?php echo $url; ?>private/home">Inicio</a>
-					</li>
-					<li>
-						<a href="<?php echo $url; ?>private/ServiceOrder/showSO">Orden de servicio</a>
-					</li>
-					<li class="active">
-						<strong>Nueva Orden de servicio</strong>
-					</li>
-				</ol>
-			</div>
-		</div>	
-		</div>	
-        <div class="wrapper wrapper-content">
-		<div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="ibox">
-                        <div class="ibox-title">
-                            <h5>Orden de servicio</h5>
+				<div class="row wrapper border-bottom white-bg page-heading">
+					<div class="col-sm-4">
+						<h2>Cuenta maestra</h2>
+						<ol class="breadcrumb">
+							<li>
+								<a href="<?php echo $url; ?>private/home">Inicio</a>
+							</li>
+							<li>
+								<a href="<?php echo $url; ?>private/ServiceOrder/showSO">Orden de servicio</a>
+							</li>
+							<li class="active">
+								<strong>Nueva Orden de servicio</strong>
+							</li>
+						</ol>
+					</div>
+				</div>	
+			</div>	
+			<div class="wrapper wrapper-content">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="ibox float-e-margins">
+								<div class="ibox-title">
+									<h5>GSX</h5>
+									<div class="ibox-tools">
+										<a class="collapse-link">
+											<i class="fa fa-chevron-up"></i>
+										</a>
+										<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+											<i class="fa fa-wrench"></i>
+										</a>
+										<ul class="dropdown-menu dropdown-user">
+											<li><a href="#">Config option 1</a>
+											</li>
+											<li><a href="#">Config option 2</a>
+											</li>
+										</ul>
+										<a class="close-link">
+											<i class="fa fa-times"></i>
+										</a>
+									</div>
+								</div>
+								<div class="ibox-content" >
+									<fieldset>
+											<form id="formUser" class="form-horizontal" action="<?php echo $url; ?>private/User" method="POST" role="form">
+													<div class="col-lg-6 form-group-dark">
+														<div class="form-group">&nbsp;</div>
+														<div class="form-group">
+															<label class="col-md-4 control-label">Serie:*</label>
+															<div class="col-lg-8">
+																<input id="txt_userName_h" class="form-control required" name="txt_userName_h" type="text">
+																<input id="" name="hdn_toDo_h" class="" value="AddUser" type="hidden">
+															</div>
+														</div>
+														<div class="form-group">
+															<label class="col-md-4 control-label">Modelo:*</label>
+															<div class="col-lg-8">
+																<input id="txt_realName_h" class="form-control required" name="txt_realName_h" type="text">
+															</div>
+														</div>
+														<div class="form-group">
+															<label class="col-md-4 control-label">Configuraci&oacute;n:*</label>
+															<div class="col-md-8">
+																<input id="txt_email_h" class="form-control required" name="txt_email_h" type="text">
+															</div>
+														</div>
+														<div class="form-group">
+															<label class="col-md-4 control-label">Estado de la cobertura:*</label>
+															<div class="col-md-8">
+																<input id="txt_email_h" class="form-control required" name="txt_email_h" type="text">
+															</div>
+														</div>
+													</div>
+													<div class="col-md-6 form-group-dark">
+														<div class="form-group">&nbsp;</div>
+														<div class="form-group">
+															<label class="col-md-4 control-label">Fecha de compra:*</label>
+															<div class="col-md-8">
+																<input id="txt_password_h" class="form-control required" name="txt_password_h" type="text">
+															</div>
+														</div>
+														<div class="form-group">
+															<label class="col-md-4 control-label">Comprado en:*</label>
+															<div class="col-md-8">
+																<input id="txt_password_h" class="form-control required" name="txt_password_h" type="text">
+															</div>
+														</div>
+														<div class="form-group">
+															<label class="col-md-4 control-label">Sin Cobertura desde hace:*</label>
+															<div class="col-md-8">
+																<input id="txt_fkiUserPRofile_h" class="form-control required" name="txt_fkiUserPRofile_h" type="text">
+															</div>
+														</div>
+														<div class="form-group">
+															<label class="col-md-4 control-label">Fecha de cobertura:*</label>
+															<div class="col-md-8">
+																<input id="txt_defaultFunction_h" class="form-control required" name="txt_defaultFunction_h" type="text">
+															</div>
+														</div>
+													</div>
+													<div class="form-group">&nbsp;</div>
+											</form>
+										</fieldset>
+								</div>
+							</div>
                         </div>
-                        <div class="ibox-content">
-							<h2>
-                                AASP:[ ]
-                            </h2>
-                            <p>
-                                Usuario:[ ]
-                            </p>
-							<p>
-                                Status:[ ]
-                            </p>
-							<form id="form" class="wizard-big form-horizontal" action="<?php echo $url; ?>private/ServiceOrder"   method="POST" name="frm_SO">
-								                                <h1>informaci&oacute;n de la Orden</h1>
-                                <fieldset>
-                                    <h2>Informaci&oacute; de la Orden</h2>
-                                    <div class="row">
-                                        <div class="col-lg-10">
-                                            <div class="form-group">
-                                                <label class="col-lg-3 control-label"></label>
-                                                <div class="col-lg-10">
-													 <div class="form-group" id="data_1">
-														<label class="col-lg-3 control-label">Fecha de entrada:</label>
-														<div class="input-group date col-lg-3">
-															<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    </div>
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="ibox">
+								<div class="ibox-title">
+									<h5>Nueva Orden de servicio</h5>
+								</div>
+								<div class="ibox-content">
+									<form id="form" class="wizard-big form-horizontal" action="<?php echo $url; ?>private/ServiceOrder"   method="POST" name="frm_SO">
+										<fieldset>
+											<div class="row">
+												<div class="col-md-6">
+													<div class="form-group">
+														<label class="col-md-4 control-label">Recolecci&oacute;n:*</label>
+														<div class="col-md-8">
+															<select id="" class="form-control m-b" name="slt_pkCompany_h">
+																<option value="-1">Seleccionar ...</option>
+																<?php //foreach ($drows_Company as $companyOption) {?>
+																<option value="<?php //echo $companyOption['pkCompany'] ?>"><?php //echo $companyOption['commercialName'] ?></option>
+																<?php //} ?>
+															</select>
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="col-md-4 control-label">Fecha de entrada:</label>
+														<div class="col-md-8">
 															<input type="text" id="" class="form-control" value="" name="dpi_ibSOrderDateIn_h"/>
 														</div>
 													</div>
 													<div class="form-group">
-														<label class="col-lg-3 control-label">T&iacute;tulo de la orden:*</label>
-														<div class="col-lg-8">
-															<input id="txt_ibSOrderName_h" class="form-control required" name="txt_ibSOrderName_h" type="text">
-														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-lg-3 control-label">Descripci&oacute;n de la orden:</label>
+														<label class="col-lg-4 control-label">Estado del equipo:</label>
 														<div class="col-lg-8">
 															<textarea id="tta_ibSOrderDesc_h" class="form-control required" data-provide="markdown" rows="5" name="tta_ibSOrderDesc_h"></textarea>
 														</div>
 													</div>
-													<div class="form-group" id="">
-														<label class="col-lg-3 control-label">GSX:*</label>
-														<div class="col-lg-8">
-															<textarea id="tta_ibSOrderGSX_h" class="form-control required" data-provide="markdown" rows="5" name="tta_ibSOrderGSX_h"></textarea>
+													<div class="form-group">
+														<label class="col-md-4 control-label">Accesorios:</label><br/>
+														<div class="col-md-8">
+															<table class="table table-striped table-bordered table-hover">
+																<tr>
+																	<th>Descripci&oacute;n</th>
+																	<th>Marca</th>
+																	<th>Modelo</th>
+																	<th>No. Parte</th>
+																	<th>No. Serie</th>
+																</tr>
+																<tbody>
+																<tr>
+																	<td>Descripci&oacute;n</td>
+																	<td>Marca</td>
+																	<td>Modelo</td>
+																	<td>No. Parte</td>
+																	<td>No. Serie</td>
+																</tr>
+																<tr>
+																	<td>Descripci&oacute;n</td>
+																	<td>Marca</td>
+																	<td>Modelo</td>
+																	<td>No. Parte</td>
+																	<td>No. Serie</td>
+																</tr>
+																<tr>
+																	<td>Descripci&oacute;n</td>
+																	<td>Marca</td>
+																	<td>Modelo</td>
+																	<td>No. Parte</td>
+																	<td>No. Serie</td>
+																</tr>
+																</tbody>
+															</table>
 														</div>
 													</div>
-													<div class="form-group" id="">
-														<label class="col-lg-3 control-label">Observaciones:</label>
+													<div class="form-group">
+														<label class="col-lg-4 control-label">Detalle T&eacute;cnico:</label>
 														<div class="col-lg-8">
 															<textarea id="tta_ibSOrderObs_h" class="form-control required" data-provide="markdown" rows="5" name="tta_ibSOrderObs_h"></textarea>
 														</div>
 													</div>
 												</div>
-                                            </div>
-										</div>
-                                        <div class="col-lg-2">
-                                            
-                                        </div>
-                                    </div>
-                                </fieldset>
-                                <h1>Cliente</h1>
-                                <fieldset>
-									<div class="text-center" style="margin-top: 120px">
-                                        <h2>En construcci&oacute;n ;- ) </h2>
-                                    </div>
-                                    <!--h2>Informaci&oacute;n del cliente</h2>
-                                    <div class="row">
-                                        <div class="col-lg-10">
-										<div class="form-group">
-											<label class="col-lg-3 control-label">Empresa:*</label>
-											<div class="col-lg-8">
-												<select id="" class="form-control m-b" name="slt_pkCompany_h">
-													<option value="-1">Selecciona empresa ...</option>
-													<?php //foreach ($drows_Company as $companyOption) {?>
-													<option value="<?php //echo $companyOption['pkCompany'] ?>"><?php //echo $companyOption['commercialName'] ?></option>
-													<?php //} ?>
-												</select>
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-lg-3 control-label">Contacto:*</label>
-											<div class="col-lg-8">
-												<select id="" class="form-control m-b" name="slt_pkCompany_h">
-													<option value="-1">Selecciona una contacto ...</option>
-													<?php //foreach ($drows_Company as $companyOption) {?>
-													<option value="<?php //echo $companyOption['pkCompany'] ?>"><?php //echo $companyOption['commercialName'] ?></option>
-													<?php //} ?>
-												</select>
-											</div>
-										</div>
-                                            <div class="form-group">
-                                                <label class="col-lg-3 control-label">Direcci&oacute;n*</label>
-												<div class="col-lg-8">
-													<input id="userName" name="userName" type="text" class="form-control required">
-												</div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-lg-3 control-label">Colonia *</label>
-                                                <div class="col-lg-8">
-													<input id="password" name="password" type="text" class="form-control required">
-												</div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-lg-3 control-label">Provincia *</label>
-                                                <div class="col-lg-8">
-													<input id="confirm" name="confirm" type="text" class="form-control required">
-												</div>
-                                            </div> 
-											<div class="form-group">
-                                                <label class="col-lg-3 control-label">Delegaci&oacute;n o municipio *</label>
-                                                <div class="col-lg-8">
-													<input id="confirm" name="confirm" type="text" class="form-control required">
-												</div>
-                                            </div>
-                                        <div class="form-group">
-                                                <label class="col-lg-3 control-label">C&oacute;digo Postal *</label>
-                                                <div class="col-lg-8">
-													<input id="confirm" name="confirm" type="text" class="form-control required">
-												</div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="form-group">
-														<button type="button" id="" class="btn btn-primary btn-lg btn-block" name="btn_NewClient">Nuevo Cliente</button>
-														<button type="button" id="" class="btn btn-primary btn-lg btn-block" name="btn_NewClient">Modificar Cliente</button>
-														<button type="button" id="" class="btn btn-primary btn-lg btn-block" name="btn_NewContact">Nuevo Contacto</button>
-														<button type="button" id="" class="btn btn-primary btn-lg btn-block" name="btn_NewContact">Modificar Contacto</button>
+												<div class="col-md-6">
+													<div class="form-group">
+														<label class="col-lg-4 control-label">Tel&eacute;fono:</label>
+														<div class="input-group col-lg-7">
+															<input type="text" id="" class="form-control" value="" name="dpi_ibSOrderDateIn_h"/>
+															<span class="input-group-addon"><i class="fa fa-search"></i></span>
+														</div>
 													</div>
-                                        </div>
-                                    </div-->
-                               </fieldset>
-                                <h1>Dispositivos</h1>
-                                <fieldset>
-                                    <div class="text-center" style="margin-top: 120px">
-                                        <h2>En construcci&oacute;n ;-) </h2>
-                                    </div>
-                                </fieldset>
-								<h1>Detalle T&eacute;cnico</h1>
-                                <fieldset>
-                                   <div class="text-center" style="margin-top: 120px">
-                                        <h2>En construcci&oacute;n ;-) </h2>
-                                    </div>
-                                </fieldset>
-								<h1>Documentaci&oacute;n</h1>
-                                <fieldset>
-                                   <div class="text-center" style="margin-top: 120px">
-                                        <h2>En construcci&oacute;n ;-) </h2>
-										<input id="" name="hdn_toDo_h" class="" value="AddSO" type="hidden">
-                                    </div>
-                                </fieldset>
-                            </form>
+													<div class="form-group">
+														<label class="col-lg-4 control-label">M&oacute;vil:</label>
+														<div class="input-group col-lg-7">
+															<input type="text" id="" class="form-control" value="" name="dpi_ibSOrderDateIn_h"/>
+															<span class="input-group-addon"><i class="fa fa-search"></i></span>
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="col-lg-4 control-label">Contacto:</label>
+														<div class="input-group col-lg-7">
+															<input type="text" id="" class="form-control" value="" name="dpi_ibSOrderDateIn_h"/>
+															<span class="input-group-addon"><i class="fa fa-search"></i></span>
+														</div>
+													</div>
+													<div class="form-group" id="data_1">
+														<label class="col-lg-4 control-label">Correo electr&oacute;nico:</label>
+														<div class="input-group col-lg-7">
+															<input type="text" id="" class="form-control" value="" name="dpi_ibSOrderDateIn_h"/>
+															<span class="input-group-addon"><i class="fa fa-search"></i></span>
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="col-lg-4 control-label">Direcci&oacute;n:*</label>
+														<div class="col-lg-8">
+															<input id="txt_ibSOrderName_h" class="form-control required" name="txt_ibSOrderName_h" type="text">
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="col-lg-4 control-label">Colonia:*</label>
+														<div class="col-lg-8">
+															<input id="txt_ibSOrderName_h" class="form-control required" name="txt_ibSOrderName_h" type="text">
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="col-lg-4 control-label">Delegaci&oacute;n o municipio:*</label>
+														<div class="col-lg-8">
+															<input id="txt_ibSOrderName_h" class="form-control required" name="txt_ibSOrderName_h" type="text">
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="col-lg-4 control-label">C.P.:*</label>
+														<div class="col-lg-8">
+															<input id="txt_ibSOrderName_h" class="form-control required" name="txt_ibSOrderName_h" type="text">
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="col-lg-4 control-label">Province:*</label>
+														<div class="col-lg-8">
+															<input id="txt_ibSOrderName_h" class="form-control required" name="txt_ibSOrderName_h" type="text">
+														</div>
+													</div>
+												</div>
+											</div>
+										</fieldset>
+									</form>
+								</div>
+							</div>
 						</div>
 					</div>
-                </div>
-            </div>
-        </div>
-		</div>
-		<div class="footer">
-            <div class="pull-right">
-            </div>
-            <div>
-                <strong>Copyright</strong> Example Company © 2014-2015
-            </div>
-        </div>
+				</div>
+			</div>
+			<div class="footer">
+				<div class="pull-right">
+				</div>
+				<div>
+					<strong>Copyright</strong> Example Company © 2014-2015
+				</div>
+			</div>
 		</div>
 	</div>
     <!-- Mainly scripts -->
@@ -297,8 +371,8 @@ use \Core\Controller;
                             }
                         }
 			});
-			 $("#wizard").steps();
-            $("#form").steps({
+			//$("#wizard").steps();
+            /*$("#form").steps({
                 bodyTag: "fieldset",
                 onStepChanging: function (event, currentIndex, newIndex)
                 {
@@ -373,6 +447,7 @@ use \Core\Controller;
                             }
                         }
                     });
+			*/
 		});
     </script>
 

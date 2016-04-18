@@ -13,20 +13,22 @@ use \Core\View;
 use \Core\Controller;
 use \App\Config\Globales as Globales;
 use \App\Models\BranchOffices as BO;
-use \App\Models\ServiceOrders as SO;
+use \App\Models\ServiceOrders\ServiceOrders as SO;
 use \App\Models\CurrentUser as CU;
 
-	session_start();
+	if (strlen(session_id()) < 1){session_start();}
+		$_SESSION["nombreUsuario"];
+		$_SESSION['pkiBUser_p'];
 	if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
 		else{
 				echo "Esta pagina es solo para usuarios registrados.<br>";
-			echo "<a href='http://localhost:8012/ibrain2.0'>Login Here!</a>";
+			echo "<a href='" . Globales::$absoluteURL. "'>Login Here!</a>";
 			exit;
 		}
 		$now = time(); 
 		if($now > $_SESSION['expire']){
 		session_destroy();
-		echo "Su sesion a terminado, <a href='http://localhost:8012/ibrain2.0'>
+		echo "Su sesion a terminado, <a href='" . Globales::$absoluteURL . "'>
 			  Necesita Hacer Login</a>";
 		exit;
 		}
@@ -72,35 +74,29 @@ private $_sesionMenu;
         View::render("showSO");
 	}
 	public function addSO(){
-		session_start();
-		$this->_sesionUsuario=$_SESSION["nombreUsuario"];
-		$this->_sesionpkiBUser=$_SESSION['pkiBUser_p'];
-		$this->_sesionMenu=$_SESSION['mainMenu'];
-		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
-		else{
-				echo "Esta pagina es solo para usuarios registrados.<br>";
-			echo "<a href='http://localhost:8012/ibrain2.0'>Login Here!</a>";
-			exit;
-		}
-		$now = time(); 
-		if($now > $_SESSION['expire']){
-		session_destroy();
-		echo "Su sesion a terminado, <a href='http://localhost:8012/ibrain2.0'>
-			  Necesita Hacer Login</a>";
-		exit;
-		}
+		#get_main_variables
+		$url= Globales::$absoluteURL;
+		#set_main_variables
+		View::set("url", $url);
+		View::set("title", "iBrain>Nueva Orden");
+		#get_data_variables
+		$currentMainMenu=CU::getMainMenu2($this->_sesionpkiBUser);
 		$dsSO=SO::getAll();
 		while ($row =$dsSO->fetch( \PDO::FETCH_ASSOC )){
 			$dt_SO[] = $row;
 		}
-		
-		$currentMainMenu=$this->_sesionMenu;
-		$url= Globales::$absoluteURL;
+		#set_data_variables
 		View::set("dt_SO",$dt_SO);
-		View::set("url", $url);
 		View::set("currentMainMenu", $currentMainMenu);
-        View::set("title", "Grupo Empresarial");
+		#render
 		View::render("addSO");
+		
+		
+		
+		
+
+        
+		
 	}
 
 }
@@ -125,7 +121,7 @@ private $_sesionMenu;
 		exit;
 		}*/
 		
-	switch(@$_POST['hdn_toDo_h']){
+	/*switch(@$_POST['hdn_toDo_h']){
 		case "AddSO":
 			CreateSO();
 		break;
@@ -166,5 +162,5 @@ private $_sesionMenu;
 	$bo->setModifiedBy("null");
 	$bo->setActive("1");
 	$bo->insertData("branchoffice");
-	}
+	}*/
 ?>
