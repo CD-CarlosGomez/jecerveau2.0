@@ -202,7 +202,7 @@ use \Core\Controller;
 													<div class="form-group">
 														<label class="col-md-4 control-label">Fecha de entrada:</label>
 														<div class="col-md-8">
-															<input type="text" id="txt_SODate_h" class="form-control" value="<?php echo date("d-m-Y")?>" name="txt_SODate_h"/>
+															<input type="text" id="txt_SODate_h" class="form-control" value="<?php echo date("Y-m-d")?>" name="txt_SODate_h"/>
 														</div>
 													</div>
 													<div class="form-group">
@@ -322,7 +322,7 @@ use \Core\Controller;
 													</div>
 													<div class="col-md-4 pull-right">
 															<div class="form-group">
-																<button type="submit" id="btn_command_h" class="btn btn-primary btn-md btn-block" value="AddBO" name="btn_command_h">Guardar</button>
+																<button type="submit" id="btn_command_h" class="btn btn-primary btn-md btn-block" value="AddSO" name="btn_command_h">Guardar</button>
 															</div>
 													</div>
 												</div>

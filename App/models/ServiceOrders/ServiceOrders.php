@@ -6,75 +6,75 @@ use \Core\Database;
 use \App\Interfaces\iCrud;
 
 class ServiceOrders implements iCrud{
-	private $_pkSorder_p;
-	private $_SONumber_p;
-	private $_fkBranchOffice_p;
-	private $_SODate_p;
-	private $_fkCustomercontact_p;
-	private $_fkCollectMethod_p;
-	private $_fkSOrderType_p;
-	private $_SODeviceCondition_p;
-	private $_SOTechDetail_p;
+	private static $_pkSorder_p;
+	private static $_SONumber_p;
+	private static $_fkBranchOffice_p;
+	private static $_SODate_p;
+	private static $_fkCustomercontact_p;
+	private static $_fkCollectMethod_p;
+	private static $_fkSOrderType_p;
+	private static $_SODeviceCondition_p;
+	private static $_SOTechDetail_p;
 		
 	public function __construct(){
 	
 	}
 	
 	public function setpkSorder($valor){
-		$this->_pkSorder_p=$valor;
+		self::$_pkSorder_p=$valor;
 	}
 	public function getpkSorder(){
-		return $this->_pkSorder_p;
+		return self::$_pkSorder_p;
 	}
 	public function setSONumber($valor){
-		$this->_SONumber_p=$valor;
+		self::$_SONumber_p=$valor;
 	}
 	public function getSONumber(){
-		return $this->_SONumber_p;
+		return self::$_SONumber_p;
 	}
 	public function setBranchOffice($valor){
-		$this->_fkBranchOffice_p=$valor;}
+		self::$_fkBranchOffice_p=$valor;}
 	public function getBranchOffice(){
-		return $this->_fkBranchOffice_p;
+		return self::$_fkBranchOffice_p;
 	}
 	public function setSODate($valor){
-		$this->_SODate_p=$valor;
+		self::$_SODate_p=$valor;
 	}
 	public function getSODate(){
-		return $this->_SODate_p;
+		return self::$_SODate_p;
 	}
 	public function setfkCustomerContact($valor){
-		$this->_fkCustomercontact_p=$valor;
+		self::$_fkCustomercontact_p=$valor;
 	}
 	public function getfkCustomerContact()	{
-		return $this->_fkCustomercontact_p;
+		return self::$_fkCustomercontact_p;
 	}
 	public function setfkCollectMethod($valor){
-		$this->_fkCollectMethod_p=$valor;
+		self::$_fkCollectMethod_p=$valor;
 	}
 	public function getfkCollectMethod() {
-		return $this->_fkCollectMethod_p;
+		return self::$_fkCollectMethod_p;
 	}
 	public function setfkOrderType($valor){
-		$this->_fkSOrderType_p=$valor;
+		self::$_fkSOrderType_p=$valor;
 	}
 	public function getfkOrderType()	{
-		return $this->_fkSOrderType_p;
+		return self::$_fkSOrderType_p;
 	}
 	public function setSODeviceCondition($valor){
-		$this->_SODeviceCondition_p=$valor;
+		self::$_SODeviceCondition_p=$valor;
 	}
 	public function getSODeviceCondition(){
-		return $this->_SODeviceCondition_p;
+		return self::$_SODeviceCondition_p;
 	}
 	public function setSOTechDetail($valor){
-		$this->_SOTechDetail_p=$valor;
+		self::$_SOTechDetail_p=$valor;
 	}
 	public function getSOTechDetail(){
-		return $this->_SOTechDetail_p;
+		return self::$_SOTechDetail_p;
 	}
 		
-	public  function getAll(){
+	public static function getAll(){
         try {
 			$PDOcnn = Database::instance();
 			$PDOQuery = "SELECT * from sorder";
@@ -86,7 +86,7 @@ class ServiceOrders implements iCrud{
 			print "Error!: " . $e->getMessage();
 		}
     }
-    public  function getById($id) {
+    public static function getById($id) {
         try {
             $connection = Database::instance();
             $sql = "SELECT * from ibuser WHERE pkibuser = ?";
@@ -99,7 +99,7 @@ class ServiceOrders implements iCrud{
             print "Error!: " . $e->getMessage();
         }
     }
-    public  function getNextId($column,$table){
+    public static function getNextId($column,$table){
 		try {
 				$cnn=Database::instance();
 				$PDOQuery = "SELECT MAX($column) AS Maximo FROM $table;";
@@ -118,7 +118,7 @@ class ServiceOrders implements iCrud{
     		echo 'Incidencia al generar nuevo código ',  $e->getMessage(), ".\n";
 		}
 	}
-	public  function getSelectIbSO189A1(){
+	public static function getSelectIbSO189A1(){
 		 try {
 			$PDOcnn = Database::instance();
 			$PDOQuery="SELECT 
@@ -134,28 +134,28 @@ class ServiceOrders implements iCrud{
 			print "Error!: " . $e->getMessage();
 		}
 	}
-	public  function insertData($table){
+	public static function insertData($table){
 		try {
             $connection = Database::instance();
             $sql = "INSERT INTO $table VALUES (?,?,?,?,?,?,?,?,?)";
             $query = $connection->prepare($sql);
-            $query->bindParam(1, $this->_pkSorder_p, \PDO::PARAM_INT);
-			$query->bindParam(2, $this->_SONumber_p, \PDO::PARAM_STR);
-			$query->bindParam(3, $this->_fkBranchOffice_p, \PDO::PARAM_INT);
-			$query->bindParam(4, $this->_SODate_p, \PDO::PARAM_STR);
-			$query->bindParam(5, $this->_fkCustomercontact_p, \PDO::PARAM_INT);
-			$query->bindParam(6, $this->_fkCollectMethod_p, \PDO::PARAM_INT);
-			$query->bindParam(7, $this->_fkSOrderType_p, \PDO::PARAM_INT);
-			$query->bindParam(8, $this->_SODeviceCondition_p, \PDO::PARAM_STR);
-			$query->bindParam(9, $this->_SOTechDetail_p, \PDO::PARAM_STR);
+            $query->bindParam(1, self::$_pkSorder_p, \PDO::PARAM_INT);
+			$query->bindParam(2, self::$_SONumber_p, \PDO::PARAM_STR);
+			$query->bindParam(3, self::$_fkBranchOffice_p, \PDO::PARAM_INT);
+			$query->bindParam(4, self::$_SODate_p, \PDO::PARAM_STR);
+			$query->bindParam(5, self::$_fkCustomercontact_p, \PDO::PARAM_INT);
+			$query->bindParam(6, self::$_fkCollectMethod_p, \PDO::PARAM_INT);
+			$query->bindParam(7, self::$_fkSOrderType_p, \PDO::PARAM_INT);
+			$query->bindParam(8, self::$_SODeviceCondition_p, \PDO::PARAM_STR);
+			$query->bindParam(9, self::$_SOTechDetail_p, \PDO::PARAM_STR);
             $query->execute();
-            return $query->fetch();
+            return true;
         }
         catch(\PDOException $e){
             print "Error!: " . $e->getMessage();
         }
     }
-	public  function insertIbSO189A1($a,$b,$c,$d,$e){
+	public static function insertIbSO189A1($a,$b,$c,$d,$e){
 		try {
             $connection = Database::instance();
             $sql = "INSERT INTO sorder (
@@ -179,14 +179,14 @@ class ServiceOrders implements iCrud{
             print "Error!: " . $e->getMessage();
         }
     }
-    public  function updateById($id){
+    public static function updateById($id){
 		try {
             $connection = Database::instance();
             $sql = "UPDATE ibuser SET pkibuser=?,username=?,pwd=? WHERE pkibuser=?";
             $query = $connection->prepare($sql);
-            $query->bindParam(1, $this->_pkibuser, \PDO::PARAM_INT);
-			$query->bindParam(2, $this->_username, \PDO::PARAM_STR);
-			$query->bindParam(3, $this->_pwd, \PDO::PARAM_STR);
+            $query->bindParam(1, self::$_pkibuser, \PDO::PARAM_INT);
+			$query->bindParam(2, self::$_username, \PDO::PARAM_STR);
+			$query->bindParam(3, self::$_pwd, \PDO::PARAM_STR);
 			$query->bindParam(4, $id, \PDO::PARAM_INT);
             $query->execute();
             return $query->fetch();
@@ -195,7 +195,7 @@ class ServiceOrders implements iCrud{
             print "Error!: " . $e->getMessage();
         }
     }
-    public  function deleteById($id){
+    public static function deleteById($id){
 			try {
             $connection = Database::instance();
             $sql = "UPDATE ibuser SET Active=0 WHERE pkibuser=?";

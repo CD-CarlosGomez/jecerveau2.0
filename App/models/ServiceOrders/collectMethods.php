@@ -5,7 +5,7 @@ defined("APPPATH") OR die("Access denied");
 use \Core\Database;
 use \App\Interfaces\iCrud;
 
-class CollectMethod implements iCrud{
+class CollectMethods implements iCrud{
 	private $_pkCollectMethod=Null;
 	private $_collectMethodName=Null;
 	private $_Created=Null;

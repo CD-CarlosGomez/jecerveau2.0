@@ -14,7 +14,7 @@ use \Core\Controller;
 use \App\Config\Globales as Globales;
 use \App\Models\BranchOffices as BO;
 use \App\Models\ServiceOrders\ServiceOrders as SO;
-use \App\Models\ServiceOrders\CollectMethod as CM;
+use \App\Models\ServiceOrders\CollectMethods as CM;
 use \App\Models\CurrentUser as CU;
 
 	if (strlen(session_id()) < 1){session_start();}
@@ -54,9 +54,9 @@ private $_sesionMenu;
     public function index(){
 	//$layout=new WithSiteMap(new WithTemplate(new WithMenu(new LayoutCSS())));
 	//$layout= Layouts::render();
-		//self::showSO();
-		View::set("foo",true);
-		View::render("z_testPost");
+		self::showSO();
+		//View::set("foo",true);
+		//View::render("z_testPost");
 	}
 	public function showSO(){
 		#get_main_variables
@@ -94,13 +94,7 @@ private $_sesionMenu;
 		View::set("dataset",$dataset);
 		View::set("currentMainMenu", $currentMainMenu);
 		#render
-		View::render("addSO");
-		
-		
-		
-		
-
-        
+		View::render("addSO");       
 		
 	}
 
@@ -109,28 +103,11 @@ private $_sesionMenu;
 //EVENTOS############################################
 //CONTROLES##########################################
 //MAIN###############################################
-		/*session_start();
-		$userName=$_SESSION["nombreUsuario"];
-		$pkiBUser=$_SESSION['pkiBUser_p'];
-		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
-		else{
-				echo "Esta pagina es solo para usuarios registrados.<br>";
-			echo "<a href='http://localhost:8012/ibrain2.0'>Login Here!</a>";
-			exit;
-		}
-		$now = time(); 
-		if($now > $_SESSION['expire']){
-		session_destroy();
-		echo "Su sesion a terminado, <a href='http://localhost:8012/ibrain2.0'>
-			  Necesita Hacer Login</a>";
-		exit;
-		}*/
-		
-	/*switch(@$_POST['hdn_toDo_h']){
+	switch(@$_POST['btn_command_h']){
 		case "AddSO":
 			CreateSO();
 		break;
-			case "AddBO":
+		case "AddBO":
 			CreateBO();
 		break;
 		case "AddUser":
@@ -141,31 +118,26 @@ private $_sesionMenu;
 		break;
  	}
 	function CreateSO(){
-	$o=new SO;
-	$a=$o->getNextId("pkibSOrder","ibsorder");
-	$b=$_POST["txt_ibSOrderName_h"];
-	$c=$_POST["tta_ibSOrderDesc_h"];
-	$d=$_POST["tta_ibSOrderGSX_h"];
-	$e=$_POST["tta_ibSOrderObs_h"];
-	$o->insertIbSO189A1($a,$b,$c,$d,$e);
+		$so = new SO;
+		$pk = $so->getNextId("pkSOrder","sorder");
+		$number = $pk . "-" . "MX" . "-" . "Subcuenta" . "-" - "BO";
+		$BO = "0";
+		$so->setpkSorder($pk);
+		$so->setSONumber($number);
+		$so->setBranchOffice($BO);
+		$so->setSODate($_POST["txt_SODate_h"]);
+		$so->setfkCustomerContact("0");
+		$so->setfkCollectMethod($_POST["slt_fkCollectMethod_h"]);
+		$so->setfkOrderType("2");
+		$so->setSODeviceCondition($_POST["tta_SODeviceCondition_h"]);
+		$so->setSOTechDetail($_POST["tta_SOTechDetail_h"]);
+		
+		if ($so->insertData("sorder")){
+			echo "<script language='JavaScript'> 
+					alert(‘Se ha guardado la O de S.’); 
+                </script>";
+			//<script>function abrir() { open('pagina.html','','top=300,left=300,width=300,height=300') ; } </script> 
+		}	
 	}
-	function CreateBO(){
-	$bo=new BO;
-	$bo->setpkBO($bo->getNextId("pkBranchOffice","BranchOffice"));
-	$bo->setfkCompany(1);
-	$bo->setBOName($_POST["txt_BOName_h"]);
-	$bo->setBOStreet($_POST["txt_BOStreet_h"]);
-	$bo->setBOExtNumber($_POST["txt_BOExtNumber_h"]);
-	$bo->setBOIntNumber($_POST["txt_BOIntNumber_h"]);
-	$bo->setBORegion($_POST["txt_BORegion_h"]);
-	$bo->setBOZone($_POST["txt_BOZone_h"]);
-	$bo->setBOProvince($_POST["txt_BOProvince_h"]);
-	$bo->setBOZipCode($_POST["txt_BOZipCode_h"]);
-	$bo->setCreated("null");
-	$bo->setCreatedBy("1");
-	$bo->setModified("null");
-	$bo->setModifiedBy("null");
-	$bo->setActive("1");
-	$bo->insertData("branchoffice");
-	}*/
+	
 ?>
