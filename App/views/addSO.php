@@ -184,31 +184,31 @@ use \Core\Controller;
 									<h5>Nueva Orden de servicio</h5>
 								</div>
 								<div class="ibox-content">
-									<form id="form" class="wizard-big form-horizontal" action="<?php echo $url; ?>private/ServiceOrder"   method="POST" name="frm_SO">
+									<form id="frm_SO_h" class="form-horizontal" action="<?php echo $url; ?>private/ServiceOrder"   method="POST" name="frm_SO_h">
 										<fieldset>
 											<div class="row">
 												<div class="col-md-6">
 													<div class="form-group">
 														<label class="col-md-4 control-label">Recolecci&oacute;n:*</label>
 														<div class="col-md-8">
-															<select id="" class="form-control m-b" name="slt_pkCompany_h">
+															<select id="" class="form-control m-b" name="slt_fkCollectMethod_h">
 																<option value="-1">Seleccionar ...</option>
-																<?php //foreach ($drows_Company as $companyOption) {?>
-																<option value="<?php //echo $companyOption['pkCompany'] ?>"><?php //echo $companyOption['commercialName'] ?></option>
-																<?php //} ?>
+																<?php foreach ($dataset as $datarow) {?>
+																<option value="<?php echo $datarow['pkCollectMethod'] ?>"><?php echo $datarow['collectMethodName'] ?></option>
+																<?php } ?>
 															</select>
 														</div>
 													</div>
 													<div class="form-group">
 														<label class="col-md-4 control-label">Fecha de entrada:</label>
 														<div class="col-md-8">
-															<input type="text" id="" class="form-control" value="" name="dpi_ibSOrderDateIn_h"/>
+															<input type="text" id="txt_SODate_h" class="form-control" value="<?php echo date("d-m-Y")?>" name="txt_SODate_h"/>
 														</div>
 													</div>
 													<div class="form-group">
 														<label class="col-lg-4 control-label">Estado del equipo:</label>
 														<div class="col-lg-8">
-															<textarea id="tta_ibSOrderDesc_h" class="form-control required" data-provide="markdown" rows="5" name="tta_ibSOrderDesc_h"></textarea>
+															<textarea id="tta_SODeviceCondition_h" class="form-control required" data-provide="markdown" rows="5" name="tta_SODeviceCondition_h"></textarea>
 														</div>
 													</div>
 													<div class="form-group">
@@ -251,7 +251,7 @@ use \Core\Controller;
 													<div class="form-group">
 														<label class="col-lg-4 control-label">Detalle T&eacute;cnico:</label>
 														<div class="col-lg-8">
-															<textarea id="tta_ibSOrderObs_h" class="form-control required" data-provide="markdown" rows="5" name="tta_ibSOrderObs_h"></textarea>
+															<textarea id="tta_SOTechDetail_h" class="form-control required" data-provide="markdown" rows="5" name="tta_SOTechDetail_h"></textarea>
 														</div>
 													</div>
 												</div>
@@ -259,60 +259,71 @@ use \Core\Controller;
 													<div class="form-group">
 														<label class="col-lg-4 control-label">Tel&eacute;fono:</label>
 														<div class="input-group col-lg-7">
-															<input type="text" id="" class="form-control" value="" name="dpi_ibSOrderDateIn_h"/>
+															<input type="text" id="txt_contactPhone_h" class="form-control" value="" name="txt_contactPhone_h"/>
 															<span class="input-group-addon"><i class="fa fa-search"></i></span>
 														</div>
 													</div>
 													<div class="form-group">
 														<label class="col-lg-4 control-label">M&oacute;vil:</label>
 														<div class="input-group col-lg-7">
-															<input type="text" id="" class="form-control" value="" name="dpi_ibSOrderDateIn_h"/>
+															<input type="text" id="txt_contactMovil_h" class="form-control" value="" name="txt_contactMovil_h"/>
 															<span class="input-group-addon"><i class="fa fa-search"></i></span>
 														</div>
 													</div>
 													<div class="form-group">
 														<label class="col-lg-4 control-label">Contacto:</label>
 														<div class="input-group col-lg-7">
-															<input type="text" id="" class="form-control" value="" name="dpi_ibSOrderDateIn_h"/>
+															<input type="text" id="txt_contactName_h" class="form-control" value="" name="txt_contactName_h"/>
 															<span class="input-group-addon"><i class="fa fa-search"></i></span>
 														</div>
 													</div>
-													<div class="form-group" id="data_1">
+													<div class="form-group">
 														<label class="col-lg-4 control-label">Correo electr&oacute;nico:</label>
 														<div class="input-group col-lg-7">
-															<input type="text" id="" class="form-control" value="" name="dpi_ibSOrderDateIn_h"/>
+															<input type="text" id="txt_contactEmail_h" class="form-control" value="" name="txt_contactEmail_h"/>
 															<span class="input-group-addon"><i class="fa fa-search"></i></span>
 														</div>
 													</div>
 													<div class="form-group">
 														<label class="col-lg-4 control-label">Direcci&oacute;n:*</label>
 														<div class="col-lg-8">
-															<input id="txt_ibSOrderName_h" class="form-control required" name="txt_ibSOrderName_h" type="text">
+															<input type="text" id="txt_contactAddress_h" class="form-control required" name="txt_contactAddress_h">
 														</div>
 													</div>
 													<div class="form-group">
 														<label class="col-lg-4 control-label">Colonia:*</label>
 														<div class="col-lg-8">
-															<input id="txt_ibSOrderName_h" class="form-control required" name="txt_ibSOrderName_h" type="text">
+															<input id="txt_contactLocation_h" class="form-control required" name="txt_contactLocation_h" type="text">
 														</div>
 													</div>
 													<div class="form-group">
 														<label class="col-lg-4 control-label">Delegaci&oacute;n o municipio:*</label>
 														<div class="col-lg-8">
-															<input id="txt_ibSOrderName_h" class="form-control required" name="txt_ibSOrderName_h" type="text">
+															<input id="txt_contactCounty_h" class="form-control required" name="txt_contactCounty_h" type="text">
 														</div>
 													</div>
 													<div class="form-group">
 														<label class="col-lg-4 control-label">C.P.:*</label>
 														<div class="col-lg-8">
-															<input id="txt_ibSOrderName_h" class="form-control required" name="txt_ibSOrderName_h" type="text">
+															<input id="txt_contactZipCode_h" class="form-control required" name="txt_contactZipCode_h" type="text">
 														</div>
 													</div>
 													<div class="form-group">
 														<label class="col-lg-4 control-label">Province:*</label>
 														<div class="col-lg-8">
-															<input id="txt_ibSOrderName_h" class="form-control required" name="txt_ibSOrderName_h" type="text">
+															<input id="txt_contactProvince_h" class="form-control required" name="txt_contactProvince_h" type="text">
 														</div>
+													</div>
+													<div class="form-group">
+														<label class="col-lg-4 control-label">Detalle T&eacute;cnico:</label>
+														<div class="col-lg-8">
+															<textarea id="tta_contactObs_h" class="form-control required" data-provide="markdown" rows="5" name="tta_contactObs_h"></textarea>
+														</div>
+													</div>
+													<div class="col-md-4 pull-right">
+															<div class="form-group">
+																<button type="submit" id="btn_command_h" class="btn btn-primary btn-md btn-block" value="AddBO" name="btn_command_h">Guardar</button>
+															</div>
 													</div>
 												</div>
 											</div>

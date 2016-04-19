@@ -14,6 +14,7 @@ use \Core\Controller;
 use \App\Config\Globales as Globales;
 use \App\Models\BranchOffices as BO;
 use \App\Models\ServiceOrders\ServiceOrders as SO;
+use \App\Models\ServiceOrders\CollectMethod as CM;
 use \App\Models\CurrentUser as CU;
 
 	if (strlen(session_id()) < 1){session_start();}
@@ -53,7 +54,9 @@ private $_sesionMenu;
     public function index(){
 	//$layout=new WithSiteMap(new WithTemplate(new WithMenu(new LayoutCSS())));
 	//$layout= Layouts::render();
-		self::showSO();
+		//self::showSO();
+		View::set("foo",true);
+		View::render("z_testPost");
 	}
 	public function showSO(){
 		#get_main_variables
@@ -74,6 +77,8 @@ private $_sesionMenu;
         View::render("showSO");
 	}
 	public function addSO(){
+		#Objetos_e_Instancias;
+		$cm=New CM();
 		#get_main_variables
 		$url= Globales::$absoluteURL;
 		#set_main_variables
@@ -81,12 +86,12 @@ private $_sesionMenu;
 		View::set("title", "iBrain>Nueva Orden");
 		#get_data_variables
 		$currentMainMenu=CU::getMainMenu2($this->_sesionpkiBUser);
-		$dsSO=SO::getAll();
-		while ($row =$dsSO->fetch( \PDO::FETCH_ASSOC )){
-			$dt_SO[] = $row;
+		$ResultSet=$cm->getAll();
+		while ($row =$ResultSet->fetch( \PDO::FETCH_ASSOC)){
+			$dataset[] = $row;
 		}
 		#set_data_variables
-		View::set("dt_SO",$dt_SO);
+		View::set("dataset",$dataset);
 		View::set("currentMainMenu", $currentMainMenu);
 		#render
 		View::render("addSO");

@@ -6,7 +6,6 @@
 // +-----------------------------------------------
 namespace App\data;
 defined("APPPATH") OR die("Access denied");
-
 //use \Core\Database as DB;
 use \data\DatabaseExtended as DBE;
 
@@ -28,7 +27,6 @@ Class Data{
 
 //PROPIEDADES##################################################################################
 //CONSTRUCTORES Y DESTRUCTORES##############################################################
-
 	public function __construct(){
 		$this->_PDOcnn=DBE::getPDOcnn();
 	}

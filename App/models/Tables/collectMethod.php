@@ -23,6 +23,42 @@ Class CollectMethod extends DP {
 	public $Modified=Null;
 	public $ModifiedBy=Null;
 //PROPIEDADES########################################
+	public function getPKCollectMethod(){
+		$tableFields->getValue(0);
+	}
+	public function setPKCollectMethod($value){
+		$tableFields->setValue(0,$value);
+	}
+	public function getCollectMethodName(){
+		$tableFields->getValue(1);
+	}
+	public function setCollectMethodName($value){
+		$tableFields->setValue(1,$value);
+	}
+	public function getCreated(){
+		$tableFields->getValue(2);
+	}
+	public function setCreated($value){
+		$tableFields->setValue(2,$value);
+	}
+	public function getCreatedBy(){
+		$tableFields->getValue(3);
+	}
+	public function setCreatedBy($value){
+		$tableFields->setValue(3,$value);
+	}
+	public function getModified(){
+		$tableFields->getValue(4);
+	}
+	public function setModified($value){
+		$tableFields->setValue(4,$value);
+	}
+	public function getModifiedBy(){
+		$tableFields->getValue(5);
+	}
+	public function setModifiedBy($value){
+		$tableFields->setValue(5,$value);
+	}	
 //MÉTODOS ABSTRACTOS#################################
 //CONSTRUCTORES Y DESTRUCTORES#######################
 	public function __construct(){
