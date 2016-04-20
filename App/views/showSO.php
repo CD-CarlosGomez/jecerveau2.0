@@ -214,7 +214,7 @@ use \App\data\DataGridView as DGV;
                 ]
 
             });
-			
+			/*
 			$.ajax({
 				url: '',
 				type: 'post',
@@ -223,11 +223,11 @@ use \App\data\DataGridView as DGV;
 				succes: function (data){
 					if (data.succes){
 						$.each(data,function (index,record ){
-							if 
+							
 						})
 					}
 				}
-			});
+			});*/
             
 			
 			
@@ -235,10 +235,10 @@ use \App\data\DataGridView as DGV;
 			
 			
 			/* Init DataTables */
-            var oTable = $('#AddTD').DataTable();
+           // var oTable = $('#AddTD').DataTable();
 
             /* Apply the jEditable handlers to the table */
-            oTable.$('td').editable( '../example_ajax.php', {
+            /*oTable.$('td').editable( '../example_ajax.php', {
                 "callback": function( sValue, y ) {
                     var aPos = oTable.fnGetPosition( this );
                     oTable.fnUpdate( sValue, aPos[0], aPos[1] );
@@ -252,7 +252,7 @@ use \App\data\DataGridView as DGV;
 
                 "width": "90%",
                 "height": "100%"
-            } );
+            } );*/
 
 
         });

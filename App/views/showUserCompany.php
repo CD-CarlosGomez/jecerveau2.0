@@ -84,10 +84,19 @@ use \App\data\DataGridView as DGV;
 			</div>
 			<div class="row wrapper border-bottom white-bg page-heading">
 				<div class="col-sm-4">
-					<h2>Usuarios</h2>
+				<h2>Usuarios</h2>
 					<ol class="breadcrumb">
 						<li>
 							<a href="<?php echo $url; ?>private/home">Inicio</a>
+						</li
+						><li>
+							<a href="<?php echo $url; ?>private/EnterpriseGroup/showCompany">Compa&ntilde;&iacute;as</a>
+						</li>
+						<li class="active">
+							<a href="<?php echo $url; ?>private/EnterpriseGroup/showSubcompany">Subcompa&ntilde;&iacute;as</a>
+						</li>
+						<li class="active">
+							<a href="<?php echo $url; ?>private/EnterpriseGroup/showBranchOffice">AASP</a>
 						</li>
 						<li class="active">
 							<strong>Usuario</strong>

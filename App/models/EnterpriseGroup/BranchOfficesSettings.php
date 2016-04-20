@@ -11,7 +11,7 @@ defined("APPPATH") OR die("Access denied");
 use \Core\Database;
 use \App\Interfaces\iCrud;
 
-class BranchOffices implements iCrud{
+class BranchOfficeSettings implements iCrud{
 //REQUEST############################################
 //CONSTANTES#########################################
 //ATRIBUTOS##########################################
@@ -130,7 +130,7 @@ class BranchOffices implements iCrud{
 			print "Error!: " . $e->getMessage();
 		}
 	}
-	public static function SelectKanbanSubcompanyNumber($pk){
+		public static function SelectKanbanSubcompanyNumber($pk){
 		try{
 			$PDOcnn=Database::instance();
 			$PDOQuery=
@@ -153,32 +153,6 @@ class BranchOffices implements iCrud{
             $query->bindParam(1, $id, \PDO::PARAM_INT);
             $query->execute();
             return $query->fetch();
-        }
-        catch(\PDOException $e){
-            print "Error!: " . $e->getMessage();
-        }
-    }
-	public static function getBOSById($id) {
-	    try {
-            $PDOcnn = Database::instance();
-            $sql = 
-			"
-			SELECT 
-				c.commercialName,
-				sc.subCompanyName,
-				bo.pkBranchOffice,
-				bo.BOName,
-				bos.fkCountry
-			FROM branchofficesetting bos 
-				INNER JOIN branchoffice bo 
-					ON bos.BranchOffice_pkBranchOffice=bo.pkBranchOffice
-				INNER JOIN subcompany sc
-					ON bo.subcompany_pkSubCompany= sc.pkSubCompany
-				INNER JOIN company c
-					ON sc.pkSubCompany=c.pkCompany
-			WHERE bos.BranchOffice_pkBranchOffice=$id";
-            $resultSet=$PDOcnn->query($sql);
-            return $resultSet;
         }
         catch(\PDOException $e){
             print "Error!: " . $e->getMessage();

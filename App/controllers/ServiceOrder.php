@@ -12,7 +12,7 @@ defined("APPPATH") OR die("Access denied");
 use \Core\View;
 use \Core\Controller;
 use \App\Config\Globales as Globales;
-use \App\Models\BranchOffices as BO;
+use \App\Models\EnterpriseGroup\BranchOffices as BO;
 use \App\Models\ServiceOrders\ServiceOrders as SO;
 use \App\Models\ServiceOrders\CollectMethods as CM;
 use \App\Models\Contacts\Contacts as Co;
@@ -136,11 +136,16 @@ private $_sesionMenu;
 		
 		if($c->insertData("customercontact")){
 			$so = new SO;
+			$bosettings=BO::getBOSById(0);
 			$pk = $so->getNextId("pkSOrder","sorder");
-			$number = $pk . "-" . "MX" . "-" . "Subcuenta" . "-" - "BO";
-			$BO = "0";
+			while($row =$bosettings->fetch( \PDO::FETCH_ASSOC )){
+				$sonumber = "$pk" . "-" . $row['fkCountry'] . "-" . $row["subCompanyName"] . "-" . $row["BOName"];
+				$BO = $row["pkBranchOffice"];
+			}
+			
+			
 			$so->setpkSorder($pk);
-			$so->setSONumber($number);
+			$so->setSONumber($sonumber);
 			$so->setBranchOffice($BO);
 			$so->setSODate($_POST["txt_SODate_h"]);
 			$so->setfkCustomerContact("0");

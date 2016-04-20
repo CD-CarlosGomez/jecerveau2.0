@@ -281,13 +281,13 @@ class DataGridView{
 						}
 						$output .= '</tr></thead>' .  "\n";
 					}
+					$output .= '<tbody>' . "\n";
 					//Comienza a imprimir el cuerpo de la tabla//
 					if (isset($this->_datarows[0])) {
 						$counter = 0;
 						foreach ($data as $offset => $row){
 							++$counter;
 							$rowCounter = $offset + $this->_startingCounter;
-							$output .= '<tbody>' . "\n";
 							$output .= '<tr class="gradeA">' . "\n";
 							foreach ($this->_columns as $field){
 								$data	       = isset($row[$field]) ? $row[$field] : '';
@@ -332,9 +332,9 @@ class DataGridView{
 								}
 							}
 							$output .= '</tr>' . "\n";
-							$output .= '</tbody>' . "\n";
 						}
 					}
+					$output .= '</tbody>' . "\n";
 					if (!empty($this->_headers)) {
 						$output .= '<tfoot><tr>' .  "\n";
 						foreach ($this->_columns as $field){
