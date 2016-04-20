@@ -168,7 +168,9 @@ class BranchOffices implements iCrud{
 				sc.subCompanyName,
 				bo.pkBranchOffice,
 				bo.BOName,
-				bos.fkCountry
+				bos.fkCountry,
+				bos.folioStart,
+				bos.folioSerie
 			FROM branchofficesetting bos 
 				INNER JOIN branchoffice bo 
 					ON bos.BranchOffice_pkBranchOffice=bo.pkBranchOffice
@@ -184,7 +186,7 @@ class BranchOffices implements iCrud{
             print "Error!: " . $e->getMessage();
         }
     }
-    public static function insertData($data){
+	public static function insertData($data){
 		try {
             $connection = Database::instance();
 			//$pkTable=self::getNextId("pkBranchOffice","branchoffice");

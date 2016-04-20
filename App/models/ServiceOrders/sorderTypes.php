@@ -5,25 +5,25 @@ defined("APPPATH") OR die("Access denied");
 use \Core\Database;
 use \App\Interfaces\iCrud;
 
-class CollectMethods implements iCrud{
-	private $_pkCollectMethod=Null;
-	private $_collectMethodName=Null;
+class SorderTypes implements iCrud{
+	private $_pkSOrderType=Null;
+	private $_SOrderName=Null;
 	private $_Created=Null;
 	private $_CreatedBy=Null;
 	private $_Modified=Null;
 	private $_ModifiedBy=Null;
 //PROPIEDADES########################################
-	public function getPKCollectMethod(){
-		return $this->_pkCollectMethod;
+	public function getPkSOrderType(){
+		return $this->_pkSOrderType;
 	}
-	public function setPKCollectMethod($value){
-		$this->_pkCollectMethod=$value;
+	public function setPkSOrderType($value){
+		$this->_pkSOrderType=$value;
 	}
-	public function getCollectMethodName(){
-		return $this->_collectMethodName;
+	public function getSOrderName(){
+		return $this->_SOrderName;
 	}
-	public function setCollectMethodName($value){
-		$this->_collectMethodName=$value;
+	public function setSOrderName($value){
+		$this->_SOrderName=$value;
 	}
 	public function setCreated($valor){
 		$this->_Created=$valor;
@@ -56,7 +56,7 @@ class CollectMethods implements iCrud{
 	public static function getAll(){
         try {
 			$PDOcnn = Database::instance();
-			$PDOQuery = "SELECT * from collectMethod";
+			$PDOQuery = "SELECT * FROM `sordertype`;";
 			$PDOResultSet = $PDOcnn->query($PDOQuery);
 			return $PDOResultSet;
 		}

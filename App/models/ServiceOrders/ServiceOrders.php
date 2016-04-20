@@ -121,11 +121,17 @@ class ServiceOrders implements iCrud{
 	public static function getSelectIbSO189A1(){
 		 try {
 			$PDOcnn = Database::instance();
-			$PDOQuery="SELECT 
-												pkSOrder,
-												SONumber,
-												SODate
-						FROM `sorder`;";
+			$PDOQuery=
+			"
+			SELECT 
+				so.pkSOrder,
+				so.SONumber,
+				cc.contactName,
+				so.SODate
+			FROM sorder so
+				LEFT JOIN customercontact cc
+					ON so.CustomerContact_pkCustomerContact=cc.pkCustomerContact;
+			";
 			$PDOResultSet = $PDOcnn->query($PDOQuery);
 			return $PDOResultSet;
 		}
@@ -133,6 +139,29 @@ class ServiceOrders implements iCrud{
         {
 			print "Error!: " . $e->getMessage();
 		}
+	}
+	public static function getLastOSperBO($id){
+		try {
+            $PDOcnn = Database::instance();
+            $sql = 
+			"
+			SELECT 
+				so.pkSorder, 
+				so.BranchOffice_pkBranchOffice,
+				so.SONumber FROM sorder so 
+			WHERE 
+				so.BranchOffice_pkBranchOffice=$id
+			ORDER BY 
+				so.pkSorder 
+			DESC LIMIT 1;
+			";
+            $resultSet=$PDOcnn->query($sql);
+            return $resultSet;
+        }
+        catch(\PDOException $e){
+            print "Error!: " . $e->getMessage();
+        }
+		
 	}
 	public static function insertData($table){
 		try {

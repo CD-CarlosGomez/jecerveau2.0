@@ -27,7 +27,17 @@ use \App\data\DataGridView as DGV;
 		->removeColumn('pkSOrder')
 		->setup(array(
 			'SONumber' => array('header' => 'N&uacute;mero de orden'),
-			'SODate' => array('header' => 'Descripci&oacute;n de la orden'),
+			'Serie' => array('header' => 'Serie'),
+			'contactName' => array('header' => 'Nombre'),
+			'Modelo' => array('header' => 'Device'),
+			'Tipo' => array('header' => 'Tipo'),
+			'Asignado' => array('header' => 'Asignado'),
+			'Estatus' => array('header' => 'Estatus'),
+			'SODate' => array('header' => 'Fecha'),
+			'DT' => array('header' => 'DT'),
+			'Due' => array('header' => 'Due'),
+			'Archivos' => array('header' => 'Arch'),
+			'Documentos' => array('header' => 'Docs')
 			//'ibSOrderGSX' => array('header' => 'GSX'),
 			//'ibSOrderObs' => array('header' => 'Observaciones'),
 			

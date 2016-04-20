@@ -193,7 +193,7 @@ use \Core\Controller;
 														<div class="col-md-8">
 															<select id="" class="form-control m-b" name="slt_fkCollectMethod_h">
 																<option value="-1">Seleccionar ...</option>
-																<?php foreach ($dataset as $datarow) {?>
+																<?php foreach ($ds_cm as $datarow) {?>
 																<option value="<?php echo $datarow['pkCollectMethod'] ?>"><?php echo $datarow['collectMethodName'] ?></option>
 																<?php } ?>
 															</select>

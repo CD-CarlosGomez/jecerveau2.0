@@ -14,7 +14,7 @@ class CollectMethods implements iCrud{
 	private $_ModifiedBy=Null;
 //PROPIEDADES########################################
 	public function getPKCollectMethod(){
-		return $this->_pkCollectMethod;
+		return $this->pkCollectMethod;
 	}
 	public function setPKCollectMethod($value){
 		$this->_pkCollectMethod=$value;

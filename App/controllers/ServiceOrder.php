@@ -15,6 +15,7 @@ use \App\Config\Globales as Globales;
 use \App\Models\EnterpriseGroup\BranchOffices as BO;
 use \App\Models\ServiceOrders\ServiceOrders as SO;
 use \App\Models\ServiceOrders\CollectMethods as CM;
+use \App\Models\ServiceOrders\SorderTypes as SOT;
 use \App\Models\Contacts\Contacts as Co;
 use \App\Models\CurrentUser as CU;
 
@@ -64,7 +65,7 @@ private $_sesionMenu;
 		$url= Globales::$absoluteURL;
 		#set_main_variables
 		View::set("url", $url);
-		View::set("title", "Ordenes de servicio");
+		View::set("title", "Listado de &oacute;rdenes");
 		#get_data_variables
 		$currentMainMenu=CU::getMainMenu2($this->_sesionpkiBUser);
 		$dsSO=SO::getSelectIbSO189A1();
@@ -79,24 +80,30 @@ private $_sesionMenu;
 	}
 	public function addSO(){
 		#Objetos_e_Instancias;
-		$cu=new CU();
-		$cm=New CM();
+			$cu=new CU();
+			$cm=New CM();
+			$sot=New SOT();
 		#get_main_variables
-		$url= Globales::$absoluteURL;
+			$url= Globales::$absoluteURL;
 		#set_main_variables
-		View::set("url", $url);
-		View::set("title", "iBrain>Nueva Orden");
+			View::set("url", $url);
+			View::set("title", "iBrain>Nueva Orden");
 		#get_data_variables
-		$currentMainMenu=$cu->getMainMenu2($this->_sesionpkiBUser);
-		$ResultSet=$cm->getAll();
-		while ($row =$ResultSet->fetch( \PDO::FETCH_ASSOC)){
-			$dataset[] = $row;
-		}
+			$currentMainMenu=$cu->getMainMenu2($this->_sesionpkiBUser);
+			$ResultSet_cm=$cm->getAll();
+			while ($row =$ResultSet_cm->fetch(\PDO::FETCH_ASSOC)){
+				$ds_cm[] = $row;
+			}
+			$ResultSet_sot=$sot->getAll();
+			while ($row =$ResultSet_sot->fetch(\PDO::FETCH_ASSOC)){
+				$ds_sot[] = $row;
+			}
 		#set_data_variables
-		View::set("dataset",$dataset);
-		View::set("currentMainMenu", $currentMainMenu);
+			View::set("ds_cm",$ds_cm);
+			View::set("ds_sot",$ds_sot);
+			View::set("currentMainMenu", $currentMainMenu);
 		#render
-		View::render("addSO");       
+			View::render("addSO");       
 		
 	}
 
@@ -137,17 +144,25 @@ private $_sesionMenu;
 		if($c->insertData("customercontact")){
 			$so = new SO;
 			$bosettings=BO::getBOSById(0);
+			
 			$pk = $so->getNextId("pkSOrder","sorder");
-			while($row =$bosettings->fetch( \PDO::FETCH_ASSOC )){
-				$sonumber = "$pk" . "-" . $row['fkCountry'] . "-" . $row["subCompanyName"] . "-" . $row["BOName"];
-				$BO = $row["pkBranchOffice"];
-			}
+			$lastsoperbos=$so->getLastOSperBO(0);
 			
+			$lastsoperbo=$lastsoperbos->fetch(\PDO::FETCH_ASSOC);
+			$lastsosubstrim=explode("-",$lastsoperbo["SONumber"]);
+			$i=$lastsosubstrim[0];
 			
+			$row =$bosettings->fetch( \PDO::FETCH_ASSOC );
+			$a=$row["folioStart"];
+			$nextFolio= 1 + $i + $a ;
+			$sonumber = "$nextFolio" . "-" . $row['fkCountry'] . "-" . $row["subCompanyName"] . "-" . $row["BOName"];
+			$BO = $row["pkBranchOffice"];				
+				
+						
 			$so->setpkSorder($pk);
 			$so->setSONumber($sonumber);
 			$so->setBranchOffice($BO);
-			$so->setSODate($_POST["txt_SODate_h"]);
+			$so->setSODate(date("Y-m-d H-m-s"));
 			$so->setfkCustomerContact("0");
 			$so->setfkCollectMethod($_POST["slt_fkCollectMethod_h"]);
 			$so->setfkOrderType("2");
@@ -159,7 +174,7 @@ private $_sesionMenu;
 						alert(‘Se ha guardado la O de S.’); 
 					</script>";
 				//<script>function abrir() { open('pagina.html','','top=300,left=300,width=300,height=300') ; } </script> 
-			}	
+			}
 		}
 	}
 	
