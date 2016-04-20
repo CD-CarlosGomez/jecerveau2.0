@@ -1,11 +1,10 @@
 <?php
-#Al parecer la tabla no es responsivo
+#Agregar los select de las llaves foráneas
 
 namespace App\View\EnterpriseGroup;
 defined("APPPATH") OR die("Access denied");
 
 use \App\data\DataGridView as DGV;
-		
 		$_SESSION["nombreUsuario"];
 		$_SESSION['pkiBUser_p'];
 		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
@@ -25,27 +24,19 @@ use \App\data\DataGridView as DGV;
 		$outputTableCompany=DGV::getInstance($dt_Company)
 		->setGridAttributes(array('class' => 'table table-striped table-bordered table-hover dataTables-example'))
 		->enableSorting(false)
-		->removeColumn('pkiBUserProfile')
+		->removeColumn('pkBranchOffice')
+		->removeColumn('pkCompany')
+		->removeColumn('pkSubCompany')
 		->setup(array(
-			'realname' => array('header' => 'Usuario'),
-			'profileName' => array('header' => 'Perfil'),
-			'toBeCollected' => array('header' => 'Recolecci&oacute;n'),
-			'toBeAssigned' => array('header' => 'Reasignaci&oacute;n'),
-			'toBeDiagnosed' => array('header' => 'Dian&oacute;stico'),
-			'diagnosisToBeAuthorized' => array('header' => 'Autoriza diagn&oacutestico'),
-			'toNotifyTheClient' => array('header' => 'Notificaciones al cliente'),
-			'toBeAuthorizedByClient' => array('header' => 'Autorizados por el cliente'),
-			'inRepairProcess' => array('header' => 'En reparaci&oacute;n'),
-			'repaired' => array('header' => 'Reparados'),
-			'toDelivery' => array('header' => 'Para entregar al cliente'),
-			'toBeCharged' => array('header' => 'Por saldar'),
-			'deliveredToClient' => array('header' => 'Entregados al cliente'),
-			'cancelled' => array('header' => 'Canceladas')
+			'' => array('header' => 'Cuenta maestra'),
+			'BOName' => array('header' => 'AASP'),
+			'BOStreet' => array('header' => 'Calle'),
+			'totalUsers' => array('header' => 'Usuarios')
 		))
 		/*->addColumnAfter('actions', 
-									'<a href="'.$url.'private/BranchOffice">\'s</a>',
-									'Actions', array('align' => 'center'))
-		//->addColumnBefore('counter', '%counter%.', 'Counter', array('align' => 'right'))*/
+									'<a href="'.$url.'private/Company">Ver ASP\'s</a>',
+									'Actions', array('align' => 'center'))*/
+		//->addColumnBefore('counter', '%counter%.', 'Counter', array('align' => 'right'))
 		//->setStartingCounter(1)
 		//->setRowClass('')
 		//->setAlterRowClass('alterRow');
@@ -70,45 +61,43 @@ use \App\data\DataGridView as DGV;
     <link href="<?php echo $url; ?>/App/web/css/plugins/steps/jquery.steps.css" rel="stylesheet">
 	<!-- dataTable CSS-->
     <link href="<?php echo $url; ?>/App/web/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
-	<!-- CSS Checkbox -->
-	<link href="<?php echo $url; ?>App/web/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
 	
 </head>
 <body class="top-navigation">
     <div id="wrapper">
         <div id="page-wrapper" class="gray-bg">
 			<div class="row wrapper border-bottom white-bg">
-			<nav class="navbar navbar-static-top" role="navigation">
-				<div class="navbar-header">
-					<button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
-					<i class="fa fa-reorder"></i>
-					</button>
-					<a href="<?php echo $url; ?>private/home" class="navbar-brand">Inicio</a>
+				<nav class="navbar navbar-static-top" role="navigation">
+					<div class="navbar-header">
+						<button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+						<i class="fa fa-reorder"></i>
+						</button>
+						<a href="<?php echo $url; ?>private/home" class="navbar-brand">Inicio</a>
 					</div>
 					<div class="navbar-collapse collapse" id="navbar">
-					<ul class="nav navbar-nav">
-						<?php print_r($currentMainMenu);?>
-					</ul>
-					<ul class="nav navbar-top-links navbar-right">
-						<li>
-							<a href="<?php echo $url; ?>App/controllers/logout.php">Salir</a>
-						</li>
-					</ul>
-				</div>
-			</nav>
+						<ul class="nav navbar-nav">
+							<?php print_r($currentMainMenu);?>
+						</ul>
+						<ul class="nav navbar-top-links navbar-right">
+							<li>
+								<a href="<?php echo $url; ?>App/controllers/logout.php">Salir</a>
+							</li>
+						</ul>
+					</div>
+				</nav>
 			</div>
 			<div class="row wrapper border-bottom white-bg page-heading">
 				<div class="col-sm-4">
-					<h2>Grupo Empresarial</h2>
+					<h2>AASP</h2>
 					<ol class="breadcrumb">
 						<li>
 							<a href="<?php echo $url; ?>private/home">Inicio</a>
-						</li>
-						<li>
-							<a href="<?php echo $url; ?>private/User">Usuario</a>
+						</li
+						><li>
+							<a href="<?php echo $url; ?>private/EnterpriseGroup/showCompany">Cuentas maestras</a>
 						</li>
 						<li class="active">
-							<strong>Perfil</strong>
+							<strong> AASP </strong>
 						</li>
 					</ol>
 				</div>
@@ -131,7 +120,7 @@ use \App\data\DataGridView as DGV;
 								</div>
 								<div class="ibox-content">					
 								<div class="pull-right">
-									<a onclick="" href="<?php echo $url; ?>private/User/addProfile" class="btn btn-primary ">Agregar nuevo perfil</a>
+									<a onclick="" href="<?php echo $url; ?>private/EnterpriseGroup/addBranchOffice" class="btn btn-primary ">Agregar nuevo AASP</a>
 								</div>
 								<br />
 								<br />
@@ -144,7 +133,7 @@ use \App\data\DataGridView as DGV;
 						</div>
 					</div>
 				</div>
-			</div>
+			</div>	
 			<div class="footer">
 				<div class="pull-right">
 				</div>
@@ -152,7 +141,7 @@ use \App\data\DataGridView as DGV;
 					<strong>Copyright</strong> Example Company © 2014-2015
 				</div>
 			</div>
-		</div>
+        </div>
     </div>
 
 
@@ -177,9 +166,6 @@ use \App\data\DataGridView as DGV;
 	<!-- dataTables-->
 	<script src="<?php echo $url; ?>/App/web/js/plugins/dataTables/datatables.min.js"></script>
 	<script src="<?php echo $url; ?>/App/web/js/plugins/jeditable/jquery.jeditable.js"></script>
-	<!-- iCheck -->
-    <script src="<?php echo $url; ?>App/web/js/plugins/iCheck/icheck.min.js"></script>
-	
 	
    <script>
         $(document).ready(function(){
@@ -213,15 +199,15 @@ use \App\data\DataGridView as DGV;
 				succes: function (data){
 					if (data.succes){
 						$.each(data,function (index,record ){
-							if 
 						})
 					}
 				}
 			});
             
-			$('.i-checks').iCheck({
-                    checkboxClass: 'icheckbox_square-green',
-                });	
+			
+			
+			
+			
 			
 			/* Init DataTables */
             var oTable = $('#AddTD').DataTable();
@@ -256,5 +242,10 @@ use \App\data\DataGridView as DGV;
 
         }
     </script>
+
+
+
+
 </body>
+
 </html>

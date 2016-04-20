@@ -35,9 +35,9 @@ use \App\data\DataGridView as DGV;
 		->setup(array(
 			'legalName' => array('header' => 'Master_Account'),
 			'commercialName' => array('header' => 'Commercial_Name'),
-			'totalSubCompany' => array('header' => 'SubCompa&ntilde;&iacute;as','link'=>$url . 'private/EnterpriseGroup/showSubcompany' ),
-			'totalBO' => array('header' => 'Sucursales','link'=>$url . 'private/EnterpriseGroup/showBranchOffice'),
-			'totalUsers' => array('header' => 'Usuarios')
+			'totalSubCompany' => array('header' => 'SubCompa&ntilde;&iacute;as','link'=>$url . 'private/EnterpriseGroup/showSubcompanyCompany/','filterColumn'=>0 ),
+			'totalBO' => array('header' => 'Sucursales','link'=>$url . 'private/EnterpriseGroup/showBranchOfficeCompany/','filterColumn'=>0),
+			'totalUsers' => array('header' => 'Usuarios','link'=>$url . 'private/EnterpriseGroup/showUserCompany/','filterColumn'=>0)
 		))
 		->addColumnAfter('actions', 
 									'<a href="'.$url.'private/EnterpriseGroup/showBranchOffice">Ver ASP\'s</a>',
@@ -92,57 +92,59 @@ use \App\data\DataGridView as DGV;
 				</div>
 			</nav>
 			</div>
-		<div class="row wrapper border-bottom white-bg page-heading">
-			<div class="col-sm-4">
-				<h2>Grupo Empresarial</h2>
-				<ol class="breadcrumb">
-					<li>
-						<a href="<?php echo $url; ?>private/home">Inicio</a>
-					</li>
-					<li class="active">
-						<strong>Cuentas maestras</strong>
-					</li>
-				</ol>
-			</div>
-		</div>	
-        <div class="wrapper wrapper-content">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="ibox float-e-margins">
-						<div class="ibox-title">
-							<h5>Cuentas maestra</h5>
-							<div class="ibox-tools">
-								<a class="collapse-link">
-									<i class="fa fa-chevron-up"></i>
-								</a>
-								<a class="close-link">
-									<i class="fa fa-times"></i>
-								</a>
-							</div>
-						</div>
-						<div class="ibox-content">					
-						<div class="pull-right">
-							<a onclick="" href="<?php echo $url; ?>private/EnterpriseGroup/AddCompany" class="btn btn-primary ">Agregar nueva cuenta maestra</a>
-						</div>
-						<br />
-						<br />
-						<br />
-							<div class="table-responsive">
-							<?php $outputTableCompany->render();?>
+			<div class="row wrapper border-bottom white-bg page-heading">
+				<div class="col-sm-4">
+					<h2>Grupo Empresarial</h2>
+					<ol class="breadcrumb">
+						<li>
+							<a href="<?php echo $url; ?>private/home">Inicio</a>
+						</li>
+						<li class="active">
+							<strong>Cuentas maestras</strong>
+						</li>
+					</ol>
+				</div>
+			</div>	
+			<div class="wrapper wrapper-content">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="ibox float-e-margins">
+								<div class="ibox-title">
+									<h5>Cuentas maestra</h5>
+									<div class="ibox-tools">
+										<a class="collapse-link">
+											<i class="fa fa-chevron-up"></i>
+										</a>
+										<a class="close-link">
+											<i class="fa fa-times"></i>
+										</a>
+									</div>
+								</div>
+								<div class="ibox-content">					
+								<div class="pull-right">
+									<a onclick="" href="<?php echo $url; ?>private/EnterpriseGroup/AddCompany" class="btn btn-primary ">Agregar nueva cuenta maestra</a>
+								</div>
+								<br />
+								<br />
+								<br />
+									<div class="table-responsive">
+									<?php $outputTableCompany->render();?>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-        </div>
+			<div class="footer">
+				<div class="pull-right">
+				</div>
+				<div>
+					<strong>Copyright</strong> Example Company © 2014-2015
+				</div>
+			</div>
 		</div>
-        <div class="footer">
-            <div class="pull-right">
-            </div>
-            <div>
-                <strong>Copyright</strong> Example Company © 2014-2015
-            </div>
-        </div>
     </div>
     <!-- Mainly scripts -->
     <script src="<?php echo $url; ?>/App/web/js/jquery-2.1.1.js"></script>

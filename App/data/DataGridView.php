@@ -11,6 +11,10 @@ class DataGridView{
     protected $_columns         = array();
     protected $_headers         = array();
     protected $_cellTemplates   = array();
+	protected $_cellAttributes  = array();
+	protected $_cellLink	=array();
+	protected $_filterByColumn	=array();
+    protected $_gridAttributes  = array();
     protected $_enabledSorting  = false;
     protected $_sortableFields  = array();
     protected $_alterRowClass   = null;
@@ -18,10 +22,7 @@ class DataGridView{
 	protected $_tableClass		=null;
     protected $_datarows        = array();
     protected $_tableId         = 0;
-    protected $_cellAttributes  = array();
-    protected $_gridAttributes  = array();
     protected $_startingCounter = 0;
-	protected $_pkTable=null;
     protected static $_staticTableId    = 0;
 	
 
@@ -64,13 +65,17 @@ class DataGridView{
             if (isset($setting['header'])) {
                 $this->_headers[$field] = $setting['header'];
             }
-
             if (isset($setting['cellTemplate'])) {
                 $this->_cellTemplates[$field] = $setting['cellTemplate'];
             }
-
             if (isset($setting['attributes'])) {
                 $this->_cellAttributes[$field] = $setting['attributes'];
+            }
+			if (isset($setting['link'])) {
+                $this->_cellLink[$field] = $setting['link'];
+            }
+			if (isset($setting['filterColumn'])) {
+                $this->_filterByColumn[$field] = $setting['filterColumn'];
             }
         }
 
@@ -138,6 +143,18 @@ class DataGridView{
         $this->_cellAttributes[$field] = array($name => $value);
         return $this;
     }
+	/**
+	**/
+	public function &setCellLink($field,$link){
+		 $this->_cellLink[$field] = $link;
+        return $this;
+	}
+		/**
+	**/
+	public function &setFilterColumn($field,$filter){
+		 $this->_filterByColumn[$field] = $filter;
+        return $this;
+	}
     /**
      *
      * @param string $field
@@ -164,11 +181,6 @@ class DataGridView{
         }
         return $this;
     }
-	/**
-	**/
-	public function &setpkColumn($value){
-		
-	}
     /**
      *
      * @param string $columnName
@@ -278,9 +290,10 @@ class DataGridView{
 							$output .= '<tbody>' . "\n";
 							$output .= '<tr class="gradeA">' . "\n";
 							foreach ($this->_columns as $field){
-								$data       = isset($row[$field]) ? $row[$field] : '';
-								$template   = isset($this->_cellTemplates[$field]) ? $this->_cellTemplates[$field] : '';
-								//$output .= '<input type="hidden" id=""  class="" value="'.$row['pkCompany'].'" name="pkCompany">';
+								$data	       = isset($row[$field]) ? $row[$field] : '';
+								$template	   = isset($this->_cellTemplates[$field]) ? $this->_cellTemplates[$field] : '';
+								$link 		   =isset($this->_cellLink[$field])?$this->_cellLink[$field]:'';
+								$filterColumn=isset($this->_filterByColumn[$field])?$this->_filterByColumn[$field]:0;
 								$output .= "\t" . '<td';
 								if (isset($this->_cellAttributes[$field])) {
 									foreach ($this->_cellAttributes[$field] as $name => $value)
@@ -288,17 +301,13 @@ class DataGridView{
 										$output .= ' ' . $name . '="' . $value . '"';
 									}
 								}
-
 								$reminder = $counter % 2;
-
 								if (0 === $reminder && null !== $this->_alterRowClass) {
 									$output .= ' class="' . $this->_alterRowClass . '"';
 								} elseif (0 < $reminder && null !== $this->_rowClass) {
 									$output .= ' class="' . $this->_rowClass . '"';
 								}
-
 								$output .= '>';
-
 								if (!empty($template)) {
 									$data = str_replace('%data%', $data, $template);
 									$data = str_replace('%counter%', $rowCounter, $data);
@@ -314,7 +323,13 @@ class DataGridView{
 										$data = str_replace($match[0], call_user_func_array($match[1], $params), $data);
 									}
 								}
+								if (!empty($link)) {
+									$output .= ' <a href=" ' . $link . $row[$filterColumn] . ' " >';
+								}
 								$output .= $data . '</td>' . "\n";
+								if (!empty($link)) {
+									$output .= '</a>';
+								}
 							}
 							$output .= '</tr>' . "\n";
 							$output .= '</tbody>' . "\n";

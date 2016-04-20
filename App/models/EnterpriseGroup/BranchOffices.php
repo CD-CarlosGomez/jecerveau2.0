@@ -5,7 +5,7 @@
 // | @Version 1.0
 // +-----------------------------------------------
 // +---------------------------Comentarios de versión
-namespace App\Models;
+namespace App\Models\EnterpriseGroup;
 defined("APPPATH") OR die("Access denied");
 
 use \Core\Database;
@@ -100,12 +100,42 @@ class BranchOffices implements iCrud{
 			print "Error!: " . $e->getMessage();
 		}
     }
-	public static function selectKanbanBO($pkiBUser){
+	public static function selectKanbanBO(){
 		try{
 			$PDOcnn=Database::instance();
 			$PDOQuery=
 			"
 			SELECT * FROM `v_kanbanbo`;
+			";
+		
+			$resultSet=$PDOcnn->query($PDOQuery);
+			return $resultSet;
+		}
+		catch(\PDOException $e){
+			print "Error!: " . $e->getMessage();
+		}
+	}
+	public static function SelectKanbanCompanyNumber($pk){
+		try{
+			$PDOcnn=Database::instance();
+			$PDOQuery=
+			"
+			SELECT * FROM `v_kanbanbo`  WHERE pkcompany=$pk;
+			";
+		
+			$resultSet=$PDOcnn->query($PDOQuery);
+			return $resultSet;
+		}
+		catch(\PDOException $e){
+			print "Error!: " . $e->getMessage();
+		}
+	}
+		public static function SelectKanbanSubcompanyNumber($pk){
+		try{
+			$PDOcnn=Database::instance();
+			$PDOQuery=
+			"
+			SELECT * FROM `v_kanbanbo` WHERE pkSubCompany=$pk;
 			";
 		
 			$resultSet=$PDOcnn->query($PDOQuery);

@@ -5,7 +5,7 @@
 // | @Version 1.0
 // +-----------------------------------------------
 // +---------------------------Comentarios de versión
-namespace App\Models\enterpriseGroup;
+namespace App\Models\EnterpriseGroup;
 defined("APPPATH") OR die("Access denied");
 
 use \Core\Database;
@@ -70,12 +70,27 @@ class Subcompanies implements iCrud{
 			print "Error!: " . $e->getMessage();
 		}
     }
-	public static function selectKanbanSubcompany($pkiBUser){
+	public static function selectKanbanSubcompany(){
 		try{
 			$PDOcnn=Database::instance();
 			$PDOQuery=
 			"
 			SELECT * FROM `v_kanbansubcompany`
+			";
+		
+			$resultSet=$PDOcnn->query($PDOQuery);
+			return $resultSet;
+		}
+		catch(\PDOException $e){
+			print "Error!: " . $e->getMessage();
+		}
+	}
+	public static function SelectKanbanCompanyNumber($pk){
+		try{
+			$PDOcnn=Database::instance();
+			$PDOQuery=
+			"
+			SELECT * FROM `v_kanbansubcompany` WHERE pkcompany=$pk;
 			";
 		
 			$resultSet=$PDOcnn->query($PDOQuery);

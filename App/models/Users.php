@@ -115,6 +115,51 @@ class Users implements iCrud{
 			print "Error!: " . $e->getMessage();
 		}
 	}
+	public static function SelectKanbanCompanyNumber($pk){
+		try{
+			$PDOcnn=Database::instance();
+			$PDOQuery=
+			"
+			SELECT * FROM `v_kanbanuser`  WHERE pkcompany=$pk;
+			";
+		
+			$resultSet=$PDOcnn->query($PDOQuery);
+			return $resultSet;
+		}
+		catch(\PDOException $e){
+			print "Error!: " . $e->getMessage();
+		}
+	}
+	public static function SelectKanbanSubcompanyNumber($pk){
+		try{
+			$PDOcnn=Database::instance();
+			$PDOQuery=
+			"
+			SELECT * FROM `v_kanbanuser`  WHERE pkSubCompany=$pk;
+			";
+		
+			$resultSet=$PDOcnn->query($PDOQuery);
+			return $resultSet;
+		}
+		catch(\PDOException $e){
+			print "Error!: " . $e->getMessage();
+		}
+	}
+	public static function SelectKanbanBONumber($pk){
+		try{
+			$PDOcnn=Database::instance();
+			$PDOQuery=
+			"
+			SELECT * FROM `v_kanbanuser`  WHERE pkBranchOffice=$pk;
+			";
+		
+			$resultSet=$PDOcnn->query($PDOQuery);
+			return $resultSet;
+		}
+		catch(\PDOException $e){
+			print "Error!: " . $e->getMessage();
+		}
+	}
     public static function insertData($data){
 		try {
             $connection = Database::instance();

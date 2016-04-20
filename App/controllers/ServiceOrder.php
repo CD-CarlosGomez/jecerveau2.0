@@ -79,6 +79,7 @@ private $_sesionMenu;
 	}
 	public function addSO(){
 		#Objetos_e_Instancias;
+		$cu=new CU();
 		$cm=New CM();
 		#get_main_variables
 		$url= Globales::$absoluteURL;
@@ -86,7 +87,7 @@ private $_sesionMenu;
 		View::set("url", $url);
 		View::set("title", "iBrain>Nueva Orden");
 		#get_data_variables
-		$currentMainMenu=CU::getMainMenu2($this->_sesionpkiBUser);
+		$currentMainMenu=$cu->getMainMenu2($this->_sesionpkiBUser);
 		$ResultSet=$cm->getAll();
 		while ($row =$ResultSet->fetch( \PDO::FETCH_ASSOC)){
 			$dataset[] = $row;

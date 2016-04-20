@@ -13,9 +13,10 @@ defined("APPPATH") OR die("Access denied");
 use \Core\View;
 use \Core\Controller;
 use \App\Config\Globales as Globales;
-use \App\Models\Companies as MA;
-use \App\Models\enterpriseGroup\Subcompanies as SC;
-use \App\Models\BranchOffices as BO;
+use \App\Models\EnterpriseGroup\Companies as MA;
+use \App\Models\EnterpriseGroup\Subcompanies as SC;
+use \App\Models\EnterpriseGroup\BranchOffices as BO;
+use \App\Models\Users as Us;
 use \App\Models\CurrentUser as CU;
 use \App\data\DataGridView as DGB;
 
@@ -78,6 +79,66 @@ private $_sesionpkiBUser;
 		#Render
 		View::render("showCompany");        
 	}
+	public function showSubcompanyCompany($pk){
+		#Objetos e instancias
+		$cu=CU::getInstance();
+		#get main variables
+		$directoryPath= Globales::$absoluteURL;
+		#set main variables
+		View::set("title", "Subcompanies");
+		View::set("url", $directoryPath);
+		#get data variables
+		$currentMainMenu=$cu->getMainMenu2($this->_sesionpkiBUser);
+		$dsSlcCompany=SC::getpknaSelect();
+		$dsKanBanCompanies=SC::SelectKanbanCompanyNumber($pk);
+		while ($row =$dsKanBanCompanies->fetch(\PDO::FETCH_BOTH)){
+			$dt_Company[] = $row;
+		}
+		#set data variables
+		View::set("currentMainMenu", $currentMainMenu);
+		View::set("drows_Company",$dsSlcCompany);
+		View::set("dt_Company",$dt_Company);
+		#Render
+		View::render("showSubcompanyCompany");        
+	}
+	public function showBranchOfficeCompany($pk) {
+		#Objetos e instancias
+		$cu=New CU();
+		#get main variables
+		$url= Globales::$absoluteURL;
+		#set main variables
+		View::set("url", $url);
+		View::set("title", "AASP");
+		#get data variables
+		$dsGrid=BO::SelectKanbanCompanyNumber($pk);
+		$currentMainMenu=$cu->getMainMenu2($this->_sesionpkiBUser);
+		while ($row =$dsGrid->fetch( \PDO::FETCH_ASSOC )){
+			$dt_Company[] = $row;
+		}
+		#set data variables
+		View::set("currentMainMenu", $currentMainMenu);
+		View::set("dt_Company",$dt_Company);
+		#render
+		View::render("showBranchOfficeCompany");
+	}
+	public function showUserCompany($pk){
+	#Objetos_e_instancias
+		$cu=new CU();
+	#get main Variables
+		$url= Globales::$absoluteURL;
+		$currentMainMenu=$cu->getMainMenu2($this->_sesionpkiBUser);
+	#set main variables
+		View::set("url", $url);
+		View::set("currentMainMenu", $currentMainMenu);	
+	#get data variables
+		$dsCompanyGrid=Us::SelectKanbanCompanyNumber($pk);
+		while ($row =$dsCompanyGrid->fetch( \PDO::FETCH_ASSOC )){$dt_Company[] = $row;}
+	#set data variables
+		View::set("dt_Company",$dt_Company);
+        View::set("title", "Grupo Empresarial");
+	#Renderizar
+		View::render("showUserCompany");	
+	}
 	public function showSubcompany(){
 		#Objetos e instancias
 		$cu=CU::getInstance();
@@ -90,8 +151,8 @@ private $_sesionpkiBUser;
 		#get data variables
 		$currentMainMenu=$cu->getMainMenu2($this->_sesionpkiBUser);
 		$dsSlcCompany=SC::getpknaSelect();
-		$dsKanBanCompanies=SC::selectKanbanSubcompany($this->_sesionpkiBUser);
-		while ($row =$dsKanBanCompanies->fetch(\PDO::FETCH_ASSOC)){
+		$dsKanBanCompanies=SC::selectKanbanSubcompany();
+		while ($row =$dsKanBanCompanies->fetch(\PDO::FETCH_BOTH)){
 			$dt_Company[] = $row;
 		}
 		#set data variables
@@ -101,10 +162,47 @@ private $_sesionpkiBUser;
 		#Render
 		View::render("showSubcompany");        
 	}
-	public function showBranchOffice() {
-	
+	public function showBranchOfficeSubcompany($pk) {
 		#Objetos e instancias
-		
+		$cu=New CU();
+		#get main variables
+		$url= Globales::$absoluteURL;
+		#set main variables
+		View::set("url", $url);
+		View::set("title", "AASP");
+		#get data variables
+		$dsGrid=BO::SelectKanbanSubcompanyNumber($pk);
+		$currentMainMenu=$cu->getMainMenu2($this->_sesionpkiBUser);
+		while ($row =$dsGrid->fetch( \PDO::FETCH_BOTH )){
+			$dt_Company[] = $row;
+		}
+		#set data variables
+		View::set("currentMainMenu", $currentMainMenu);
+		View::set("dt_Company",$dt_Company);
+		#render
+		View::render("showBranchOfficeSubcompany");
+	}
+	public function showUserSubcompany($pk){
+	#Objetos_e_instancias
+		$cu=new CU();
+	#get main Variables
+		$url= Globales::$absoluteURL;
+		$currentMainMenu=$cu->getMainMenu2($this->_sesionpkiBUser);
+	#set main variables
+		View::set("url", $url);
+		View::set("currentMainMenu", $currentMainMenu);	
+	#get data variables
+		$dsCompanyGrid=Us::SelectKanbanSubcompanyNumber($pk);
+		while ($row =$dsCompanyGrid->fetch( \PDO::FETCH_ASSOC )){$dt_Company[] = $row;}
+	#set data variables
+		View::set("dt_Company",$dt_Company);
+        View::set("title", "Grupo Empresarial");
+	#Renderizar
+		View::render("showUserSubcompany");	
+	}
+	public function showBranchOffice() {
+		#Objetos e instancias
+		$cu=New CU();
 		#get main variables
 		$url= Globales::$absoluteURL;
 		
@@ -112,9 +210,9 @@ private $_sesionpkiBUser;
 		View::set("url", $url);
 		View::set("title", "AASP");
 		#get data variables
-		$dsGrid=BO::selectKanbanBO($this->_sesionpkiBUser);
-		$currentMainMenu=CU::getMainMenu2($this->_sesionpkiBUser);
-		while ($row =$dsGrid->fetch( \PDO::FETCH_ASSOC )){
+		$dsGrid=BO::selectKanbanBO();
+		$currentMainMenu=$cu->getMainMenu2($this->_sesionpkiBUser);
+		while ($row =$dsGrid->fetch( \PDO::FETCH_BOTH )){
 			$dt_Company[] = $row;
 		}
 		#set data variables
@@ -122,6 +220,24 @@ private $_sesionpkiBUser;
 		View::set("dt_Company",$dt_Company);
 		#render
 		View::render("showBO");
+	}
+	public function showUserBranchOffice($pk){
+	#Objetos_e_instancias
+		$cu=new CU();
+	#get main Variables
+		$url= Globales::$absoluteURL;
+		$currentMainMenu=$cu->getMainMenu2($this->_sesionpkiBUser);
+	#set main variables
+		View::set("url", $url);
+		View::set("currentMainMenu", $currentMainMenu);	
+	#get data variables
+		$dsCompanyGrid=Us::SelectKanbanBONumber($pk);
+		while ($row =$dsCompanyGrid->fetch( \PDO::FETCH_ASSOC )){$dt_Company[] = $row;}
+	#set data variables
+		View::set("dt_Company",$dt_Company);
+        View::set("title", "Grupo Empresarial");
+	#Renderizar
+		View::render("showUserBranchOffice");	
 	}
 	public function addEnterpriseGroup(){
 		#Objetos e instancias

@@ -56,9 +56,11 @@ private $_sesionpkiBUser;
 		//View::render("z_testPost");
 	}
 	public function showUser(){
+	#Objetos_e_instancias
+		$cu=new CU();
 	#get main Variables
 		$url= Globales::$absoluteURL;
-		$currentMainMenu=CU::getMainMenu2($this->_sesionpkiBUser);
+		$currentMainMenu=$cu->getMainMenu2($this->_sesionpkiBUser);
 	#set main variables
 		View::set("url", $url);
 		View::set("currentMainMenu", $currentMainMenu);	
@@ -70,10 +72,6 @@ private $_sesionpkiBUser;
         View::set("title", "Grupo Empresarial");
 	#Renderizar
 		View::render("showUser");	
-		
-		
-
-        
 	}
 	public function showProfile(){		
 		#get main variables
