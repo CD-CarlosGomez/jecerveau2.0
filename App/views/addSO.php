@@ -315,7 +315,7 @@ use \Core\Controller;
 														</div>
 													</div>
 													<div class="form-group">
-														<label class="col-lg-4 control-label">Detalle T&eacute;cnico:</label>
+														<label class="col-lg-4 control-label">Notas:</label>
 														<div class="col-lg-8">
 															<textarea id="tta_contactObs_h" class="form-control required" data-provide="markdown" rows="5" name="tta_contactObs_h"></textarea>
 														</div>

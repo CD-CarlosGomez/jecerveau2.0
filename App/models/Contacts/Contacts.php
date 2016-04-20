@@ -5,7 +5,7 @@
 // | @Version 1.0
 // +-----------------------------------------------
 // +---------------------------Comentarios de versión
-namespace App\Models;
+namespace App\Models\Contacts;
 defined("APPPATH") OR die("Access denied");
 
 use \Core\Database;
@@ -132,14 +132,17 @@ class Contacts implements iCrud{
             $connection = Database::instance();
             $sql = "INSERT INTO $data VALUES (?,?,?,?,?,?,?,?,?,?,?);";
             $query = $connection->prepare($sql);
-            $query->bindParam(1, self::$_pkCompany_p, \PDO::PARAM_INT);
-			$query->bindParam(2, self::$_legalName_p, \PDO::PARAM_STR);
-			$query->bindParam(3, self::$_commercialName_p, \PDO::PARAM_STR);
-			$query->bindParam(4, self::$_active_p, \PDO::PARAM_STR);
-			$query->bindParam(5, self::$_created_p, \PDO::PARAM_STR);
-			$query->bindParam(6, self::$_createdBy_p, \PDO::PARAM_STR);
-			$query->bindParam(7, self::$_modified_p, \PDO::PARAM_STR);
-			$query->bindParam(8, self::$_modifiedBy_p, \PDO::PARAM_STR);
+            $query->bindParam(1, self::$_pkCustomerContact_p, \PDO::PARAM_INT);
+			$query->bindParam(2, self::$_contactName_p, \PDO::PARAM_STR);
+			$query->bindParam(3, self::$_contactEmail_p, \PDO::PARAM_STR);
+			$query->bindParam(4, self::$_contactPhone_p, \PDO::PARAM_STR);
+			$query->bindParam(5, self::$_contactMovil_p, \PDO::PARAM_STR);
+			$query->bindParam(6, self::$_contactAddress_p, \PDO::PARAM_STR);
+			$query->bindParam(7, self::$_contactLocation_p, \PDO::PARAM_STR);
+			$query->bindParam(8, self::$_contactCounty_p, \PDO::PARAM_STR);
+			$query->bindParam(9, self::$_contactProvince_p, \PDO::PARAM_STR);
+			$query->bindParam(10, self::$_contactZipCode_p, \PDO::PARAM_STR);
+			$query->bindParam(11, self::$_contactObs_p, \PDO::PARAM_STR);
 			$query->execute();
             return true;
         }

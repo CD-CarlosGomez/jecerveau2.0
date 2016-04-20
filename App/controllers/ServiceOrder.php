@@ -15,6 +15,7 @@ use \App\Config\Globales as Globales;
 use \App\Models\BranchOffices as BO;
 use \App\Models\ServiceOrders\ServiceOrders as SO;
 use \App\Models\ServiceOrders\CollectMethods as CM;
+use \App\Models\Contacts\Contacts as Co;
 use \App\Models\CurrentUser as CU;
 
 	if (strlen(session_id()) < 1){session_start();}
@@ -118,26 +119,42 @@ private $_sesionMenu;
 		break;
  	}
 	function CreateSO(){
-		$so = new SO;
-		$pk = $so->getNextId("pkSOrder","sorder");
-		$number = $pk . "-" . "MX" . "-" . "Subcuenta" . "-" - "BO";
-		$BO = "0";
-		$so->setpkSorder($pk);
-		$so->setSONumber($number);
-		$so->setBranchOffice($BO);
-		$so->setSODate($_POST["txt_SODate_h"]);
-		$so->setfkCustomerContact("0");
-		$so->setfkCollectMethod($_POST["slt_fkCollectMethod_h"]);
-		$so->setfkOrderType("2");
-		$so->setSODeviceCondition($_POST["tta_SODeviceCondition_h"]);
-		$so->setSOTechDetail($_POST["tta_SOTechDetail_h"]);
+		$c=new Co();
+		$nextPKContact=$c->getNextId("pkCustomerContact","customercontact");
+		$c->setpkContact($nextPKContact);
+		$c->setContactName($_POST["txt_contactName_h"]);
+		$c->setContactEmail($_POST["txt_contactEmail_h"]);
+		$c->setContactPhone($_POST["txt_contactPhone_h"]);
+		$c->setContactMovil($_POST["txt_contactMovil_h"]);
+		$c->setContactAddress($_POST["txt_contactAddress_h"]);
+		$c->setContactLocation($_POST["txt_contactLocation_h"]);
+		$c->setContactCounty($_POST["txt_contactCounty_h"]);
+		$c->setContactProvince($_POST["txt_contactProvince_h"]);
+		$c->setContactZipCode($_POST["txt_contactZipCode_h"]);
+		$c->setContactObs($_POST["tta_contactObs_h"]);
 		
-		if ($so->insertData("sorder")){
-			echo "<script language='JavaScript'> 
-					alert(‘Se ha guardado la O de S.’); 
-                </script>";
-			//<script>function abrir() { open('pagina.html','','top=300,left=300,width=300,height=300') ; } </script> 
-		}	
+		if($c->insertData("customercontact")){
+			$so = new SO;
+			$pk = $so->getNextId("pkSOrder","sorder");
+			$number = $pk . "-" . "MX" . "-" . "Subcuenta" . "-" - "BO";
+			$BO = "0";
+			$so->setpkSorder($pk);
+			$so->setSONumber($number);
+			$so->setBranchOffice($BO);
+			$so->setSODate($_POST["txt_SODate_h"]);
+			$so->setfkCustomerContact("0");
+			$so->setfkCollectMethod($_POST["slt_fkCollectMethod_h"]);
+			$so->setfkOrderType("2");
+			$so->setSODeviceCondition($_POST["tta_SODeviceCondition_h"]);
+			$so->setSOTechDetail($_POST["tta_SOTechDetail_h"]);
+			
+			if ($so->insertData("sorder")){
+				echo "<script language='JavaScript'> 
+						alert(‘Se ha guardado la O de S.’); 
+					</script>";
+				//<script>function abrir() { open('pagina.html','','top=300,left=300,width=300,height=300') ; } </script> 
+			}	
+		}
 	}
 	
 ?>
