@@ -24,12 +24,12 @@ use \App\data\DataGridView as DGV;
 		$outputTableCompany=DGV::getInstance($dt_SO)
 		->setGridAttributes(array('class' => 'table table-striped table-bordered table-hover dataTables-example'))
 		->enableSorting(false)
-		->removeColumn('pkibSOrder')
+		->removeColumn('pkSOrder')
 		->setup(array(
-			'ibSOrderName' => array('header' => 'T&iacute;tulo de la orden'),
-			'ibSOrderDesc' => array('header' => 'Descripci&oacute;n de la orden'),
-			'ibSOrderGSX' => array('header' => 'GSX'),
-			'ibSOrderObs' => array('header' => 'Observaciones'),
+			'SONumber' => array('header' => 'N&uacute;mero de orden'),
+			'SODate' => array('header' => 'Descripci&oacute;n de la orden'),
+			//'ibSOrderGSX' => array('header' => 'GSX'),
+			//'ibSOrderObs' => array('header' => 'Observaciones'),
 			
 		))
 		/*->addColumnAfter('actions', 

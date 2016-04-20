@@ -39,9 +39,9 @@ use \App\data\DataGridView as DGV;
 			'totalBO' => array('header' => 'Sucursales','link'=>$url . 'private/EnterpriseGroup/showBranchOfficeCompany/','filterColumn'=>0),
 			'totalUsers' => array('header' => 'Usuarios','link'=>$url . 'private/EnterpriseGroup/showUserCompany/','filterColumn'=>0)
 		))
-		->addColumnAfter('actions', 
-									'<a href="'.$url.'private/EnterpriseGroup/showBranchOffice">Ver ASP\'s</a>',
-									'Actions', array('align' => 'center'))
+		//->addColumnAfter('actions', 
+			//						'<a href="'.$url.'private/EnterpriseGroup/showBranchOffice">Ver ASP\'s</a>',
+			//						'Actions', array('align' => 'center'))
 		//->addColumnBefore('counter', '%counter%.', 'Counter', array('align' => 'right'))
 		//->setStartingCounter(1)
 		//->setRowClass('')
@@ -94,13 +94,13 @@ use \App\data\DataGridView as DGV;
 			</div>
 			<div class="row wrapper border-bottom white-bg page-heading">
 				<div class="col-sm-4">
-					<h2>Grupo Empresarial</h2>
+					<h2>Compa&ntilde;&iacute;a</h2>
 					<ol class="breadcrumb">
 						<li>
 							<a href="<?php echo $url; ?>private/home">Inicio</a>
 						</li>
 						<li class="active">
-							<strong>Cuentas maestras</strong>
+							<strong>Compa&ntilde;&iacute;a</strong>
 						</li>
 					</ol>
 				</div>
