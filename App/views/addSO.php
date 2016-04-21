@@ -212,7 +212,15 @@ use \Core\Controller;
 														</div>
 													</div>
 													<div class="form-group">
-														<label class="col-md-4 control-label">Accesorios:</label><br/>
+														<label class="col-md-4 control-label">Accesorios:</label>
+														<div class="col-md-8">
+															<div class="pull-right">
+																<button type="button" id="btn_newAccessory_h" class="btn btn-primary btn-md btn-block" value="" name="btn_newAccessory_h">Nuevo Accesorio</button>
+															</div>
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="col-md-4 control-label">&nbsp;</label>
 														<div class="col-md-8">
 															<table class="table table-striped table-bordered table-hover">
 																<tr>
