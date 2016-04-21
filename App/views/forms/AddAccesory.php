@@ -41,32 +41,31 @@
 								</div>
 								<div class="ibox-content" >
 									<fieldset>
-												<form id="formUser" class="form-horizontal" action="http://192.168.1.47:8012/ibrain2.0/private/User" method="POST" role="form">
+												<form id="formUser" class="form-horizontal" action="http://192.168.1.47:8012/ibrain2.0/private/ServiceOrder" method="POST" role="form">
 													<div class="col-lg-6">
 														<div class="form-group">&nbsp;</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">Descripci&oacute;n:*</label>
 															<div class="col-lg-8">
-																<input id="txt_userName_h" class="form-control required" name="txt_userName_h" type="text">
-																<input id="" name="hdn_toDo_h" class="" value="AddUser" type="hidden">
+																<input id="txt_AccessoryDesc_h" class="form-control required" name="txt_AccessoryDesc_h" type="text">
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">Marca:*</label>
 															<div class="col-lg-8">
-																<input id="txt_realName_h" class="form-control required" name="txt_realName_h" type="text">
+																<input id="txt_AccessoryBrand_h" class="form-control" name="_realName_h" type="text">
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">Modelo:*</label>
 															<div class="col-md-8">
-																<input id="txt_email_h" class="form-control required" name="txt_email_h" type="text">
+																<input id="txt_AccessoryModel_h" class="form-control required" name="txt_email_h" type="text">
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">N&uacute;mero de parte:*</label>
 															<div class="col-md-8">
-																<input id="txt_password_h" class="form-control required" name="txt_password_h" type="text">
+																<input id="txt_passord_h" class="form-control required" name="txt_password_h" type="text">
 															</div>
 														</div>
 														<div class="form-group">
@@ -77,15 +76,13 @@
 														</div>
 														<div class="col-md-4 pull-right">
 															<div class="form-group">
-																<button type="submit" id="" class="btn btn-primary btn-md btn-block" name="btn-AddBO">Agregar usuario</button>
+																<button type="submit" id="btn_addAccessory_h" class="btn btn-primary btn-md btn-block" value="addAccessory" name="btn_addAccessory_h">Guardar</button>
 															</div>
 														</div>
 													</div>
 													<div class="col-md-6">
 														<div class="form-group">&nbsp;</div>
-													</div>
-													<div class="form-group">&nbsp;</div>
-													
+													</div>													
 											</form>
 										</fieldset>
 									
@@ -93,69 +90,6 @@
 							</div>
                         </div>
                     </div>
-					<div class="row">
-						<div class="col-lg-12">
-							<div class="ibox float-e-margins">
-								<div class="ibox-title">
-									<h5>Titulo del ibox </h5>
-									<div class="ibox-tools">
-										<a class="collapse-link">
-											<i class="fa fa-chevron-up"></i>
-										</a>
-										<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-											<i class="fa fa-wrench"></i>
-										</a>
-										<ul class="dropdown-menu dropdown-user">
-											<li><a href="#">Config option 1</a>
-											</li>
-											<li><a href="#">Config option 2</a>
-											</li>
-										</ul>
-										<a class="close-link">
-											<i class="fa fa-times"></i>
-										</a>
-									</div>
-								</div>
-								<div class="ibox-content">
-									Texto
-								</div>
-							</div>
-                        </div>
-					</div>
-					<div class="row">
-						<div class="col-lg-12">
-							<div class="ibox float-e-margins">
-								<div class="ibox-title">
-									<h5>Titulo del ibox </h5>
-									<div class="ibox-tools">
-										<a class="collapse-link">
-											<i class="fa fa-chevron-up"></i>
-										</a>
-										<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-											<i class="fa fa-wrench"></i>
-										</a>
-										<ul class="dropdown-menu dropdown-user">
-											<li><a href="#">Config option 1</a>
-											</li>
-											<li><a href="#">Config option 2</a>
-											</li>
-										</ul>
-										<a class="close-link">
-											<i class="fa fa-times"></i>
-										</a>
-									</div>
-								</div>
-								<div class="ibox-content">
-									Texto
-								</div>
-							</div>
-                        </div>
-					</div>
-				</div>
-			</div>
-			<div class="footer">
-				<div>
-					<strong>Copyright</strong> Example Company &copy; 2014-2015
 				</div>
 			</div>
 		</div>
