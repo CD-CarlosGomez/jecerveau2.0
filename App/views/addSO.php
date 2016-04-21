@@ -390,6 +390,14 @@ use \Core\Controller;
                             }
                         }
 			});
+			
+			$("#btn_newAccessory_h").on(
+			'click',function(){
+				window.open("<?php echo $url; ?>App/views/forms/AddAccesory.php", "_blank", "toolbar=yes,scrollbars=no,resizable=yes,top=500,left=500,width=400,height=400");
+			}
+		);
+			
+			
 			//$("#wizard").steps();
             /*$("#form").steps({
                 bodyTag: "fieldset",
