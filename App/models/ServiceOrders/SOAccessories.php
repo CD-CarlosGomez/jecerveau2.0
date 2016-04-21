@@ -6,7 +6,7 @@ use \Core\Database;
 use \App\Interfaces\iCrud;
 
 class SOAccessories implements iCrud{
-	private static $_SOAccessories=Null;
+	private static $_pkSOAccessories=Null;
 	private static $_fkSorder=Null;
 	private static $_SOAccessoryDesc=Null;
 	private static $_SOAccessoryBrand=Null;
@@ -15,42 +15,45 @@ class SOAccessories implements iCrud{
 	private static $_SOAccessorySerialNumber=Null;
 //PROPIEDADES########################################
 	public static function getPKSOAccessories(){
-		return $this->_SOAccessories;
+		return self::$_pkSOAccessories;
 	}
 	public static function setPKSOAccessories($value){
-		$this->_SOAccessories=$value;
+		self::$_pkSOAccessories=$value;
 	}
 	public static function getFKSorder(){
-		return $this->_fkSorder;
+		return self::$_fkSorder;
 	}
 	public static function setFKSorder($value){
-		$this->_fkSorder=$value;
+		self::$_fkSorder=$value;
 	}
 	public static function setAccessoryDesc($valor){
-		$this->_SOAccessoryDesc=$valor;
+		self::$_SOAccessoryDesc=$valor;
 	}
 	public static function getAccessoryDesc()	{
-		return $this->_SOAccessoryDesc;
+		return self::$_SOAccessoryDesc;
 	}
-	public static function setCreatedBy($valor){
-		$this->_CreatedBy=$valor;
+	public static function setAccessoryBrand($valor){
+		self::$_SOAccessoryBrand=$valor;
 	}
-	public static function getCreatedBy(){
-		return $this->_CreatedBy;}
-	public static function setModified($valor){
-		$this->_Modified=$valor;}
-	public static function getModified(){
-		return $this->_Modified;
+	public static function getAccessoryBrand(){
+		return self::$_SOAccessoryBrand;
 	}
-	public static function setModifiedBy($valor){
-		$this->_ModifiedBy=$valor;
+	public static function setAccessoryModel($valor){
+		self::$_SOAccessoryModel=$valor;
 	}
-	public static function getModifiedBy(){
-		return $this->_ModifiedBy;
+	public static function getAccessoryModel(){
+		return self::$_SOAccessoryModel;
+	}
+	public static function setAccessoryPartNumber($valor){
+		self::$_SOAccessoryPartNumber=$valor;
+	}
+	public static function getAccessorySerialNumber(){
+		return self::$_SOAccessorySerialNumber;
 	}
 //MÉTODOS ABSTRACTOS#################################
 //CONSTRUCTORES Y DESTRUCTORES#######################
 	public function __construct(){
+	
 	}
 //MÉTODOS MÁGICOS####################################
 //MÉTODOS PÚBLICOS###################################
@@ -98,41 +101,23 @@ class SOAccessories implements iCrud{
     		echo 'Incidencia al generar nuevo código ',  $e->getMessage(), ".\n";
 		}
 	}
-	public static function insertData($user){
+	public static function insertData($table){
 		try {
             $connection = Database::instance();
-            $sql = "INSERT INTO collectMethod () VALUES (?,?,?,?,?,?)";
+            $sql = "INSERT INTO $table VALUES (?,?,?,?,?,?,?)";
             $query = $connection->prepare($sql);
-            $query->bindParam(1, $this->_pkibuser, \PDO::PARAM_INT);
-			$query->bindParam(2, $this->_username, \PDO::PARAM_STR);
-			$query->bindParam(3, $this->_pwd, \PDO::PARAM_STR);
-			$query->bindParam(4, $this->_active, \PDO::PARAM_STR);
-            $query->execute();
-            return $query->fetch();
-        }
-        catch(\PDOException $e){
-            print "Error!: " . $e->getMessage();
-        }
-    }
-	public static function insertIbSO189A1($a,$b,$c,$d,$e){
-		try {
-            $connection = Database::instance();
-            $sql = "INSERT INTO sorder (
-															pkibSOrder,
-															ibSOrderName,
-															ibSOrderDesc,
-															ibSOrderGSX,
-															ibSOrderObs
-														) 
-						VALUES (?,?,?,?,?)";
-            $query = $connection->prepare($sql);
-            $query->bindParam(1, $a, \PDO::PARAM_INT);
-			$query->bindParam(2, $b, \PDO::PARAM_STR);
-			$query->bindParam(3, $c, \PDO::PARAM_STR);
-			$query->bindParam(4, $d, \PDO::PARAM_STR);
-			$query->bindParam(5, $e, \PDO::PARAM_STR);
-            $query->execute();
-            return $query->fetch();
+            $query->bindParam(1, self::$_pkSOAccessories, \PDO::PARAM_INT);
+			$query->bindParam(2, self::$_fkSorder, \PDO::PARAM_INT);
+			$query->bindParam(3, self::$_SOAccessoryDesc, \PDO::PARAM_STR);
+			$query->bindParam(4, self::$_SOAccessoryBrand, \PDO::PARAM_STR);
+			$query->bindParam(5, self::$_SOAccessoryModel, \PDO::PARAM_STR);
+			$query->bindParam(6, self::$_SOAccessoryPartNumber, \PDO::PARAM_STR);
+			$query->bindParam(7, self::$_SOAccessorySerialNumber, \PDO::PARAM_STR);
+			$resultSet=$query->execute();
+			
+			return $resultSet;//Retornará True o false, dependiendo si se ejecuta la sentencia.
+		
+           
         }
         catch(\PDOException $e){
             print "Error!: " . $e->getMessage();
@@ -143,9 +128,9 @@ class SOAccessories implements iCrud{
             $connection = Database::instance();
             $sql = "UPDATE ibuser SET pkibuser=?,username=?,pwd=? WHERE pkibuser=?";
             $query = $connection->prepare($sql);
-            $query->bindParam(1, $this->_pkibuser, \PDO::PARAM_INT);
-			$query->bindParam(2, $this->_username, \PDO::PARAM_STR);
-			$query->bindParam(3, $this->_pwd, \PDO::PARAM_STR);
+            $query->bindParam(1, self::$_pkibuser, \PDO::PARAM_INT);
+			$query->bindParam(2, self::$_username, \PDO::PARAM_STR);
+			$query->bindParam(3, self::$_pwd, \PDO::PARAM_STR);
 			$query->bindParam(4, $id, \PDO::PARAM_INT);
             $query->execute();
             return $query->fetch();
