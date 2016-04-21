@@ -16,6 +16,7 @@ use \App\Models\EnterpriseGroup\BranchOffices as BO;
 use \App\Models\ServiceOrders\ServiceOrders as SO;
 use \App\Models\ServiceOrders\CollectMethods as CM;
 use \App\Models\ServiceOrders\SorderTypes as SOT;
+use \App\Models\ServiceOrders\SOAccessories as SOA;
 use \App\Models\Contacts\Contacts as Co;
 use \App\Models\CurrentUser as CU;
 
@@ -39,9 +40,9 @@ use \App\Models\CurrentUser as CU;
 class ServiceOrder extends Controller{
 //CONSTANTES#########################################
 //ATRIBUTOS##########################################
-private $_sesionUsuario;
-private $_sesionpkiBUser;
-private $_sesionMenu;
+	private $_sesionUsuario;
+	private $_sesionpkiBUser;
+	private $_sesionMenu;
 //PROPIEDADES########################################
 //MÉTODOS ABSTRACTOS#################################
 //MÉTODOS PÚBLICOS###################################
@@ -116,8 +117,8 @@ private $_sesionMenu;
 		case "AddSO":
 			CreateSO();
 		break;
-		case "AddBO":
-			CreateBO();
+		case "addAccessory":
+			CreateAccessory();
 		break;
 		case "AddUser":
 			CreateUser();
@@ -177,5 +178,17 @@ private $_sesionMenu;
 			}
 		}
 	}
-	
+	function CreateAccessory(){
+		$soa=new SOA();
+		$nextId=$soa->getNextId("pkSOAccessories","soaccessory");
+		$soa->setPKSOAccessories($nextId);
+		$soa->setFKSorder(1);
+		$soa->setAccessoryDesc($_POST["txt_AccessoryDesc_h"]);
+		$soa->setAccessoryBrand($_POST["txt_AccessoryBrand_h"]);
+		$soa->setAccessoryModel($_POST["txt_AccessoryModel_h"]);
+		$soa->setAccessoryPartNumber($_POST["txt_AccessoryPN_h"]);
+		$soa->setAccessorySerialNumber($_POST["txt_AccessorySN_h"]);
+		
+		$soa->insertData("soaccessory");
+	}
 ?>

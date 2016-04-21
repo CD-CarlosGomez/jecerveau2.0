@@ -76,7 +76,7 @@
 														</div>
 														<div class="col-md-6 pull-right">
 															<div class="form-group">
-																<button type="submit" id="btn_addAccessory_h" class="btn btn-primary btn-md btn-block" value="addAccessory" name="btn_addAccessory_h">Guardar</button>
+																<button type="submit" id="btn_command_h" class="btn btn-primary btn-md btn-block" value="addAccessory" name="btn_command_h">Guardar</button>
 															</div>
 														</div>
 													</div>												

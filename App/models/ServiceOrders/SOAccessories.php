@@ -47,9 +47,16 @@ class SOAccessories implements iCrud{
 	public static function setAccessoryPartNumber($valor){
 		self::$_SOAccessoryPartNumber=$valor;
 	}
+	public static function getAccessoryPartNumber(){
+		return self::$_SOAccessoryPartNumber;
+	}
+	public static function setAccessorySerialNumber($valor){
+		self::$_SOAccessorySerialNumber=$valor;
+	}
 	public static function getAccessorySerialNumber(){
 		return self::$_SOAccessorySerialNumber;
 	}
+	
 //MÉTODOS ABSTRACTOS#################################
 //CONSTRUCTORES Y DESTRUCTORES#######################
 	public function __construct(){
