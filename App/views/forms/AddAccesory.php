@@ -17,7 +17,7 @@
 			<div class="wrapper wrapper-content">
 				<div class="container">
                     <div class="row">
-						<div class="col-lg-12">
+						<div class="col-md-6">
 							<div class="ibox float-e-margins">
 								<div class="ibox-title">
 									<h5>Titulo del ibox </h5>
@@ -41,8 +41,8 @@
 								</div>
 								<div class="ibox-content" >
 									<fieldset>
-												<form id="formUser" class="form-horizontal" action="http://192.168.1.47:8012/ibrain2.0/private/ServiceOrder" method="POST" role="form">
-													<div class="col-lg-6">
+											<form id="formUser" class="form-horizontal" action="http://192.168.1.47:8012/ibrain2.0/private/ServiceOrder" method="POST" role="form">
+													<div class="">
 														<div class="form-group">&nbsp;</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">Descripci&oacute;n:*</label>
@@ -53,38 +53,35 @@
 														<div class="form-group">
 															<label class="col-md-4 control-label">Marca:*</label>
 															<div class="col-lg-8">
-																<input id="txt_AccessoryBrand_h" class="form-control" name="_realName_h" type="text">
+																<input id="txt_AccessoryBrand_h" class="form-control" name="txt_AccessoryBrand_h" type="text">
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">Modelo:*</label>
 															<div class="col-md-8">
-																<input id="txt_AccessoryModel_h" class="form-control required" name="txt_email_h" type="text">
+																<input id="txt_AccessoryModel_h" class="form-control required" name="txt_AccessoryModel_h" type="text">
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">N&uacute;mero de parte:*</label>
 															<div class="col-md-8">
-																<input id="txt_passord_h" class="form-control required" name="txt_password_h" type="text">
+																<input id="txt_AccessoryPN_h" class="form-control required" name="txt_AccessoryPN_h" type="text">
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">N&uacute;mero de serie:*</label>
 															<div class="col-md-8">
-																<input id="txt_fkiUserPRofile_h" class="form-control required" name="txt_fkiUserPRofile_h" type="text">
+																<input id="txt_AccessorySN_h" class="form-control required" name="txt_AccessorySN_h" type="text">
 															</div>
 														</div>
-														<div class="col-md-4 pull-right">
+														<div class="col-md-6 pull-right">
 															<div class="form-group">
 																<button type="submit" id="btn_addAccessory_h" class="btn btn-primary btn-md btn-block" value="addAccessory" name="btn_addAccessory_h">Guardar</button>
 															</div>
 														</div>
-													</div>
-													<div class="col-md-6">
-														<div class="form-group">&nbsp;</div>
-													</div>													
+													</div>												
 											</form>
-										</fieldset>
+									</fieldset>
 									
 								</div>
 							</div>

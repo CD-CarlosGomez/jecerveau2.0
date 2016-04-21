@@ -56,9 +56,9 @@ private $_sesionMenu;
     public function index(){
 	//$layout=new WithSiteMap(new WithTemplate(new WithMenu(new LayoutCSS())));
 	//$layout= Layouts::render();
-		self::showSO();
-		//View::set("foo",true);
-		//View::render("z_testPost");
+		//self::showSO();
+		View::set("foo",true);
+		View::render("z_testPost");
 	}
 	public function showSO(){
 		#get_main_variables
