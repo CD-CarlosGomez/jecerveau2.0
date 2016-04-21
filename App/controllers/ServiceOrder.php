@@ -163,7 +163,7 @@ private $_sesionMenu;
 			$so->setSONumber($sonumber);
 			$so->setBranchOffice($BO);
 			$so->setSODate(date("Y-m-d H-m-s"));
-			$so->setfkCustomerContact("0");
+			$so->setfkCustomerContact($nextPKContact);
 			$so->setfkCollectMethod($_POST["slt_fkCollectMethod_h"]);
 			$so->setfkOrderType("2");
 			$so->setSODeviceCondition($_POST["tta_SODeviceCondition_h"]);
@@ -171,7 +171,7 @@ private $_sesionMenu;
 			
 			if ($so->insertData("sorder")){
 				echo "<script language='JavaScript'> 
-						alert(‘Se ha guardado la O de S.’); 
+						 window.open(\"http://www.w3schools.com\", \"_blank\", \"toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400\");
 					</script>";
 				//<script>function abrir() { open('pagina.html','','top=300,left=300,width=300,height=300') ; } </script> 
 			}
