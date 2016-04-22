@@ -5,7 +5,7 @@ defined("APPPATH") OR die("Access denied");
 use \Core\Database;
 use \App\Interfaces\iCrud;
 
-class SorderTypes implements iCrud{
+class SoTypes implements iCrud{
 	private $_pkSOrderType=Null;
 	private $_SOrderName=Null;
 	private $_Created=Null;
@@ -56,7 +56,7 @@ class SorderTypes implements iCrud{
 	public static function getAll(){
         try {
 			$PDOcnn = Database::instance();
-			$PDOQuery = "SELECT * FROM `sordertype`;";
+			$PDOQuery = "SELECT * FROM `sotype`;";
 			$PDOResultSet = $PDOcnn->query($PDOQuery);
 			return $PDOResultSet;
 		}

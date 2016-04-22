@@ -15,7 +15,7 @@ use \App\Config\Globales as Globales;
 use \App\Models\EnterpriseGroup\BranchOffices as BO;
 use \App\Models\ServiceOrders\ServiceOrders as SO;
 use \App\Models\ServiceOrders\CollectMethods as CM;
-use \App\Models\ServiceOrders\SorderTypes as SOT;
+use \App\Models\ServiceOrders\SoTypes as SOT;
 use \App\Models\ServiceOrders\SOAccessories as SOA;
 use \App\Models\Contacts\Contacts as Co;
 use \App\Models\CurrentUser as CU;
@@ -189,6 +189,6 @@ class ServiceOrder extends Controller{
 		$soa->setAccessoryPartNumber($_POST["txt_AccessoryPN_h"]);
 		$soa->setAccessorySerialNumber($_POST["txt_AccessorySN_h"]);
 		
-		$soa->insertData("soaccessory");
+		//$soa->insertData("soaccessory");
 	}
 ?>
