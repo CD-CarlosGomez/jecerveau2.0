@@ -392,7 +392,7 @@ use \Core\Controller;
     <script src="<?php echo $url; ?>App/web/js/plugins/jqGrid/jquery.jqGrid.min.js"></script>
 	    <!-- Peity -->
     <script src="<?php echo $url; ?>App/web/js/plugins/peity/jquery.peity.min.js"></script>
-    <script>
+    <script type="text/javascript">
         $(document).ready(function(){
 			
 			var frm_accessory_j = 	"<div style='margin-left:15px;'>";
@@ -404,114 +404,23 @@ use \Core\Controller;
 			frm_accessory_j 	+= 	"<hr style='width:100%;'/>";
 			frm_accessory_j 	+= 	"<div> {sData} {cData}  </div></div>";
 						
-			var accessories = [
-                {id:"1", desc: "Cargador", brand: "Apple", model: "X-1", PN: "note", SN: "10.00"},
-                {id:"1", desc: "Cargador", brand: "Apple", model: "X-1", PN: "note", SN: "10.00"},
-                {id:"2", desc: "Funda", brand: "", model: "", PN: "", SN: ""}, 
-                {id:"2", desc: "Funda", brand: "", model: "", PN: "", SN: ""} 
+			var lastSel,mydata = [
+                {id:"1", desc: "Cargador", 	brand: "Apple", model: "X-1", 	PN: "note", SN: "10.00"},
+                {id:"2", desc: "Cargador", 	brand: "Apple", model: "X-1", 	PN: "note", SN: "10.00"},
+                {id:"3", desc: "Funda", 	brand: "", 		model: "", 		PN: "", SN: ""}, 
+                {id:"4", desc: "Funda", 	brand: "", 		model: "", 		PN: "", SN: ""} 
             ];
 			
 			var grid=$("#table_list_accessory");
-            $('#data_1 .input-group.date').datepicker({
-                todayBtn: "linked",
-                keyboardNavigation: false,
-                forceParse: false,
-                calendarWeeks: true,
-                autoclose: true
-			 });
-			$("#formCompany").validate({
-				errorPlacement: function (error, element)
-                        {
-                            element.before(error);
-                        },
-                        rules: {
-                            confirm: {
-                                equalTo: "#password"
-                            }
-                        }
-			});
-			$("#btn_newAccessory_h").on('click',function(){
-				//window.open("<?php echo $url; ?>App/views/forms/AddAccesory.php", "_blank", "toolbar=no,scrollbars=no,resizable=no,top=500,left=500,width=400,height=700");
-				$("#table_list_accessory").jqGrid("editGridRow","new",{recreateForm:true,closeAfterAdd:true});
-			});
-			grid.jqGrid({
-				editurl:'clientArray',
-                data: accessories,
-                datatype: "local",
-                //height: 450,
-				//width:780,
-                autowidth: true,
-                shrinkToFit: true,
-                rowNum: 10,
-                rowList: [5, 10],
-                colNames:['Descripci&oacute;n','Marca', 'Modelo', 'No. Parte','No. Serie','Acci&oacute;n'],
-                colModel:[
-                    //{name:'id',		index:'id', 	editable: true, width:60, sorttype:"int",search:false},
-                    {name:'desc',	index:'desc',	editable: true, width:100},
-                    {name:'brand',	index:'brand', 	editable: true, width:80,align:"right"},
-                    {name:'model',	index:'model', 	editable: true, width:80, align:"right"},
-                    {name:'PN',		index:'PN', 	editable: true, width:80, align:"right"},
-                    {name:'SN',		index:'SN', 	editable: true, width:80, align:"right"},
-					{name:'action',index:'action',sortable:false, formatter: displayButtons}
-                ],
-				gridview:true,
-				autoencode:true,
-				ignoreCase:true,
-				sortname: 'id',
-				sortorder:'desc',
-				pager: "#pager_list_accessory",
-                viewrecords: true,
-                caption: "Accesorios",
-                add: true,
-                edit: true,
-                addtext: 'Add',
-                edittext: 'Edit',
-                hidegrid: false
-				ondblClickRow: function(rowid, ri, ci) {
-				var p = grid[0].p;
-				if (p.selrow !== rowid) {
-					// prevent the row from be unselected on double-click
-					// the implementation is for "multiselect:false" which we use,
-					// but one can easy modify the code for "multiselect:true"
-					grid.jqGrid('setSelection', rowid);
-				}
-				grid.jqGrid('editGridRow', rowid, editSettings);
-				},
-				onSelectRow: function(id) {
-					if (id && id !== lastSel) {
-						// cancel editing of the previous selected row if it was in editing state.
-						// jqGrid hold intern savedRow array inside of jqGrid object,
-						// so it is safe to call restoreRow method with any id parameter
-						// if jqGrid not in editing state
-						if (typeof lastSel !== "undefined") {
-							grid.jqGrid('restoreRow',lastSel);
-						}
-						lastSel = id;
-					}
-				}
-			}).jqGrid('navGrid','#pager',{},editSettings,addSettings,delSettings,
-					{multipleSearch:true,overlay:false,
-					onClose:function(form){
-						// if we close the search dialog during the datapicker are opened
-						// the datepicker will stay opened. To fix this we have to hide
-						// the div used by datepicker
-						$("div#ui-datepicker-div.ui-datepicker").hide();
-					}
-            });
 			
-			// Add responsive to jqGrid
-            $(window).bind('resize', function () {
-                var width = $('.jqGrid_wrapper').width();
-                $('#table_list_accessory').setGridWidth(width);
-            });
-			
-			onclickSubmitLocal = function(options,postdata) {
+			var onclickSubmitLocal = function(options,postdata) {
 				var grid_p = grid[0].p,
 					idname = grid_p.prmNames.id,
 					grid_id = grid[0].id,
-					id_in_postdata = grid_id+"_id",
+					id_in_postdata = grid_id + "_id",
 					rowid = postdata[id_in_postdata],
 					addMode = rowid === "_empty",
+					//addMode=oper,
 					oldValueOfSortColumn;
 				// postdata has row id property with another name. we fix it:
 				if (addMode) {
@@ -525,7 +434,9 @@ use \Core\Controller;
 					// set id property only if the property not exist
 					postdata[idname] = rowid;
 				}
+				
 				delete postdata[id_in_postdata];
+				
 				// prepare postdata for tree grid
 				if(grid_p.treeGrid === true) {
 					if(addMode) {
@@ -562,7 +473,7 @@ use \Core\Controller;
 				}
 				if ((addMode && options.closeAfterAdd) || (!addMode && options.closeAfterEdit)) {
 					// close the edit/add dialog
-					$.jgrid.hideModal("#editmod"+grid_id,
+					$.jgrid.hideModal("#editmod" + grid_id,
 										{gb:"#gbox_"+grid_id,jqm:options.jqModal,onClose:options.onClose});
 				}
 				if (postdata[grid_p.sortname] !== oldValueOfSortColumn) {
@@ -578,7 +489,7 @@ use \Core\Controller;
 			},
 			editSettings = {
 				recreateForm:true,
-				jqModal:false,
+				jqModal:true,
 				reloadAfterSubmit:false,
 				closeOnEscape:true,
 				closeAfterEdit:true,
@@ -644,9 +555,102 @@ use \Core\Controller;
 					//$(elem).focus();
 				},100);
 			};
-		
+            
+			$('#data_1 .input-group.date').datepicker({
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: true,
+                autoclose: true
+			 });
+			$("#formCompany").validate({
+				errorPlacement: function (error, element)
+                        {
+                            element.before(error);
+                        },
+                        rules: {
+                            confirm: {
+                                equalTo: "#password"
+                            }
+                        }
+			});
+			$("#btn_newAccessory_h").on('click',function(){
+				//window.open("<?php echo $url; ?>App/views/forms/AddAccesory.php", "_blank", "toolbar=no,scrollbars=no,resizable=no,top=500,left=500,width=400,height=700");
+				$("#table_list_accessory").jqGrid("editGridRow","new",{recreateForm:true,closeAfterAdd:true});
+			});
+			grid.jqGrid({
+				datatype: "local",
+				data: mydata,
+				colNames:['Descripci&oacute;n','Marca', 'Modelo', 'No. Parte','No. Serie','Acci&oacute;n'],
+                colModel:[
+                    //{name:'id',		index:'id', 	editable: true, width:60, sorttype:"int",search:false},
+                    {name:'desc',	index:'desc',	editable: true, width:100},
+                    {name:'brand',	index:'brand', 	editable: true, width:80,align:"right"},
+                    {name:'model',	index:'model', 	editable: true, width:80, align:"right"},
+                    {name:'PN',		index:'PN', 	editable: true, width:80, align:"right"},
+                    {name:'SN',		index:'SN', 	editable: true, width:80, align:"right"},
+					{name:'action',	index:'action',	sortable:false, formatter: displayButtons}
+                ],
+				rowNum: 10,
+				rowList: [5, 10],
+				pager: "#pager_list_accessory",
+				gridview:true,
+				autoencode:true,
+				ignoreCase:true,
+				sortname: 'id',
+				viewrecords: true,
+				sortorder:'desc',
+				caption: "Accesorios",
+				editurl:'<?php echo $url; ?>/private/ServiceOrder/addSO',
+				autowidth: true,
+                shrinkToFit: true,
+				ondblClickRow: function(rowid, ri, ci) {
+					var p = grid[0].p;
+					if (p.selrow !== rowid) {
+						// prevent the row from be unselected on double-click
+						// the implementation is for "multiselect:false" which we use,
+						// but one can easy modify the code for "multiselect:true"
+						grid.jqGrid('setSelection', rowid);
+					}
+					grid.jqGrid('editGridRow', rowid, editSettings);
+				},
+				onSelectRow: function(id) {
+					if (id && id !== lastSel) {
+						// cancel editing of the previous selected row if it was in editing state.
+						// jqGrid hold intern savedRow array inside of jqGrid object,
+						// so it is safe to call restoreRow method with any id parameter
+						// if jqGrid not in editing state
+						if (typeof lastSel !== "undefined") {
+							grid.jqGrid('restoreRow',lastSel);
+						}
+						lastSel = id;
+					}
+				}
+                /*add: true,
+                edit: true,
+                addtext: 'Add',
+                edittext: 'Edit',
+                hidegrid: false,*/			
+			}).jqGrid('navGrid','#pager_list_accessory',{},editSettings,addSettings,delSettings,
+					{
+					multipleSearch:true,overlay:false,
+					onClose:function(form){
+						// if we close the search dialog during the datapicker are opened
+						// the datepicker will stay opened. To fix this we have to hide
+						// the div used by datepicker
+						$("div#ui-datepicker-div.ui-datepicker").hide();
+					},
+					template: frm_accessory_j,
+					errorTextFormat: function (data) {
+						return 'Error: ' + data.responseText
+					}
+            });
 			
-			
+			// Add responsive to jqGrid
+            $(window).bind('resize', function () {
+                var width = $('.jqGrid_wrapper').width();
+                $('#table_list_accessory').setGridWidth(width);
+            });
 			
 			// Add selection
             //$("#table_list_accessory").setSelection(4, true);
