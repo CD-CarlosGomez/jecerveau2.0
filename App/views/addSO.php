@@ -404,12 +404,12 @@ use \Core\Controller;
 			frm_accessory_j 	+= 	"<hr style='width:100%;'/>";
 			frm_accessory_j 	+= 	"<div> {sData} {cData}  </div></div>";
 						
-			var lastSel,mydata = [
-                {id:"1", desc: "Cargador", 	brand: "Apple", model: "X-1", 	PN: "note", SN: "10.00"},
+			var lastSel,mydata = [];
+            /*    {id:"1", desc: "Cargador", 	brand: "Apple", model: "X-1", 	PN: "note", SN: "10.00"},
                 {id:"2", desc: "Cargador", 	brand: "Apple", model: "X-1", 	PN: "note", SN: "10.00"},
                 {id:"3", desc: "Funda", 	brand: "", 		model: "", 		PN: "", SN: ""}, 
                 {id:"4", desc: "Funda", 	brand: "", 		model: "", 		PN: "", SN: ""} 
-            ];
+            ];*/
 			
 			var grid=$("#table_list_accessory");
 			
@@ -497,10 +497,14 @@ use \Core\Controller;
 			},
 			addSettings = {
 				recreateForm:true,
-				jqModal:false,
-				reloadAfterSubmit:false,
+				jqModal:true,
+				reloadAfterSubmit:true,
 				closeOnEscape:true,
 				closeAfterAdd:true,
+				template: frm_accessory_j,
+				errorTextFormat: function (data) {
+					return 'Error: ' + data.responseText
+				},
 				onclickSubmit:onclickSubmitLocal
 			},
 			delSettings = {
@@ -576,7 +580,7 @@ use \Core\Controller;
 			});
 			$("#btn_newAccessory_h").on('click',function(){
 				//window.open("<?php echo $url; ?>App/views/forms/AddAccesory.php", "_blank", "toolbar=no,scrollbars=no,resizable=no,top=500,left=500,width=400,height=700");
-				$("#table_list_accessory").jqGrid("editGridRow","new",{recreateForm:true,closeAfterAdd:true});
+			$("#table_list_accessory").jqGrid("editGridRow","new",addSettings);//{recreateForm:true,closeAfterAdd:true});
 			});
 			grid.jqGrid({
 				datatype: "local",
@@ -632,18 +636,14 @@ use \Core\Controller;
                 edittext: 'Edit',
                 hidegrid: false,*/			
 			}).jqGrid('navGrid','#pager_list_accessory',{},editSettings,addSettings,delSettings,
-					{
+				{
 					multipleSearch:true,overlay:false,
 					onClose:function(form){
 						// if we close the search dialog during the datapicker are opened
 						// the datepicker will stay opened. To fix this we have to hide
 						// the div used by datepicker
 						$("div#ui-datepicker-div.ui-datepicker").hide();
-					},
-					template: frm_accessory_j,
-					errorTextFormat: function (data) {
-						return 'Error: ' + data.responseText
-					}
+				}
             });
 			
 			// Add responsive to jqGrid
@@ -651,47 +651,11 @@ use \Core\Controller;
                 var width = $('.jqGrid_wrapper').width();
                 $('#table_list_accessory').setGridWidth(width);
             });
-			
-			// Add selection
-            //$("#table_list_accessory").setSelection(4, true);
-			
-			// Setup buttons
-            /*$("#table_list_accessory").jqGrid('navGrid', '#pager_list_accessory',{
-				url: '<?php echo $url; ?>/App/views/addSO.php',
-				editurl: 'clientArray',
-				edit: true, 
-				add: true, 
-				del: true, 
-				search: false, 
-				position: "left", 
-				cloneToTop: false
-				},
-                    //{height: 200, reloadAfterSubmit: true}
-				{	editCaption: "The edit dialog",
-					template: frm_accessory_j,
-					errorTextFormat: function (data) {
-                        return 'Error: ' + data.responseText
-                    }
-				},
-				 // options for the Add Dialog
-                {
-					template: frm_accessory_j,
-                    errorTextFormat: function (data) {
-                        return 'Error: ' + data.responseText
-                    }
-                },
-                // options for the Delete Dailog
-                {
-                    errorTextFormat: function (data) {
-                        return 'Error: ' + data.responseText
-                    }
-                }
-			);*/
 		});
 	function displayButtons(cellvalue, options, rowObject){
-        var edit= "<input style='...' type='button' value='Editar' onclick=\"jQuery('#table_list_accessory').editRow('" + options.rowId + "');\"  />", 
-            save = "<input style='...' type='button' value='Guardar' onclick=\"jQuery('#table_list_accessory').saveRow('" + options.rowId + "');\"  />", 
-            delite = "<input style='...' type='button' value='Eliminar' onclick=\"jQuery('#table_list_accessory').restoreRow('" + options.rowId + "');\" />";
+        var edit= "<input class='btn btn-primary btn-xs btn-block' type='button' value='Editar' onclick=\"jQuery('#table_list_accessory').editRow('" + options.rowId + "');\"  />", 
+            save = "<input class='btn btn-primary btn-xs btn-block' type='button' value='Guardar' onclick=\"jQuery('#table_list_accessory').saveRow('" + options.rowId + "');\"  />", 
+            delite = "<input class='btn btn-primary btn-xs btn-block' type='button' value='Eliminar' onclick=\"jQuery('#table_list_accessory').restoreRow('" + options.rowId + "');\" />";
         return edit+save+delite;
 		}
 	</script>
