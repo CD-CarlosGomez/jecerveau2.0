@@ -170,12 +170,12 @@ class ServiceOrder extends Controller{
 			$so->setSODeviceCondition($_POST["tta_SODeviceCondition_h"]);
 			$so->setSOTechDetail($_POST["tta_SOTechDetail_h"]);
 			
-			if ($so->insertData("sorder")){
+			/*if ($so->insertData("sorder")){
 				echo "<script language='JavaScript'> 
 						 window.open(\"http://www.w3schools.com\", \"_blank\", \"toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400\");
 					</script>";
 				//<script>function abrir() { open('pagina.html','','top=300,left=300,width=300,height=300') ; } </script> 
-			}
+			}*/
 		}
 	}
 	function CreateAccessory(){

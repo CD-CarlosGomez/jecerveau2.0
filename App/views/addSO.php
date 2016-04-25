@@ -126,7 +126,6 @@ use \Core\Controller;
 															<label class="col-md-4 control-label">Serie:*</label>
 															<div class="col-lg-8">
 																<input id="txt_userName_h" class="form-control required" name="txt_userName_h" type="text">
-																<input id="" name="hdn_toDo_h" class="" value="AddUser" type="hidden">
 															</div>
 														</div>
 														<div class="form-group">
@@ -340,6 +339,7 @@ use \Core\Controller;
 													<div class="col-md-4 pull-right">
 															<div class="form-group">
 																<button type="submit" id="btn_command_h" class="btn btn-primary btn-md btn-block" value="AddSO" name="btn_command_h">Guardar</button>
+																<input type="hidden" id="hdn_devices_h" class="" value="" name="hdn_devices_h"/>
 															</div>
 													</div>
 												</div>
@@ -396,7 +396,7 @@ use \Core\Controller;
 			frm_accessory_j 	+= 	"<div> {sData} {cData}  </div></div>";
 						
 			var lastSel,mydata = [];
-            /*    {id:"1", desc: "Cargador", 	brand: "Apple", model: "X-1", 	PN: "note", SN: "10.00"},
+				/*{id:"1", desc: "Cargador", 	brand: "Apple", model: "X-1", 	PN: "note", SN: "10.00"},
                 {id:"2", desc: "Cargador", 	brand: "Apple", model: "X-1", 	PN: "note", SN: "10.00"},
                 {id:"3", desc: "Funda", 	brand: "", 		model: "", 		PN: "", SN: ""}, 
                 {id:"4", desc: "Funda", 	brand: "", 		model: "", 		PN: "", SN: ""} 
@@ -558,17 +558,6 @@ use \Core\Controller;
                 calendarWeeks: true,
                 autoclose: true
 			 });
-			$("#formCompany").validate({
-				errorPlacement: function (error, element)
-                        {
-                            element.before(error);
-                        },
-                        rules: {
-                            confirm: {
-                                equalTo: "#password"
-                            }
-                        }
-			});
 			$("#btn_newAccessory_h").on('click',function(){
 				//window.open("<?php echo $url; ?>App/views/forms/AddAccesory.php", "_blank", "toolbar=no,scrollbars=no,resizable=no,top=500,left=500,width=400,height=700");
 			$("#table_list_accessory").jqGrid("editGridRow","new",addSettings);//{recreateForm:true,closeAfterAdd:true});
@@ -634,27 +623,34 @@ use \Core\Controller;
 						// the datepicker will stay opened. To fix this we have to hide
 						// the div used by datepicker
 						$("div#ui-datepicker-div.ui-datepicker").hide();
+					}
 				}
-            });
-			
+			);
 			// Add responsive to jqGrid
             $(window).bind('resize', function () {
                 var width = $('.jqGrid_wrapper').width();
                 $('#table_list_accessory').setGridWidth(width);
             });
-			
-			$("#frm_SO_h").validate(
-				{
-					rules:{
-						field:{
-							required:true,
-							step:3
-						}
-					}
-				}		
+			$("#frm_SO_h").validate({
+				errorPlacement: function (error, element)
+                        {
+                            element.before(error);
+                        },
+                        rules: {
+							field	:	{
+								required:true,
+							}
+                        }
+			});
+		
+			$("#hdn_devices_h").attr("value",function(){
+				var json=ObjJ2ObjP(mydata);
+				return json;
+			}			
 			);
 			
-		});
+		});	
+	
 	function displayButtons(cellvalue, options, rowObject){
         var edit= "<input class='btn btn-primary btn-xs btn-block' type='button' value='Editar' onclick=\"jQuery('#table_list_accessory').editRow('" + options.rowId + "');\"  />", 
             save = "<input class='btn btn-primary btn-xs btn-block' type='button' value='Guardar' onclick=\"jQuery('#table_list_accessory').saveRow('" + options.rowId + "');\"  />", 
@@ -662,7 +658,7 @@ use \Core\Controller;
         return edit+save+delite;
 		}
 		
-	var obj_devices_j=new Object;
+	
 	
 	function ObjJ2ObjP(object){
 		var json="{";
@@ -684,7 +680,7 @@ use \Core\Controller;
 		}
 		return json.substr(0,json.length-1) + '}';
 	}
-	function postObjDevice(object){
+	function postObjDevice(json){
 		$.post("<?php echo $url; ?>private/ServiceOrder",{json:json},function(data){
 			console.log(data);
 		});
