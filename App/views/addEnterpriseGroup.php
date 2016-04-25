@@ -381,8 +381,6 @@ use \Core\Controller;
 				div_sucursal_j.show("slow");
 			}
 		);
-		
-		
 	});
 	</script>
 </body>

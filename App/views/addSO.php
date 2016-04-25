@@ -24,15 +24,6 @@ use \Core\Controller;
 		exit;
 
 		}
-	$newAccesory  =	"{";
-	$newAccesory .= "id		:" . "\"" . @$_POST[""]  . "\"" .  ",";
-	$newAccesory .= "desc	:" . "\"" . @$_POST["txt_AccessoryDesc"]  . "\"" .  ",";
-	$newAccesory .= "brand	:" . "\"" . @$_POST["txt_AccessoryBrand_h"]  . "\"" .  ",";
-	$newAccesory .= "model	:" . "\"" . @$_POST["txt_AccessoryModel_h"]  . "\"" .  ",";
-	$newAccesory .= "PN		:" . "\"" . @$_POST["txt_AccessoryPN_h"]  . "\"" .  ",";
-	$newAccesory .= "SN		:" . "\"" . @$_POST["txt_AccessorySN_h"]  . "\"";
-	$newAccesory .= "}";
-		
 ?>
 <!DOCTYPE html>
 <html>
@@ -651,6 +642,18 @@ use \Core\Controller;
                 var width = $('.jqGrid_wrapper').width();
                 $('#table_list_accessory').setGridWidth(width);
             });
+			
+			$("#frm_SO_h").validate(
+				{
+					rules:{
+						field:{
+							required:true,
+							step:3
+						}
+					}
+				}		
+			);
+			
 		});
 	function displayButtons(cellvalue, options, rowObject){
         var edit= "<input class='btn btn-primary btn-xs btn-block' type='button' value='Editar' onclick=\"jQuery('#table_list_accessory').editRow('" + options.rowId + "');\"  />", 
@@ -658,6 +661,36 @@ use \Core\Controller;
             delite = "<input class='btn btn-primary btn-xs btn-block' type='button' value='Eliminar' onclick=\"jQuery('#table_list_accessory').restoreRow('" + options.rowId + "');\" />";
         return edit+save+delite;
 		}
+		
+	var obj_devices_j=new Object;
+	
+	function ObjJ2ObjP(object){
+		var json="{";
+		for (property in object){
+			var valor=object[property];
+			if(typeof(valor)=="string"){
+				json += '"' + property + '":"' + valor + '",'
+			}
+			else{
+				if(!valor[0]){
+					json += '"' + property + '":[' + ObjJ2ObjP(valor) + ',';
+				}
+				else{
+					json += '"' + property + '":[';
+					for(prop in valor) json += '"' + valor[prop] + '",';
+					json=json.substr(0,json.length-1) + '],';
+				}
+			}
+		}
+		return json.substr(0,json.length-1) + '}';
+	}
+	function postObjDevice(object){
+		$.post("<?php echo $url; ?>private/ServiceOrder",{json:json},function(data){
+			console.log(data);
+		});
+	}
+	
+	
 	</script>
 
 
