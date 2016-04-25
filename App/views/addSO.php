@@ -4,7 +4,6 @@
 #16.3.29 incluir en la sesión el BO
 namespace App\View;
 defined("APPPATH") OR die("Access denied");
-
 use \Core\View;
 use \Core\Controller;
 		
@@ -22,7 +21,6 @@ use \Core\Controller;
 		echo "Su sesion a terminado, <a href='http://localhost:8012/ibrain2.0'>
 			  Necesita Hacer Login</a>";
 		exit;
-
 		}
 ?>
 <!DOCTYPE html>
