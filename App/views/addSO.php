@@ -144,7 +144,7 @@ use \Core\Controller;
 														<div class="form-group">
 															<label class="col-md-4 control-label">Estado de la cobertura:*</label>
 															<div class="col-md-8">
-																<input  type="text" id="txt_gsxWarrantyST_h" class="form-control required" name="txt_gsxWarrantyST_h"/>
+																<input  type="text" id="txt_gsxWarrantyST_h" class="form-control required" value="<?php echo $obj_gsx_p->{'warrantyStatus'};?>" name="txt_gsxWarrantyST_h"/>
 															</div>
 														</div>
 													</div>
@@ -153,13 +153,13 @@ use \Core\Controller;
 														<div class="form-group">
 															<label class="col-md-4 control-label">Fecha de compra:*</label>
 															<div class="col-md-8">
-																<input id="txt_password_h" class="form-control required" name="txt_password_h" type="text">
+																<input  type="text" id="txt_gsxPurchaseDate_h" class="form-control required" value="<?php echo $obj_gsx_p->{'estimatedPurchaseDate'};?>" name="txt_gsxPurchaseDate_h"/>
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">Comprado en:*</label>
 															<div class="col-md-8">
-																<input id="txt_password_h" class="form-control required" name="txt_password_h" type="text">
+																<input type="text" id="txt_gsxPurchaseCountry_h" class="form-control required" value="<?php echo $obj_gsx_p->{'purchaseCountry'};?>" name="txt_gsxPurchaseCountry_h"/>
 															</div>
 														</div>
 														<div class="form-group">

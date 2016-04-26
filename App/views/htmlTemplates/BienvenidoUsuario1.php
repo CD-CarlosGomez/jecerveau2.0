@@ -1,7 +1,11 @@
 ﻿<?php
- echo $bodyMessage="<!DOCTYPE html \">
-
+ echo $bodyMessage= "
+<!DOCTYPE html>	
 <head>
+		<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />
+		<title>Demystifying Email Design</title>
+		<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>
+		<head>
 	<meta charset=\"utf-8\">
 	<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
 	<!--[if lt IE 9]> <script src=\"http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js\"></script>< ![endif]-->
@@ -19,7 +23,7 @@
         	padding:0;
         	font-family:\"Arial Narrow\", Arial, sans-serif;
         	max-width:1338px;
-			background:#fff;
+			background:#ffffff;
         }
         h1{
         	font-size:25px;
@@ -31,9 +35,9 @@
         {
         	 margin-bottom:10px;
         	}
-        table td
+        /*table td
         {
-        	padding:15px 15px 15px 55px;
+        	padding:15px 0px 0px 20px;
         	vertical-align:top;
         }
         table th
@@ -58,7 +62,7 @@
             text-align:center;
 			font-size:30px;
             color:#000;
-         }
+         }*/
 		.span{
 			font-family:\"Arial Narrow\", Arial, sans-serif;
 			font-size:30px;
@@ -78,122 +82,139 @@
 			font-family:\"Arial Narrow\", Arial, sans-serif;
         }
     </style>
-</head>
-<body>
-<table cellspacing=\"0\" cellpadding=\"0\">
-	<tr>
-		
-		<td style=\"width:20%; height: 5px; background:#ececec; border-radius: 10px;\" colspan=\"2\">&nbsp;</td>
-		
-	</tr>
-    <tr>
-		
-        <td>
-            <img src=\"https://4.bp.blogspot.com/-TiJF72bggyI/Vw0qqXRVaRI/AAAAAAAAAAM/PprdxwVDmVUvAhZd35t1CGfZsfO3I2MCQCLcB/s1600/img_jc2_logo.jpg\" />
-        </td>
-		<td>
-            <h1>
-			¡Bienvenido!
-			</h1>
-        </td>
-		
-    </tr>
-	<tr>
-		
-		<td style=\"width:20%; background:#ececec; border-radius: 10px;\" colspan=\"2\">&nbsp;</td>
-	
-	</tr>
-    <tr>
-		
-        <td style=\"border-right:#517ebb solid 4px; width:60%;\">
-        <h2>
-		HOLA " . '$u->getRealName()' . ".
-        </h2>
-        <p>
-			¡Felicidades!<br/>
-			Tu cuenta ha sido creada, ahora eres parte de nuestra 
-			comunidad. iBrain es una nueva plataforma con la que 
-			podrás realizar tus actividades con mayor facilidad y 
-			conmejor control. También te servirá para mejorar la  
-			comunicación de tu departamento con otros con los que 
-			tus actividades están directamente relacionados.
-        </p>
-        <p>
-			En Consultoría Dual estamos listos para ayudarte siempre 
-			que lo necesites, puedes usar nuestros teléfonos de 
-			contacto o escribirnos por correo electrónico y uno de 
-			nuestros ingenieros te atenderá.
-        </p>
-		<p>
-			<h2>
-				IBRAIN TAMBIÉN TIENE UN SITIO WEB
-			</h2>
-		</p>
-       <p>
-			Ingresa a: <a href=\"https://www.ibrain.mx/\">https://www.ibrain.mx</a> y conoce todas nuestras herramientas adicionales.
-       </p>
-        </td>
-        <td>
-        <h2>
-        INFORMACIÓN DE TU NUEVA CUENTA
-        </h2>
-		<p>Aquí tienes los datos de acceso a tu portal:<br/><b><a href=\"https://www.ibrain.mx/tuportal/app\">https://www.ibrain.mx/tuportal/app</a></b></p>
-        <table cellspacing=\"0\" cellpadding=\"0\">
-            <tr>
-                <td>
-                 <span>Usuario</span>
-                </td>
-                <td>
-                <span class=\"span\">" . '$u->getUserName()' . "</span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                <span>Contraseña</span>
-                </td>
-                <td>
-                <span class=\"span\">" . '$u->getPwdTmp()' . "</span>
-                </td>
-            </tr>
-        </table>
-        <ul>
-            <li>       Toma en cuenta que en tu primer acceso         deberás cambiarla por seguridad.
-            </li>
-             <li>
-                    Tu usuario es personal, no lo compartas         con nadie.
-            </li>
-        </ul>
-        <p>
-        Para ingresar a tu portal, sólo haz  click aquí:
-        </p>
-        <p>
-       <a href=\"http://www.santi.mx\"> https://www.santi.mx/tuportal/app </a>   
-        </p>
-        
-        <p>
-        o también puedes copiar y pegar la dirección en tu navegador. 
-        </p>
-        <p>
-         <strong>Soporte: </strong>  <br /> (998) 206 1968 <br /> (998) 206 2117 <br /><br />  <a href=\"mailto:soporte@consultoriadual.com\" >soporte@consultoriadual.com </a> 
-        </p>
-        </td>
-		
-        </tr>
-		<tr>
-			
-			<td style=\"width:20%; background:#517ebb; border-radius: 10px;\" colspan=\"2\">&nbsp;</td>
-			
-		</tr>
-        <tr>
-		 		 
-        <td colspan=\"2\">
-             <p>
-       Este correo se generó de forma automática, no es necesario  responder. Si tienes alguna duda, por favor contáctenos en:  <a href=\"mailto:soporte@consultoriadual.com\" >soporte@consultoriadual.com </a> 
-       </p>
-        </td>
-       
-    </tr>
-</table>
-</body>
-</html>";
+	</head>
+	<body style=\"margin: 0; padding: 0;\"> 
+		<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">
+			<tr>
+				<td style=\"padding: 20px 0 30px 0;\">
+								<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"900px\" style=\"border-collapse: collapse;\">
+									<tr>
+										<td style=\"height: 5px; background:#ececec; border-radius: 20px;\">&nbsp;</td>
+									</tr>
+									<tr>
+										
+										<td align=\"center\" bgcolor=\"#ffffff\" style=\"padding: 40px 0 30px 0;\">
+											<img src=\"https://4.bp.blogspot.com/-TiJF72bggyI/Vw0qqXRVaRI/AAAAAAAAAAM/PprdxwVDmVUvAhZd35t1CGfZsfO3I2MCQCLcB/s1600/img_jc2_logo.jpg\" alt=\"Creating Email Magic\" style=\"display: block;\" />
+										</td>
+									</tr>
+									<tr>
+										<td style=\"height: 5px; background:#ececec; border-radius: 20px;\">&nbsp;</td>
+									</tr>
+									<tr>
+										<td bgcolor=\"#ffffff\" style=\"padding: 40px 30px 40px 50px;\">
+											<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">
+												<tr>
+													<td>
+														<h1>Orden de servicio folio: {########}</h1>
+													</td>
+													<td>
+														Fecha y hora de entrada:
+													</td>
+												</tr>
+												<tr>
+													<td colspan=\"2\" style=\"padding: 20px 20px 20px 10px;\">
+														<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"border: 1px solid black\">
+															<tr>
+																<td valign=\"top\" width=\"140\"><input type=\"checkbox\" name=\"ord[27]\" value=\"1\"/> Garant&iacute;a</td>\n
+																<td valign=\"top\" width=\"140\"><input type=\"checkbox\" name=\"ord[24]\" value=\"1\" /> Servicio</td>\n
+																<td valign=\"top\" width=\"140\"><input type=\"checkbox\" name=\"ord[26]\" value=\"1\"/> Venta</td>\n
+																<td valign=\"top\" width=\"140\"><input type=\"checkbox\" name=\"ord[22]\" value=\"1\"/> Contrato No.</td>\n
+															</tr>
+															<tr><td></td></tr>
+															<tr>
+																<td valign=\"top\" colspan=\"2\">Atiende: ".htmlentities('$usr_atiende')."</td>\n
+																<td valign=\"top\" colspan=\"2\">email_atiende</td>\n
+															</tr>
+															<tr><td></td></tr>
+															<tr>
+																<td valign=\"top\" colspan=\"2\">".htmlentities('$cli_nom')."</td>
+																<td valign=\"top\" colspan=\"2\">cli_tels</td>
+															</tr>
+														</table>											
+													</td>
+												</tr>
+												<tr>
+													<td colspan=\"2\"><h3>Datos del Cliente</h3>\n</td>
+												</tr>
+												<tr>
+													<td colspan=\"2\" style=\"padding: 20px 20px 20px 10px;\">
+														<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"border: 1px solid black\">
+															<tr>
+																<td colspan=\"2\" valign=\"top\">Nombre: ".htmlentities('')."</td>
+																<td colspan=\"2\">Tel&eacute;fonos: ".htmlentities('')." / ".htmlentities('')." / ".htmlentities('')." / ".htmlentities('')."</td>\n
+															</tr>
+															<tr>
+																<td valign=\"top\" colspan=\"4\">eMail: ".htmlentities('')."</td>
+															</tr>
+															<tr>
+																<td valign=\"top\" colspan=\"4\">Empresa: ".htmlentities('')."</td>
+															</tr>
+															<tr>
+																<td valign=\"top\" colspan=\"4\">Direcci&oacute;n: ".htmlentities('')."</td>
+																
+															</tr>
+															<tr>
+																<td valign=\"top\">Colonia: ".htmlentities('')."</td>
+																<td valign=\"top\">Delegaci&oacute;n o Municipio: ".htmlentities('')."</td>
+																<td valign=\"top\">Estado: ".htmlentities('')."</td>
+																<td valign=\"top\">C&oacute;digo Postal: ".htmlentities('')."</td>
+															</tr>
+														</table>
+													</td>
+												</tr>
+												<tr>
+													<td colspan=\"2\"><h3>Datos del equipo</h3>\n</td>
+												</tr>
+												<tr>
+													<td colspan=\"2\" style=\"padding: 20px 20px 20px 10px;\">
+														<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"border: 1px solid black\">
+															<tr>
+																<td valign=\"top\">Marca: ".htmlentities('')."</td>
+																<td valign=\"top\">No. de serie: ".htmlentities('')."</td>
+															</tr>
+															<tr>
+																<td valign=\"top\">Modelo: ".htmlentities('')."</td>
+																<td valign=\"top\">No. de parte comercial: ".htmlentities('')."</td>
+															</tr>
+															<tr>
+																<td valign=\"top\" colspan=\"2\">Configuraci&oacute;n: ".htmlentities('')."</td>
+															</tr>
+															<tr>
+																<td valign=\"top\">Factura No. ".htmlentities('')." Fecha de compra: ". '' ."</td>
+																<td valign=\"top\">Proveedor: ".htmlentities('')."</td>
+															</tr>
+															<tr>
+																<td valign=\"top\" colspan=\"2\"><span class=\"txtch\">
+																En caso de no contar con el ticket de compra o factura, acepto que se tramite la garantía de mi equipo con la fecha que proporciona Apple
+																</td>
+															</tr>
+														</table>
+													</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+									<tr>
+										<td style=\"height: 5px; background:#517ebb; border-radius: 20px;\">&nbsp;</td>
+									</tr>
+									<tr>
+										<td bgcolor=\"#fff\" style=\"padding: 30px 30px 30px 30px;\">
+											<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">
+												<tr>
+													<td>
+														<p>
+															Este correo se generó de forma automática, no es necesario  responder. Si tienes alguna duda, por favor contáctenos en:  <a href=\"mailto:soporte@consultoriadual.com\" >soporte@consultoriadual.com </a> 
+														</p>
+													</td>													
+												</tr>
+											</table>
+										</td>
+									</tr>
+								</table>
+											
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>"
 ?>
