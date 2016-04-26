@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Demonstration how programatically select grid row which are not on the first page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/themes/redmond/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.ok-soft-gmbh.com/jqGrid/jquery.jqGrid-3.8.1/css/ui.jqgrid.css" />
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+    <script type="text/javascript" src="http://www.ok-soft-gmbh.com/jqGrid/jquery.jqGrid-3.8.1/js/i18n/grid.locale-en.js"></script>
+    <script type="text/javascript" src="http://www.ok-soft-gmbh.com/jqGrid/jquery.jqGrid-3.8.1/js/jquery.jqGrid.min.js"></script>
+    <script type="text/javascript">
+    //<![CDATA[
+        jQuery(document).ready(function () {
+            var grid = jQuery("#myTable");
+            grid.jqGrid({
+                datatype: "local",
+                colNames:['Data ID','Device'],
+                colModel:[
+                    {name:'DATA_ID',index:'DATA_ID', sorttype:"int", width:22, align:"center", sortable:false},
+                    {name:'DATA_DN',index:'DATA_DN', width:60, align:"center", sortable:false},
+                ],
+                width: "1216"
+              });
+
+            var myData = [{"DATA_ID":"9", "DATA_DN": "sony"}, {"DATA_ID":"10", "DATA_DN": "panasonic"}];
+            var newData = [{"DATA_ID":"0", "DATA_DN": "national"}, {"DATA_ID":"1", "DATA_DN": "samsung"}];
+
+            for(var i=0;i<myData.length;i++) {
+                grid.jqGrid('addRowData', i, myData[i]);
+            }
+
+            for (i=0;i<newData.length;i++) {
+                grid.jqGrid('addRowData', myData.length+i, newData[newData.length-i-1], "first");
+            }
+            //grid.trigger("reloadGrid");
+        });
+    //]]>
+    </script>
+</head>
+<body>
+    <table id="myTable"><tr><td/></tr></table>
+</body>
+</html>

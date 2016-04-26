@@ -22,6 +22,9 @@ use \Core\Controller;
 			  Necesita Hacer Login</a>";
 		exit;
 		}
+		
+		$obj_gsx_p=json_decode($jsn_gsx_p);
+		
 ?>
 <!DOCTYPE html>
 <html>
@@ -123,25 +126,25 @@ use \Core\Controller;
 														<div class="form-group">
 															<label class="col-md-4 control-label">Serie:*</label>
 															<div class="col-lg-8">
-																<input id="txt_userName_h" class="form-control required" name="txt_userName_h" type="text">
+																<input type="text" id="txt_gsxSerialNumber_h" class="form-control required" value="<?php echo $obj_gsx_p->{'serialNumber'}; ?>" name="txt_gsxSerialNumber_h"/>
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">Modelo:*</label>
 															<div class="col-lg-8">
-																<input id="txt_realName_h" class="form-control required" name="txt_realName_h" type="text">
+																<input type="text" id="txt_gsxModel_h" class="form-control required" value="<?php echo $obj_gsx_p->{'productDescription'};?>" name="txt_gsxModel_h"/>
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">Configuraci&oacute;n:*</label>
 															<div class="col-md-8">
-																<input id="txt_email_h" class="form-control required" name="txt_email_h" type="text">
+																<input type="text" id="txt_gsxConfigDesc_h" class="form-control required" value="<?php echo $obj_gsx_p->{'configDescription'};?>" name="txt_gsxConfigDesc_h" />
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">Estado de la cobertura:*</label>
 															<div class="col-md-8">
-																<input id="txt_email_h" class="form-control required" name="txt_email_h" type="text">
+																<input  type="text" id="txt_gsxWarrantyST_h" class="form-control required" name="txt_gsxWarrantyST_h"/>
 															</div>
 														</div>
 													</div>
@@ -402,6 +405,8 @@ use \Core\Controller;
 			
 			var grid=$("#table_list_accessory");
 			
+			
+			
 			var onclickSubmitLocal = function(options,postdata) {
 				var grid_p = grid[0].p,
 					idname = grid_p.prmNames.id,
@@ -547,6 +552,13 @@ use \Core\Controller;
 					});
 					//$(elem).focus();
 				},100);
+			},
+			ids=grid.jqGrid('getDataIDs'),
+			mydata=function(){
+				for(var i = 0; i < ids.length; i++){
+					var rowId=ids[i];
+					mydata += grid.jqGrid('getRowData',rowId);
+				}
 			};
             
 			$('#data_1 .input-group.date').datepicker({
@@ -557,8 +569,7 @@ use \Core\Controller;
                 autoclose: true
 			 });
 			$("#btn_newAccessory_h").on('click',function(){
-				//window.open("<?php echo $url; ?>App/views/forms/AddAccesory.php", "_blank", "toolbar=no,scrollbars=no,resizable=no,top=500,left=500,width=400,height=700");
-			$("#table_list_accessory").jqGrid("editGridRow","new",addSettings);//{recreateForm:true,closeAfterAdd:true});
+				$("#table_list_accessory").jqGrid("editGridRow","new",addSettings);
 			});
 			grid.jqGrid({
 				datatype: "local",
@@ -625,7 +636,9 @@ use \Core\Controller;
 				}
 			);
 			// Add responsive to jqGrid
-            $(window).bind('resize', function () {
+            
+			
+			$(window).bind('resize', function () {
                 var width = $('.jqGrid_wrapper').width();
                 $('#table_list_accessory').setGridWidth(width);
             });
@@ -647,6 +660,7 @@ use \Core\Controller;
 			}			
 			);
 			
+	
 		});	
 	
 	function displayButtons(cellvalue, options, rowObject){
@@ -656,8 +670,6 @@ use \Core\Controller;
         return edit+save+delite;
 		}
 		
-	
-	
 	function ObjJ2ObjP(object){
 		var json="{";
 		for (property in object){
@@ -678,11 +690,7 @@ use \Core\Controller;
 		}
 		return json.substr(0,json.length-1) + '}';
 	}
-	function postObjDevice(json){
-		$.post("<?php echo $url; ?>private/ServiceOrder",{json:json},function(data){
-			console.log(data);
-		});
-	}
+
 	
 	
 	</script>
