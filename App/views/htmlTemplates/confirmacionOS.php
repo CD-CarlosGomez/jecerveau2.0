@@ -154,7 +154,7 @@
 	$page .= "							<tr>\n";
 	$page .= "								<td valign=\"top\" colspan=\"2\"><span class=\"txtch\">";
 	$page .= "						En caso de no contar con el ticket de compra o factura, acepto que se tramite la garantía de mi equipo con la fecha que proporciona Apple";
-	if ($fecha_cobertura != '') {
+								if ($fecha_cobertura != '') {
 		$page .= ", siendo esta: $fecha_cobertura";
 	}
 	$page .= "<br/>";
