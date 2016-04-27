@@ -19,6 +19,8 @@ use \App\Models\ServiceOrders\SoTypes as SOT;
 use \App\Models\ServiceOrders\SOAccessories as SOA;
 use \App\Models\Contacts\Contacts as Co;
 use \App\Models\CurrentUser as CU;
+use \App\web\API\Mailer\PHPMailer;
+use \App\web\API\mpdf\mpdf;
 
 	if (strlen(session_id()) < 1){session_start();}
 		$_SESSION["nombreUsuario"];
@@ -197,6 +199,13 @@ class ServiceOrder extends Controller{
 			$so->setfkOrderType("2");
 			$so->setSODeviceCondition($_POST["tta_SODeviceCondition_h"]);
 			$so->setSOTechDetail($_POST["tta_SOTechDetail_h"]);
+			
+			include_once "../App/views/htmlTemplates/ServiceOrderConfirmPDF.php";
+			$mpdf=new mpdf('c','Letter');
+			ob_end_clean();
+			$mpdf->WriteHTML($bodyMessagePDF);
+			$filename=Globales::$absoluteURL . "/App/web/media/download/pdf/orden_" . $sonumber . ".pdf";  
+			$mpdf->Output($filename,'F');
 			
 			/*if ($so->insertData("sorder")){
 				echo "<script language='JavaScript'> 
