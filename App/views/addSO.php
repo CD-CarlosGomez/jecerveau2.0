@@ -396,7 +396,8 @@ use \Core\Controller;
 			frm_accessory_j 	+= 	"<hr style='width:100%;'/>";
 			frm_accessory_j 	+= 	"<div> {sData} {cData}  </div></div>";
 						
-			var lastSel,mydata = [];
+			var lastSel,mydata =[];
+			var accesories="";//new Array();
 				/*{id:"1", desc: "Cargador", 	brand: "Apple", model: "X-1", 	PN: "note", SN: "10.00"},
                 {id:"2", desc: "Cargador", 	brand: "Apple", model: "X-1", 	PN: "note", SN: "10.00"},
                 {id:"3", desc: "Funda", 	brand: "", 		model: "", 		PN: "", SN: ""}, 
@@ -553,12 +554,13 @@ use \Core\Controller;
 					//$(elem).focus();
 				},100);
 			},
-			ids=grid.jqGrid('getDataIDs'),
-			mydata=function(){
+			ids=grid.jqGrid('getCell',0),
+			mydataset=function(ids){
 				for(var i = 0; i < ids.length; i++){
 					var rowId=ids[i];
-					mydata += grid.jqGrid('getRowData',rowId);
+					mydata += rowId;//grid_p.jqGrid('getRowData',rowId);
 				}
+				return mydata
 			};
             
 			$('#data_1 .input-group.date').datepicker({
@@ -655,21 +657,17 @@ use \Core\Controller;
 			});
 		
 			$("#hdn_devices_h").attr("value",function(){
-				var json=ObjJ2ObjP(mydata);
+				var json=accesories;
 				return json;
 			}			
 			);
-			
-	
 		});	
-	
 	function displayButtons(cellvalue, options, rowObject){
         var edit= "<input class='btn btn-primary btn-xs btn-block' type='button' value='Editar' onclick=\"jQuery('#table_list_accessory').editRow('" + options.rowId + "');\"  />", 
             save = "<input class='btn btn-primary btn-xs btn-block' type='button' value='Guardar' onclick=\"jQuery('#table_list_accessory').saveRow('" + options.rowId + "');\"  />", 
             delite = "<input class='btn btn-primary btn-xs btn-block' type='button' value='Eliminar' onclick=\"jQuery('#table_list_accessory').restoreRow('" + options.rowId + "');\" />";
         return edit+save+delite;
 		}
-		
 	function ObjJ2ObjP(object){
 		var json="{";
 		for (property in object){
@@ -690,9 +688,6 @@ use \Core\Controller;
 		}
 		return json.substr(0,json.length-1) + '}';
 	}
-
-	
-	
 	</script>
 
 

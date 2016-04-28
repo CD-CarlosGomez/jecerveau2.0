@@ -213,7 +213,6 @@ private $_sesionpkiBUser;
 		}	
 		else
 			echo "Error,no se puede enviar el correo electrónico ";
-			
 	}
 	function CreateProfile(){
 		

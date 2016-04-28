@@ -20,7 +20,7 @@ use \App\Models\ServiceOrders\SOAccessories as SOA;
 use \App\Models\Contacts\Contacts as Co;
 use \App\Models\CurrentUser as CU;
 use \App\web\API\Mailer\PHPMailer;
-use \App\web\API\mpdf\mpdf;
+use \App\web\API\fpdf\fpdfExtended as fpdfExt;
 
 	if (strlen(session_id()) < 1){session_start();}
 		$_SESSION["nombreUsuario"];
@@ -201,18 +201,65 @@ class ServiceOrder extends Controller{
 			$so->setSOTechDetail($_POST["tta_SOTechDetail_h"]);
 			
 			include_once "../App/views/htmlTemplates/ServiceOrderConfirmPDF.php";
-			$mpdf=new mpdf('c','Letter');
-			ob_end_clean();
-			$mpdf->WriteHTML($bodyMessagePDF);
-			$filename=Globales::$absoluteURL . "/App/web/media/download/pdf/orden_" . $sonumber . ".pdf";  
-			$mpdf->Output($filename,'F');
+			include_once "../App/views/htmlTemplates/ServiceOrderConfirmMail.php";
 			
-			/*if ($so->insertData("sorder")){
-				echo "<script language='JavaScript'> 
+			
+			
+			if ($so->insertData("sorder")){
+				/*echo "<script language='JavaScript'> 
 						 window.open(\"http://www.w3schools.com\", \"_blank\", \"toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400\");
-					</script>";
+					</script>";*/
 				//<script>function abrir() { open('pagina.html','','top=300,left=300,width=300,height=300') ; } </script> 
-			}*/
+			
+			$fpdf=new fpdfExt();
+			$fpdf->SetFont('Arial','',12);
+			$fpdf->AddPage();
+			$fpdf->WriteHTML($bodyMessagePDF);
+			$fpdf->Output();
+			
+			
+			$micorreo="cgomez@consultoriadual.com";
+			$nombreFrom="iBrain info";
+			$nombreadmin="";
+			$asunto="Orden de servicio";
+			$destinatario="cgomez@consultoriadual.com";
+//////////////////////////////////////////////DATOS DE EMAIL DE confirmacion////////////////////////////////////
+			date_default_timezone_set('Etc/UTC');
+			$mail= new PHPMailer(false);
+			$mail->IsSMTP();
+			$mail->SMTPDebug = 0;
+			$mail->Debugoutput = 'html';
+			$mail->Host       = "smtp.gmail.com";
+			$mail->Port       = 587;
+			$mail->SMTPSecure = "tls";  
+			$mail->SMTPAuth = true;
+			$mail->Username = 'santi.notificaciones@gmail.com';
+			$mail->Password = 'envios2015';
+			$mail->setFrom($micorreo,"Carlos Gómez");
+			//$mail->AddReplyTo($micorreo,"Carlos Gómez 2");
+			$mail->AddAddress ("$destinatario","cgomez@consultoriadual.com");
+			$mail->Subject = "$asunto";
+			$mail->MsgHTML($bodyMessageMail);
+			$mail->AltBody='This is a plain-text message body';
+			$mail->isHTML(true);
+			$mail->SMTPOptions = array(
+				'ssl' => array(
+				'verify_peer' => false,
+				'verify_peer_name' => false,
+				'allow_self_signed' => true));
+			
+			if(!$mail->Send()){
+				$msg='Mailer Error: '.$mail->ErrorInfo;
+			}
+			else{
+				$msg="<p>Tu informacion se recibio correctamente <br> Se ha enviado una confirmacion al correo <b>correo</b></p>";
+			}
+			//header("Location:http://localhost:8012/iBrain2.0/private/user");
+			}
+
+		}	
+		else{
+			echo "Error,no se puede enviar el correo electrónico ";
 		}
 	}
 	function CreateAccessory(){
