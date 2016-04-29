@@ -386,7 +386,6 @@ use \Core\Controller;
     <script src="<?php echo $url; ?>App/web/js/plugins/peity/jquery.peity.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
-			
 			var frm_accessory_j = 	"<div style='margin-left:15px;'>";
 			frm_accessory_j 	+=	"<div> Descripci&oacute:<sup>*</sup>:</div><div> {desc} </div>";
 			frm_accessory_j 	+= 	"<div> Marca: </div><div>{brand} </div>";
@@ -396,7 +395,7 @@ use \Core\Controller;
 			frm_accessory_j 	+= 	"<hr style='width:100%;'/>";
 			frm_accessory_j 	+= 	"<div> {sData} {cData}  </div></div>";
 						
-			var lastSel,mydata =[];
+			var lastSel,mydata =new Object();
 			var accesories="";//new Array();
 				/*{id:"1", desc: "Cargador", 	brand: "Apple", model: "X-1", 	PN: "note", SN: "10.00"},
                 {id:"2", desc: "Cargador", 	brand: "Apple", model: "X-1", 	PN: "note", SN: "10.00"},
@@ -461,7 +460,8 @@ use \Core\Controller;
 					}
 				} else {
 					if (addMode) {
-						grid.jqGrid("addRowData",rowid,postdata,options.addedrow);
+					grid.jqGrid("addRowData",rowid,postdata,options.addedrow);
+
 					} else {
 						grid.jqGrid("setRowData",rowid,postdata);
 					}
@@ -469,7 +469,7 @@ use \Core\Controller;
 				if ((addMode && options.closeAfterAdd) || (!addMode && options.closeAfterEdit)) {
 					// close the edit/add dialog
 					$.jgrid.hideModal("#editmod" + grid_id,
-										{gb:"#gbox_"+grid_id,jqm:options.jqModal,onClose:options.onClose});
+					{gb:"#gbox_"+grid_id,jqm:options.jqModal,onClose:options.onClose});
 				}
 				if (postdata[grid_p.sortname] !== oldValueOfSortColumn) {
 					// if the data are changed in the column by which are currently sorted
@@ -553,14 +553,6 @@ use \Core\Controller;
 					});
 					//$(elem).focus();
 				},100);
-			},
-			ids=grid.jqGrid('getCell',0),
-			mydataset=function(ids){
-				for(var i = 0; i < ids.length; i++){
-					var rowId=ids[i];
-					mydata += rowId;//grid_p.jqGrid('getRowData',rowId);
-				}
-				return mydata
 			};
             
 			$('#data_1 .input-group.date').datepicker({
@@ -657,9 +649,19 @@ use \Core\Controller;
 			});
 		
 			$("#hdn_devices_h").attr("value",function(){
-				var json=accesories;
-				return json;
-			}			
+				mydata={};
+				var idToDataIndex = grid.getGridParam("records");
+				for(i = 1;i <= idToDataIndex; i++ ){
+					var rowId 	= grid.getRowData(i);
+					mydata.id	= rowId['id'];
+					mydata.desc = rowId['desc'];
+					mydata.brand= rowId['brand'];
+					mydata.model= rowId['model'];
+					mydata.PN	= rowId['PN'];
+					mydata.SN	= rowId['SN'];
+				}
+				return ObjJ2ObjP(mydata);
+			}				
 			);
 		});	
 	function displayButtons(cellvalue, options, rowObject){
