@@ -137,7 +137,64 @@ class ServiceOrder extends Controller{
 			View::render("addSO");       
 		
 	}
+	
 
+			public function ViewSO($pkso){
+				$arr_gsx_p= array(
+					"serialNumber"=>"C02L71R9FFT1",
+					"warrantyStatus"=>"Out Of Warranty (No Coverage)",
+					"daysRemaining"=>"0",
+					"estimatedPurchaseDate"=> "10/06/13" ,
+					"purchaseCountry"=>"Mexico", 
+					"registrationDate"=>"07/09/14",
+					"imageURL"=> "", 
+					"explodedViewURL"=>"",
+					"manualURL"=>"", 
+					"productDescription"=> "MacBook Pro (Retina, 15-inch,Early 2013)",
+					"configDescription"=>"MBP 15.4 RETINA,2.7GHZ,16GB,512GB FLASH",
+					"slaGroupDescription"=> "", 
+					"acPlusFlag"=>"" ,
+					"isLoaner"=> "N" ,
+					"consumerLawInfo"=> array(
+						"serviceType"=>"", 
+						"popMandatory"=> "",
+						"allowedPartType"=>"", 
+						),
+					"messages"=>"00007" ,
+					"availableRepairStrategies"=> array(
+						"availableRepairStrategy"=>"Return Before Replace" 
+						)
+					);
+					
+				#Objetos_e_Instancias;
+					$cu=new CU();
+					$cm=New CM();
+					$sot=New SOT();
+				#get_main_variables
+					$url= Globales::$absoluteURL;
+					$jsn_gsx_p=json_encode($arr_gsx_p);
+				#set_main_variables
+					View::set("url", $url);
+					View::set("title", "iBrain>Orden de servicio");
+					View::set("jsn_gsx_p",$jsn_gsx_p);
+				#get_data_variables
+					$currentMainMenu=$cu->getMainMenu2($this->_sesionpkiBUser);
+					$ResultSet_cm=$cm->getAll();
+					while ($row =$ResultSet_cm->fetch(\PDO::FETCH_ASSOC)){
+						$ds_cm[] = $row;
+					}
+					$ResultSet_so=SO::getoxcc($pkso);
+					while ($row =$ResultSet_so->fetch(\PDO::FETCH_ASSOC)){
+						$ds_so[] = $row;
+					}
+				#set_data_variables
+					View::set("ds_cm",$ds_cm);
+					View::set("ds_so",$ds_so);
+					View::set("currentMainMenu", $currentMainMenu);
+				#render
+					View::render("ViewSO");       
+		
+	}
 }
 //MÉTODOS PRIVADOS###################################
 //EVENTOS############################################

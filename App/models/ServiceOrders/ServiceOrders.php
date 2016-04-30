@@ -86,6 +86,23 @@ class ServiceOrders implements iCrud{
 			print "Error!: " . $e->getMessage();
 		}
     }
+	public static function getoxcc($pkso){
+        try {
+			$PDOcnn = Database::instance();
+			$PDOQuery =
+			"SELECT * FROM sorder o
+				INNER JOIN customercontact cc
+					ON o.CustomerContact_pkCustomerContact=cc.pkCustomerContact
+			WHERE pkSorder=$pkso;
+			";
+			$PDOResultSet = $PDOcnn->query($PDOQuery);
+			return $PDOResultSet;
+		}
+        catch(\PDOException $e)
+        {
+			print "Error!: " . $e->getMessage();
+		}
+    }
     public static function getById($id) {
         try {
             $connection = Database::instance();

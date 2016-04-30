@@ -24,6 +24,8 @@ use \Core\Controller;
 		}
 		
 		$obj_gsx_p=json_decode($jsn_gsx_p);
+		//foreach($ds_so as $dr_so){ echo $dr_so["SODate"];}
+		
 		
 ?>
 <!DOCTYPE html>
@@ -198,7 +200,7 @@ use \Core\Controller;
 															<select id="slt_fkCollectMethod_h" class="form-control m-b" name="slt_fkCollectMethod_h">
 																<option value="-1">Seleccionar ...</option>
 																<?php foreach ($ds_cm as $datarow) {?>
-																<option value="<?php echo $datarow['pkCollectMethod'] ?>"><?php echo $datarow['collectMethodName'] ?></option>
+																<option value="<?php echo $datarow['pkCollectMethod'] ?>" selected="selected"><?php echo $datarow['collectMethodName'] ?></option>
 																<?php } ?>
 															</select>
 														</div>
@@ -206,13 +208,13 @@ use \Core\Controller;
 													<div class="form-group">
 														<label class="col-md-4 control-label">Fecha de entrada:</label>
 														<div class="col-md-8">
-															<input type="text" id="txt_SODate_h" class="form-control" value="<?php echo date("Y-m-d")?>" readonly="readonly" name="txt_SODate_h"/>
+															<input type="text" id="txt_SODate_h" class="form-control" value="<?php foreach($ds_so as $dr_so){ echo $dr_so["SODate"];} ?>" readonly="readonly" name="txt_SODate_h"/>
 														</div>
 													</div>
 													<div class="form-group">
 														<label class="col-lg-4 control-label">Estado del equipo:</label>
 														<div class="col-lg-8">
-															<textarea id="tta_SODeviceCondition_h" class="form-control required" data-provide="markdown" rows="5" name="tta_SODeviceCondition_h"></textarea>
+															<textarea id="tta_SODeviceCondition_h" class="form-control required" data-provide="markdown" rows="5" name="tta_SODeviceCondition_h"><?php foreach($ds_so as $dr_so){ echo $dr_so["SODeviceCondition"];} ?></textarea>
 														</div>
 													</div>
 													<div class="form-group">
@@ -267,7 +269,7 @@ use \Core\Controller;
 													<div class="form-group">
 														<label class="col-lg-4 control-label">Detalle T&eacute;cnico:</label>
 														<div class="col-lg-8">
-															<textarea id="tta_SOTechDetail_h" class="form-control required" data-provide="markdown" rows="5" name="tta_SOTechDetail_h"></textarea>
+															<textarea id="tta_SOTechDetail_h" class="form-control required" data-provide="markdown" rows="5" name="tta_SOTechDetail_h"><?php foreach($ds_so as $dr_so){ echo $dr_so["SOTechDetail"];} ?></textarea>
 														</div>
 													</div>
 												</div>
@@ -275,65 +277,65 @@ use \Core\Controller;
 													<div class="form-group">
 														<label class="col-lg-4 control-label">Tel&eacute;fono:</label>
 														<div class="input-group col-lg-7">
-															<input type="tel" id="txt_contactPhone_h" class="form-control" value="" name="txt_contactPhone_h"/>
+															<input type="tel" id="txt_contactPhone_h" class="form-control" value="<?php foreach($ds_so as $dr_so){ echo $dr_so["contactPhone"];} ?>" value="" name="txt_contactPhone_h"/>
 															<span class="input-group-addon"><i class="fa fa-search"></i></span>
 														</div>
 													</div>
 													<div class="form-group">
 														<label class="col-lg-4 control-label">M&oacute;vil:</label>
 														<div class="input-group col-lg-7">
-															<input type="tel" id="txt_contactMovil_h" class="form-control" value="" name="txt_contactMovil_h"/>
+															<input type="tel" id="txt_contactMovil_h" class="form-control" value="<?php foreach($ds_so as $dr_so){ echo $dr_so["contactMovil"];} ?>" name="txt_contactMovil_h"/>
 															<span class="input-group-addon"><i class="fa fa-search"></i></span>
 														</div>
 													</div>
 													<div class="form-group">
 														<label class="col-lg-4 control-label">Contacto:</label>
 														<div class="input-group col-lg-7">
-															<input type="text" id="txt_contactName_h" class="form-control" value="" name="txt_contactName_h"/>
+															<input type="text" id="txt_contactName_h" class="form-control" value="<?php foreach($ds_so as $dr_so){ echo $dr_so["contactName"];} ?>" name="txt_contactName_h"/>
 															<span class="input-group-addon"><i class="fa fa-search"></i></span>
 														</div>
 													</div>
 													<div class="form-group">
 														<label class="col-lg-4 control-label">Correo electr&oacute;nico:</label>
 														<div class="input-group col-lg-7">
-															<input type="email" id="txt_contactEmail_h" class="form-control" value="" name="txt_contactEmail_h"/>
+															<input type="email" id="txt_contactEmail_h" class="form-control" value="<?php foreach($ds_so as $dr_so){ echo $dr_so["contactEmail"];} ?>" name="txt_contactEmail_h"/>
 															<span class="input-group-addon"><i class="fa fa-search"></i></span>
 														</div>
 													</div>
 													<div class="form-group">
 														<label class="col-lg-4 control-label">Direcci&oacute;n:*</label>
 														<div class="col-lg-8">
-															<input type="text" id="txt_contactAddress_h" class="form-control required" name="txt_contactAddress_h">
+															<input type="text" id="txt_contactAddress_h" class="form-control required" value="<?php foreach($ds_so as $dr_so){ echo $dr_so["contactAddress"];} ?>" name="txt_contactAddress_h">
 														</div>
 													</div>
 													<div class="form-group">
 														<label class="col-lg-4 control-label">Colonia:*</label>
 														<div class="col-lg-8">
-															<input id="txt_contactLocation_h" class="form-control required" name="txt_contactLocation_h" type="text">
+															<input type="text" id="txt_contactLocation_h" class="form-control required" value="<?php foreach($ds_so as $dr_so){ echo $dr_so["contactLocation"];} ?>" name="txt_contactLocation_h">
 														</div>
 													</div>
 													<div class="form-group">
 														<label class="col-lg-4 control-label">Delegaci&oacute;n o municipio:*</label>
 														<div class="col-lg-8">
-															<input id="txt_contactCounty_h" class="form-control required" name="txt_contactCounty_h" type="text">
+															<input type="text" id="txt_contactCounty_h" class="form-control required" value="<?php foreach($ds_so as $dr_so){ echo $dr_so["contactCounty"];} ?>" name="txt_contactCounty_h">
 														</div>
 													</div>
 													<div class="form-group">
 														<label class="col-lg-4 control-label">C.P.:*</label>
 														<div class="col-lg-8">
-															<input id="txt_contactZipCode_h" class="form-control required" name="txt_contactZipCode_h" type="text">
+															<input type="text" id="txt_contactZipCode_h" class="form-control required" value="<?php foreach($ds_so as $dr_so){ echo $dr_so["contactZipCode"];} ?>" name="txt_contactZipCode_h">
 														</div>
 													</div>
 													<div class="form-group">
 														<label class="col-lg-4 control-label">Provincia:*</label>
 														<div class="col-lg-8">
-															<input id="txt_contactProvince_h" class="form-control required" name="txt_contactProvince_h" type="text">
+															<input type="text" id="txt_contactProvince_h" class="form-control required" value="<?php foreach($ds_so as $dr_so){ echo $dr_so["contactProvince"];} ?>" name="txt_contactProvince_h">
 														</div>
 													</div>
 													<div class="form-group">
 														<label class="col-lg-4 control-label">Notas:</label>
 														<div class="col-lg-8">
-															<textarea id="tta_contactObs_h" class="form-control" data-provide="markdown" rows="5" name="tta_contactObs_h"></textarea>
+															<textarea id="tta_contactObs_h" class="form-control" data-provide="markdown" rows="5" name="tta_contactObs_h"><?php foreach($ds_so as $dr_so){ echo $dr_so["contactObs"];} ?></textarea>
 														</div>
 													</div>
 													<div class="col-md-4 pull-right">
