@@ -59,9 +59,9 @@ class ServiceOrder extends Controller{
     public function index(){
 	//$layout=new WithSiteMap(new WithTemplate(new WithMenu(new LayoutCSS())));
 	//$layout= Layouts::render();
-		//self::showSO();
-		View::set("foo",true);
-		View::render("z_testPost");
+		self::showSO();
+		//View::set("foo",true);
+		//View::render("z_testPost");
 	}
 	public function showSO(){
 		#get_main_variables
@@ -203,14 +203,12 @@ class ServiceOrder extends Controller{
 			include_once "../App/views/htmlTemplates/ServiceOrderConfirmPDF.php";
 			include_once "../App/views/htmlTemplates/ServiceOrderConfirmMail.php";
 			
-			$accesorio=$_POST['hdn_devices_h'];
+			/*$accesorio=$_POST['hdn_devices_h'];
 			for($i=0; $i <= $accesorio->id; $i++){
 				echo $accesorio->desc . " " . $accesorio->brand;
-			}
+			}*/
 			
-			
-			
-			/*if ($so->insertData("sorder")){*/
+			if ($so->insertData("sorder")){
 				/*echo "<script language='JavaScript'> 
 						 window.open(\"http://www.w3schools.com\", \"_blank\", \"toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400\");
 					</script>";*/
@@ -220,14 +218,14 @@ class ServiceOrder extends Controller{
 			$fpdf->SetFont('Arial','',12);
 			$fpdf->AddPage();
 			$fpdf->WriteHTML($bodyMessagePDF);
-			$fpdf->Output();
+			$fpdf->Output();*/
 			
 			
 			$micorreo="cgomez@consultoriadual.com";
 			$nombreFrom="iBrain info";
 			$nombreadmin="";
 			$asunto="Orden de servicio";
-			$destinatario="cgomez@consultoriadual.com";
+			$destinatario=$c->getContactEmail();
 //////////////////////////////////////////////DATOS DE EMAIL DE confirmacion////////////////////////////////////
 			date_default_timezone_set('Etc/UTC');
 			$mail= new PHPMailer(false);
@@ -265,8 +263,8 @@ class ServiceOrder extends Controller{
 		}	
 		else{
 			echo "Error,no se puede enviar el correo electrónico ";
-		}*/
-		}//sobra una llave
+		}
+		//}//sobra una llave
 	}
 	function CreateAccessory(){
 		$soa=new SOA();

@@ -45,8 +45,7 @@ use \Core\Controller;
 	<link href="<?php echo $url; ?>App/web/css/plugins/jqGrid/ui.jqgrid.css" rel="stylesheet">
 	<link href="<?php echo $url; ?>App/web/css/plugins/jQueryUI/jquery-ui-1.10.4.custom.min.css">
     <style>
-        .wizard > .content > .body  position: relative; 
-		#alertmod_table_accessory{
+        #alertmod_table_accessory{
             top: 900px !important;
         }
     </style>
@@ -196,7 +195,7 @@ use \Core\Controller;
 													<div class="form-group">
 														<label class="col-md-4 control-label">Recolecci&oacute;n:*</label>
 														<div class="col-md-8">
-															<select id="" class="form-control m-b" name="slt_fkCollectMethod_h">
+															<select id="slt_fkCollectMethod_h" class="form-control m-b" name="slt_fkCollectMethod_h">
 																<option value="-1">Seleccionar ...</option>
 																<?php foreach ($ds_cm as $datarow) {?>
 																<option value="<?php echo $datarow['pkCollectMethod'] ?>"><?php echo $datarow['collectMethodName'] ?></option>
@@ -207,7 +206,7 @@ use \Core\Controller;
 													<div class="form-group">
 														<label class="col-md-4 control-label">Fecha de entrada:</label>
 														<div class="col-md-8">
-															<input type="text" id="txt_SODate_h" class="form-control" value="<?php echo date("Y-m-d")?>" name="txt_SODate_h"/>
+															<input type="text" id="txt_SODate_h" class="form-control" value="<?php echo date("Y-m-d")?>" readonly="readonly" name="txt_SODate_h"/>
 														</div>
 													</div>
 													<div class="form-group">
@@ -326,7 +325,7 @@ use \Core\Controller;
 														</div>
 													</div>
 													<div class="form-group">
-														<label class="col-lg-4 control-label">Province:*</label>
+														<label class="col-lg-4 control-label">Provincia:*</label>
 														<div class="col-lg-8">
 															<input id="txt_contactProvince_h" class="form-control required" name="txt_contactProvince_h" type="text">
 														</div>
@@ -642,9 +641,33 @@ use \Core\Controller;
                             element.before(error);
                         },
                         rules: {
-							field	:	{
+							slt_fkCollectMethod_h:	{
 								required:true,
-							}
+								min:0
+							},
+							tta_SODeviceCondition_h: {
+								required:true
+							},
+							tta_SOTechDetail_h:{
+								required:true
+							},
+							txt_contactPhone_h:{
+								required:true,
+								matches:"([0-9]{10})|(\([0-9]{3}\)\s+[0-9]{3}\-[0-9]{4})",
+								minlength:10,
+								maxlength:10								
+						    },
+							txt_contactMovil_h:{
+								required:true
+							},
+							txt_contactName_h:{
+								required:true
+							},
+							txt_contactEmail_h:{
+								required:true,
+								email:true
+							},
+							
                         }
 			});
 		
