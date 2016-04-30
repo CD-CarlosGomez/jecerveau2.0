@@ -658,17 +658,64 @@ use \Core\Controller;
 								maxlength:10								
 						    },
 							txt_contactMovil_h:{
-								required:true
+								required:true,
+								matches:"([0-9]{10})|(\([0-9]{3}\)\s+[0-9]{3}\-[0-9]{4})",
+								minlength:10,
+								maxlength:10	
 							},
 							txt_contactName_h:{
-								required:true
+								required:true,
+								minlenghth:2
 							},
 							txt_contactEmail_h:{
 								required:true,
 								email:true
 							},
-							
-                        }
+							txt_contactAddress_h:{
+								required:true,
+								minlenght:2
+							},
+							txt_contactLocation_h:{
+								required:true
+							},
+							txt_contactCounty_h:{
+								required:true
+							},
+							txt_contactZipCode_h:{
+								required:true,
+								matches:"(/^[a-zA-Z][0-9][a-zA-Z](-| )?[0-9][a-zA-Z][0-9]$/)"
+							},
+							txt_contactProvince_h:{
+								required:true
+							}
+                        },
+						messages:{
+							slt_fkCollectMethod_h: "Por favor, selecciona un m&eacute;todo de recollecci&oacute;n.",
+							tta_SODeviceCondition_h: "Por favor, especifique la condici&oacute;n actual del equipo.",
+							tta_SOTechDetail_h:"Por favor, especifique la condici&oacute;n t&eacute;cnica del equipo.",
+							txt_contactPhone_h:{
+								required:"Por favor, introduzca un n&uacute;mero de tel&eacute;fono.",
+								matches:"Por favor, introduzca s&oacute;lo n&uacute;meros.",
+								minlenght:"Debe de contener al menos diez d&iacute;gitos.",
+								maxlenght:"Debe contener m&aacute;ximo diez d&iacute;gitos."
+							},
+							txt_contactMovil_h:{
+								required:"Por favor, introduzca un n&uacute;mero de tel&eacute;fono.",
+								matches:"Por favor, introduzca s&oacute;lo n&uacute;meros.",
+								minlenght:"Debe de contener al menos diez d&iacute;gitos.",
+								maxlenght:"Debe contener m&aacute;ximo diez d&iacute;gitos."
+							},
+							txt_contactName_h:{
+								required:"Por favor, introduzca el nombre del contacto.",
+								minlenght:"Por favor, escriba un verdadero nombre."
+						    },
+							txt_contactEmail_h:"Por favor, introduzca un email v&aacute;lido.",
+							txt_contactAddress_h:"Por favor, introduzca un direcci&oacute;n v&aacute;lida.",
+							txt_contactLocation_h:"Por favor, introduzca una Colonia.",
+							txt_contactCounty_h:"Por favor, introduzca un municipio o delegaci&oacute;n.",
+							txt_contactZipCode_h:"Por favor, introduzca un Zip Code v&aacute;lido.",
+							txt_contactProvince_h:"Por favor, introduzca una Provincia o Estado."
+						}
 			});
 		
 			$("#hdn_devices_h").attr("value",function(){
