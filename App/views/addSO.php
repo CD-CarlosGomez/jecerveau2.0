@@ -385,11 +385,9 @@ use \Core\Controller;
     <script src="<?php echo $url; ?>App/web/js/plugins/peity/jquery.peity.min.js"></script>
     <script type="text/javascript">
 		$.validator.setDefaults({
-		/*submitHandler: function() {
-			alert("submitted!");
-		}*/
-		debug:true,
-		success:"valid"
+		submitHandler: function(form) {
+			form.submitt();
+		}
 	});
         $(document).ready(function(){
 			var frm_accessory_j = 	"<div style='margin-left:15px;'>";
@@ -684,7 +682,7 @@ use \Core\Controller;
 							}
                         },
 						messages:{
-							slt_fkCollectMethod_h: "Por favor, selecciona un m&eacute;todo de recollecci&oacute;n.",
+							slt_fkCollectMethod_h: "Por favor, selecciona un m&eacute;todo de recolecci&oacute;n.",
 							tta_SODeviceCondition_h: "Por favor, especifique la condici&oacute;n actual del equipo.",
 							tta_SOTechDetail_h:"Por favor, especifique la condici&oacute;n t&eacute;cnica del equipo.",
 							txt_contactPhone_h:{

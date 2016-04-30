@@ -72,7 +72,7 @@ class ServiceOrder extends Controller{
 		#get_data_variables
 		$currentMainMenu=CU::getMainMenu2($this->_sesionpkiBUser);
 		$dsSO=SO::getSelectIbSO189A1();
-		while ($row =$dsSO->fetch( \PDO::FETCH_ASSOC )){
+		while ($row =$dsSO->fetch( \PDO::FETCH_BOTH )){
 			$dt_SO[] = $row;
 		}
 		#set_data_variables
@@ -314,7 +314,7 @@ class ServiceOrder extends Controller{
 			else{
 				$msg="<p>Tu informacion se recibio correctamente <br> Se ha enviado una confirmacion al correo <b>correo</b></p>";
 			}
-			//header("Location:http://localhost:8012/iBrain2.0/private/user");
+			header("Location:" . $url= Globales::$absoluteURL . 'private/ServiceOrder/ViewSO/' . $pk );
 			}
 
 		}	

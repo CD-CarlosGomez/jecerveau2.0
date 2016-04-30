@@ -25,8 +25,12 @@ use \App\data\DataGridView as DGV;
 		->setGridAttributes(array('class' => 'table table-striped table-bordered table-hover dataTables-example'))
 		->enableSorting(false)
 		->removeColumn('pkSOrder')
+		->removeColumn(0)
+		->removeColumn(1)
+		->removeColumn(2)
+		->removeColumn(3)
 		->setup(array(
-			'SONumber' => array('header' => 'N&uacute;mero de orden'),
+			'SONumber' => array('header' => 'N&uacute;mero de orden','link'=>$url . 'private/ServiceOrder/ViewSO/','filterColumn'=>0),
 			'Serie' => array('header' => 'Serie'),
 			'contactName' => array('header' => 'Nombre'),
 			'Modelo' => array('header' => 'Device'),
