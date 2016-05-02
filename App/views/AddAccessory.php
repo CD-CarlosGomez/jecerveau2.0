@@ -4,6 +4,13 @@ defined("APPPATH") OR die("Access denied");
 use \Core\View;
 use \Core\Controller;
 use \App\Config\Globales;
+
+$accessories=array();
+$accessories[0]["Desc"]="Desc";
+$accessories[0]["Brand"]="Brand";
+$accessories[0]["Model"]="Model";
+$accessories[0]["PN"]="PN";
+$accessories[0]["SN"]="SN";
 ?>
 <!DOCTYPE html>
 <html>
@@ -18,7 +25,7 @@ use \App\Config\Globales;
 		<link href="<?php echo Globales::$absoluteURL; ?>App/web/css/style.css" rel="stylesheet">
 
 	</head>
-<body class="top-navigation">
+	<body class="top-navigation">
     <div id="wrapper">
         <div id="page-wrapper" class="gray-bg">
 			<div class="wrapper wrapper-content">
@@ -27,8 +34,8 @@ use \App\Config\Globales;
 						<div class="col-md-6">
 							<div class="ibox float-e-margins">
 								<div class="ibox-title">
-									<h5>Titulo del ibox </h5>
-									<div class="ibox-tools">
+									<h5>Agregar un accesorios</h5>
+									<!--div class="ibox-tools">
 										<a class="collapse-link">
 											<i class="fa fa-chevron-up"></i>
 										</a>
@@ -44,41 +51,41 @@ use \App\Config\Globales;
 										<a class="close-link">
 											<i class="fa fa-times"></i>
 										</a>
-									</div>
+									</div-->
 								</div>
 								<div class="ibox-content" >
 									<fieldset>
-											<form id="formUser" class="form-horizontal" action="http://192.168.1.47:8012/ibrain2.0/private/ServiceOrder" method="POST" role="form">
+											<form id="formUser" class="form-horizontal" action="<?php echo Globales::$absoluteURL; ?>private/ServiceOrder/addAccessory" method="POST" role="form">
 													<div class="">
 														<div class="form-group">&nbsp;</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">Descripci&oacute;n:*</label>
 															<div class="col-lg-8">
-																<input id="txt_AccessoryDesc_h" class="form-control required" name="txt_AccessoryDesc_h" type="text">
+																<input id="txt_AccessoryDesc_h" class="form-control required" name="["Accessorio"][txt_AccessoryDesc_h]" type="text">
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">Marca:*</label>
 															<div class="col-lg-8">
-																<input id="txt_AccessoryBrand_h" class="form-control" name="txt_AccessoryBrand_h" type="text">
+																<input id="txt_AccessoryBrand_h" class="form-control" name="["Accessorio"][txt_AccessoryBrand_h]" type="text">
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">Modelo:*</label>
 															<div class="col-md-8">
-																<input id="txt_AccessoryModel_h" class="form-control required" name="txt_AccessoryModel_h" type="text">
+																<input id="txt_AccessoryModel_h" class="form-control required" name="["Accessorio"][txt_AccessoryModel_h]" type="text">
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">N&uacute;mero de parte:*</label>
 															<div class="col-md-8">
-																<input id="txt_AccessoryPN_h" class="form-control required" name="txt_AccessoryPN_h" type="text">
+																<input id="txt_AccessoryPN_h" class="form-control required" name="["Accessorio"]["txt_AccessoryPN_h]" type="text">
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">N&uacute;mero de serie:*</label>
 															<div class="col-md-8">
-																<input id="txt_AccessorySN_h" class="form-control required" name="txt_AccessorySN_h" type="text">
+																<input id="txt_AccessorySN_h" class="form-control required" name=["Accessorio"]["txt_AccessorySN_h"] type="text">
 															</div>
 														</div>
 														<div class="col-md-6 pull-right">
@@ -88,8 +95,65 @@ use \App\Config\Globales;
 														</div>
 													</div>												
 											</form>
-									</fieldset>
-									
+									</fieldset>									
+								</div>
+							</div>
+                        </div>
+                    </div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="ibox float-e-margins">
+								<div class="ibox-title">
+									<h5>Lista de accesorios</h5>
+									<!--div class="ibox-tools">
+										<a class="collapse-link">
+											<i class="fa fa-chevron-up"></i>
+										</a>
+										<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+											<i class="fa fa-wrench"></i>
+										</a>
+										<ul class="dropdown-menu dropdown-user">
+											<li><a href="#">Config option 1</a>
+											</li>
+											<li><a href="#">Config option 2</a>
+											</li>
+										</ul>
+										<a class="close-link">
+											<i class="fa fa-times"></i>
+										</a>
+									</div-->
+								</div>
+								<div class="ibox-content" >
+									<table class="table table-striped table-bordered table-hover">
+										<tr>
+											<th>Descripci&oacute;n</th>
+											<th>Marca</th>
+											<th>Modelo</th>
+											<th>No. Parte</th>
+											<th>No. Serie</th>
+										</tr>
+										<tbody>
+											
+										<?php
+										if(isset($accessories)){
+											var_dump($accessories);
+											
+											for($i = 0; $i < count($accessories); $i++){
+												foreach($accessories[$i] as $accessor=>$value){
+											?>
+											<tr>
+												<td><?php echo $accessor["Desc"]?></td>
+												<td><?php echo $accessor["Brand"]?></td>
+												<td><?php echo $accessor["Model"]?></td>
+												<td><?php echo $accessor["PN"]?></td>
+												<td><?php echo $accessor["SN"]?></td>
+											</tr>	
+										<?php
+												}
+											}
+										} ?>
+										</tbody>
+									</table>					
 								</div>
 							</div>
                         </div>

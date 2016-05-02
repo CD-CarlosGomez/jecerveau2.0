@@ -13,8 +13,8 @@ const SECURE=FALSE;
 public static $domain		='http://localhost:8012/';
 public static $base_path	='iBrain2.0/';
 //public static $absoluteURL	='http://localhost:8012/iBrain2.0/';
-//public static $absoluteURL	='http://192.168.1.64:8012/ibrain2.0/';
-public static $absoluteURL	='http://localhost/www/iBrain2.0/';
+public static $absoluteURL	='http://192.168.1.64:8012/ibrain2.0/';
+//public static $absoluteURL	='http://localhost/www/iBrain2.0/';
 }
 
 /*

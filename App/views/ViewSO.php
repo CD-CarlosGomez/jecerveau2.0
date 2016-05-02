@@ -79,7 +79,9 @@ use \Core\Controller;
 				</div>
 				<div class="row wrapper border-bottom white-bg page-heading">
 					<div class="col-sm-4">
-						<h2>Cuenta maestra</h2>
+						<h2>Orden de servicio</h2>
+						</br>
+						<h3><?php foreach($ds_so as $dr_so){ echo $dr_so["SONumber"];} ?></h3>
 						<ol class="breadcrumb">
 							<li>
 								<a href="<?php echo $url; ?>private/home">Inicio</a>
