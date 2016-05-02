@@ -5,31 +5,34 @@ use \Core\View;
 use \Core\Controller;
 use \App\Config\Globales;
 
-		
+if (strlen(session_id()) < 1){
+   session_start();
+}
+error_reporting(E_ALL);
+@ini_set('display_errors', '1');
+if(isset($_SESSION['accessories']))
+$accessories=$_SESSION['accessories'];else $accessories=false;
 
-
-$accessories=array();
-
-if(isset($_POST)){
-	$accessoryDesc=@$_POST["txt_AccessoryDesc_h"];
-	$accessoryBrand=@$_POST["txt_AccessoryBrand_h"];
-	$accessoryModel=@$_POST["txt_AccessoryModel_h"];
-	$accessoryPN=@$_POST["txt_AccessoryPN_h"];
-	$accessorySN=@$_POST["txt_AccessorySN_h"];
-	
-	$arrayAccessory=array(
-		"Desc"=>$accessoryDesc,
-		"Brand"=>$accessoryBrand,
-		"Model"=>$accessoryModel,
-		"PN"=>$accessoryPN,
-		"SN"=>$accessorySN
-	);
-	if (isset($arrayAccessory)){
-		@array_push($Accessories,$arrayAccessory);
+if($_POST){
+	extract($_POST);
+	$accessoriesid=count($accessories);
+	if ($accessoriesid=null || $accessoriesid="" || $accessoriesid=0){
+		$accessoriesid=0;
+	}
+	else{
+		$accessoriesid++;
 	}
 	
+	$accessories[$accessoriesid]=array(
+									   'id'=>$accessoriesid,
+									   'desc'=>$txt_AccessoryDesc_h,
+									   'brand'=>$txt_AccessoryBrand_h,
+									   'model'=>$txt_AccessoryModel_h,
+									   'PN'=>$txt_AccessoryPN_h,
+									   'SN'=>$txt_AccessorySN_h
+									   );
+	$_SESSION['accessories']=$accessories;
 }
-
 
 
 
@@ -138,6 +141,9 @@ function recorro($matriz){
 							</div>
                         </div>
                     </div>
+					<?php 
+						if($accessories){
+					?>
 					<div class="row">
 						<div class="col-md-6">
 							<div class="ibox float-e-margins">
@@ -173,14 +179,41 @@ function recorro($matriz){
 										<tbody>
 											
 										<?php
-										var_dump($accessories);
+										foreach($accessories as $k =>$v){
+										?>
+										<tr>
+											<td>
+												<?php echo $v['desc'] ?>
+											</td>
+											<td>
+												<?php echo $v['brand'] ?>
+											</td>
+											<td>
+												<?php echo $v['model'] ?>
+											</td>
+											<td>
+												<?php echo $v['PN'] ?>
+											</td>
+											<td>
+												<?php echo $v['SN'] ?>
+												
+											</td>
+										</tr>	
+										<?php
+										}
 										 ?>
 										</tbody>
-									</table>					
+									</table>
+									<div align="center"><span class="prod">
+										Total de Accesorios <?php echo count($accessories); ?></span> 
+									</div>
 								</div>
 							</div>
                         </div>
                     </div>
+					<?php
+					}
+					?>
 				</div>
 			</div>
 		</div>
