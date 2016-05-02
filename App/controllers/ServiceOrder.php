@@ -195,6 +195,14 @@ class ServiceOrder extends Controller{
 					View::render("ViewSO");       
 		
 	}
+	public function AddAccessory(){
+		#get_main_variables
+				$url= Globales::$absoluteURL;
+		#set_main_variables
+				View::set("url", $url);
+		#render
+				View::render("AddAccessory");  
+	}
 }
 //MÉTODOS PRIVADOS###################################
 //EVENTOS############################################

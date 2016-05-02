@@ -12,13 +12,13 @@ use \Core\Controller;
 		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
 		else{
 				echo "Esta pagina es solo para usuarios registrados.<br>";
-			echo "<a href='http://localhost:8012/ibrain2.0'>Login Here!</a>";
+			echo "<a href='" . $url ."'>Login Here!</a>";
 			exit;
 		}
 		$now = time(); 
 		if($now > $_SESSION['expire']){
 		session_destroy();
-		echo "Su sesion a terminado, <a href='http://localhost:8012/ibrain2.0'>
+		echo "Su sesion a terminado, $url>
 			  Necesita Hacer Login</a>";
 		exit;
 		}
@@ -567,7 +567,8 @@ use \Core\Controller;
                 autoclose: true
 			 });
 			$("#btn_newAccessory_h").on('click',function(){
-				$("#table_list_accessory").jqGrid("editGridRow","new",addSettings);
+				//$("#table_list_accessory").jqGrid("editGridRow","new",addSettings);
+				AccessoryWindowOpen();
 			});
 			grid.jqGrid({
 				datatype: "local",
@@ -714,7 +715,7 @@ use \Core\Controller;
 							txt_contactProvince_h:"Por favor, introduzca una Provincia o Estado."
 						}
 			});
-		$("#hdn_devices_h").attr("value",function(){
+				$("#hdn_devices_h").attr("value",function(){
 				mydata={};
 				var idToDataIndex = grid.getGridParam("records");
 				for(i = 1;i <= idToDataIndex; i++ ){
@@ -756,6 +757,10 @@ use \Core\Controller;
 		}
 		return json.substr(0,json.length-1) + '}';
 	}
+	function AccessoryWindowOpen(){
+			miPopup = window.open("<?php echo $url . "private/ServiceOrder/AddAccessory";?>","miwin","width=700,height=500,scrollbars=yes");
+			miPopup.focus();
+		}
 	</script>
 
 
