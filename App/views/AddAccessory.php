@@ -5,12 +5,50 @@ use \Core\View;
 use \Core\Controller;
 use \App\Config\Globales;
 
+		
+
+
 $accessories=array();
-$accessories[0]["Desc"]="Desc";
-$accessories[0]["Brand"]="Brand";
-$accessories[0]["Model"]="Model";
-$accessories[0]["PN"]="PN";
-$accessories[0]["SN"]="SN";
+
+if(isset($_POST)){
+	$accessoryDesc=@$_POST["txt_AccessoryDesc_h"];
+	$accessoryBrand=@$_POST["txt_AccessoryBrand_h"];
+	$accessoryModel=@$_POST["txt_AccessoryModel_h"];
+	$accessoryPN=@$_POST["txt_AccessoryPN_h"];
+	$accessorySN=@$_POST["txt_AccessorySN_h"];
+	
+	$arrayAccessory=array(
+		"Desc"=>$accessoryDesc,
+		"Brand"=>$accessoryBrand,
+		"Model"=>$accessoryModel,
+		"PN"=>$accessoryPN,
+		"SN"=>$accessorySN
+	);
+	if (isset($arrayAccessory)){
+		@array_push($Accessories,$arrayAccessory);
+	}
+	
+}
+
+
+
+
+function recorro($matriz){
+        foreach($matriz as $key=>$value){
+            if (is_array($value)){
+                //si es un array sigo recorriendo
+              echo 'key:'. $key;
+              echo '<br>';
+             recorro($value);
+        }
+		else{  
+             //si es un elemento lo muestro
+             echo $key.': '.$value ;
+             echo '<br>';
+        }
+	}
+} 
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -61,31 +99,31 @@ $accessories[0]["SN"]="SN";
 														<div class="form-group">
 															<label class="col-md-4 control-label">Descripci&oacute;n:*</label>
 															<div class="col-lg-8">
-																<input id="txt_AccessoryDesc_h" class="form-control required" name="["Accessorio"][txt_AccessoryDesc_h]" type="text">
+																<input id="txt_AccessoryDesc_h" class="form-control required" name="txt_AccessoryDesc_h" type="text">
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">Marca:*</label>
 															<div class="col-lg-8">
-																<input id="txt_AccessoryBrand_h" class="form-control" name="["Accessorio"][txt_AccessoryBrand_h]" type="text">
+																<input id="txt_AccessoryBrand_h" class="form-control" name="txt_AccessoryBrand_h" type="text">
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">Modelo:*</label>
 															<div class="col-md-8">
-																<input id="txt_AccessoryModel_h" class="form-control required" name="["Accessorio"][txt_AccessoryModel_h]" type="text">
+																<input id="txt_AccessoryModel_h" class="form-control required" name="txt_AccessoryModel_h" type="text">
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">N&uacute;mero de parte:*</label>
 															<div class="col-md-8">
-																<input id="txt_AccessoryPN_h" class="form-control required" name="["Accessorio"]["txt_AccessoryPN_h]" type="text">
+																<input id="txt_AccessoryPN_h" class="form-control required" name="txt_AccessoryPN_h" type="text">
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">N&uacute;mero de serie:*</label>
 															<div class="col-md-8">
-																<input id="txt_AccessorySN_h" class="form-control required" name=["Accessorio"]["txt_AccessorySN_h"] type="text">
+																<input id="txt_AccessorySN_h" class="form-control required" name="txt_AccessorySN_h" type="text">
 															</div>
 														</div>
 														<div class="col-md-6 pull-right">
@@ -135,23 +173,8 @@ $accessories[0]["SN"]="SN";
 										<tbody>
 											
 										<?php
-										if(isset($accessories)){
-											var_dump($accessories);
-											
-											for($i = 0; $i < count($accessories); $i++){
-												foreach($accessories[$i] as $accessor=>$value){
-											?>
-											<tr>
-												<td><?php echo $accessor["Desc"]?></td>
-												<td><?php echo $accessor["Brand"]?></td>
-												<td><?php echo $accessor["Model"]?></td>
-												<td><?php echo $accessor["PN"]?></td>
-												<td><?php echo $accessor["SN"]?></td>
-											</tr>	
-										<?php
-												}
-											}
-										} ?>
+										var_dump($accessories);
+										 ?>
 										</tbody>
 									</table>					
 								</div>
