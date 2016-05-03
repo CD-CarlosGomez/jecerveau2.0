@@ -7,7 +7,7 @@ use \App\Interfaces\iCrud;
 
 class SOAccessories implements iCrud{
 	private static $_pkSOAccessories=Null;
-	private static $_fkSorder=Null;
+	private static $_fkSOrder=Null;
 	private static $_SOAccessoryDesc=Null;
 	private static $_SOAccessoryBrand=Null;
 	private static $_SOAccessoryModel=Null;
@@ -21,10 +21,10 @@ class SOAccessories implements iCrud{
 		self::$_pkSOAccessories=$value;
 	}
 	public static function getFKSorder(){
-		return self::$_fkSorder;
+		return self::$_fkSOrder;
 	}
 	public static function setFKSorder($value){
-		self::$_fkSorder=$value;
+		self::$_fkSOrder=$value;
 	}
 	public static function setAccessoryDesc($valor){
 		self::$_SOAccessoryDesc=$valor;
@@ -114,18 +114,17 @@ class SOAccessories implements iCrud{
             $sql = "INSERT INTO $table VALUES (?,?,?,?,?,?,?)";
             $query = $connection->prepare($sql);
             $query->bindParam(1, self::$_pkSOAccessories, \PDO::PARAM_INT);
-			$query->bindParam(2, self::$_fkSorder, \PDO::PARAM_INT);
+			$query->bindParam(2, self::$_fkSOrder, \PDO::PARAM_INT);
 			$query->bindParam(3, self::$_SOAccessoryDesc, \PDO::PARAM_STR);
 			$query->bindParam(4, self::$_SOAccessoryBrand, \PDO::PARAM_STR);
 			$query->bindParam(5, self::$_SOAccessoryModel, \PDO::PARAM_STR);
 			$query->bindParam(6, self::$_SOAccessoryPartNumber, \PDO::PARAM_STR);
 			$query->bindParam(7, self::$_SOAccessorySerialNumber, \PDO::PARAM_STR);
+			
 			$resultSet=$query->execute();
 			
-			return $resultSet;//Retornará True o false, dependiendo si se ejecuta la sentencia.
-		
-           
-        }
+			return true;//$resultSet;//Retornará True o false, dependiendo si se ejecuta la sentencia.
+		}
         catch(\PDOException $e){
             print "Error!: " . $e->getMessage();
         }

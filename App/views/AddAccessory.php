@@ -23,7 +23,12 @@ if($_POST){
 		$accessoriesid++;
 	}
 	
-	$accessories[$accessoriesid]=array(
+	
+	if(isset($_SESSION['accessories'])){
+		$accessories=$_SESSION['accessories'];
+		$accessoriesid=count($accessories);
+		$accessoriesid++;
+		$accessories[$accessoriesid]=array(
 									   'id'=>$accessoriesid,
 									   'desc'=>$txt_AccessoryDesc_h,
 									   'brand'=>$txt_AccessoryBrand_h,
@@ -31,10 +36,20 @@ if($_POST){
 									   'PN'=>$txt_AccessoryPN_h,
 									   'SN'=>$txt_AccessorySN_h
 									   );
+	}
+	else{
+		$accessories[0]=array(
+									   'id'=>$accessoriesid,
+									   'desc'=>$txt_AccessoryDesc_h,
+									   'brand'=>$txt_AccessoryBrand_h,
+									   'model'=>$txt_AccessoryModel_h,
+									   'PN'=>$txt_AccessoryPN_h,
+									   'SN'=>$txt_AccessorySN_h
+									   );
+	}
+	
 	$_SESSION['accessories']=$accessories;
 }
-
-
 
 function recorro($matriz){
         foreach($matriz as $key=>$value){

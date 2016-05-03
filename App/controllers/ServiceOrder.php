@@ -25,6 +25,10 @@ use \App\web\API\fpdf\fpdfExtended as fpdfExt;
 	if (strlen(session_id()) < 1){session_start();}
 		$_SESSION["nombreUsuario"];
 		$_SESSION['pkiBUser_p'];
+		if(isset($_SESSION["accessories"])){
+				$accessories=$_SESSION['accessories'];
+		}		
+		
 	if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
 		else{
 				echo "Esta pagina es solo para usuarios registrados.<br>";
@@ -139,7 +143,7 @@ class ServiceOrder extends Controller{
 	}
 	
 
-			public function ViewSO($pkso){
+	public function ViewSO($pkso){
 				$arr_gsx_p= array(
 					"serialNumber"=>"C02L71R9FFT1",
 					"warrantyStatus"=>"Out Of Warranty (No Coverage)",
@@ -212,9 +216,6 @@ class ServiceOrder extends Controller{
 		case "AddSO":
 			CreateSO();
 		break;
-		case "addAccessory":
-			CreateAccessory();
-		break;
 		case "AddUser":
 			CreateUser();
 		break;
@@ -241,21 +242,22 @@ class ServiceOrder extends Controller{
 			$so = new SO;
 			$bosettings=BO::getBOSById(0);
 			
-			$pk = $so->getNextId("pkSOrder","sorder");
+			$pkSOrder = $so->getNextId("pkSOrder","sorder");
 			$lastsoperbos=$so->getLastOSperBO(0);
 			
 			$lastsoperbo=$lastsoperbos->fetch(\PDO::FETCH_ASSOC);
 			$lastsosubstrim=explode("-",$lastsoperbo["SONumber"]);
-			$i=$lastsosubstrim[0];
-			
+					
 			$row =$bosettings->fetch( \PDO::FETCH_ASSOC );
 			$a=$row["folioStart"];
+			$i=$lastsosubstrim[0]-$a;
+			
 			$nextFolio= 1 + $i + $a ;
 			$sonumber = "$nextFolio" . "-" . $row['fkCountry'] . "-" . $row["subCompanyName"] . "-" . $row["BOName"];
 			$BO = $row["pkBranchOffice"];				
 				
 						
-			$so->setpkSorder($pk);
+			$so->setpkSorder($pkSOrder);
 			$so->setSONumber($sonumber);
 			$so->setBranchOffice($BO);
 			$so->setSODate(date("Y-m-d H-m-s"));
@@ -265,26 +267,33 @@ class ServiceOrder extends Controller{
 			$so->setSODeviceCondition($_POST["tta_SODeviceCondition_h"]);
 			$so->setSOTechDetail($_POST["tta_SOTechDetail_h"]);
 			
-			include_once "../App/views/htmlTemplates/ServiceOrderConfirmPDF.php";
-			include_once "../App/views/htmlTemplates/ServiceOrderConfirmMail.php";
-			
-			/*$accesorio=$_POST['hdn_devices_h'];
-			for($i=0; $i <= $accesorio->id; $i++){
-				echo $accesorio->desc . " " . $accesorio->brand;
-			}*/
-			
 			if ($so->insertData("sorder")){
+				foreach($accessories as $k=>$v){
+						$soa=new SOA();
+						$nextId=$soa->getNextId("pkSOAccessories","soaccessory");
+						$soa->setPKSOAccessories($nextId);
+						$soa->setFKSorder($so->getpkSorder());
+						$soa->setAccessoryDesc($v["desc"]);
+						$soa->setAccessoryBrand($v["brand"]);
+						$soa->setAccessoryModel($v["model"]);
+						$soa->setAccessoryPartNumber($v["PN"]);
+						$soa->setAccessorySerialNumber($v["SN"]);
+						$soa->insertData("soaccessory");
+				}
+				unset($_SESSION['accessories']);
+				
 				/*echo "<script language='JavaScript'> 
 						 window.open(\"http://www.w3schools.com\", \"_blank\", \"toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400\");
 					</script>";*/
 				//<script>function abrir() { open('pagina.html','','top=300,left=300,width=300,height=300') ; } </script> 
+				/*$fpdf=new fpdfExt();
+				$fpdf->SetFont('Arial','',12);
+				$fpdf->AddPage();
+				$fpdf->WriteHTML($bodyMessagePDF);
+				$fpdf->Output();*/
 			
-			/*$fpdf=new fpdfExt();
-			$fpdf->SetFont('Arial','',12);
-			$fpdf->AddPage();
-			$fpdf->WriteHTML($bodyMessagePDF);
-			$fpdf->Output();*/
-			
+			include_once "../App/views/htmlTemplates/ServiceOrderConfirmPDF.php";
+			include_once "../App/views/htmlTemplates/ServiceOrderConfirmMail.php";
 			
 			$micorreo="cgomez@consultoriadual.com";
 			$nombreFrom="iBrain info";
@@ -322,26 +331,12 @@ class ServiceOrder extends Controller{
 			else{
 				$msg="<p>Tu informacion se recibio correctamente <br> Se ha enviado una confirmacion al correo <b>correo</b></p>";
 			}
-			header("Location:" . $url= Globales::$absoluteURL . 'private/ServiceOrder/ViewSO/' . $pk );
+			header("Location:" . $url= Globales::$absoluteURL . 'private/ServiceOrder/ViewSO/' . $pkSOrder );
 			}
 
 		}	
 		else{
 			echo "Error,no se puede enviar el correo electrónico ";
 		}
-		//}//sobra una llave
-	}
-	function CreateAccessory(){
-		$soa=new SOA();
-		$nextId=$soa->getNextId("pkSOAccessories","soaccessory");
-		$soa->setPKSOAccessories($nextId);
-		$soa->setFKSorder(1);
-		$soa->setAccessoryDesc($_POST["txt_AccessoryDesc_h"]);
-		$soa->setAccessoryBrand($_POST["txt_AccessoryBrand_h"]);
-		$soa->setAccessoryModel($_POST["txt_AccessoryModel_h"]);
-		$soa->setAccessoryPartNumber($_POST["txt_AccessoryPN_h"]);
-		$soa->setAccessorySerialNumber($_POST["txt_AccessorySN_h"]);
-		
-		//$soa->insertData("soaccessory");
 	}
 ?>

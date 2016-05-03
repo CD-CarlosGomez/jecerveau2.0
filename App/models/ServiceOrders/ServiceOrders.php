@@ -148,6 +148,7 @@ class ServiceOrders implements iCrud{
 			FROM sorder so
 				LEFT JOIN customercontact cc
 					ON so.CustomerContact_pkCustomerContact=cc.pkCustomerContact;
+		ORDER BY so.SODate DESC;
 			";
 			$PDOResultSet = $PDOcnn->query($PDOQuery);
 			return $PDOResultSet;

@@ -9,6 +9,10 @@ use \Core\Controller;
 		
 		$_SESSION["nombreUsuario"];
 		$_SESSION['pkiBUser_p'];
+		if(isset($_SESSION["accessories"])){
+				$accessories=$_SESSION['accessories'];
+		}		
+		
 		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
 		else{
 				echo "Esta pagina es solo para usuarios registrados.<br>";
@@ -226,42 +230,53 @@ use \Core\Controller;
 													<div class="form-group">
 														<label class="col-md-1 control-label">&nbsp;</label>
 														<div class="col-md-11">
-															<!--table class="table table-striped table-bordered table-hover">
-																<tr>
-																	<th>Descripci&oacute;n</th>
-																	<th>Marca</th>
-																	<th>Modelo</th>
-																	<th>No. Parte</th>
-																	<th>No. Serie</th>
-																</tr>
-																<tbody>
-																<tr>
-																	<td>Descripci&oacute;n</td>
-																	<td>Marca</td>
-																	<td>Modelo</td>
-																	<td>No. Parte</td>
-																	<td>No. Serie</td>
-																</tr>
-																<tr>
-																	<td>Descripci&oacute;n</td>
-																	<td>Marca</td>
-																	<td>Modelo</td>
-																	<td>No. Parte</td>
-																	<td>No. Serie</td>
-																</tr>
-																<tr>
-																	<td>Descripci&oacute;n</td>
-																	<td>Marca</td>
-																	<td>Modelo</td>
-																	<td>No. Parte</td>
-																	<td>No. Serie</td>
-																</tr>
-																</tbody>
-															</table-->
-															<div class="jqGrid_wrapper">
-																<table id="table_list_accessory"></table>
-																<div id="pager_list_accessory"></div>
-															</div>
+																<?php 
+																		if(@$accessories){
+																?>
+																<table class="table table-striped table-bordered table-hover">
+																		<tr>
+																				<th>Descripci&oacute;n</th>
+																				<th>Marca</th>
+																				<th>Modelo</th>
+																				<th>No. Parte</th>
+																				<th>No. Serie</th>
+																		</tr>
+																		<tbody>	
+																		<?php
+																				foreach($accessories as $k =>$v){
+																		?>
+																				<tr>
+																					<td>
+																						<?php echo $v['desc'] ?>
+																					</td>
+																					<td>
+																						<?php echo $v['brand'] ?>
+																					</td>
+																					<td>
+																						<?php echo $v['model'] ?>
+																					</td>
+																					<td>
+																						<?php echo $v['PN'] ?>
+																					</td>
+																					<td>
+																						<?php echo $v['SN'] ?>
+																						
+																					</td>
+																				</tr>	
+																		<?php
+																		}
+																		?>
+																		</tbody>
+																</table>
+																<div align="center"><span class="prod">
+																		Total de Accesorios <?php echo count($accessories); ?></span>
+																		<?php
+																		//var_dump($accessories);
+																		?>
+																</div>
+																<?php
+																		}
+																?>
 														</div>
 													</div>
 													<div class="form-group">
