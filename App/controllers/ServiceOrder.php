@@ -25,9 +25,6 @@ use \App\web\API\fpdf\fpdfExtended as fpdfExt;
 	if (strlen(session_id()) < 1){session_start();}
 		$_SESSION["nombreUsuario"];
 		$_SESSION['pkiBUser_p'];
-		if(isset($_SESSION["accessories"])){
-				$accessories=$_SESSION['accessories'];
-		}		
 		
 	if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
 		else{
@@ -239,7 +236,7 @@ class ServiceOrder extends Controller{
 		$c->setContactObs($_POST["tta_contactObs_h"]);
 		
 		if($c->insertData("customercontact")){
-			$so = new SO;
+			$so = new SO();
 			$bosettings=BO::getBOSById(0);
 			
 			$pkSOrder = $so->getNextId("pkSOrder","sorder");
@@ -268,7 +265,10 @@ class ServiceOrder extends Controller{
 			$so->setSOTechDetail($_POST["tta_SOTechDetail_h"]);
 			
 			if ($so->insertData("sorder")){
-				foreach($accessories as $k=>$v){
+				
+				if($_SESSION["accessories"]){
+						var_dump($_SESSION["accessories"]);
+					foreach($_SESSION["accessories"] as $k=>$v){
 						$soa=new SOA();
 						$nextId=$soa->getNextId("pkSOAccessories","soaccessory");
 						$soa->setPKSOAccessories($nextId);
@@ -279,8 +279,11 @@ class ServiceOrder extends Controller{
 						$soa->setAccessoryPartNumber($v["PN"]);
 						$soa->setAccessorySerialNumber($v["SN"]);
 						$soa->insertData("soaccessory");
+						}
+						unset($_SESSION['accessories']);
 				}
-				unset($_SESSION['accessories']);
+				
+				
 				
 				/*echo "<script language='JavaScript'> 
 						 window.open(\"http://www.w3schools.com\", \"_blank\", \"toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400\");
