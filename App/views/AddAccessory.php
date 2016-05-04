@@ -111,7 +111,7 @@ function recorro($matriz){
 								</div>
 								<div class="ibox-content" >
 									<fieldset>
-											<form id="formUser" class="form-horizontal" action="<?php echo Globales::$absoluteURL; ?>private/ServiceOrder/addAccessory" method="POST" role="form">
+											<form id="frm_newAccessory_h" class="form-horizontal" action="<?php echo Globales::$absoluteURL; ?>private/ServiceOrder/addAccessory" method="POST" role="form" name="frm_newAccessory_h">
 													<div class="">
 														<div class="form-group">&nbsp;</div>
 														<div class="form-group">
@@ -242,7 +242,25 @@ function recorro($matriz){
     <!-- Custom and plugin javascript -->
     <script src="<?php echo Globales::$absoluteURL; ?>App/web/js/inspinia.js"></script>
     <script src="<?php echo Globales::$absoluteURL; ?>App/web/js/plugins/pace/pace.min.js"></script>
-
+   <script>
+	  $(document).ready(
+		 function() {
+			
+            $("#btn_command_h").on('click',function(){
+				  document.forms['frm_newAccessory_h'].submit();
+				  
+				  window.opener.reloadTable();
+				
+				window.close();
+				/*$("#frm_newAccessory_h").ajaxForm(function(){
+				  window.close();
+				  }
+				);*/
+			   }
+			);
+         }
+	  );
+   </script>
 
 </body>
 

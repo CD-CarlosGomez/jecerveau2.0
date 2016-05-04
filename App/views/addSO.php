@@ -27,6 +27,46 @@ use \Core\Controller;
 		exit;
 		}
 		
+		if($_POST){
+	extract($_POST);
+	$accessoriesid=count($accessories);
+	if ($accessoriesid=null || $accessoriesid="" || $accessoriesid=0){
+		$accessoriesid=0;
+	}
+	else{
+		$accessoriesid++;
+	}
+	
+	
+	if(isset($_SESSION['accessories'])){
+		$accessories=$_SESSION['accessories'];
+		$accessoriesid=count($accessories);
+		$accessoriesid++;
+		$accessories[$accessoriesid]=array(
+									   'id'=>$accessoriesid,
+									   'desc'=>$txt_AccessoryDesc_h,
+									   'brand'=>$txt_AccessoryBrand_h,
+									   'model'=>$txt_AccessoryModel_h,
+									   'PN'=>$txt_AccessoryPN_h,
+									   'SN'=>$txt_AccessorySN_h
+									   );
+		}
+		else{
+		$accessories[0]=array(
+									   'id'=>$accessoriesid,
+									   'desc'=>$txt_AccessoryDesc_h,
+									   'brand'=>$txt_AccessoryBrand_h,
+									   'model'=>$txt_AccessoryModel_h,
+									   'PN'=>$txt_AccessoryPN_h,
+									   'SN'=>$txt_AccessorySN_h
+									   );
+			}
+	
+			$_SESSION['accessories']=$accessories;
+		}
+		
+		
+		
 		$obj_gsx_p=json_decode($jsn_gsx_p);
 		
 ?>
@@ -227,7 +267,7 @@ use \Core\Controller;
 															</div>
 														</div>
 													</div>
-													<div class="form-group">
+													<div id="divTableAccessories" class="form-group">
 														<label class="col-md-1 control-label">&nbsp;</label>
 														<div class="col-md-11">
 																<?php 
@@ -776,11 +816,10 @@ use \Core\Controller;
 			miPopup = window.open("<?php echo $url . "private/ServiceOrder/AddAccessory";?>","miwin","width=700,height=500,scrollbars=yes");
 			miPopup.focus();
 		}
+		function reloadTable() {
+           $("#divTableAccessories").fadeOut('slow').load("<?php echo $url . "private/ServiceOrder/addSO"?> #divTableAccessories" ).fadeIn('slow');
+        }
 	</script>
-
-
-
-
 </body>
 
 </html>
