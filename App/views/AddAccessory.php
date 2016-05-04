@@ -194,7 +194,7 @@ function recorro($matriz){
 										<tbody>
 											
 										<?php
-										foreach($accessories as $k =>$v){
+										foreach($accessories as $k =>$v) {
 										?>
 										<tr>
 											<td>
@@ -248,14 +248,7 @@ function recorro($matriz){
 			
             $("#btn_command_h").on('click',function(){
 				  document.forms['frm_newAccessory_h'].submit();
-				  
 				  window.opener.reloadTable();
-				
-				window.close();
-				/*$("#frm_newAccessory_h").ajaxForm(function(){
-				  window.close();
-				  }
-				);*/
 			   }
 			);
          }
