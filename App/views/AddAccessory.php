@@ -147,6 +147,7 @@ function recorro($matriz){
 														<div class="col-md-6 pull-right">
 															<div class="form-group">
 																<button type="submit" id="btn_command_h" class="btn btn-primary btn-md btn-block" value="addAccessory" name="btn_command_h">Guardar</button>
+																<button type="button" id="btn_close_h" class="btn btn-primary btn-md btn-block" value="" name="btn_close_h">Cerrar</button>
 															</div>
 														</div>
 													</div>												
@@ -164,23 +165,6 @@ function recorro($matriz){
 							<div class="ibox float-e-margins">
 								<div class="ibox-title">
 									<h5>Lista de accesorios</h5>
-									<!--div class="ibox-tools">
-										<a class="collapse-link">
-											<i class="fa fa-chevron-up"></i>
-										</a>
-										<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-											<i class="fa fa-wrench"></i>
-										</a>
-										<ul class="dropdown-menu dropdown-user">
-											<li><a href="#">Config option 1</a>
-											</li>
-											<li><a href="#">Config option 2</a>
-											</li>
-										</ul>
-										<a class="close-link">
-											<i class="fa fa-times"></i>
-										</a>
-									</div-->
 								</div>
 								<div class="ibox-content" >
 									<table class="table table-striped table-bordered table-hover">
@@ -245,12 +229,16 @@ function recorro($matriz){
    <script>
 	  $(document).ready(
 		 function() {
-			
             $("#btn_command_h").on('click',function(){
 				  document.forms['frm_newAccessory_h'].submit();
-				  window.opener.reloadTable();
 			   }
 			);
+			$("#btn_close_h").on('click',function(){
+				  window.opener.reloadTable();
+				  window.close();
+			   }
+			);
+			
          }
 	  );
    </script>

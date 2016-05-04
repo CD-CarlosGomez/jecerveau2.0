@@ -8,11 +8,9 @@ use \Core\View;
 use \Core\Controller;
 		
 		$_SESSION["nombreUsuario"];
-		$_SESSION['pkiBUser_p'];
-		if(isset($_SESSION["accessories"])){
-				$accessories=$_SESSION['accessories'];
-		}		
-		
+		$_SESSION['pkiBUser_p'];	
+		if(isset($_SESSION['accessories']))	$accessories=$_SESSION['accessories'];else $accessories=false;
+				
 		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
 		else{
 				echo "Esta pagina es solo para usuarios registrados.<br>";
@@ -26,44 +24,44 @@ use \Core\Controller;
 			  Necesita Hacer Login</a>";
 		exit;
 		}
-		
-		if($_POST){
-	extract($_POST);
-	$accessoriesid=count($accessories);
-	if ($accessoriesid=null || $accessoriesid="" || $accessoriesid=0){
-		$accessoriesid=0;
-	}
-	else{
-		$accessoriesid++;
-	}
+
+		/*if($_POST){
+				extract($_POST);
+				$accessoriesid=count($accessories);
+				if ($accessoriesid=null || $accessoriesid="" || $accessoriesid=0){
+					$accessoriesid=0;
+				}
+				else{
+					$accessoriesid++;
+				}
+				
 	
-	
-	if(isset($_SESSION['accessories'])){
-		$accessories=$_SESSION['accessories'];
-		$accessoriesid=count($accessories);
-		$accessoriesid++;
-		$accessories[$accessoriesid]=array(
-									   'id'=>$accessoriesid,
-									   'desc'=>$txt_AccessoryDesc_h,
-									   'brand'=>$txt_AccessoryBrand_h,
-									   'model'=>$txt_AccessoryModel_h,
-									   'PN'=>$txt_AccessoryPN_h,
-									   'SN'=>$txt_AccessorySN_h
-									   );
-		}
-		else{
-		$accessories[0]=array(
-									   'id'=>$accessoriesid,
-									   'desc'=>$txt_AccessoryDesc_h,
-									   'brand'=>$txt_AccessoryBrand_h,
-									   'model'=>$txt_AccessoryModel_h,
-									   'PN'=>$txt_AccessoryPN_h,
-									   'SN'=>$txt_AccessorySN_h
-									   );
+		if(isset($_SESSION['accessories'])){
+			$accessories=$_SESSION['accessories'];
+			$accessoriesid=count($accessories);
+			$accessoriesid++;
+			$accessories[$accessoriesid]=array(
+										   'id'=>$accessoriesid,
+										   'desc'=>$txt_AccessoryDesc_h,
+										   'brand'=>$txt_AccessoryBrand_h,
+										   'model'=>$txt_AccessoryModel_h,
+										   'PN'=>$txt_AccessoryPN_h,
+										   'SN'=>$txt_AccessorySN_h
+										   );
 			}
-	
-			$_SESSION['accessories']=$accessories;
-		}
+			else{
+			$accessories[0]=array(
+										   'id'=>$accessoriesid,
+										   'desc'=>$txt_AccessoryDesc_h,
+										   'brand'=>$txt_AccessoryBrand_h,
+										   'model'=>$txt_AccessoryModel_h,
+										   'PN'=>$txt_AccessoryPN_h,
+										   'SN'=>$txt_AccessorySN_h
+										   );
+				}
+		
+				$_SESSION['accessories']=$accessories;
+			}*/
 		
 		
 		
@@ -270,8 +268,9 @@ use \Core\Controller;
 													<div id="divTableAccessories" class="form-group">
 														<label class="col-md-1 control-label">&nbsp;</label>
 														<div class="col-md-11">
-																<?php 
-																		if(isset($accessories)){
+																<?php
+																		if(isset($_SESSION['accessories']))	$accessories=$_SESSION['accessories'];else $accessories=false;
+																		if($accessories){
 																?>
 																<table class="table table-striped table-bordered table-hover">
 																		<tr>
