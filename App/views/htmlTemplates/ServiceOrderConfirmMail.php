@@ -108,7 +108,7 @@ $bodyMessageMail= "
 											<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">
 												<tr>
 													<td>
-														<h1>Orden de servicio folio: {########}</h1>
+														<h1>Orden de servicio folio: " . $so->getSONumber() . " </h1>
 													</td>
 													<td>
 														&nbsp;
@@ -116,7 +116,7 @@ $bodyMessageMail= "
 												</tr>
 												<tr>
 													<td colspan=\"2\">
-														Estimado(a) {Nombre del contacto}</br>
+														Estimado(a) " . $c->getContactName() . "</br>
 														Hemos registrado la presente orden de servicio.</br>
 														Adjunto en este correo se encuentra una copia de su orden en formato PDF.</br></br></br>
 													</td>
@@ -134,7 +134,7 @@ $bodyMessageMail= "
 																	&Oacute;rden de servicio:
 																</td>
 																<td width=\"260\" valign=\"top\" style=\"border-bottom:#ececec solid 2px; width:60%;\">
-																   {N&uacute;mero de orden}
+																   " . $so->getSONumber() . "
 																</td>
 															</tr>
 															<tr>
@@ -142,7 +142,7 @@ $bodyMessageMail= "
 																	Tipo de servicio:
 																</td>
 																<td width=\"260\" valign=\"top\" style=\"border-bottom:#ececec solid 2px; width:60%;\">
-																   {N&uacute;mero de orden}
+																   Garant&iacute;a
 																</td>
 															</tr>
 															<tr>
@@ -150,7 +150,7 @@ $bodyMessageMail= "
 																	Estatus:
 																</td>
 																<td width=\"260\" valign=\"top\" style=\"border-bottom:#ececec solid 2px; width:60%;\">
-																   {N&uacute;mero de orden}
+																   Creada
 																</td>
 															</tr>
 															<tr>
@@ -158,7 +158,7 @@ $bodyMessageMail= "
 																	Solicita:
 																</td>
 																<td width=\"260\" valign=\"top\" style=\"border-bottom:#ececec solid 2px; width:60%;\">
-																   {N&uacute;mero de orden}
+																   " . $c->getContactName() . "
 																</td>
 															</tr>
 															<tr>
@@ -166,15 +166,7 @@ $bodyMessageMail= "
 																	N&uacute;mero de serie:
 																</td>
 																<td width=\"260\" valign=\"top\" style=\"border-bottom:#ececec solid 2px; width:60%;\">
-																   {N&uacute;mero de orden}
-																</td>
-															</tr>
-															<tr>
-																<td width=\"260\" valign=\"top\" style=\"border-bottom:#ececec solid 2px; width:60%;\">
-																	N&uacute;mero de equipo:
-																</td>
-																<td width=\"260\" valign=\"top\" style=\"border-bottom:#ececec solid 2px; width:60%;\">
-																   {N&uacute;mero de orden}
+																   C02L71R9FFT1
 																</td>
 															</tr>
 															<tr>
@@ -182,7 +174,15 @@ $bodyMessageMail= "
 																	Modelo:
 																</td>
 																<td width=\"260\" valign=\"top\" style=\"border-bottom:#ececec solid 2px; width:60%;\">
-																   {N&uacute;mero de orden}
+																   MacBook Pro (Retina, 15-inch,Early 2013)
+																</td>
+															</tr>
+															<tr>
+																<td width=\"260\" valign=\"top\" style=\"border-bottom:#ececec solid 2px; width:60%;\">
+																	Especificaciones:
+																</td>
+																<td width=\"260\" valign=\"top\" style=\"border-bottom:#ececec solid 2px; width:60%;\">
+																   MBP 15.4 RETINA,2.7GHZ,16GB,512GB FLASH
 																</td>
 															</tr>
 															<tr>
@@ -190,7 +190,7 @@ $bodyMessageMail= "
 																	Sucursal:
 																</td>
 																<td width=\"260\" valign=\"top\" style=\"border-bottom:#ececec solid 2px; width:60%;\">
-																   {N&uacute;mero de orden}
+                                                                    &nbsp;
 																</td>
 															</tr>
 															<tr>
@@ -198,7 +198,7 @@ $bodyMessageMail= "
 																	Direcci&oacute;n.
 																</td>
 																<td width=\"260\" valign=\"top\" style=\"border-bottom:#ececec solid 2px; width:60%;\">
-																   {N&uacute;mero de orden}
+																   " . $c->getContactAddress() . "
 																</td>
 															</tr>
 															<tr>
@@ -206,7 +206,7 @@ $bodyMessageMail= "
 																	Datos del reporte:
 																</td>
 																<td width=\"260\" valign=\"top\" style=\"border-bottom:#ececec solid 2px; width:60%;\">
-																   {N&uacute;mero de orden}
+																   " . $so-> getSOTechDetail() . "
 																</td>
 															</tr>
 															<tr>
@@ -214,10 +214,12 @@ $bodyMessageMail= "
 																	Estado del equipo:
 																</td>
 																<td width=\"260\" valign=\"top\" style=\"border-bottom:#ececec solid 2px; width:60%;\">
-																   {N&uacute;mero de orden}
+																   " . $so->getSODeviceCondition() . "
 																</td>
-															</tr>
-															<tr>
+															</tr>";
+                                                
+                        if(isset($dr_accessories)){
+										$bodyMessageMail .="<tr>
 																<td colspan=\"2\" width=\"260\" valign=\"top\" style=\"border-bottom:#ececec solid 2px; width:60%;\">
 																	Accesorios:
 																	<br />
@@ -239,16 +241,45 @@ $bodyMessageMail= "
 																				No. serie.
 																			</td>
 																		</tr>
-																	</table>
+                                                                        ";
+                                                                     
+                                                                           foreach($dr_accessories as $v){
+                                                                            $bodyMessageMail .= "<tr>
+                                                                                                    <td>";
+																			$bodyMessageMail .= $v['SOAccessoryDesc'];
+																			$bodyMessageMail .=	"</td>
+                                                                                                    <td>";
+																			$bodyMessageMail .=$v['SOAccessoryBrand'];
+																			$bodyMessageMail .="</td>
+                                                                                                    <td>";
+																			$bodyMessageMail .=$v['SOAccessoryModel'];
+																			$bodyMessageMail .="</td>
+                                                                                                    <td>";
+																			$bodyMessageMail .=$v['SOAccessoryPartNumber'];
+                                                                            $bodyMessageMail .="</td>
+                                                                                                    <td>";
+																			$bodyMessageMail .=$v['SOAccessorySerialNumber'];
+																			$bodyMessageMail .="</td>
+                                                                                                </tr>";
+                                                                            }
+                                                $bodyMessageMail .= "</table>
 																</td>
-															</tr>
-														</table>											
+															</tr>";
+                        }
+                        else{
+                            $bodyMessageMail .= "<tr>
+																<td colspan=\"2\" width=\"260\" valign=\"top\" style=\"border-bottom:#ececec solid 2px; width:60%;\">
+																	Accesorios: No se registraron accessorios.
+                                                                </td>
+                                                </tr>";
+                        }
+							$bodyMessageMail .= "</table>											
 													</td>
 												</tr>
 											</table>
 										</td>
 									</tr>
-									<tr>
+                                    <tr>
 										<td style=\"height: 5px; background:#517ebb; border-radius: 20px;\">&nbsp;</td>
 									</tr>
 									<tr>
@@ -269,10 +300,5 @@ $bodyMessageMail= "
 			</tr>
 		</table>
 	</body>
-</html>"
+</html>";
 ?>
-
-
-
-
-

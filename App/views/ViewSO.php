@@ -230,7 +230,7 @@ use \Core\Controller;
 													<div class="form-group">
 														<label class="col-md-1 control-label">&nbsp;</label>
 														<div class="col-md-11">
-															<!--table class="table table-striped table-bordered table-hover">
+															<table class="table table-striped table-bordered table-hover">
 																<tr>
 																	<th>Descripci&oacute;n</th>
 																	<th>Marca</th>
@@ -239,33 +239,24 @@ use \Core\Controller;
 																	<th>No. Serie</th>
 																</tr>
 																<tbody>
+																
+																<?php
+																if(isset($ds_soa)){
+																		foreach ($ds_soa as $dr_soa) {
+																
+																 ?>
 																<tr>
-																	<td>Descripci&oacute;n</td>
-																	<td>Marca</td>
-																	<td>Modelo</td>
-																	<td>No. Parte</td>
-																	<td>No. Serie</td>
+																	<td><?php echo $dr_soa["SOAccessoryDesc"]; ?></td>
+																	<td><?php echo $dr_soa["SOAccessoryBrand"]; ?></td>
+																	<td><?php echo $dr_soa["SOAccessoryModel"]; ?></td>
+																	<td><?php echo $dr_soa["SOAccessoryPartNumber"]; ?></td>
+																	<td><?php echo $dr_soa["SOAccessorySerialNumber"]; ?></td>
 																</tr>
-																<tr>
-																	<td>Descripci&oacute;n</td>
-																	<td>Marca</td>
-																	<td>Modelo</td>
-																	<td>No. Parte</td>
-																	<td>No. Serie</td>
-																</tr>
-																<tr>
-																	<td>Descripci&oacute;n</td>
-																	<td>Marca</td>
-																	<td>Modelo</td>
-																	<td>No. Parte</td>
-																	<td>No. Serie</td>
-																</tr>
+																<?php }
+																}?>
 																</tbody>
-															</table-->
-															<div class="jqGrid_wrapper">
-																<table id="table_list_accessory"></table>
-																<div id="pager_list_accessory"></div>
-															</div>
+															</table>
+															
 														</div>
 													</div>
 													<div class="form-group">

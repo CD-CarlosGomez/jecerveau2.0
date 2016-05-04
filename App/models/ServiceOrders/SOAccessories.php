@@ -89,6 +89,17 @@ class SOAccessories implements iCrud{
             print "Error!: " . $e->getMessage();
         }
     }
+	public static function getBySO($pkSO) {
+        try {
+            $PDOcnn = Database::instance();
+            $PDOQuery = "SELECT * from soaccessory WHERE sorder_pkSorder = $pkSO";
+            $PDOResulSet = $PDOcnn->query($PDOQuery);
+			return $PDOResulSet;
+        }
+        catch(\PDOException $e){
+            print "Error!: " . $e->getMessage();
+        }
+    }
     public static function getNextId($column,$table){
 		try {
 				$cnn=Database::instance();

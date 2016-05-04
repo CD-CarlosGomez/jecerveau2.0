@@ -188,9 +188,14 @@ class ServiceOrder extends Controller{
 					while ($row =$ResultSet_so->fetch(\PDO::FETCH_ASSOC)){
 						$ds_so[] = $row;
 					}
+					$ResultSet_soa=SOA::getBySO($pkso);
+					while($row=$ResultSet_soa->fetch(\PDO::FETCH_ASSOC)){
+						$ds_soa[]=$row;
+					}
 				#set_data_variables
 					View::set("ds_cm",$ds_cm);
 					View::set("ds_so",$ds_so);
+					View::set("ds_soa",@$ds_soa);
 					View::set("currentMainMenu", $currentMainMenu);
 				#render
 					View::render("ViewSO");       
@@ -266,8 +271,8 @@ class ServiceOrder extends Controller{
 			
 			if ($so->insertData("sorder")){
 				
-				if($_SESSION["accessories"]){
-						var_dump($_SESSION["accessories"]);
+				if(isset($_SESSION["accessories"])){
+						//var_dump($_SESSION["accessories"]);
 					foreach($_SESSION["accessories"] as $k=>$v){
 						$soa=new SOA();
 						$nextId=$soa->getNextId("pkSOAccessories","soaccessory");
@@ -294,6 +299,12 @@ class ServiceOrder extends Controller{
 				$fpdf->AddPage();
 				$fpdf->WriteHTML($bodyMessagePDF);
 				$fpdf->Output();*/
+			
+			$rs_accessories=SOA::getBySO($pkSOrder);
+			while($row=$rs_accessories->fetch( \PDO::FETCH_ASSOC )){
+				$dr_accessories[]=$row;
+			}
+			
 			
 			include_once "../App/views/htmlTemplates/ServiceOrderConfirmPDF.php";
 			include_once "../App/views/htmlTemplates/ServiceOrderConfirmMail.php";
