@@ -5,6 +5,7 @@
 namespace App\View;
 defined("APPPATH") OR die("Access denied");
 use \Core\View;
+use \Core\Database;
 use \Core\Controller;
 		
 		$_SESSION["nombreUsuario"];
@@ -25,48 +26,8 @@ use \Core\Controller;
 		exit;
 		}
 
-		/*if($_POST){
-				extract($_POST);
-				$accessoriesid=count($accessories);
-				if ($accessoriesid=null || $accessoriesid="" || $accessoriesid=0){
-					$accessoriesid=0;
-				}
-				else{
-					$accessoriesid++;
-				}
-				
-	
-		if(isset($_SESSION['accessories'])){
-			$accessories=$_SESSION['accessories'];
-			$accessoriesid=count($accessories);
-			$accessoriesid++;
-			$accessories[$accessoriesid]=array(
-										   'id'=>$accessoriesid,
-										   'desc'=>$txt_AccessoryDesc_h,
-										   'brand'=>$txt_AccessoryBrand_h,
-										   'model'=>$txt_AccessoryModel_h,
-										   'PN'=>$txt_AccessoryPN_h,
-										   'SN'=>$txt_AccessorySN_h
-										   );
-			}
-			else{
-			$accessories[0]=array(
-										   'id'=>$accessoriesid,
-										   'desc'=>$txt_AccessoryDesc_h,
-										   'brand'=>$txt_AccessoryBrand_h,
-										   'model'=>$txt_AccessoryModel_h,
-										   'PN'=>$txt_AccessoryPN_h,
-										   'SN'=>$txt_AccessorySN_h
-										   );
-				}
-		
-				$_SESSION['accessories']=$accessories;
-			}*/
-		
-		
-		
 		$obj_gsx_p=json_decode($jsn_gsx_p);
-		
+				
 ?>
 <!DOCTYPE html>
 <html>
@@ -78,6 +39,7 @@ use \Core\Controller;
     <title>iBrain 2.0</title>
 
     <link href="<?php echo $url; ?>App/web/css/bootstrap.min.css" rel="stylesheet">
+	<link href="<?php echo $url; ?>App/web/css/jquery-ui.css" rel="stylesheet">
     <link href="<?php echo $url; ?>App/web/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="<?php echo $url; ?>App/web/css/plugins/iCheck/custom.css" rel="stylesheet">
     <link href="<?php echo $url; ?>App/web/css/plugins/steps/jquery.steps.css" rel="stylesheet">
@@ -173,19 +135,19 @@ use \Core\Controller;
 														<div class="form-group">
 															<label class="col-md-4 control-label">Modelo:*</label>
 															<div class="col-lg-8">
-																<input type="text" id="txt_gsxModel_h" class="form-control required" value="<?php echo $obj_gsx_p->{'productDescription'};?>" name="txt_gsxModel_h"/>
+																<input type="text" id="txt_gsxModel_h" class="form-control required" value="<?php echo $obj_gsx_p->{'productDescription'};?>" readonly="readonly" name="txt_gsxModel_h"/>
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">Configuraci&oacute;n:*</label>
 															<div class="col-md-8">
-																<input type="text" id="txt_gsxConfigDesc_h" class="form-control required" value="<?php echo $obj_gsx_p->{'configDescription'};?>" name="txt_gsxConfigDesc_h" />
+																<input type="text" id="txt_gsxConfigDesc_h" class="form-control required" value="<?php echo $obj_gsx_p->{'configDescription'};?>" readonly="readonly" name="txt_gsxConfigDesc_h" />
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">Estado de la cobertura:*</label>
 															<div class="col-md-8">
-																<input  type="text" id="txt_gsxWarrantyST_h" class="form-control required" value="<?php echo $obj_gsx_p->{'warrantyStatus'};?>" name="txt_gsxWarrantyST_h"/>
+																<input  type="text" id="txt_gsxWarrantyST_h" class="form-control required" value="<?php echo $obj_gsx_p->{'warrantyStatus'};?>" readonly="readonly" name="txt_gsxWarrantyST_h"/>
 															</div>
 														</div>
 													</div>
@@ -194,25 +156,25 @@ use \Core\Controller;
 														<div class="form-group">
 															<label class="col-md-4 control-label">Fecha de compra:*</label>
 															<div class="col-md-8">
-																<input  type="text" id="txt_gsxPurchaseDate_h" class="form-control required" value="<?php echo $obj_gsx_p->{'estimatedPurchaseDate'};?>" name="txt_gsxPurchaseDate_h"/>
+																<input  type="text" id="txt_gsxPurchaseDate_h" class="form-control required" value="<?php echo $obj_gsx_p->{'estimatedPurchaseDate'};?>" readonly="readonly" name="txt_gsxPurchaseDate_h"/>
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">Comprado en:*</label>
 															<div class="col-md-8">
-																<input type="text" id="txt_gsxPurchaseCountry_h" class="form-control required" value="<?php echo $obj_gsx_p->{'purchaseCountry'};?>" name="txt_gsxPurchaseCountry_h"/>
+																<input type="text" id="txt_gsxPurchaseCountry_h" class="form-control required" value="<?php echo $obj_gsx_p->{'purchaseCountry'};?>" readonly="readonly" name="txt_gsxPurchaseCountry_h"/>
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">Sin Cobertura desde hace:*</label>
 															<div class="col-md-8">
-																<input id="txt_fkiUserPRofile_h" class="form-control required" name="txt_fkiUserPRofile_h" type="text">
+																<input type="text" id="txt_fkiUserPRofile_h" class="form-control required" readonly="readonly" name="txt_fkiUserPRofile_h">
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">Fecha de cobertura:*</label>
 															<div class="col-md-8">
-																<input id="txt_defaultFunction_h" class="form-control required" name="txt_defaultFunction_h" type="text">
+																<input type="text" id="txt_defaultFunction_h" class="form-control required" readonly="readonly" name="txt_defaultFunction_h">
 															</div>
 														</div>
 													</div>
@@ -420,7 +382,10 @@ use \Core\Controller;
     <script src="<?php echo $url; ?>App/web/js/bootstrap.min.js"></script>
     <script src="<?php echo $url; ?>App/web/js/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="<?php echo $url; ?>App/web/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-
+	
+	<!-- JQuery UI -->
+    <script src="<?php echo $url; ?>App/web/js/jquery-ui-1.10.4.min.js"></script>
+		
     <!-- Custom and plugin javascript -->
     <script src="<?php echo $url; ?>App/web/js/inspinia.js"></script>
     <script src="<?php echo $url; ?>App/web/js/plugins/pace/pace.min.js"></script>
@@ -437,6 +402,9 @@ use \Core\Controller;
     <script src="<?php echo $url; ?>App/web/js/plugins/jqGrid/jquery.jqGrid.min.js"></script>
 	    <!-- Peity -->
     <script src="<?php echo $url; ?>App/web/js/plugins/peity/jquery.peity.min.js"></script>
+		<!-- Ajax -->
+    <script src="<?php echo $url; ?>App/web/ajax/autocompleteAddSO.js"></script>
+	
     <script type="text/javascript">
 		$.validator.setDefaults({
 				submitHandler: function(form) {
@@ -464,13 +432,13 @@ use \Core\Controller;
 								required:true,
 								number:true,
 								minlength:10,
-								maxlength:10
+								maxlength:15
 						    },
 							txt_contactMovil_h:{
 								required:true,
 								number:true,
 								minlength:10,
-								maxlength:10
+								maxlength:15
 							},
 							txt_contactName_h:{
 								required:true,

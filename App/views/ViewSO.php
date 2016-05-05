@@ -129,25 +129,25 @@ use \Core\Controller;
 														<div class="form-group">
 															<label class="col-md-4 control-label">Serie:*</label>
 															<div class="col-lg-8">
-																<input type="text" id="txt_gsxSerialNumber_h" class="form-control required" value="<?php echo $obj_gsx_p->{'serialNumber'}; ?>" name="txt_gsxSerialNumber_h"/>
+																<input type="text" id="txt_gsxSerialNumber_h" class="form-control required" value="<?php echo $obj_gsx_p->{'serialNumber'}; ?>"  name="txt_gsxSerialNumber_h"/>
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">Modelo:*</label>
 															<div class="col-lg-8">
-																<input type="text" id="txt_gsxModel_h" class="form-control required" value="<?php echo $obj_gsx_p->{'productDescription'};?>" name="txt_gsxModel_h"/>
+																<input type="text" id="txt_gsxModel_h" class="form-control required" value="<?php echo $obj_gsx_p->{'productDescription'};?>" readonly="readonly" name="txt_gsxModel_h"/>
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">Configuraci&oacute;n:*</label>
 															<div class="col-md-8">
-																<input type="text" id="txt_gsxConfigDesc_h" class="form-control required" value="<?php echo $obj_gsx_p->{'configDescription'};?>" name="txt_gsxConfigDesc_h" />
+																<input type="text" id="txt_gsxConfigDesc_h" class="form-control required" value="<?php echo $obj_gsx_p->{'configDescription'};?>" readonly="readonly" name="txt_gsxConfigDesc_h" />
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">Estado de la cobertura:*</label>
 															<div class="col-md-8">
-																<input  type="text" id="txt_gsxWarrantyST_h" class="form-control required" value="<?php echo $obj_gsx_p->{'warrantyStatus'};?>" name="txt_gsxWarrantyST_h"/>
+																<input  type="text" id="txt_gsxWarrantyST_h" class="form-control required" value="<?php echo $obj_gsx_p->{'warrantyStatus'};?>" readonly="readonly" name="txt_gsxWarrantyST_h"/>
 															</div>
 														</div>
 													</div>
@@ -156,25 +156,25 @@ use \Core\Controller;
 														<div class="form-group">
 															<label class="col-md-4 control-label">Fecha de compra:*</label>
 															<div class="col-md-8">
-																<input  type="text" id="txt_gsxPurchaseDate_h" class="form-control required" value="<?php echo $obj_gsx_p->{'estimatedPurchaseDate'};?>" name="txt_gsxPurchaseDate_h"/>
+																<input  type="text" id="txt_gsxPurchaseDate_h" class="form-control required" value="<?php echo $obj_gsx_p->{'estimatedPurchaseDate'};?>" readonly="readonly" name="txt_gsxPurchaseDate_h"/>
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">Comprado en:*</label>
 															<div class="col-md-8">
-																<input type="text" id="txt_gsxPurchaseCountry_h" class="form-control required" value="<?php echo $obj_gsx_p->{'purchaseCountry'};?>" name="txt_gsxPurchaseCountry_h"/>
+																<input type="text" id="txt_gsxPurchaseCountry_h" class="form-control required" value="<?php echo $obj_gsx_p->{'purchaseCountry'};?>" readonly="readonly" name="txt_gsxPurchaseCountry_h"/>
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">Sin Cobertura desde hace:*</label>
 															<div class="col-md-8">
-																<input id="txt_fkiUserPRofile_h" class="form-control required" name="txt_fkiUserPRofile_h" type="text">
+																<input type="text" id="txt_fkiUserPRofile_h" class="form-control required" readonly="readonly" name="txt_fkiUserPRofile_h">
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">Fecha de cobertura:*</label>
 															<div class="col-md-8">
-																<input id="txt_defaultFunction_h" class="form-control required" name="txt_defaultFunction_h" type="text">
+																<input type="text" id="txt_defaultFunction_h" class="form-control required" readonly="readonly" name="txt_defaultFunction_h">
 															</div>
 														</div>
 													</div>
@@ -385,248 +385,9 @@ use \Core\Controller;
 		}*/
 		debug:true,
 		success:"valid"
-	});
+		});
         $(document).ready(function(){
-			var frm_accessory_j = 	"<div style='margin-left:15px;'>";
-			frm_accessory_j 	+=	"<div> Descripci&oacute:<sup>*</sup>:</div><div> {desc} </div>";
-			frm_accessory_j 	+= 	"<div> Marca: </div><div>{brand} </div>";
-			frm_accessory_j 	+= 	"<div> Modelo: </div><div>{model} </div>";
-			frm_accessory_j 	+= 	"<div> N&uacute;mero de parte: </div><div>{PN} </div>";
-			frm_accessory_j 	+= 	"<div> N&uacute;mero de serie: </div><div> {SN} </div>";
-			frm_accessory_j 	+= 	"<hr style='width:100%;'/>";
-			frm_accessory_j 	+= 	"<div> {sData} {cData}  </div></div>";
-						
-			var lastSel,mydata =new Object();
-			var accesories="";//new Array();
-				/*{id:"1", desc: "Cargador", 	brand: "Apple", model: "X-1", 	PN: "note", SN: "10.00"},
-                {id:"2", desc: "Cargador", 	brand: "Apple", model: "X-1", 	PN: "note", SN: "10.00"},
-                {id:"3", desc: "Funda", 	brand: "", 		model: "", 		PN: "", SN: ""}, 
-                {id:"4", desc: "Funda", 	brand: "", 		model: "", 		PN: "", SN: ""} 
-            ];*/
 			
-			var grid=$("#table_list_accessory");
-			
-			
-			
-			var onclickSubmitLocal = function(options,postdata) {
-				var grid_p = grid[0].p,
-					idname = grid_p.prmNames.id,
-					grid_id = grid[0].id,
-					id_in_postdata = grid_id + "_id",
-					rowid = postdata[id_in_postdata],
-					addMode = rowid === "_empty",
-					//addMode=oper,
-					oldValueOfSortColumn;
-				// postdata has row id property with another name. we fix it:
-				if (addMode) {
-					// generate new id
-					var new_id = grid_p.records + 1;
-					while ($("#"+new_id).length !== 0) {
-						new_id++;
-					}
-					postdata[idname] = String(new_id);
-				} else if (typeof(postdata[idname]) === "undefined") {
-					// set id property only if the property not exist
-					postdata[idname] = rowid;
-				}
-				
-				delete postdata[id_in_postdata];
-				
-				// prepare postdata for tree grid
-				if(grid_p.treeGrid === true) {
-					if(addMode) {
-						var tr_par_id = grid_p.treeGridModel === 'adjacency' ? grid_p.treeReader.parent_id_field : 'parent_id';
-						postdata[tr_par_id] = grid_p.selrow;
-					}
-					$.each(grid_p.treeReader, function (i){
-						if(postdata.hasOwnProperty(this)) {
-							delete postdata[this];
-						}
-					});
-				}
-				// decode data if there encoded with autoencode
-				if(grid_p.autoencode) {
-					$.each(postdata,function(n,v){
-						postdata[n] = $.jgrid.htmlDecode(v); // TODO: some columns could be skipped
-					});
-				}
-				// save old value from the sorted column
-				oldValueOfSortColumn = grid_p.sortname === "" ? undefined: grid.jqGrid('getCell',rowid,grid_p.sortname);
-				// save the data in the grid
-				if (grid_p.treeGrid === true) {
-					if (addMode) {
-						grid.jqGrid("addChildNode",rowid,grid_p.selrow,postdata);
-					} else {
-						grid.jqGrid("setTreeRow",rowid,postdata);
-					}
-				} else {
-					if (addMode) {
-					grid.jqGrid("addRowData",rowid,postdata,options.addedrow);
-
-					} else {
-						grid.jqGrid("setRowData",rowid,postdata);
-					}
-				}
-				if ((addMode && options.closeAfterAdd) || (!addMode && options.closeAfterEdit)) {
-					// close the edit/add dialog
-					$.jgrid.hideModal("#editmod" + grid_id,
-					{gb:"#gbox_"+grid_id,jqm:options.jqModal,onClose:options.onClose});
-				}
-				if (postdata[grid_p.sortname] !== oldValueOfSortColumn) {
-					// if the data are changed in the column by which are currently sorted
-					// we need resort the grid
-					setTimeout(function() {
-						grid.trigger("reloadGrid", [{current:true}]);
-					},100);
-				}
-				// !!! the most important step: skip ajax request to the server
-				this.processing = true;
-				return {};
-			},
-			editSettings = {
-				recreateForm:true,
-				jqModal:true,
-				reloadAfterSubmit:false,
-				closeOnEscape:true,
-				closeAfterEdit:true,
-				onclickSubmit:onclickSubmitLocal
-			},
-			addSettings = {
-				recreateForm:true,
-				jqModal:true,
-				reloadAfterSubmit:true,
-				closeOnEscape:true,
-				closeAfterAdd:true,
-				template: frm_accessory_j,
-				errorTextFormat: function (data) {
-					return 'Error: ' + data.responseText
-				},
-				onclickSubmit:onclickSubmitLocal
-			},
-			delSettings = {
-				// because I use "local" data I don't want to send the changes to the server
-				// so I use "processing:true" setting and delete the row manually in onclickSubmit
-				onclickSubmit: function(options, rowid) {
-					var grid_id = grid[0].id,
-						grid_p = grid[0].p,
-						newPage = grid[0].p.page;
-					// delete the row
-					grid.delRowData(rowid);
-					$.jgrid.hideModal("#delmod"+grid_id,
-										{gb:"#gbox_"+grid_id,jqm:options.jqModal,onClose:options.onClose});
-					if (grid_p.lastpage > 1) {// on the multipage grid reload the grid
-						if (grid_p.reccount === 0 && newPage === grid_p.lastpage) {
-							// if after deliting there are no rows on the current page
-							// which is the last page of the grid
-							newPage--; // go to the previous page
-						}
-						// reload grid to make the row from the next page visable.
-						grid.trigger("reloadGrid", [{page:newPage}]);
-					}
-					return true;
-				},
-				processing:true
-			},
-			initDateEdit = function(elem) {
-				setTimeout(function() {
-					$(elem).datepicker({
-						dateFormat: 'dd-M-yy',
-						autoSize: true,
-						showOn: 'button', // it dosn't work in searching dialog
-						changeYear: true,
-						changeMonth: true,
-						showButtonPanel: true,
-						showWeek: true
-					});
-					//$(elem).focus();
-				},100);
-			},
-			initDateSearch = function(elem) {
-				setTimeout(function() {
-					$(elem).datepicker({
-						dateFormat: 'dd-M-yy',
-						autoSize: true,
-						//showOn: 'button', // it dosn't work in searching dialog
-						changeYear: true,
-						changeMonth: true,
-						showButtonPanel: true,
-						showWeek: true
-					});
-					//$(elem).focus();
-				},100);
-			};
-            
-			$('#data_1 .input-group.date').datepicker({
-                todayBtn: "linked",
-                keyboardNavigation: false,
-                forceParse: false,
-                calendarWeeks: true,
-                autoclose: true
-			 });
-			$("#btn_newAccessory_h").on('click',function(){
-				$("#table_list_accessory").jqGrid("editGridRow","new",addSettings);
-			});
-			grid.jqGrid({
-				datatype: "local",
-				data: mydata,
-				colNames:['Descripci&oacute;n','Marca', 'Modelo', 'No. Parte','No. Serie','Acci&oacute;n'],
-                colModel:[
-                    //{name:'id',		index:'id', 	editable: true, width:60, sorttype:"int",search:false},
-                    {name:'desc',	index:'desc',	editable: true, width:100},
-                    {name:'brand',	index:'brand', 	editable: true, width:80,align:"right"},
-                    {name:'model',	index:'model', 	editable: true, width:80, align:"right"},
-                    {name:'PN',		index:'PN', 	editable: true, width:80, align:"right"},
-                    {name:'SN',		index:'SN', 	editable: true, width:80, align:"right"},
-					{name:'action',	index:'action',	sortable:false, formatter: displayButtons}
-                ],
-				rowNum: 10,
-				rowList: [5, 10],
-				//pager: "#pager_list_accessory",
-				gridview:true,
-				autoencode:true,
-				ignoreCase:true,
-				sortname: 'id',
-				viewrecords: true,
-				sortorder:'desc',
-				caption: "Accesorios",
-				editurl:'<?php echo $url; ?>/private/ServiceOrder/addSO',
-				autowidth: true,
-                shrinkToFit: true,
-				ondblClickRow: function(rowid, ri, ci) {
-					var p = grid[0].p;
-					if (p.selrow !== rowid) {
-						// prevent the row from be unselected on double-click
-						// the implementation is for "multiselect:false" which we use,
-						// but one can easy modify the code for "multiselect:true"
-						grid.jqGrid('setSelection', rowid);
-					}
-					grid.jqGrid('editGridRow', rowid, editSettings);
-				},
-				onSelectRow: function(id) {
-					if (id && id !== lastSel) {
-						// cancel editing of the previous selected row if it was in editing state.
-						// jqGrid hold intern savedRow array inside of jqGrid object,
-						// so it is safe to call restoreRow method with any id parameter
-						// if jqGrid not in editing state
-						if (typeof lastSel !== "undefined") {
-							grid.jqGrid('restoreRow',lastSel);
-						}
-						lastSel = id;
-					}
-				}
-                /*add: true,
-                edit: true,
-                addtext: 'Add',
-                edittext: 'Edit',
-                hidegrid: false,*/			
-			});
-			// Add responsive to jqGrid
-            
-			
-			$(window).bind('resize', function () {
-                var width = $('.jqGrid_wrapper').width();
-                $('#table_list_accessory').setGridWidth(width);
-            });
 			$("#frm_SO_h").validate({
 				      rules: {
 							slt_fkCollectMethod_h:	{
@@ -643,13 +404,13 @@ use \Core\Controller;
 								required:true,
 								number:true,
 								minlength:10,
-								maxlength:10
+								maxlength:15
 						    },
 							txt_contactMovil_h:{
 								required:true,
 								number:true,
 								minlength:10,
-								maxlength:10
+								maxlength:15
 							},
 							txt_contactName_h:{
 								required:true,

@@ -127,6 +127,25 @@ class Contacts implements iCrud{
             print "Error!: " . $e->getMessage();
         }
     }
+	public static function getAutocompleteCommand($table,$column,$param){
+		try {
+            $PDOcnn = Database::instance();
+            $sql = 
+			"
+			SELECT 
+				$column
+			FROM $table
+			WHERE 
+				$column LIKE '" . $param ."%';
+			";
+            $resultSet=$PDOcnn->query($sql);
+            return $resultSet;
+        }
+        catch(\PDOException $e){
+            print "Error!: " . $e->getMessage();
+        }
+		
+	}
     public static function insertData($data){
 		try {
             $connection = Database::instance();

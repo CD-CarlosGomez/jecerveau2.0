@@ -209,6 +209,14 @@ class ServiceOrder extends Controller{
 		#render
 				View::render("AddAccessory");  
 	}
+		public function autocomplete(){
+				#get_main_variables
+				$url= Globales::$absoluteURL;
+		#set_main_variables
+				View::set("url", $url);
+		#render
+				View::render("autocompleteAddSO");
+		}
 }
 //MÉTODOS PRIVADOS###################################
 //EVENTOS############################################

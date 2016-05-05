@@ -225,8 +225,8 @@ use \App\data\DataGridView as DGV;
                                     .css('font-size', 'inherit');
                     }
                     }
-                ]
-
+                ],
+				"order":[[2,"desc"]]
             });
 			/*
 			$.ajax({
