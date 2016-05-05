@@ -59,7 +59,7 @@ use \Core\Controller;
 						</ul>
 						<ul class="nav navbar-top-links navbar-right">
 							<li>
-								<a href="<?php echo $url; ?>App/controllers/logout.php">Log out</a>
+								<a href="<?php echo $url; ?>App/controllers/logout.php">Salir</a>
 							</li>
 						</ul>
 					</div>
@@ -88,23 +88,6 @@ use \Core\Controller;
 							<div class="ibox float-e-margins">
 								<div class="ibox-title">
 									<h5>Nueva cuenta maestra </h5>
-									<div class="ibox-tools">
-										<a class="collapse-link">
-											<i class="fa fa-chevron-up"></i>
-										</a>
-										<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-											<i class="fa fa-wrench"></i>
-										</a>
-										<ul class="dropdown-menu dropdown-user">
-											<li><a href="#">Config option 1</a>
-											</li>
-											<li><a href="#">Config option 2</a>
-											</li>
-										</ul>
-										<a class="close-link">
-											<i class="fa fa-times"></i>
-										</a>
-									</div>
 								</div>
 								<div class="ibox-content" >
 									<fieldset>
@@ -126,14 +109,14 @@ use \Core\Controller;
 													<div class="col-md-8">
 														<input id="txt_realName_h" class="form-control required" name="txt_commercialName_h" type="text">
 													</div>
-												</div>													
-											</div>
-													<div class="form-group">&nbsp;</div>
+												</div>
+												<div class="form-group">&nbsp;</div>
 													<div class="col-md-4 pull-right">
 														<div class="form-group">
 															<button type="" id="btn_command_h" class="btn btn-primary btn-md btn-block" value="AddCompany" name="btn_command_h">Guardar</button>
 														</div>
 													</div>
+											</div>
 											</form>
 										</fieldset>
 									
@@ -141,208 +124,11 @@ use \Core\Controller;
 							</div>
                         </div>
                     </div>
-					<!--div class="row" id="nuevaSubcuenta">
-						<div class="col-lg-12">
-							<div class="ibox float-e-margins">
-								<div class="ibox-title">
-									<h5>Nueva Subcuenta </h5>
-									<div class="ibox-tools">
-										<a class="collapse-link">
-											<i class="fa fa-chevron-up"></i>
-										</a>
-										<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-											<i class="fa fa-wrench"></i>
-										</a>
-										<ul class="dropdown-menu dropdown-user">
-											<li><a href="#">Config option 1</a>
-											</li>
-											<li><a href="#">Config option 2</a>
-											</li>
-										</ul>
-										<a class="close-link">
-											<i class="fa fa-times"></i>
-										</a>
-									</div>
-								</div>
-								<div class="ibox-content">
-									<fieldset>
-										<form id="frm_subcompany_h" class="form-horizontal" action="<?php echo $url; ?>private/EnterpriseGroup" method="POST" class="">
-											<div class="col-lg-6 form-group-dark">
-												<div class="form-group">&nbsp;</div>
-												<div class="form-group">
-													<label class="col-md-4 control-label">Subcuenta maestra:*</label>
-													<div class="col-lg-8">
-														<input id="txt_userName_h" class="form-control required" name="txt_legalName_h" type="text">
-														<input id="" name="hdn_toDo_h" class="" value="AddUser" type="hidden">
-													</div>
-												</div>
-												
-											</div>
-											<div class="col-md-6 form-group-dark">
-												<div class="form-group">&nbsp;</div>
-												<div class="form-group">
-													<label class="col-md-4 control-label">&nbsp;</label>
-													<div class="col-lg-8">
-														&nbsp;
-													</div>
-												</div>													
-											</div>
-												<div class="form-group">&nbsp;</div>
-											<div class="col-md-4 pull-right">
-												<div class="form-group">
-													<button type="" id="btn_addBO_h" class="btn btn-primary btn-md btn-block" onclick="validateSubcompanyIfIsShowed()" value="" name="btn_AddBO_h">Guardar</button>
-												</div>
-											</div>
-										</form>
-									</fieldset>
-								</div>
-							</div>
-                        </div>
-					</div-->
-					<!--div class="row" id="nuevaSucursal">
-						<div class="col-lg-12">
-							<div class="ibox float-e-margins">
-								<div class="ibox-title">
-									<h5>Nueva Sucursal </h5>
-									<div class="ibox-tools">
-										<a class="collapse-link">
-											<i class="fa fa-chevron-up"></i>
-										</a>
-										<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-											<i class="fa fa-wrench"></i>
-										</a>
-										<ul class="dropdown-menu dropdown-user">
-											<li><a href="#">Config option 1</a>
-											</li>
-											<li><a href="#">Config option 2</a>
-											</li>
-										</ul>
-										<a class="close-link">
-											<i class="fa fa-times"></i>
-										</a>
-									</div>
-								</div>
-								<div class="ibox-content">
-									<fieldset>
-											<form id="frm_BO_h" class="form-horizontal" action="<?php echo $url; ?>private/EnterpriseGroup" method="POST" class="">
-												<div class="col-lg-6 form-group-dark">
-													<div class="form-group">&nbsp;</div>
-													<!--div class="form-group">
-														<label class="col-md-4 control-label">Cuenta maestra:*</label>
-														<div class="col-lg-8">
-															<select id="" class="form-control m-b" name="slt_pkSubCompany_h">
-																<option value="-1">Selecciona una cuenta maestra ...</option>
-															<?php //foreach ($drows_Company as $companyOption) {?>
-																	<option value="<?php //echo $companyOption['pkSubCompany'] ?>"><?php //echo $companyOption['subCompanyName'] ?></option>
-															<?php //} ?>
-															</select>
-														</div>
-													</div-->
-													<!--div class="form-group">
-															<label class="col-md-4 control-label">Sucursal:*</label>
-															<div class="col-lg-8">
-																<input id="txt_BOName_h" class="form-control required" name="txt_BOName_h" type="text">
-															</div>
-														</div>
-													<div class="form-group">
-														<label class="col-md-4 control-label">Direcci&oacute;n:*</label>
-														<div class="col-md-8">
-															<input id="txt_BOStreet_h" class="form-control required" name="txt_BOStreet_h" type="text">
-														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-md-4 control-label">N&uacute;mero exterior:*</label>
-														<div class="col-md-8">
-															<input id="txt_BOExtNumber_h" class="form-control required" name="txt_BOExtNumber_h" type="text">
-														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-md-4 control-label">N&uacute;mero interior:*</label>
-														<div class="col-md-8">
-															<input id="txt_BOIntNumber_h" class="form-control required" name="txt_BOIntNumber_h" type="text">
-														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-md-4 control-label">Service Address</label>
-														<div class="col-md-8">
-															<input id="txt_serviceAddress_h" class="form-control required" name="txt_serviceAddress_h" type="text">
-														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-md-4 control-label">Service Manager</label>
-														<div class="col-md-8">
-															<input id="txt_serviceManager_h" class="form-control required" name="txt_serviceManager_h" type="text">
-														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-md-4 control-label">Service Email</label>
-														<div class="col-md-8">
-															<input id="txt_serviceEmail_h" class="form-control required" name="txt_serviceEmail_h" type="text">
-														</div>
-													</div>
-												</div>
-												<div class="col-md-6 form-group-dark">
-														<div class="form-group">&nbsp;</div>
-														<div class="form-group">
-															<label class="col-md-4 control-label">Regi&oacute;n:*</label>
-															<div class="col-md-8">
-																<input id="txt_BORegion_h" class="form-control required" name="txt_BORegion_h" type="text">
-															</div>
-														</div>
-														<div class="form-group">
-															<label class="col-md-4 control-label">Zona:*</label>
-															<div class="col-md-8">
-																<input id="txt_BOZone_h" class="form-control required" name="txt_BOZone_h" type="text">
-															</div>
-														</div>
-														<div class="form-group">
-															<label class="col-md-4 control-label">Provincia:*</label>
-															<div class="col-md-8">
-																<input  id="txt_BOProvince_h" class="form-control required" name="txt_BOProvince_h" type="text">
-															</div>
-														</div>
-														<div class="form-group">
-															<label class="col-md-4 control-label">Zip Code:*</label>
-															<div class="col-md-8">
-																<input  id="txt_BOZipCode_h" class="form-control required" name="txt_BOZipCode_h" type="text">
-															</div>
-														</div>
-														<div class="form-group">
-															<label class="col-md-4 control-label">Horario de atenci&oacute;n</label>
-															<div class="col-md-8">
-																<input id="txt_officeHour_h" class="form-control required" name="txt_officeHour_h" type="text">
-															</div>
-														</div>
-														<div class="form-group">
-															<label class="col-md-4 control-label">Service Phone</label>
-															<div class="col-md-8">
-																<input id="txt_servicePhone_h" class="form-control required" name="txt_servicePhone_h" type="text">
-															</div>
-														</div>
-														<div class="form-group">
-															<label class="col-md-4 control-label">&nbsp;</label>
-															<div class="col-md-8">
-																&nbsp;
-															</div>
-														</div>
-												</div>
-												<div class="form-group">&nbsp;</div>
-												<div class="col-md-4 pull-right">
-													<div class="form-group">
-														<button type="" id="" class="btn btn-primary btn-md btn-block" value="AddBO" onclick="validateBOIfIsShowed()" name="btn_command_h">Guardar</button>
-														</div>
-												</div>
-											</form>
-										</fieldset>
-								</div>
-							</div>
-                        </div>
-					</div-->
 				</div>
 			</div>
 			<div class="footer">
 				<div>
-					<strong>Copyright</strong> Example Company &copy; 2014-2015
+					<strong>iBrain&#174; 2.0</strong>
 				</div>
 			</div>
 		</div>

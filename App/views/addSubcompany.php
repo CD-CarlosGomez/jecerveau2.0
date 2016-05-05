@@ -57,7 +57,7 @@ use \Core\Controller;
 						</ul>
 						<ul class="nav navbar-top-links navbar-right">
 							<li>
-								<a href="<?php echo $url; ?>App/controllers/logout.php">Log out</a>
+								<a href="<?php echo $url; ?>App/controllers/logout.php">Salir</a>
 							</li>
 						</ul>
 					</div>
@@ -89,23 +89,6 @@ use \Core\Controller;
 							<div class="ibox float-e-margins">
 								<div class="ibox-title">
 									<h5>Nueva Subcuenta maestra </h5>
-									<div class="ibox-tools">
-										<a class="collapse-link">
-											<i class="fa fa-chevron-up"></i>
-										</a>
-										<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-											<i class="fa fa-wrench"></i>
-										</a>
-										<ul class="dropdown-menu dropdown-user">
-											<li><a href="#">Config option 1</a>
-											</li>
-											<li><a href="#">Config option 2</a>
-											</li>
-										</ul>
-										<a class="close-link">
-											<i class="fa fa-times"></i>
-										</a>
-									</div>
 								</div>
 								<div class="ibox-content" >
 									<fieldset>
@@ -127,17 +110,17 @@ use \Core\Controller;
 											<div class="col-md-6">
 												<div class="form-group">&nbsp;</div>
 												<div class="form-group">
-													<label class="col-md-4 control-label">Sub cuenta maestra:*</label>
+													<label class="col-md-4 control-label">Subcuenta maestra:*</label>
 													<div class="col-lg-8">
 														<input id="txt_subCompanyName_h" class="form-control required" name="txt_subCompanyName_h" type="text">
 													</div>
-												</div>													
-											</div>
-												<div class="form-group">&nbsp;</div>
+												</div>
+										    <div class="form-group">&nbsp;</div>
 											<div class="col-md-4 pull-right">
 												<div class="form-group">
 													<button type="submit" id="btn_command_h" class="btn btn-primary btn-md btn-block" value="AddSubCompany" name="btn_command_h">Guardar</button>
 												</div>
+											</div>
 											</div>
 										</form>
 									</fieldset>									
@@ -145,69 +128,11 @@ use \Core\Controller;
 							</div>
                         </div>
                     </div>
-					<!--div class="row">
-						<div class="col-lg-12">
-							<div class="ibox float-e-margins">
-								<div class="ibox-title">
-									<h5>Titulo del ibox </h5>
-									<div class="ibox-tools">
-										<a class="collapse-link">
-											<i class="fa fa-chevron-up"></i>
-										</a>
-										<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-											<i class="fa fa-wrench"></i>
-										</a>
-										<ul class="dropdown-menu dropdown-user">
-											<li><a href="#">Config option 1</a>
-											</li>
-											<li><a href="#">Config option 2</a>
-											</li>
-										</ul>
-										<a class="close-link">
-											<i class="fa fa-times"></i>
-										</a>
-									</div>
-								</div>
-								<div class="ibox-content">
-									Texto
-								</div>
-							</div>
-                        </div>
-					</div>
-					<div class="row">
-						<div class="col-lg-12">
-							<div class="ibox float-e-margins">
-								<div class="ibox-title">
-									<h5>Titulo del ibox </h5>
-									<div class="ibox-tools">
-										<a class="collapse-link">
-											<i class="fa fa-chevron-up"></i>
-										</a>
-										<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-											<i class="fa fa-wrench"></i>
-										</a>
-										<ul class="dropdown-menu dropdown-user">
-											<li><a href="#">Config option 1</a>
-											</li>
-											<li><a href="#">Config option 2</a>
-											</li>
-										</ul>
-										<a class="close-link">
-											<i class="fa fa-times"></i>
-										</a>
-									</div>
-								</div>
-								<div class="ibox-content">
-									Texto
-								</div>
-							</div>
-                        </div>
-					</div-->
 				</div>
 			</div>
 			<div class="footer">
 				<div>
-					<strong>Copyright</strong> Example Company &copy; 2014-2015
+					<strong>IBrain&#174; 2.0</strong>
 				</div>
 			</div>
 		</div>

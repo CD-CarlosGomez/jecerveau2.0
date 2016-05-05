@@ -59,7 +59,7 @@ use \Core\Controller;
 						</ul>
 						<ul class="nav navbar-top-links navbar-right">
 							<li>
-								<a href="<?php echo $url; ?>App/controllers/logout.php">Log out</a>
+								<a href="<?php echo $url; ?>App/controllers/logout.php">Salir</a>
 							</li>
 						</ul>
 					</div>
@@ -88,24 +88,7 @@ use \Core\Controller;
 						<div class="col-lg-12">
 							<div class="ibox float-e-margins">
 								<div class="ibox-title">
-									<h5>Nueva cuenta maestra </h5>
-									<div class="ibox-tools">
-										<a class="collapse-link">
-											<i class="fa fa-chevron-up"></i>
-										</a>
-										<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-											<i class="fa fa-wrench"></i>
-										</a>
-										<ul class="dropdown-menu dropdown-user">
-											<li><a href="#">Config option 1</a>
-											</li>
-											<li><a href="#">Config option 2</a>
-											</li>
-										</ul>
-										<a class="close-link">
-											<i class="fa fa-times"></i>
-										</a>
-									</div>
+									<h5>Nueva cuenta maestra</h5>
 								</div>
 								<div class="ibox-content" >
 									<fieldset>
@@ -144,23 +127,6 @@ use \Core\Controller;
 							<div class="ibox float-e-margins">
 								<div class="ibox-title">
 									<h5>Nueva Subcuenta </h5>
-									<div class="ibox-tools">
-										<a class="collapse-link">
-											<i class="fa fa-chevron-up"></i>
-										</a>
-										<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-											<i class="fa fa-wrench"></i>
-										</a>
-										<ul class="dropdown-menu dropdown-user">
-											<li><a href="#">Config option 1</a>
-											</li>
-											<li><a href="#">Config option 2</a>
-											</li>
-										</ul>
-										<a class="close-link">
-											<i class="fa fa-times"></i>
-										</a>
-									</div>
 								</div>
 								<div class="ibox-content">
 									<fieldset>
@@ -200,24 +166,7 @@ use \Core\Controller;
 						<div class="col-lg-12">
 							<div class="ibox float-e-margins">
 								<div class="ibox-title">
-									<h5>Nueva Sucursal </h5>
-									<div class="ibox-tools">
-										<a class="collapse-link">
-											<i class="fa fa-chevron-up"></i>
-										</a>
-										<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-											<i class="fa fa-wrench"></i>
-										</a>
-										<ul class="dropdown-menu dropdown-user">
-											<li><a href="#">Config option 1</a>
-											</li>
-											<li><a href="#">Config option 2</a>
-											</li>
-										</ul>
-										<a class="close-link">
-											<i class="fa fa-times"></i>
-										</a>
-									</div>
+									<h5>Nuevo AASP </h5>
 								</div>
 								<div class="ibox-content">
 									<fieldset>
@@ -248,19 +197,19 @@ use \Core\Controller;
 														</div>
 													</div>
 													<div class="form-group">
-														<label class="col-md-4 control-label">Service Address</label>
+														<label class="col-md-4 control-label">Direcci&oacute;n de atenci&oacute;n</label>
 														<div class="col-md-8">
 															<input id="txt_serviceAddress_h" class="form-control required" name="txt_serviceAddress_h" type="text">
 														</div>
 													</div>
 													<div class="form-group">
-														<label class="col-md-4 control-label">Service Manager</label>
+														<label class="col-md-4 control-label">Gerente:</label>
 														<div class="col-md-8">
 															<input id="txt_serviceManager_h" class="form-control required" name="txt_serviceManager_h" type="text">
 														</div>
 													</div>
 													<div class="form-group">
-														<label class="col-md-4 control-label">Service Email</label>
+														<label class="col-md-4 control-label">Correo electr&oacute;nico de atenci&oacute;n:</label>
 														<div class="col-md-8">
 															<input id="txt_serviceEmail_h" class="form-control required" name="txt_serviceEmail_h" type="text">
 														</div>
@@ -287,19 +236,19 @@ use \Core\Controller;
 															</div>
 														</div>
 														<div class="form-group">
-															<label class="col-md-4 control-label">Zip Code:*</label>
+															<label class="col-md-4 control-label">C&oacute;digo postal:*</label>
 															<div class="col-md-8">
 																<input  id="txt_BOZipCode_h" class="form-control required" name="txt_BOZipCode_h" type="text">
 															</div>
 														</div>
 														<div class="form-group">
-															<label class="col-md-4 control-label">Horario de atenci&oacute;n</label>
+															<label class="col-md-4 control-label">Horario de atenci&oacute;n:</label>
 															<div class="col-md-8">
 																<input id="txt_officeHour_h" class="form-control required" name="txt_officeHour_h" type="text">
 															</div>
 														</div>
 														<div class="form-group">
-															<label class="col-md-4 control-label">Service Phone</label>
+															<label class="col-md-4 control-label">Tel&eacute;lefono de atenci&oacute;n:</label>
 															<div class="col-md-8">
 																<input id="txt_servicePhone_h" class="form-control required" name="txt_servicePhone_h" type="text">
 															</div>
@@ -326,7 +275,7 @@ use \Core\Controller;
 			</div>
 			<div class="footer">
 				<div>
-					<strong>Copyright</strong> Example Company &copy; 2014-2015
+					<strong>iBrain&#174; 2.0</strong>
 				</div>
 			</div>
 		</div>

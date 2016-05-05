@@ -94,19 +94,19 @@ use \App\data\DataGridView as DGV;
 			</div>
 			<div class="row wrapper border-bottom white-bg page-heading">
 				<div class="col-sm-4">
-					<h2>AASP</h2>
+					<h2>AASPs</h2>
 					<ol class="breadcrumb">
 						<li>
 							<a href="<?php echo $url; ?>private/home">Inicio</a>
 						</li
 						><li>
-							<a href="<?php echo $url; ?>private/EnterpriseGroup/showCompany">Compa&ntilde;&iacute;as</a>
+							<a href="<?php echo $url; ?>private/EnterpriseGroup/showCompany">Cuentas maestras</a>
 						</li>
 						<li class="active">
-							<a href="<?php echo $url; ?>private/EnterpriseGroup/showSubcompany">Subcompa&ntilde;&iacute;as</a>
+							<a href="<?php echo $url; ?>private/EnterpriseGroup/showSubcompany">Subcuentas maestras</a>
 						</li>
 						<li class="active">
-							<strong> AASP </strong>
+							<strong> AASPs </strong>
 						</li>
 					</ol>
 				</div>
@@ -117,19 +117,11 @@ use \App\data\DataGridView as DGV;
 						<div class="col-lg-12">
 							<div class="ibox float-e-margins">
 								<div class="ibox-title">
-									<h5>Cuenta maestra</h5>
-									<div class="ibox-tools">
-										<a class="collapse-link">
-											<i class="fa fa-chevron-up"></i>
-										</a>
-										<a class="close-link">
-											<i class="fa fa-times"></i>
-										</a>
-									</div>
+									<h5>Listado de AASPs</h5>
 								</div>
 								<div class="ibox-content">					
 								<div class="pull-right">
-									<a onclick="" href="<?php echo $url; ?>private/EnterpriseGroup/addBranchOffice" class="btn btn-primary ">Agregar nuevo AASP</a>
+									<a onclick="" href="<?php echo $url; ?>private/EnterpriseGroup/addBranchOffice" class="btn btn-primary ">Nuevo AASP</a>
 								</div>
 								<br />
 								<br />
@@ -147,7 +139,7 @@ use \App\data\DataGridView as DGV;
 				<div class="pull-right">
 				</div>
 				<div>
-					<strong>Copyright</strong> Example Company © 2014-2015
+					<strong>IBrain &#174; 2.0 </strong>
 				</div>
 			</div>
         </div>
@@ -181,10 +173,10 @@ use \App\data\DataGridView as DGV;
             $('.dataTables-example').DataTable({
                 dom: '<"html5buttons"B>lTfgitp',
                 buttons: [
-                    { extend: 'copy'},
+                    {extend: 'copy'},
                     {extend: 'csv'},
-                    {extend: 'excel', title: 'ExampleFile'},
-                    {extend: 'pdf', title: 'ExampleFile'},
+                    {extend: 'excel', title: 'Listado de AASPs'},
+                    {extend: 'pdf', title: 'Listado de AASPs'},
 
                     {extend: 'print',
                      customize: function (win){
@@ -196,8 +188,27 @@ use \App\data\DataGridView as DGV;
                                     .css('font-size', 'inherit');
                     }
                     }
-                ]
-
+                ],
+				language : {
+						buttons : {
+								copy : 'Copiar',
+								print : 'Imprimir'
+						}
+				},
+				"language" : {
+						"lengthMenu": "Mostrar _MENU_ registros por p&aacute;gina",
+						"zeroRecords": "No se encontraron registros.",
+						"info": "Mostrando p&aacute;gina _PAGE_ de _PAGES_",
+						"infoEmpty": "No registros disponibles",
+						"infoFiltered": "(filtrado desde _MAX_ registros totales)",
+						"search":         "Buscar:",
+						"paginate": {
+						"first":      "Primero",
+						"last":       "&Uacute;ltimo",
+						"next":       "Siguiente",
+						"previous":   "Anterior"
+						}
+				}
             });
 			
 			$.ajax({
@@ -212,12 +223,7 @@ use \App\data\DataGridView as DGV;
 					}
 				}
 			});
-            
-			
-			
-			
-			
-			
+            			
 			/* Init DataTables */
             var oTable = $('#AddTD').DataTable();
 

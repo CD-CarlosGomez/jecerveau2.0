@@ -64,13 +64,16 @@ use \Core\Controller;
 			</div>
             <div class="row wrapper border-bottom white-bg page-heading">
                 <div class="col-sm-4">
-                    <h2>Sucursales</h2>
+                    <h2>AASPs</h2>
                     <ol class="breadcrumb">
                         <li>
 							<a href="<?php echo $url; ?>private/home">Inicio</a>
 						</li>
 						<li>
 							<a href="<?php echo $url; ?>private/EnterpriseGroup/ShowCompany">Cuenta maestra</a>
+						</li>
+						<li class="active">
+							<a href="<?php echo $url; ?>private/EnterpriseGroup/showSubcompany">Subcompa&ntilde;&iacute;as</a>
 						</li>
 						<li>
 							<a href="<?php echo $url; ?>private/EnterpriseGroup/showBranchOffice">AASP</a>
@@ -88,23 +91,6 @@ use \Core\Controller;
 							<div class="ibox float-e-margins">
 								<div class="ibox-title">
 									<h5>Nueva sucursal </h5>
-									<div class="ibox-tools">
-										<a class="collapse-link">
-											<i class="fa fa-chevron-up"></i>
-										</a>
-										<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-											<i class="fa fa-wrench"></i>
-										</a>
-										<ul class="dropdown-menu dropdown-user">
-											<li><a href="#">Config option 1</a>
-											</li>
-											<li><a href="#">Config option 2</a>
-											</li>
-										</ul>
-										<a class="close-link">
-											<i class="fa fa-times"></i>
-										</a>
-									</div>
 								</div>
 								<div class="ibox-content" >
 									<fieldset>
@@ -141,19 +127,19 @@ use \Core\Controller;
 														</div>
 													</div>
 													<div class="form-group">
-														<label class="col-md-4 control-label">Service Address</label>
+														<label class="col-md-4 control-label">Direcci&oacute;n de atenci&oacute;n:</label>
 														<div class="col-md-8">
 															<input id="txt_serviceAddress_h" class="form-control required" name="txt_serviceAddress_h" type="text">
 														</div>
 													</div>
 													<div class="form-group">
-														<label class="col-md-4 control-label">Service Manager</label>
+														<label class="col-md-4 control-label">Gerente:</label>
 														<div class="col-md-8">
 															<input id="txt_serviceManager_h" class="form-control required" name="txt_serviceManager_h" type="text">
 														</div>
 													</div>
 													<div class="form-group">
-														<label class="col-md-4 control-label">Service Email</label>
+														<label class="col-md-4 control-label">Correo electr&oacute;nico del servicio:</label>
 														<div class="col-md-8">
 															<input id="txt_serviceEmail_h" class="form-control required" name="txt_serviceEmail_h" type="text">
 														</div>
@@ -186,7 +172,7 @@ use \Core\Controller;
 															</div>
 														</div>
 														<div class="form-group">
-															<label class="col-md-4 control-label">Zip Code:*</label>
+															<label class="col-md-4 control-label">C&oacute;digo postal:*</label>
 															<div class="col-md-8">
 																<input  id="txt_BOZipCode_h" class="form-control required" name="txt_BOZipCode_h" type="text">
 															</div>
@@ -198,7 +184,7 @@ use \Core\Controller;
 															</div>
 														</div>
 														<div class="form-group">
-															<label class="col-md-4 control-label">Service Phone</label>
+															<label class="col-md-4 control-label">Tel&eacute;fono de atenci&oacute;n:</label>
 															<div class="col-md-8">
 																<input id="txt_servicePhone_h" class="form-control required" name="txt_servicePhone_h" type="text">
 															</div>
@@ -216,69 +202,11 @@ use \Core\Controller;
 							</div>
                         </div>
                     </div>
-					<!--div class="row">
-						<div class="col-lg-12">
-							<div class="ibox float-e-margins">
-								<div class="ibox-title">
-									<h5>Titulo del ibox </h5>
-									<div class="ibox-tools">
-										<a class="collapse-link">
-											<i class="fa fa-chevron-up"></i>
-										</a>
-										<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-											<i class="fa fa-wrench"></i>
-										</a>
-										<ul class="dropdown-menu dropdown-user">
-											<li><a href="#">Config option 1</a>
-											</li>
-											<li><a href="#">Config option 2</a>
-											</li>
-										</ul>
-										<a class="close-link">
-											<i class="fa fa-times"></i>
-										</a>
-									</div>
-								</div>
-								<div class="ibox-content">
-									Texto
-								</div>
-							</div>
-                        </div>
-					</div>
-					<div class="row">
-						<div class="col-lg-12">
-							<div class="ibox float-e-margins">
-								<div class="ibox-title">
-									<h5>Titulo del ibox </h5>
-									<div class="ibox-tools">
-										<a class="collapse-link">
-											<i class="fa fa-chevron-up"></i>
-										</a>
-										<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-											<i class="fa fa-wrench"></i>
-										</a>
-										<ul class="dropdown-menu dropdown-user">
-											<li><a href="#">Config option 1</a>
-											</li>
-											<li><a href="#">Config option 2</a>
-											</li>
-										</ul>
-										<a class="close-link">
-											<i class="fa fa-times"></i>
-										</a>
-									</div>
-								</div>
-								<div class="ibox-content">
-									Texto
-								</div>
-							</div>
-                        </div>
-					</div-->
 				</div>
 			</div>
 			<div class="footer">
 				<div>
-					<strong>Copyright</strong> Example Company &copy; 2014-2015
+					<strong>IBrain &#174; 2.0 </strong>
 				</div>
 			</div>
 		</div>
@@ -310,7 +238,7 @@ use \Core\Controller;
 					}
 				},
 				messages:{
-				slt_pkSubCompany_h:"Please, choose a Company."
+				slt_fkSubCompany_h:"Por favor, Tienes que seleccionar una subcompa&ntilde;&iacute;a."
 				}
 			}
 			);	

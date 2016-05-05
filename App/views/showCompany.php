@@ -33,10 +33,10 @@ use \App\data\DataGridView as DGV;
 		->removeColumn(4)//totalSubCompany
 		->removeColumn(5)//totalUsers
 		->setup(array(
-			'legalName' => array('header' => 'Master_Account'),
-			'commercialName' => array('header' => 'Commercial_Name'),
+			'legalName' => array('header' => 'Cuenta maestra'),
+			'commercialName' => array('header' => 'Nombre comercial'),
 			'totalSubCompany' => array('header' => 'SubCompa&ntilde;&iacute;as','link'=>$url . 'private/EnterpriseGroup/showSubcompanyCompany/','filterColumn'=>0 ),
-			'totalBO' => array('header' => 'Sucursales','link'=>$url . 'private/EnterpriseGroup/showBranchOfficeCompany/','filterColumn'=>0),
+			'totalBO' => array('header' => 'AASPS','link'=>$url . 'private/EnterpriseGroup/showBranchOfficeCompany/','filterColumn'=>0),
 			'totalUsers' => array('header' => 'Usuarios','link'=>$url . 'private/EnterpriseGroup/showUserCompany/','filterColumn'=>0)
 		))
 		//->addColumnAfter('actions', 
@@ -94,13 +94,13 @@ use \App\data\DataGridView as DGV;
 			</div>
 			<div class="row wrapper border-bottom white-bg page-heading">
 				<div class="col-sm-4">
-					<h2>Compa&ntilde;&iacute;a</h2>
+					<h2>Cuentas maestras</h2>
 					<ol class="breadcrumb">
 						<li>
 							<a href="<?php echo $url; ?>private/home">Inicio</a>
 						</li>
 						<li class="active">
-							<strong>Compa&ntilde;&iacute;a</strong>
+							<strong>Cuentas maestras</strong>
 						</li>
 					</ol>
 				</div>
@@ -111,19 +111,11 @@ use \App\data\DataGridView as DGV;
 						<div class="col-lg-12">
 							<div class="ibox float-e-margins">
 								<div class="ibox-title">
-									<h5>Cuentas maestra</h5>
-									<div class="ibox-tools">
-										<a class="collapse-link">
-											<i class="fa fa-chevron-up"></i>
-										</a>
-										<a class="close-link">
-											<i class="fa fa-times"></i>
-										</a>
-									</div>
+									<h5>Listado de cuentas maestras</h5>
 								</div>
 								<div class="ibox-content">					
 								<div class="pull-right">
-									<a onclick="" href="<?php echo $url; ?>private/EnterpriseGroup/AddCompany" class="btn btn-primary ">Agregar nueva cuenta maestra</a>
+									<a onclick="" href="<?php echo $url; ?>private/EnterpriseGroup/AddCompany" class="btn btn-primary ">Nueva cuenta maestra</a>
 								</div>
 								<br />
 								<br />
@@ -141,7 +133,7 @@ use \App\data\DataGridView as DGV;
 				<div class="pull-right">
 				</div>
 				<div>
-					<strong>Copyright</strong> Example Company © 2014-2015
+					<strong>IBrain &#174; 2.0 </strong>
 				</div>
 			</div>
 		</div>
@@ -186,60 +178,29 @@ use \App\data\DataGridView as DGV;
                                     .css('font-size', 'inherit');
                     }
                     }
-                ]
-
-            });
-			
-			$.ajax({
-				url: '',
-				type: 'post',
-				data:{tag:'getCompany'},
-				dataType:'json',
-				succes: function (data){
-					if (data.succes){
-						$.each(data,function (index,record ){ 
-						})
-					}
+                ],
+				language : {
+						buttons : {
+								copy : 'Copiar',
+								print : 'Imprimir'
+						}
+				},
+				"language" : {
+						"lengthMenu": "Mostrar _MENU_ registros por p&aacute;gina",
+						"zeroRecords": "No se encontraron registros.",
+						"info": "Mostrando p&aacute;gina _PAGE_ de _PAGES_",
+						"infoEmpty": "No registros disponibles",
+						"infoFiltered": "(filtrado desde _MAX_ registros totales)",
+						"search":         "Buscar:",
+						"paginate": {
+						"first":      "Primero",
+						"last":       "&Uacute;ltimo",
+						"next":       "Siguiente",
+						"previous":   "Anterior"
+						}
 				}
-			});
-            
-			
-			
-			
-			
-			
-			/* Init DataTables */
-            var oTable = $('#AddTD').DataTable();
-
-            /* Apply the jEditable handlers to the table */
-            oTable.$('td').editable( '../example_ajax.php', {
-                "callback": function( sValue, y ) {
-                    var aPos = oTable.fnGetPosition( this );
-                    oTable.fnUpdate( sValue, aPos[0], aPos[1] );
-                },
-                "submitdata": function ( value, settings ) {
-                    return {
-                        "row_id": this.parentNode.getAttribute('id'),
-                        "column": oTable.fnGetPosition( this )[2]
-                    };
-                },
-
-                "width": "90%",
-                "height": "100%"
-            } );
-
-
         });
-
-        function fnClickAddRow() {
-            $('#editable').dataTable().fnAddData( [
-                "Custom row",
-                "New row",
-                "New row",
-                "New row",
-                "New row" ] );
-
-        }
+		});
     </script>
 
 

@@ -101,7 +101,7 @@ use \App\data\DataGridView as DGV;
 			</div>
 			<div class="row wrapper border-bottom white-bg page-heading">
 				<div class="col-sm-4">
-					<h2>Orden de Servicio</h2>
+					<h2>&Oacute;rden de Servicio</h2>
 					<ol class="breadcrumb">
 						<li>
 							<a href="<?php echo $url; ?>private/home">Inicio</a>
@@ -118,15 +118,7 @@ use \App\data\DataGridView as DGV;
 						<div class="col-lg-12">
 							<div class="ibox float-e-margins">
 								<div class="ibox-title">
-									<h5>[AASP 1</h5>
-									<div class="ibox-tools">
-										<a class="collapse-link">
-											<i class="fa fa-chevron-up"></i>
-										</a>
-										<a class="close-link">
-											<i class="fa fa-times"></i>
-										</a>
-									</div>
+									<h5>Listado de &Oacute;rdenes</h5>
 								</div>
 								<div class="ibox-content">					
 								<div class="pull-right">
@@ -142,41 +134,13 @@ use \App\data\DataGridView as DGV;
 							</div>
 						</div>
 					</div>
-					<!--div class="row">
-						<div class="col-lg-12">
-							<div class="ibox float-e-margins">
-								<div class="ibox-title">
-									<h5>[AASP 2]</h5>
-									<div class="ibox-tools">
-										<a class="collapse-link">
-											<i class="fa fa-chevron-up"></i>
-										</a>
-										<a class="close-link">
-											<i class="fa fa-times"></i>
-										</a>
-									</div>
-								</div>
-								<div class="ibox-content">					
-								<div class="pull-right">
-									<a onclick="" href="<?php //$url; ?>private/ServiceOrder/addSO"  class="btn btn-primary ">Nueva Orden</a>
-								</div>
-								<br />
-								<br />
-								<br />
-									<div class="table-responsive">
-									<?php //$outputTableCompany->render();?>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div-->
 				</div>
 			</div>
 			<div class="footer">
 				<div class="pull-right">
 				</div>
 				<div>
-					<strong>Copyright</strong> Example Company © 2014-2015
+					<strong>iBrain&#174; 2.0</strong>
 				</div>
 			</div>
 		</div>
@@ -226,60 +190,34 @@ use \App\data\DataGridView as DGV;
                     }
                     }
                 ],
-				"order":[[2,"desc"]]
-            });
-			/*
-			$.ajax({
-				url: '',
-				type: 'post',
-				data:{tag:'getCompany'},
-				dataType:'json',
-				succes: function (data){
-					if (data.succes){
-						$.each(data,function (index,record ){
-							
-						})
-					}
+				"order":[[2,"desc"]],
+				language : {
+						buttons : {
+								copy : 'Copiar',
+								print : 'Imprimir'
+						}
+				},
+				"language" : {
+						"lengthMenu": "Mostrar _MENU_ registros por p&aacute;gina",
+						"zeroRecords": "No se encontraron registros.",
+						"info": "Mostrando p&aacute;gina _PAGE_ de _PAGES_",
+						"infoEmpty": "No registros disponibles",
+						"infoFiltered": "(filtrado desde _MAX_ registros totales)",
+						"search":         "Buscar:",
+						"paginate": {
+						"first":      "Primero",
+						"last":       "&Uacute;ltimo",
+						"next":       "Siguiente",
+						"previous":   "Anterior"
+						}
 				}
-			});*/
-            
-			
-			
-			
-			
-			
-			/* Init DataTables */
-           // var oTable = $('#AddTD').DataTable();
-
-            /* Apply the jEditable handlers to the table */
-            /*oTable.$('td').editable( '../example_ajax.php', {
-                "callback": function( sValue, y ) {
-                    var aPos = oTable.fnGetPosition( this );
-                    oTable.fnUpdate( sValue, aPos[0], aPos[1] );
-                },
-                "submitdata": function ( value, settings ) {
-                    return {
-                        "row_id": this.parentNode.getAttribute('id'),
-                        "column": oTable.fnGetPosition( this )[2]
-                    };
-                },
-
-                "width": "90%",
-                "height": "100%"
-            } );*/
+            });
+	
 
 
         });
 
-        function fnClickAddRow() {
-            $('#editable').dataTable().fnAddData( [
-                "Custom row",
-                "New row",
-                "New row",
-                "New row",
-                "New row" ] );
-
-        }
+     
     </script>
 
 

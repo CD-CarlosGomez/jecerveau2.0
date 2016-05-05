@@ -33,7 +33,7 @@ use \App\data\DataGridView as DGV;
 		->removeColumn(3)
 		->removeColumn(4)
 		->setup(array(
-			'subCompanyName' => array('header' => 'Commercial_Name'),
+			'subCompanyName' => array('header' => 'Nombre Comercial'),
 			'totalBO' => array('header' => 'Sucursales','link'=>$url . 'private/EnterpriseGroup/showBranchOfficeSubCompany/','filterColumn'=>1),
 			'totalUsers' => array('header' => 'Usuarios','link'=>$url . 'private/EnterpriseGroup/showUserSubCompany/','filterColumn'=>1)
 		))
@@ -92,16 +92,16 @@ use \App\data\DataGridView as DGV;
 			</div>
 			<div class="row wrapper border-bottom white-bg page-heading">
 				<div class="col-sm-4">
-					<h2>Grupo Empresarial</h2>
+					<h2>Subcuentas maestras</h2>
 					<ol class="breadcrumb">
 						<li>
 							<a href="<?php echo $url; ?>private/home">Inicio</a>
 						</li>
 						<li>
-							<a href="<?php echo $url; ?>private/EnterpriseGroup/showCompany">Compa&ntilde;&iacute;as</a>
+							<a href="<?php echo $url; ?>private/EnterpriseGroup/showCompany">Cuentas maestras</a>
 						</li>
 						<li class="active">
-							<strong>Sub cuenta maestras</strong>
+							<strong>Subcuentas</strong>
 						</li>
 					</ol>
 				</div>
@@ -112,19 +112,11 @@ use \App\data\DataGridView as DGV;
 							<div class="col-lg-12">
 								<div class="ibox float-e-margins">
 									<div class="ibox-title">
-										<h5>sub cuentas maestra</h5>
-										<div class="ibox-tools">
-											<a class="collapse-link">
-												<i class="fa fa-chevron-up"></i>
-											</a>
-											<a class="close-link">
-												<i class="fa fa-times"></i>
-											</a>
-										</div>
+										<h5>Listado de Subcuentas</h5>
 									</div>
 									<div class="ibox-content">					
 									<div class="pull-right">
-										<a onclick="" href="<?php echo $url; ?>private/EnterpriseGroup/AddSubcompany" class="btn btn-primary ">Agregar nueva subcuenta maestra</a>
+										<a onclick="" href="<?php echo $url; ?>private/EnterpriseGroup/AddSubcompany" class="btn btn-primary ">Nueva subcuenta</a>
 									</div>
 									<br />
 									<br />
@@ -142,7 +134,7 @@ use \App\data\DataGridView as DGV;
 				<div class="pull-right">
 				</div>
 				<div>
-					<strong>Copyright</strong> Example Company © 2014-2015
+					<strong>Ibrain&#174; 2.0</strong>
 				</div>
 			</div>
 		</div>
@@ -187,7 +179,27 @@ use \App\data\DataGridView as DGV;
                                     .css('font-size', 'inherit');
                     }
                     }
-                ]
+                ],
+				language : {
+						buttons : {
+								copy : 'Copiar',
+								print : 'Imprimir'
+						}
+				},
+				"language" : {
+						"lengthMenu": "Mostrar _MENU_ registros por p&aacute;gina",
+						"zeroRecords": "No se encontraron registros.",
+						"info": "Mostrando p&aacute;gina _PAGE_ de _PAGES_",
+						"infoEmpty": "No registros disponibles",
+						"infoFiltered": "(filtrado desde _MAX_ registros totales)",
+						"search":         "Buscar:",
+						"paginate": {
+						"first":      "Primero",
+						"last":       "&Uacute;ltimo",
+						"next":       "Siguiente",
+						"previous":   "Anterior"
+						}
+				}
 
             });
 			

@@ -71,26 +71,27 @@ use \Core\Controller;
 							</ul>
 							<ul class="nav navbar-top-links navbar-right">
 								<li>
-									<a href="<?php echo $url; ?>App/controllers/logout.php">Log out</a>
+									<a href="<?php echo $url; ?>App/controllers/logout.php">Salir</a>
 								</li>
 							</ul>
 						</div>
 					</nav>
 				</div>
 				<div class="row wrapper border-bottom white-bg page-heading">
+						<div class="col-sm-6 pull-right">
+								<h2>&Oacute;rden de servicio No. <?php foreach($ds_so as $dr_so){ echo $dr_so["SONumber"];} ?></h2>
+						</div>
 					<div class="col-sm-4">
-						<h2>Orden de servicio</h2>
-						</br>
-						<h3><?php foreach($ds_so as $dr_so){ echo $dr_so["SONumber"];} ?></h3>
+						<h2>&nbsp;</h2>
 						<ol class="breadcrumb">
 							<li>
 								<a href="<?php echo $url; ?>private/home">Inicio</a>
 							</li>
 							<li>
-								<a href="<?php echo $url; ?>private/ServiceOrder/showSO">Orden de servicio</a>
+								<a href="<?php echo $url; ?>private/ServiceOrder/showSO">&Oacute;rden de servicio</a>
 							</li>
 							<li class="active">
-								<strong>Nueva Orden de servicio</strong>
+								<strong>Nueva &Oacute;rden de servicio</strong>
 							</li>
 						</ol>
 					</div>
@@ -103,23 +104,6 @@ use \Core\Controller;
 							<div class="ibox float-e-margins">
 								<div class="ibox-title">
 									<h5>GSX</h5>
-									<div class="ibox-tools">
-										<a class="collapse-link">
-											<i class="fa fa-chevron-up"></i>
-										</a>
-										<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-											<i class="fa fa-wrench"></i>
-										</a>
-										<ul class="dropdown-menu dropdown-user">
-											<li><a href="#">Config option 1</a>
-											</li>
-											<li><a href="#">Config option 2</a>
-											</li>
-										</ul>
-										<a class="close-link">
-											<i class="fa fa-times"></i>
-										</a>
-									</div>
 								</div>
 								<div class="ibox-content" >
 									<fieldset>
@@ -189,7 +173,7 @@ use \Core\Controller;
 						<div class="col-lg-12">
 							<div class="ibox">
 								<div class="ibox-title">
-									<h5>Nueva Orden de servicio</h5>
+									<h5>&Oacute;rden de servicio</h5>
 								</div>
 								<div class="ibox-content">
 									<form id="frm_SO_h" class="form-horizontal" action="<?php echo $url; ?>private/ServiceOrder"   method="POST" name="frm_SO_h">
@@ -351,7 +335,7 @@ use \Core\Controller;
 				<div class="pull-right">
 				</div>
 				<div>
-					<strong>Copyright</strong> Example Company © 2014-2015
+					<strong>iBrain&#174; 2.0</strong>
 				</div>
 			</div>
 		</div>
@@ -488,13 +472,8 @@ use \Core\Controller;
 			}				
 			);
 		});	
-	function displayButtons(cellvalue, options, rowObject){
-        var edit= "<input class='btn btn-primary btn-xs btn-block' type='button' value='Editar' onclick=\"jQuery('#table_list_accessory').editRow('" + options.rowId + "');\"  />", 
-            save = "<input class='btn btn-primary btn-xs btn-block' type='button' value='Guardar' onclick=\"jQuery('#table_list_accessory').saveRow('" + options.rowId + "');\"  />", 
-            delite = "<input class='btn btn-primary btn-xs btn-block' type='button' value='Eliminar' onclick=\"jQuery('#table_list_accessory').restoreRow('" + options.rowId + "');\" />";
-        return edit+save+delite;
-		}
-	function ObjJ2ObjP(object){
+	
+		function ObjJ2ObjP(object){
 		var json="{";
 		for (property in object){
 			var valor=object[property];
