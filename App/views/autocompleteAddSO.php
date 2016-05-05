@@ -86,14 +86,99 @@ class autocompleteAddSO {
 *******************************************************************************/
 if(@$_GET['type'] == 'phone'){
 			$PDOcnn=Database::instance();
-			$PDOQuery = ("SELECT contactPhone FROM customercontact where contactPhone LIKE '".strtoupper($_GET['name_startsWith'])."%'");	
+			$row_num = $_GET['row_num'];
+			$PDOQuery = ("SELECT DISTINCT * FROM customercontact where contactPhone LIKE '".strtoupper($_GET['name_startsWith'])."%'");	
 			$resultSet=$PDOcnn->query($PDOQuery);
 			$data = array();
 				while ($row = $resultSet->fetch(\PDO::FETCH_ASSOC)) {
-					array_push($data, $row['contactPhone']);	
+					$contact =
+						 $row['contactName']
+					.'|'.$row['contactEmail']
+					.'|'.$row['contactPhone']
+					.'|'.$row['contactMovil']
+					.'|'.$row['contactAddress']
+					.'|'.$row['contactLocation']
+					.'|'.$row['contactCounty']
+					.'|'.$row['contactProvince']
+					.'|'.$row['contactZipCode']
+					.'|'.$row['contactObs']
+					.'|'.$row_num;
+					array_push($data, $contact);	
 		}	
 				echo json_encode($data);
-		}
+}
+if(@$_GET['type'] == 'movil'){
+			$PDOcnn=Database::instance();
+			$row_num = $_GET['row_num'];
+			$PDOQuery = ("SELECT DISTINCT * FROM customercontact where contactMovil LIKE '".strtoupper($_GET['name_startsWith'])."%'");	
+			$resultSet=$PDOcnn->query($PDOQuery);
+			$data = array();
+				while ($row = $resultSet->fetch(\PDO::FETCH_ASSOC)) {
+					$contact =
+						 $row['contactName']
+					.'|'.$row['contactEmail']
+					.'|'.$row['contactPhone']
+					.'|'.$row['contactMovil']
+					.'|'.$row['contactAddress']
+					.'|'.$row['contactLocation']
+					.'|'.$row['contactCounty']
+					.'|'.$row['contactProvince']
+					.'|'.$row['contactZipCode']
+					.'|'.$row['contactObs']
+					.'|'.$row_num;
+					array_push($data, $contact);
+					//array_push($data, $row['contactMovil']);	
+		}	
+				echo json_encode($data);
+}
+if(@$_GET['type'] == 'name'){
+			$PDOcnn=Database::instance();
+			$row_num = $_GET['row_num'];
+			$PDOQuery = ("SELECT DISTINCT * FROM customercontact where contactName LIKE '".strtoupper($_GET['name_startsWith'])."%'");	
+			$resultSet=$PDOcnn->query($PDOQuery);
+			$data = array();
+				while ($row = $resultSet->fetch(\PDO::FETCH_ASSOC)) {
+					$contact =
+						 $row['contactName']
+					.'|'.$row['contactEmail']
+					.'|'.$row['contactPhone']
+					.'|'.$row['contactMovil']
+					.'|'.$row['contactAddress']
+					.'|'.$row['contactLocation']
+					.'|'.$row['contactCounty']
+					.'|'.$row['contactProvince']
+					.'|'.$row['contactZipCode']
+					.'|'.$row['contactObs']
+					.'|'.$row_num;
+					array_push($data, $contact);
+					//array_push($data, $row['contactName']);	
+		}	
+				echo json_encode($data);
+}
+if(@$_GET['type'] == 'email'){
+			$PDOcnn=Database::instance();
+			$row_num = $_GET['row_num'];
+			$PDOQuery = ("SELECT DISTINCT * FROM customercontact where contactEmail LIKE '".strtoupper($_GET['name_startsWith'])."%'");	
+			$resultSet=$PDOcnn->query($PDOQuery);
+			$data = array();
+				while ($row = $resultSet->fetch(\PDO::FETCH_ASSOC)) {
+					$contact =
+						 $row['contactName']
+					.'|'.$row['contactEmail']
+					.'|'.$row['contactPhone']
+					.'|'.$row['contactMovil']
+					.'|'.$row['contactAddress']
+					.'|'.$row['contactLocation']
+					.'|'.$row['contactCounty']
+					.'|'.$row['contactProvince']
+					.'|'.$row['contactZipCode']
+					.'|'.$row['contactObs']
+					.'|'.$row_num;
+					array_push($data, $contact);
+					//array_push($data, $row['contactEmail']);	
+		}	
+				echo json_encode($data);
+}
 ?>
 
 
