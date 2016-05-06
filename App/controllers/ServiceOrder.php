@@ -12,13 +12,16 @@ defined("APPPATH") OR die("Access denied");
 use \Core\View;
 use \Core\Controller;
 use \App\Config\Globales as Globales;
-use \App\Models\EnterpriseGroup\BranchOffices as BO;
-use \App\Models\ServiceOrders\ServiceOrders as SO;
-use \App\Models\ServiceOrders\CollectMethods as CM;
-use \App\Models\ServiceOrders\SoTypes as SOT;
-use \App\Models\ServiceOrders\SOAccessories as SOA;
-use \App\Models\Contacts\Contacts as Co;
-use \App\Models\CurrentUser as CU;
+use \App\Models\EnterpriseGroup\BranchOffices 	as BO;
+use \App\Models\ServiceOrders\ServiceOrders 	as SO;
+use \App\Models\ServiceOrders\CollectMethods 	as CM;
+use \App\Models\ServiceOrders\SoTypes 			as SOT;
+use \App\Models\ServiceOrders\SOAccessories 	as SOA;
+use \APP\Models\ServiceOrders\SODetails 		as SOD;
+use \App\Models\ServiceOrders\SOLogs			as SOL;
+use \App\Models\Contacts\Contacts 				as Co;
+use \App\Models\CurrentUser 					as CU;
+use \App\Models\Users 							as Us;
 use \App\web\API\Mailer\PHPMailer;
 use \App\web\API\fpdf\fpdfExtended as fpdfExt;
 
@@ -174,10 +177,12 @@ class ServiceOrder extends Controller{
 				#get_main_variables
 					$url= Globales::$absoluteURL;
 					$jsn_gsx_p=json_encode($arr_gsx_p);
+					$currentSO=$pkso;
 				#set_main_variables
 					View::set("url", $url);
 					View::set("title", "iBrain>Orden de servicio");
 					View::set("jsn_gsx_p",$jsn_gsx_p);
+					View::set("currentSO",$currentSO);
 				#get_data_variables
 					$currentMainMenu=$cu->getMainMenu2($this->_sesionpkiBUser);
 					$ResultSet_cm=$cm->getAll();
@@ -192,10 +197,15 @@ class ServiceOrder extends Controller{
 					while($row=$ResultSet_soa->fetch(\PDO::FETCH_ASSOC)){
 						$ds_soa[]=$row;
 					}
+					$ds_Us=Us::getAll();
+					while($row=$ds_Us->fetch(\PDO::FETCH_ASSOC)){
+						$dt_Us[]=$row;
+					}
 				#set_data_variables
 					View::set("ds_cm",$ds_cm);
 					View::set("ds_so",$ds_so);
 					View::set("ds_soa",@$ds_soa);
+					View::set("dt_Us",$dt_Us);
 					View::set("currentMainMenu", $currentMainMenu);
 				#render
 					View::render("ViewSO");       
@@ -209,7 +219,7 @@ class ServiceOrder extends Controller{
 		#render
 				View::render("AddAccessory");  
 	}
-		public function autocomplete(){
+	public function autocomplete(){
 				#get_main_variables
 				$url= Globales::$absoluteURL;
 		#set_main_variables
@@ -226,14 +236,15 @@ class ServiceOrder extends Controller{
 		case "AddSO":
 			CreateSO();
 		break;
-		case "AddUser":
-			CreateUser();
+		case "CMDassign":
+			AssignOrder();
 		break;
 		case "Eliminar":
 			Delete();
 		break;
  	}
 	function CreateSO(){
+		
 		$c=new Co();
 		$nextPKContact=$c->getNextId("pkCustomerContact","customercontact");
 		$c->setpkContact($nextPKContact);
@@ -296,6 +307,23 @@ class ServiceOrder extends Controller{
 						unset($_SESSION['accessories']);
 				}
 				
+				$sod=new SOD();
+				$nextSODpk=$sod->getNextId('pkSODetail','sodetail');
+				$sod->setPKSODetail($nextSODpk);
+				$sod->setFKSorder($pkSOrder);
+				$sod->setOsstatus(0);
+				$sod->setSODetailDesc("Órden creada");
+				$sod->setFKiBUser($_SESSION['pkiBUser_p']);
+				
+				if($sod->insertData("sodetail")){
+						$sol=new SOL();
+						$nextSOLpk=$sod->getNextId('pkSOlog','solog');
+						$sol->setPKSOLog($nextSOLpk);
+						$sol->setFKSODetail($nextSODpk);
+						//$sol->setLogDate(date("Y-m-d H-m-s"));
+						$sol-> setFKiBUser($_SESSION['pkiBUser_p']);
+						$sol->insertData('solog');
+				}
 				
 				
 				/*echo "<script language='JavaScript'> 
@@ -360,5 +388,25 @@ class ServiceOrder extends Controller{
 		else{
 			echo "Error,no se puede enviar el correo electrónico ";
 		}
+	}
+    function AssignOrder(){
+		$sod=new SOD();
+				$nextSODpk=$sod->getNextId('pkSODetail','sodetail');
+				$sod->setPKSODetail($nextSODpk);
+				$sod->setFKSorder($_POST['hdn_currentSO_h']);
+				$sod->setOsstatus(2);
+				$sod->setSODetailDesc("Órden asignada");
+				$sod->setFKiBUser($_POST['slt_pkEmployee_h']);
+				
+				if($sod->insertData("sodetail")){
+						$sol=new SOL();
+						$nextSOLpk=$sod->getNextId('pkSOlog','solog');
+						$sol->setPKSOLog($nextSOLpk);
+						$sol->setFKSODetail($nextSODpk);
+						//$sol->setLogDate(date("Y-m-d H-m-s"));
+						$sol-> setFKiBUser($_SESSION['pkiBUser_p']);
+						$sol->insertData('solog');
+						header("Location:" . $url= Globales::$absoluteURL . 'private/ServiceOrder/ViewSO/' . $_POST['hdn_currentSO_h']);
+				}
 	}
 ?>

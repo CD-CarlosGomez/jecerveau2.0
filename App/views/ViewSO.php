@@ -39,13 +39,18 @@ use \Core\Controller;
 
     <link href="<?php echo $url; ?>App/web/css/bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo $url; ?>App/web/font-awesome/css/font-awesome.css" rel="stylesheet">
-    <link href="<?php echo $url; ?>App/web/css/plugins/iCheck/custom.css" rel="stylesheet">
-    <link href="<?php echo $url; ?>App/web/css/plugins/steps/jquery.steps.css" rel="stylesheet">
     <link href="<?php echo $url; ?>App/web/css/animate.css" rel="stylesheet">
     <link href="<?php echo $url; ?>App/web/css/style.css" rel="stylesheet">
+	
+    <link href="<?php echo $url; ?>App/web/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="<?php echo $url; ?>App/web/css/plugins/steps/jquery.steps.css" rel="stylesheet">
+   
 	<link href="<?php echo $url; ?>App/web/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
 	<link href="<?php echo $url; ?>App/web/css/plugins/jqGrid/ui.jqgrid.css" rel="stylesheet">
+	
 	<link href="<?php echo $url; ?>App/web/css/plugins/jQueryUI/jquery-ui-1.10.4.custom.min.css">
+	
+	<link href="<?php echo $url; ?>App/web/css/plugins/select2/select2.min.css" rel="stylesheet">
     <style>
         #alertmod_table_accessory{
             top: 900px !important;
@@ -81,20 +86,20 @@ use \Core\Controller;
 						<div class="col-sm-6 pull-right">
 								<h2>&Oacute;rden de servicio No. <?php foreach($ds_so as $dr_so){ echo $dr_so["SONumber"];} ?></h2>
 						</div>
-					<div class="col-sm-4">
-						<h2>&nbsp;</h2>
-						<ol class="breadcrumb">
-							<li>
-								<a href="<?php echo $url; ?>private/home">Inicio</a>
-							</li>
-							<li>
-								<a href="<?php echo $url; ?>private/ServiceOrder/showSO">&Oacute;rden de servicio</a>
-							</li>
-							<li class="active">
-								<strong>Nueva &Oacute;rden de servicio</strong>
-							</li>
-						</ol>
-					</div>
+						<div class="col-sm-4">
+							<h2>&nbsp;</h2>
+							<ol class="breadcrumb">
+								<li>
+									<a href="<?php echo $url; ?>private/home">Inicio</a>
+								</li>
+								<li>
+									<a href="<?php echo $url; ?>private/ServiceOrder/showSO">&Oacute;rden de servicio</a>
+								</li>
+								<li class="active">
+									<strong>Nueva &Oacute;rden de servicio</strong>
+								</li>
+							</ol>
+						</div>
 				</div>	
 			</div>	
 			<div class="wrapper wrapper-content">
@@ -176,162 +181,221 @@ use \Core\Controller;
 									<h5>&Oacute;rden de servicio</h5>
 								</div>
 								<div class="ibox-content">
-									<form id="frm_SO_h" class="form-horizontal" action="<?php echo $url; ?>private/ServiceOrder"   method="POST" name="frm_SO_h">
-										<fieldset>
-											<div class="row">
-												<div class="col-md-6">
-													<div class="form-group">
-														<label class="col-md-4 control-label">Recolecci&oacute;n:*</label>
-														<div class="col-md-8">
-															<select id="slt_fkCollectMethod_h" class="form-control m-b" name="slt_fkCollectMethod_h">
-																<option value="-1">Seleccionar ...</option>
-																<?php foreach ($ds_cm as $datarow) {?>
-																<option value="<?php echo $datarow['pkCollectMethod'] ?>" selected="selected"><?php echo $datarow['collectMethodName'] ?></option>
-																<?php } ?>
-															</select>
-														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-md-4 control-label">Fecha de entrada:</label>
-														<div class="col-md-8">
-															<input type="text" id="txt_SODate_h" class="form-control" value="<?php foreach($ds_so as $dr_so){ echo $dr_so["SODate"];} ?>" readonly="readonly" name="txt_SODate_h"/>
-														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-lg-4 control-label">Estado del equipo:</label>
-														<div class="col-lg-8">
-															<textarea id="tta_SODeviceCondition_h" class="form-control required" data-provide="markdown" rows="5" name="tta_SODeviceCondition_h"><?php foreach($ds_so as $dr_so){ echo $dr_so["SODeviceCondition"];} ?></textarea>
-														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-md-4 control-label">Accesorios:</label>
-														<div class="col-md-8">
-															<div class="pull-right">
-																<button type="button" id="btn_newAccessory_h" class="btn btn-primary btn-md btn-block" value="" name="btn_newAccessory_h">Nuevo Accesorio</button>
-															</div>
-														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-md-1 control-label">&nbsp;</label>
-														<div class="col-md-11">
-															<table class="table table-striped table-bordered table-hover">
-																<tr>
-																	<th>Descripci&oacute;n</th>
-																	<th>Marca</th>
-																	<th>Modelo</th>
-																	<th>No. Parte</th>
-																	<th>No. Serie</th>
-																</tr>
-																<tbody>
-																
-																<?php
-																if(isset($ds_soa)){
-																		foreach ($ds_soa as $dr_soa) {
-																
-																 ?>
-																<tr>
-																	<td><?php echo $dr_soa["SOAccessoryDesc"]; ?></td>
-																	<td><?php echo $dr_soa["SOAccessoryBrand"]; ?></td>
-																	<td><?php echo $dr_soa["SOAccessoryModel"]; ?></td>
-																	<td><?php echo $dr_soa["SOAccessoryPartNumber"]; ?></td>
-																	<td><?php echo $dr_soa["SOAccessorySerialNumber"]; ?></td>
-																</tr>
-																<?php }
-																}?>
-																</tbody>
-															</table>
-															
-														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-lg-4 control-label">Detalle T&eacute;cnico:</label>
-														<div class="col-lg-8">
-															<textarea id="tta_SOTechDetail_h" class="form-control required" data-provide="markdown" rows="5" name="tta_SOTechDetail_h"><?php foreach($ds_so as $dr_so){ echo $dr_so["SOTechDetail"];} ?></textarea>
-														</div>
-													</div>
+										<ul class="nav nav-tabs">
+												<li class="active"><a data-toggle="tab" href="#tab1"><h3>Informaci&oacute;n de la &oacute;rden</h3></a></li>
+												<li><a data-toggle="tab" href="#tab2"><h3>Seguimiento de la &oacute;rden</h3></a></li>
+										</ul>
+										<div class="tab-content">
+												<div id="tab1" class="tab-pane fade in active">
+														<p>
+																<form id="frm_SO_h" class="form-horizontal" action="<?php echo $url; ?>private/ServiceOrder"   method="POST" name="frm_SO_h">
+																	<fieldset>
+																		<div class="row">
+																			<div class="col-md-6">
+																				<div class="form-group">
+																					<label class="col-md-4 control-label">Recolecci&oacute;n:*</label>
+																					<div class="col-md-8">
+																						<select id="slt_fkCollectMethod_h" class="form-control m-b" name="slt_fkCollectMethod_h">
+																								
+																							<option value="-1">Seleccionar ...</option>
+																							<?php
+																							foreach($ds_so as $dr_so){
+																								$collectMethod=$dr_so["CollectMethod_pkCollectMethod"];
+																								}
+																							foreach ($ds_cm as $datarow) {
+																								if($datarow['pkCollectMethod']==$collectMethod ){
+																							?>
+																								<option value="<?php echo $datarow['pkCollectMethod']; ?>" selected="Selected"><?php echo $datarow['collectMethodName'] ?></option>
+																							<?php
+																								}
+																								else{
+																						     ?>
+																							 <option value="<?php echo $datarow['pkCollectMethod']; ?>"><?php echo $datarow['collectMethodName'] ?></option>
+																							 <?php
+																								}
+																							}
+																							 ?>
+																						</select>
+																					</div>
+																				</div>
+																				<div class="form-group">
+																					<label class="col-md-4 control-label">Fecha de entrada:</label>
+																					<div class="col-md-8">
+																						<input type="text" id="txt_SODate_h" class="form-control" value="<?php foreach($ds_so as $dr_so){ echo $dr_so["SODate"];} ?>" readonly="readonly" name="txt_SODate_h"/>
+																					</div>
+																				</div>
+																				<div class="form-group">
+																					<label class="col-lg-4 control-label">Estado del equipo:</label>
+																					<div class="col-lg-8">
+																						<textarea id="tta_SODeviceCondition_h" class="form-control required" data-provide="markdown" rows="5" name="tta_SODeviceCondition_h"><?php foreach($ds_so as $dr_so){ echo $dr_so["SODeviceCondition"];} ?></textarea>
+																					</div>
+																				</div>
+																				<div class="form-group">
+																					<label class="col-md-4 control-label">Accesorios:</label>
+																					<div class="col-md-8">
+																						<div class="pull-right">
+																							<button type="button" id="btn_newAccessory_h" class="btn btn-primary btn-md btn-block" value="" name="btn_newAccessory_h">Nuevo Accesorio</button>
+																						</div>
+																					</div>
+																				</div>
+																				<div class="form-group">
+																					<label class="col-md-1 control-label">&nbsp;</label>
+																					<div class="col-md-11">
+																						<table class="table table-striped table-bordered table-hover">
+																							<tr>
+																								<th>Descripci&oacute;n</th>
+																								<th>Marca</th>
+																								<th>Modelo</th>
+																								<th>No. Parte</th>
+																								<th>No. Serie</th>
+																							</tr>
+																							<tbody>
+																							
+																							<?php
+																							if(isset($ds_soa)){
+																									foreach ($ds_soa as $dr_soa) {
+																							
+																							 ?>
+																							<tr>
+																								<td><?php echo $dr_soa["SOAccessoryDesc"]; ?></td>
+																								<td><?php echo $dr_soa["SOAccessoryBrand"]; ?></td>
+																								<td><?php echo $dr_soa["SOAccessoryModel"]; ?></td>
+																								<td><?php echo $dr_soa["SOAccessoryPartNumber"]; ?></td>
+																								<td><?php echo $dr_soa["SOAccessorySerialNumber"]; ?></td>
+																							</tr>
+																							<?php }
+																							}?>
+																							</tbody>
+																						</table>
+																						
+																					</div>
+																				</div>
+																				<div class="form-group">
+																					<label class="col-lg-4 control-label">Detalle T&eacute;cnico:</label>
+																					<div class="col-lg-8">
+																						<textarea id="tta_SOTechDetail_h" class="form-control required" data-provide="markdown" rows="5" name="tta_SOTechDetail_h"><?php foreach($ds_so as $dr_so){ echo $dr_so["SOTechDetail"];} ?></textarea>
+																					</div>
+																				</div>
+																			</div>
+																			<div class="col-md-6">
+																				<div class="form-group">
+																					<label class="col-lg-4 control-label">Tel&eacute;fono:</label>
+																					<div class="input-group col-lg-7">
+																						<input type="tel" id="txt_contactPhone_h" class="form-control" value="<?php foreach($ds_so as $dr_so){ echo $dr_so["contactPhone"];} ?>" value="" name="txt_contactPhone_h"/>
+																						<span class="input-group-addon"><i class="fa fa-search"></i></span>
+																					</div>
+																				</div>
+																				<div class="form-group">
+																					<label class="col-lg-4 control-label">M&oacute;vil:</label>
+																					<div class="input-group col-lg-7">
+																						<input type="tel" id="txt_contactMovil_h" class="form-control" value="<?php foreach($ds_so as $dr_so){ echo $dr_so["contactMovil"];} ?>" name="txt_contactMovil_h"/>
+																						<span class="input-group-addon"><i class="fa fa-search"></i></span>
+																					</div>
+																				</div>
+																				<div class="form-group">
+																					<label class="col-lg-4 control-label">Contacto:</label>
+																					<div class="input-group col-lg-7">
+																						<input type="text" id="txt_contactName_h" class="form-control" value="<?php foreach($ds_so as $dr_so){ echo $dr_so["contactName"];} ?>" name="txt_contactName_h"/>
+																						<span class="input-group-addon"><i class="fa fa-search"></i></span>
+																					</div>
+																				</div>
+																				<div class="form-group">
+																					<label class="col-lg-4 control-label">Correo electr&oacute;nico:</label>
+																					<div class="input-group col-lg-7">
+																						<input type="email" id="txt_contactEmail_h" class="form-control" value="<?php foreach($ds_so as $dr_so){ echo $dr_so["contactEmail"];} ?>" name="txt_contactEmail_h"/>
+																						<span class="input-group-addon"><i class="fa fa-search"></i></span>
+																					</div>
+																				</div>
+																				<div class="form-group">
+																					<label class="col-lg-4 control-label">Direcci&oacute;n:*</label>
+																					<div class="col-lg-8">
+																						<input type="text" id="txt_contactAddress_h" class="form-control required" value="<?php foreach($ds_so as $dr_so){ echo $dr_so["contactAddress"];} ?>" name="txt_contactAddress_h">
+																					</div>
+																				</div>
+																				<div class="form-group">
+																					<label class="col-lg-4 control-label">Colonia:*</label>
+																					<div class="col-lg-8">
+																						<input type="text" id="txt_contactLocation_h" class="form-control required" value="<?php foreach($ds_so as $dr_so){ echo $dr_so["contactLocation"];} ?>" name="txt_contactLocation_h">
+																					</div>
+																				</div>
+																				<div class="form-group">
+																					<label class="col-lg-4 control-label">Delegaci&oacute;n o municipio:*</label>
+																					<div class="col-lg-8">
+																						<input type="text" id="txt_contactCounty_h" class="form-control required" value="<?php foreach($ds_so as $dr_so){ echo $dr_so["contactCounty"];} ?>" name="txt_contactCounty_h">
+																					</div>
+																				</div>
+																				<div class="form-group">
+																					<label class="col-lg-4 control-label">C.P.:*</label>
+																					<div class="col-lg-8">
+																						<input type="text" id="txt_contactZipCode_h" class="form-control required" value="<?php foreach($ds_so as $dr_so){ echo $dr_so["contactZipCode"];} ?>" name="txt_contactZipCode_h">
+																					</div>
+																				</div>
+																				<div class="form-group">
+																					<label class="col-lg-4 control-label">Provincia:*</label>
+																					<div class="col-lg-8">
+																						<input type="text" id="txt_contactProvince_h" class="form-control required" value="<?php foreach($ds_so as $dr_so){ echo $dr_so["contactProvince"];} ?>" name="txt_contactProvince_h">
+																					</div>
+																				</div>
+																				<div class="form-group">
+																					<label class="col-lg-4 control-label">Notas:</label>
+																					<div class="col-lg-8">
+																						<textarea id="tta_contactObs_h" class="form-control" data-provide="markdown" rows="5" name="tta_contactObs_h"><?php foreach($ds_so as $dr_so){ echo $dr_so["contactObs"];} ?></textarea>
+																					</div>
+																				</div>
+																				<div class="col-md-4 pull-right">
+																						<div class="form-group">
+																							<button type="submit" id="btn_command_h" class="btn btn-primary btn-md btn-block" value="AddSO" name="btn_command_h">Guardar</button>
+																							<input type="hidden" id="hdn_devices_h" class="" value="" name="hdn_devices_h"/>
+																						</div>
+																				</div>
+																			</div>
+																		</div>
+																	</fieldset>
+																</form>
+														</p>
 												</div>
-												<div class="col-md-6">
-													<div class="form-group">
-														<label class="col-lg-4 control-label">Tel&eacute;fono:</label>
-														<div class="input-group col-lg-7">
-															<input type="tel" id="txt_contactPhone_h" class="form-control" value="<?php foreach($ds_so as $dr_so){ echo $dr_so["contactPhone"];} ?>" value="" name="txt_contactPhone_h"/>
-															<span class="input-group-addon"><i class="fa fa-search"></i></span>
-														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-lg-4 control-label">M&oacute;vil:</label>
-														<div class="input-group col-lg-7">
-															<input type="tel" id="txt_contactMovil_h" class="form-control" value="<?php foreach($ds_so as $dr_so){ echo $dr_so["contactMovil"];} ?>" name="txt_contactMovil_h"/>
-															<span class="input-group-addon"><i class="fa fa-search"></i></span>
-														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-lg-4 control-label">Contacto:</label>
-														<div class="input-group col-lg-7">
-															<input type="text" id="txt_contactName_h" class="form-control" value="<?php foreach($ds_so as $dr_so){ echo $dr_so["contactName"];} ?>" name="txt_contactName_h"/>
-															<span class="input-group-addon"><i class="fa fa-search"></i></span>
-														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-lg-4 control-label">Correo electr&oacute;nico:</label>
-														<div class="input-group col-lg-7">
-															<input type="email" id="txt_contactEmail_h" class="form-control" value="<?php foreach($ds_so as $dr_so){ echo $dr_so["contactEmail"];} ?>" name="txt_contactEmail_h"/>
-															<span class="input-group-addon"><i class="fa fa-search"></i></span>
-														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-lg-4 control-label">Direcci&oacute;n:*</label>
-														<div class="col-lg-8">
-															<input type="text" id="txt_contactAddress_h" class="form-control required" value="<?php foreach($ds_so as $dr_so){ echo $dr_so["contactAddress"];} ?>" name="txt_contactAddress_h">
-														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-lg-4 control-label">Colonia:*</label>
-														<div class="col-lg-8">
-															<input type="text" id="txt_contactLocation_h" class="form-control required" value="<?php foreach($ds_so as $dr_so){ echo $dr_so["contactLocation"];} ?>" name="txt_contactLocation_h">
-														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-lg-4 control-label">Delegaci&oacute;n o municipio:*</label>
-														<div class="col-lg-8">
-															<input type="text" id="txt_contactCounty_h" class="form-control required" value="<?php foreach($ds_so as $dr_so){ echo $dr_so["contactCounty"];} ?>" name="txt_contactCounty_h">
-														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-lg-4 control-label">C.P.:*</label>
-														<div class="col-lg-8">
-															<input type="text" id="txt_contactZipCode_h" class="form-control required" value="<?php foreach($ds_so as $dr_so){ echo $dr_so["contactZipCode"];} ?>" name="txt_contactZipCode_h">
-														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-lg-4 control-label">Provincia:*</label>
-														<div class="col-lg-8">
-															<input type="text" id="txt_contactProvince_h" class="form-control required" value="<?php foreach($ds_so as $dr_so){ echo $dr_so["contactProvince"];} ?>" name="txt_contactProvince_h">
-														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-lg-4 control-label">Notas:</label>
-														<div class="col-lg-8">
-															<textarea id="tta_contactObs_h" class="form-control" data-provide="markdown" rows="5" name="tta_contactObs_h"><?php foreach($ds_so as $dr_so){ echo $dr_so["contactObs"];} ?></textarea>
-														</div>
-													</div>
-													<div class="col-md-4 pull-right">
-															<div class="form-group">
-																<button type="submit" id="btn_command_h" class="btn btn-primary btn-md btn-block" value="AddSO" name="btn_command_h">Guardar</button>
-																<input type="hidden" id="hdn_devices_h" class="" value="" name="hdn_devices_h"/>
-															</div>
-													</div>
+												<div id="tab2" class="tab-pane fade">
+														<h3>Asignaci&oacute;n de la &Oacute;rden</h3>
+														<p>
+														<form id="frm_SO_h" class="form-horizontal" action="<?php echo $url; ?>private/ServiceOrder"   method="POST" name="frm_SO_h">
+																<fieldset>
+																		<div class="col-md-6">																				
+																				<div class="form-group">
+																						<label class="col-lg-4 control-label">Asignar:</label>
+																						<div class="input-group col-lg-8">
+																								<select id="slt_pkEmployee_h" class=" selectSearch form-control m-b required" style="width:350px;" tabindex="5" name="slt_pkEmployee_h">
+																										<?php
+																										
+																										foreach ($dt_Us as $datarow) {
+																										
+																										?>
+																												<option value="<?php echo $datarow['pkiBUser'] ?>"><?php echo $datarow['realname'] ?></option>
+																										<?php } ?>
+																								</select>
+																								<input type="hidden" id="" value="<?php echo $currentSO ?>" name="hdn_currentSO_h">
+																						</div>
+																				</div>
+																		</div>
+																		<div class="col-md-6">
+																				<div class="col-md-4 pull-right">
+																						<div class="form-group">
+																							<button type="submit" id="btn_command_h" class="btn btn-primary btn-md btn-block" value="CMDassign" name="btn_command_h">Guardar</button>
+																						</div>
+																				</div>
+																		</div>
+																</fieldset>
+														</form>
+														</p>
 												</div>
-											</div>
-										</fieldset>
-									</form>
+											
+										</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="footer">
+		<div class="footer">
 				<div class="pull-right">
 				</div>
 				<div>
@@ -362,6 +426,8 @@ use \Core\Controller;
     <script src="<?php echo $url; ?>App/web/js/plugins/jqGrid/jquery.jqGrid.min.js"></script>
 	    <!-- Peity -->
     <script src="<?php echo $url; ?>App/web/js/plugins/peity/jquery.peity.min.js"></script>
+	 <!-- Select2 -->
+    <script src="<?php echo $url; ?>App/web/js/plugins/select2/select2.full.min.js"></script>
     <script type="text/javascript">
 		$.validator.setDefaults({
 		/*submitHandler: function() {
@@ -372,7 +438,7 @@ use \Core\Controller;
 		});
         $(document).ready(function(){
 			
-			$("#frm_SO_h").validate({
+				$("#frm_SO_h").validate({
 				      rules: {
 							slt_fkCollectMethod_h:	{
 								required:true,
@@ -456,21 +522,10 @@ use \Core\Controller;
 							txt_contactProvince_h:"Por favor, introduzca una Provincia o Estado."
 						}
 			});
-		$("#hdn_devices_h").attr("value",function(){
-				mydata={};
-				var idToDataIndex = grid.getGridParam("records");
-				for(i = 1;i <= idToDataIndex; i++ ){
-					var rowId 	= grid.getRowData(i);
-					mydata.id	= rowId['id'];
-					mydata.desc = rowId['desc'];
-					mydata.brand= rowId['brand'];
-					mydata.model= rowId['model'];
-					mydata.PN	= rowId['PN'];
-					mydata.SN	= rowId['SN'];
-				}
-				return ObjJ2ObjP(mydata);
-			}				
-			);
+				$(".selectSearch").select2({
+                placeholder: "Asignar a...",
+                allowClear: true
+            });
 		});	
 	
 		function ObjJ2ObjP(object){

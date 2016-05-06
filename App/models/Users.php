@@ -72,11 +72,10 @@ class Users implements iCrud{
 //MÉTODOS PÚBLICOS###################################
 	public static function getAll(){
         try {
-			$connection = Database::instance();
-			$sql = "SELECT * from ibuser";
-			$query = $connection->prepare($sql);
-			$query->execute();
-			return $query->fetchAll();
+			$PDOcnn = Database::instance();
+			$PDOQuery = "SELECT * from ibuser;";
+			$resultSet = $PDOcnn->query($PDOQuery);
+			return $resultSet;
 		}
         catch(\PDOException $e)
         {
@@ -107,7 +106,6 @@ class Users implements iCrud{
 					@u1:=$pkiBUser p) pcxu ,
 				v_kanbanuserbybo u;
 			";
-		
 			$resultSet=$PDOcnn->query($PDOQuery);
 			return $resultSet;
 		}
