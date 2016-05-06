@@ -41,12 +41,18 @@ use \Core\Controller;
     <link href="<?php echo $url; ?>App/web/css/bootstrap.min.css" rel="stylesheet">
 	<link href="<?php echo $url; ?>App/web/css/jquery-ui.css" rel="stylesheet">
     <link href="<?php echo $url; ?>App/web/font-awesome/css/font-awesome.css" rel="stylesheet">
-    <link href="<?php echo $url; ?>App/web/css/plugins/iCheck/custom.css" rel="stylesheet">
-    <link href="<?php echo $url; ?>App/web/css/plugins/steps/jquery.steps.css" rel="stylesheet">
     <link href="<?php echo $url; ?>App/web/css/animate.css" rel="stylesheet">
-    <link href="<?php echo $url; ?>App/web/css/style.css" rel="stylesheet">
+	<link href="<?php echo $url; ?>App/web/css/style.css" rel="stylesheet">
+	
+    <link href="<?php echo $url; ?>App/web/css/plugins/iCheck/custom.css" rel="stylesheet">
+	
+    <link href="<?php echo $url; ?>App/web/css/plugins/steps/jquery.steps.css" rel="stylesheet">
+   
+    
 	<link href="<?php echo $url; ?>App/web/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+	
 	<link href="<?php echo $url; ?>App/web/css/plugins/jqGrid/ui.jqgrid.css" rel="stylesheet">
+	
 	<link href="<?php echo $url; ?>App/web/css/plugins/jQueryUI/jquery-ui-1.10.4.custom.min.css">
     <style>
         #alertmod_table_accessory{
@@ -105,7 +111,7 @@ use \Core\Controller;
 									<h5>GSX</h5>
 								</div>
 								<div class="ibox-content" >
-									<fieldset>
+										<fieldset>
 											<form id="formUser" class="form-horizontal" action="<?php echo $url; ?>private/User" method="POST" role="form">
 													<div class="col-lg-6 form-group-dark">
 														<div class="form-group">&nbsp;</div>
@@ -175,176 +181,194 @@ use \Core\Controller;
 									<h5>Nueva &Oacute;rden de servicio</h5>
 								</div>
 								<div class="ibox-content">
-									<form id="frm_SO_h" class="form-horizontal" action="<?php echo $url; ?>private/ServiceOrder"   method="POST" name="frm_SO_h">
-										<fieldset>
-											<div class="row">
-												<div class="col-md-6">
-													<div class="form-group">
-														<label class="col-md-4 control-label">Recolecci&oacute;n:*</label>
-														<div class="col-md-8">
-															<select id="slt_fkCollectMethod_h" class="form-control m-b" name="slt_fkCollectMethod_h">
-																<option value="-1">Seleccionar ...</option>
-																<?php foreach ($ds_cm as $datarow) {?>
-																<option value="<?php echo $datarow['pkCollectMethod'] ?>"><?php echo $datarow['collectMethodName'] ?></option>
-																<?php } ?>
-															</select>
-														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-md-4 control-label">Fecha de entrada:</label>
-														<div class="col-md-8">
-															<input type="text" id="txt_SODate_h" class="form-control" value="<?php echo date("Y-m-d")?>" readonly="readonly" name="txt_SODate_h"/>
-														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-lg-4 control-label">Estado del equipo:</label>
-														<div class="col-lg-8">
-															<textarea id="tta_SODeviceCondition_h" class="form-control required" data-provide="markdown" rows="5" name="tta_SODeviceCondition_h"></textarea>
-														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-md-4 control-label">Accesorios:</label>
-														<div class="col-md-8">
-															<div class="pull-right">
-																<button type="button" id="btn_newAccessory_h" class="btn btn-primary btn-md btn-block" value="" name="btn_newAccessory_h">Nuevo Accesorio</button>
-															</div>
-														</div>
-													</div>
-													<div id="divTableAccessories" class="form-group">
-														<label class="col-md-1 control-label">&nbsp;</label>
-														<div class="col-md-11">
-																<?php
-																		if(isset($_SESSION['accessories']))	$accessories=$_SESSION['accessories'];else $accessories=false;
-																		if($accessories){
-																?>
-																<table class="table table-striped table-bordered table-hover">
-																		<tr>
-																				<th>Descripci&oacute;n</th>
-																				<th>Marca</th>
-																				<th>Modelo</th>
-																				<th>No. Parte</th>
-																				<th>No. Serie</th>
-																		</tr>
-																		<tbody>	
-																		<?php
-																				foreach($accessories as $k =>$v){
-																		?>
-																				<tr>
-																					<td>
-																						<?php echo $v['desc'] ?>
-																					</td>
-																					<td>
-																						<?php echo $v['brand'] ?>
-																					</td>
-																					<td>
-																						<?php echo $v['model'] ?>
-																					</td>
-																					<td>
-																						<?php echo $v['PN'] ?>
-																					</td>
-																					<td>
-																						<?php echo $v['SN'] ?>
-																						
-																					</td>
-																				</tr>	
-																		<?php
-																		}
-																		?>
-																		</tbody>
-																</table>
-																<div align="center"><span class="prod">
-																		Total de Accesorios <?php echo count($accessories); ?></span>
-																		<?php
-																		//var_dump($accessories);
-																		?>
-																</div>
-																<?php
-																		}
-																?>
-														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-lg-4 control-label">Detalle T&eacute;cnico:</label>
-														<div class="col-lg-8">
-															<textarea id="tta_SOTechDetail_h" class="form-control required" data-provide="markdown" rows="5" name="tta_SOTechDetail_h"></textarea>
-														</div>
-													</div>
+										<ul class="nav nav-tabs">
+												<li class="active"><a data-toggle="tab" href="#home"><h3>Informaci&oacute;n de la &oacute;rden</h3></a></li>
+												<li><a data-toggle="tab" href="#menu1"><h3>Seguimiento de la &oacute;rden</h3></a></li>
+										</ul>
+										<div class="tab-content">
+												<div id="home" class="tab-pane fade in active">
+														<p>
+																<form id="frm_SO_h" class="form-horizontal" action="<?php echo $url; ?>private/ServiceOrder"   method="POST" name="frm_SO_h">
+																		<fieldset>
+																			<div class="row">
+																				<div class="col-md-6">
+																					<div class="form-group">
+																						<label class="col-md-4 control-label">Recolecci&oacute;n:*</label>
+																						<div class="col-md-8">
+																							<select id="slt_fkCollectMethod_h" class="form-control m-b" name="slt_fkCollectMethod_h">
+																								<option value="-1">Seleccionar ...</option>
+																								<?php foreach ($ds_cm as $datarow) {?>
+																								<option value="<?php echo $datarow['pkCollectMethod'] ?>"><?php echo $datarow['collectMethodName'] ?></option>
+																								<?php } ?>
+																							</select>
+																						</div>
+																					</div>
+																					<div class="form-group">
+																						<label class="col-md-4 control-label">Fecha de entrada:</label>
+																						<div class="col-md-8">
+																							<input type="text" id="txt_SODate_h" class="form-control" value="<?php echo date("Y-m-d")?>" readonly="readonly" name="txt_SODate_h"/>
+																						</div>
+																					</div>
+																					<div class="form-group">
+																						<label class="col-lg-4 control-label">Estado del equipo:</label>
+																						<div class="col-lg-8">
+																							<textarea id="tta_SODeviceCondition_h" class="form-control required" data-provide="markdown" rows="5" name="tta_SODeviceCondition_h"></textarea>
+																						</div>
+																					</div>
+																					<div class="form-group">
+																						<label class="col-md-4 control-label">Accesorios:</label>
+																						<div class="col-md-8">
+																							<div class="pull-right">
+																								<button type="button" id="btn_newAccessory_h" class="btn btn-primary btn-md btn-block" value="" name="btn_newAccessory_h">Nuevo Accesorio</button>
+																							</div>
+																						</div>
+																					</div>
+																					<div id="divTableAccessories" class="form-group">
+																						<label class="col-md-1 control-label">&nbsp;</label>
+																						<div class="col-md-11">
+																								<?php
+																										if(isset($_SESSION['accessories']))	$accessories=$_SESSION['accessories'];else $accessories=false;
+																										if($accessories){
+																								?>
+																								<table class="table table-striped table-bordered table-hover">
+																										<tr>
+																												<th>Descripci&oacute;n</th>
+																												<th>Marca</th>
+																												<th>Modelo</th>
+																												<th>No. Parte</th>
+																												<th>No. Serie</th>
+																										</tr>
+																										<tbody>	
+																										<?php
+																												foreach($accessories as $k =>$v){
+																										?>
+																												<tr>
+																													<td>
+																														<?php echo $v['desc'] ?>
+																													</td>
+																													<td>
+																														<?php echo $v['brand'] ?>
+																													</td>
+																													<td>
+																														<?php echo $v['model'] ?>
+																													</td>
+																													<td>
+																														<?php echo $v['PN'] ?>
+																													</td>
+																													<td>
+																														<?php echo $v['SN'] ?>
+																														
+																													</td>
+																												</tr>	
+																										<?php
+																										}
+																										?>
+																										</tbody>
+																								</table>
+																								<div align="center"><span class="prod">
+																										Total de Accesorios <?php echo count($accessories); ?></span>
+																										<?php
+																										//var_dump($accessories);
+																										?>
+																								</div>
+																								<?php
+																										}
+																								?>
+																						</div>
+																					</div>
+																					<div class="form-group">
+																						<label class="col-lg-4 control-label">Detalle T&eacute;cnico:</label>
+																						<div class="col-lg-8">
+																							<textarea id="tta_SOTechDetail_h" class="form-control required" data-provide="markdown" rows="5" name="tta_SOTechDetail_h"></textarea>
+																						</div>
+																					</div>
+																				</div>
+																				<div class="col-md-6">
+																					<div class="form-group">
+																						<label class="col-lg-4 control-label">Tel&eacute;fono:</label>
+																						<div class="input-group col-lg-7">
+																							<input type="tel" id="txt_contactPhone_h" class="form-control" value="" name="txt_contactPhone_h"/>
+																							<span class="input-group-addon"><i class="fa fa-search"></i></span>
+																						</div>
+																					</div>
+																					<div class="form-group">
+																						<label class="col-lg-4 control-label">M&oacute;vil:</label>
+																						<div class="input-group col-lg-7">
+																							<input type="tel" id="txt_contactMovil_h" class="form-control" value="" name="txt_contactMovil_h"/>
+																							<span class="input-group-addon"><i class="fa fa-search"></i></span>
+																						</div>
+																					</div>
+																					<div class="form-group">
+																						<label class="col-lg-4 control-label">Contacto:</label>
+																						<div class="input-group col-lg-7">
+																							<input type="text" id="txt_contactName_h" class="form-control" value="" name="txt_contactName_h"/>
+																							<span class="input-group-addon"><i class="fa fa-search"></i></span>
+																						</div>
+																					</div>
+																					<div class="form-group">
+																						<label class="col-lg-4 control-label">Correo electr&oacute;nico:</label>
+																						<div class="input-group col-lg-7">
+																							<input type="email" id="txt_contactEmail_h" class="form-control" value="" name="txt_contactEmail_h"/>
+																							<span class="input-group-addon"><i class="fa fa-search"></i></span>
+																						</div>
+																					</div>
+																					<div class="form-group">
+																						<label class="col-lg-4 control-label">Direcci&oacute;n:*</label>
+																						<div class="col-lg-8">
+																							<input type="text" id="txt_contactAddress_h" class="form-control required" name="txt_contactAddress_h">
+																						</div>
+																					</div>
+																					<div class="form-group">
+																						<label class="col-lg-4 control-label">Colonia:*</label>
+																						<div class="col-lg-8">
+																							<input id="txt_contactLocation_h" class="form-control required" name="txt_contactLocation_h" type="text">
+																						</div>
+																					</div>
+																					<div class="form-group">
+																						<label class="col-lg-4 control-label">Delegaci&oacute;n o municipio:*</label>
+																						<div class="col-lg-8">
+																							<input id="txt_contactCounty_h" class="form-control required" name="txt_contactCounty_h" type="text">
+																						</div>
+																					</div>
+																					<div class="form-group">
+																						<label class="col-lg-4 control-label">C.P.:*</label>
+																						<div class="col-lg-8">
+																							<input id="txt_contactZipCode_h" class="form-control required" name="txt_contactZipCode_h" type="text">
+																						</div>
+																					</div>
+																					<div class="form-group">
+																						<label class="col-lg-4 control-label">Provincia:*</label>
+																						<div class="col-lg-8">
+																							<input id="txt_contactProvince_h" class="form-control required" name="txt_contactProvince_h" type="text">
+																						</div>
+																					</div>
+																					<div class="form-group">
+																						<label class="col-lg-4 control-label">Notas:</label>
+																						<div class="col-lg-8">
+																							<textarea id="tta_contactObs_h" class="form-control" data-provide="markdown" rows="5" name="tta_contactObs_h"></textarea>
+																						</div>
+																					</div>
+																					<div class="col-md-4 pull-right">
+																							<div class="form-group">
+																								<button type="submit" id="btn_command_h" class="btn btn-primary btn-md btn-block" value="AddSO" name="btn_command_h">Guardar</button>
+																								<input type="hidden" id="hdn_devices_h" class="" value="" name="hdn_devices_h"/>
+																							</div>
+																					</div>
+																				</div>
+																			</div>
+																		</fieldset>
+																</form>
+														</p>
 												</div>
-												<div class="col-md-6">
-													<div class="form-group">
-														<label class="col-lg-4 control-label">Tel&eacute;fono:</label>
-														<div class="input-group col-lg-7">
-															<input type="tel" id="txt_contactPhone_h" class="form-control" value="" name="txt_contactPhone_h"/>
-															<span class="input-group-addon"><i class="fa fa-search"></i></span>
-														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-lg-4 control-label">M&oacute;vil:</label>
-														<div class="input-group col-lg-7">
-															<input type="tel" id="txt_contactMovil_h" class="form-control" value="" name="txt_contactMovil_h"/>
-															<span class="input-group-addon"><i class="fa fa-search"></i></span>
-														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-lg-4 control-label">Contacto:</label>
-														<div class="input-group col-lg-7">
-															<input type="text" id="txt_contactName_h" class="form-control" value="" name="txt_contactName_h"/>
-															<span class="input-group-addon"><i class="fa fa-search"></i></span>
-														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-lg-4 control-label">Correo electr&oacute;nico:</label>
-														<div class="input-group col-lg-7">
-															<input type="email" id="txt_contactEmail_h" class="form-control" value="" name="txt_contactEmail_h"/>
-															<span class="input-group-addon"><i class="fa fa-search"></i></span>
-														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-lg-4 control-label">Direcci&oacute;n:*</label>
-														<div class="col-lg-8">
-															<input type="text" id="txt_contactAddress_h" class="form-control required" name="txt_contactAddress_h">
-														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-lg-4 control-label">Colonia:*</label>
-														<div class="col-lg-8">
-															<input id="txt_contactLocation_h" class="form-control required" name="txt_contactLocation_h" type="text">
-														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-lg-4 control-label">Delegaci&oacute;n o municipio:*</label>
-														<div class="col-lg-8">
-															<input id="txt_contactCounty_h" class="form-control required" name="txt_contactCounty_h" type="text">
-														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-lg-4 control-label">C.P.:*</label>
-														<div class="col-lg-8">
-															<input id="txt_contactZipCode_h" class="form-control required" name="txt_contactZipCode_h" type="text">
-														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-lg-4 control-label">Provincia:*</label>
-														<div class="col-lg-8">
-															<input id="txt_contactProvince_h" class="form-control required" name="txt_contactProvince_h" type="text">
-														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-lg-4 control-label">Notas:</label>
-														<div class="col-lg-8">
-															<textarea id="tta_contactObs_h" class="form-control" data-provide="markdown" rows="5" name="tta_contactObs_h"></textarea>
-														</div>
-													</div>
-													<div class="col-md-4 pull-right">
-															<div class="form-group">
-																<button type="submit" id="btn_command_h" class="btn btn-primary btn-md btn-block" value="AddSO" name="btn_command_h">Guardar</button>
-																<input type="hidden" id="hdn_devices_h" class="" value="" name="hdn_devices_h"/>
-															</div>
-													</div>
+												<div id="menu1" class="tab-pane fade">
+														<h3>Seguimiento de la &oacute;rden</h3>
+														<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 												</div>
-											</div>
-										</fieldset>
-									</form>
+												<div id="menu2" class="tab-pane fade">
+														<h3>Menu 2</h3>
+														<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+												</div>
+										</div>
 								</div>
 							</div>
 						</div>
@@ -395,6 +419,9 @@ use \Core\Controller;
 				}
 		});
         $(document).ready(function(){
+				$("#wizard").steps({
+						bodyTag: "fieldset"
+				});
 			$("#btn_newAccessory_h").on('click',function(){
 				AccessoryWindowOpen();
 			});
