@@ -45,7 +45,6 @@ class CurrentUser {
 		else{
 			echo $atrib . "No existe en la clase" . __CLASS__;
 		}
-
     }
 	public function getMainMenu2($pkiBUser){
 		$this->pMainMenu="";

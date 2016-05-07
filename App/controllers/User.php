@@ -11,9 +11,9 @@ defined("APPPATH") OR die("Access denied");
 use \Core\View;
 use \Core\Controller;
 use \App\Config\Globales as Globales;
-use \App\Models\Users as Users;
 use \App\Models\CurrentUser as CU;
-use \App\Models\Profiles as Profiles;
+use \App\Models\Users\Users as Users;
+use \App\Models\Users\Profiles as Profiles;
 use \App\web\lib\Mailer\PHPMailer;
 
 	
@@ -112,7 +112,7 @@ private $_sesionpkiBUser;
 	public function addProfile(){
 	#get main variables
 		$url= Globales::$absoluteURL;
-		$currentMainMenu=CU::getMainMenu2($this->_pkiBUser);
+		$currentMainMenu=CU::getMainMenu2($this->_sesionpkiBUser);
 	#set main variables
 		View::set("url", $url);
 		View::set("currentMainMenu", $currentMainMenu);

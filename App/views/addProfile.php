@@ -108,10 +108,6 @@ use \Core\Controller;
                             <h5>Configuraci&oacute;n Inicial</h5>
                         </div>
                         <div class="ibox-content">
-							<div id="Wzd_Customazing">
-								<h3>Nuevo Perfiles</h3>
-								<section>
-									<p>
 										<fieldset>
 											<form id="Profiles"class="form-horizontal"  action="<?php echo $url; ?>private/User" method="POST" class="">
 												<div class="col-lg-10">
@@ -127,7 +123,7 @@ use \Core\Controller;
 															<div class="col-lg-8">
 																<select multiple="multiple" id="slt_pkiBFunctionGroup_h" name="slt_pkiBFunctionGroup_h[]">
 																	<?php foreach ($drowsF as $options){?>
-																	<option value="<?php echo $options['pkiBFunctionGroup'];?>"><?php echo $options['iBFunctionGroupModulo']; ?></option>
+																	<option value="<?php echo $options['pkiBFunctionGroup'];?>"><?php echo $options['iBFunctionGroupName']; ?></option>
 																	<?php } ?>
 																</select>
 															</div>
@@ -257,9 +253,6 @@ use \Core\Controller;
 											</form>
 										</fieldset>
 									</p>
-									<p>(*) Mandatory</p>
-								</section>
-							</div>
 						</div>
 					</div>
                 </div>

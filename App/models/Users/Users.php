@@ -5,7 +5,7 @@
 // | @Version 1.0
 // +-----------------------------------------------
 // +---------------------------Comentarios de versión
-namespace App\Models;
+namespace App\Models\Users;
 defined("APPPATH") OR die("Access denied");
 
 use \Core\Database;

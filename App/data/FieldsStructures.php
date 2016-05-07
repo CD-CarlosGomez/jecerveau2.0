@@ -4,7 +4,7 @@
 // | @date 5 de Marzo de 2016
 // | @Version 1.0
 // +-----------------------------------------------
-namespace App\data;
+namespace App\Data;
 defined("APPPATH") OR die("Access denied");
 
 use \App\Interfaces\iAutoIncrementable;

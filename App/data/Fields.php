@@ -4,10 +4,10 @@
 // | @date 5 de Marzo de 2016
 // | @Version 1.0
 // +-----------------------------------------------
-namespace App\data;
+namespace App\Data;
 defined("APPPATH") OR die("Access denied");
 
-use \App\data\FieldsStructures as FS;
+use \App\Data\FieldsStructures as FS;
 
 Class Fields{
 	private $_fields=array();
@@ -43,7 +43,7 @@ Class Fields{
 	public function setName($field,$name){
 		$this->_fields[$field]->Name=$name;
 	}
-	public function setDataType($field,$type){
+	public function setType($field,$type){
 		$this->_fields[$field]->Type=$type;
 	}
 	public function setKey($field,$key){

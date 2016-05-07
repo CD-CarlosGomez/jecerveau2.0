@@ -1,5 +1,5 @@
 <?php
-namespace App\Models;
+namespace App\Models\Users;
 defined("APPPATH") OR die("Access denied");
 
 use \Core\Database;
@@ -121,8 +121,25 @@ class Profiles implements iCrud{
 			$PDOcnn=Database::instance();
 			$PDOQuery=
 			"
-			SELECT up.* 
-				FROM (SELECT @u1:=$pkiBUser p) pcxu , v_kanbanprofilebyuser up;
+			SELECT 
+				pkBranchOffice, 
+				BOName,
+				Name,
+				wf.*
+			FROM ibuser u
+				LEFT JOIN branchoffice_has_ibuserprofile bohup 
+					ON u.pkiBUser=bohup.ibuser_pkiBUser
+				LEFT JOIN branchoffice bo
+					ON bohup.branchoffice_pkBranchOffice=bo.pkBranchOffice
+				LEFT JOIN ibuserprofile up
+					ON bohup.ibuserprofile_pkiBUserProfile=up.pkiBUserProfile
+				LEFT JOIN osworkflow_has_ibuserprofile wfhup
+					ON up.pkiBUserProfile=wfhup.iBUserProfile_pkiBUserProfile
+				LEFT JOIN osworkflow wf
+					ON wfhup.OSworkflow_pkOSworkflow=wf.pkOSworkflow
+			WHERE U.pkiBUser=$pkiBUser
+				AND bo.Active=1
+			GROUP BY bo.pkBranchOffice
 			";
 		
 			$resultSet=$PDOcnn->query($PDOQuery);
@@ -211,7 +228,7 @@ class Profiles implements iCrud{
 			$PDOcnn = Database::instance();
 			$PDOQuery="	SELECT 
 							pkiBFunctionGroup,
-							iBFunctionGroupModulo
+							iBFunctionGroupName
 						FROM ibfunctiongroup;";
 			$PDOResultSet = $PDOcnn->query($PDOQuery);
 			return $PDOResultSet;
