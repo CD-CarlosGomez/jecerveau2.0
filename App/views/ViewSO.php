@@ -365,12 +365,22 @@ use \Core\Controller;
 																						<div class="input-group col-lg-8">
 																								<select id="slt_pkEmployee_h" class=" selectSearch form-control m-b required" style="width:350px;" tabindex="5" name="slt_pkEmployee_h">
 																										<?php
-																										
+																										foreach($ds_so as $dr_so){
+																												$currentUserAssigned=$dr_so["fkiBUser"];
+																										}
 																										foreach ($dt_Us as $datarow) {
-																										
+																												if($datarow['pkiBUser']==$currentUserAssigned){
 																										?>
-																												<option value="<?php echo $datarow['pkiBUser'] ?>"><?php echo $datarow['realname'] ?></option>
-																										<?php } ?>
+																												<option value="<?php echo $datarow['pkiBUser'] ?>" selected="selected"><?php echo $datarow['realname'] ?></option>
+																										<?php
+																												}
+																												else{
+																										?>
+																														<option value="<?php echo $datarow['pkiBUser'] ?>"><?php echo $datarow['realname'] ?></option>
+																										<?php 
+																												}
+																										}
+																										?>
 																								</select>
 																								<input type="hidden" id="" value="<?php echo $currentSO ?>" name="hdn_currentSO_h">
 																						</div>

@@ -17,9 +17,11 @@ class CurrentUser {
 //REQUEST############################################
 //CONSTANTES#########################################
 //ATRIBUTOS##########################################
-	public $pMainMenu;
-	public $ppkiBUser_p;
+	public static $pMainMenu;
+	public static $ppkiBUser_p;
+	public static $currenBO;
 	private static $_instancia;
+	
 //PROPIEDADES########################################
 	public function setppkiBUser_p($value){
 		$this->ppkiBUser_p=$value;
@@ -27,6 +29,24 @@ class CurrentUser {
 	public function &getppkIBUser_p(){
 		return $this->ppkiBUser_p;
 	}
+	public static function _set_($atrib, $value){
+        if (property_exists(__CLASS__,$atrib)){
+			$this->$atrib=$value;
+		}
+        else{
+			echo $atrib . "No existe en la clase" . __CLASS__;
+		}
+		
+    }
+	public static function _get_($atrib){
+        if(property_exists(__CLASS__,$atrib)){
+			return $this->$atrib;
+		}
+		else{
+			echo $atrib . "No existe en la clase" . __CLASS__;
+		}
+
+    }
 	public function getMainMenu2($pkiBUser){
 		$this->pMainMenu="";
 		$PDOcnn = Database::instance();
@@ -185,13 +205,16 @@ class CurrentUser {
 			"
 			SELECT 
 				pkBranchOffice, 
-				BOName 
-			FROM branchoffice bo
-				INNER JOIN branchoffice_has_ibuserprofile bohup 
-					ON bo.pkBranchOffice=bohup.branchoffice_pkBranchOffice 
-				INNER JOIN ibuser u
-					ON bohup.ibuser_pkiBUser=u.pkiBUser
-			WHERE U.pkiBUser='$pkiBUser'
+				BOName,
+				Name
+			FROM ibuser u
+				LEFT JOIN branchoffice_has_ibuserprofile bohup 
+					ON u.pkiBUser=bohup.ibuser_pkiBUser
+				LEFT JOIN branchoffice bo
+					ON bohup.branchoffice_pkBranchOffice=bo.pkBranchOffice
+				LEFT JOIN ibuserprofile up
+					ON bohup.ibuserprofile_pkiBUserProfile=up.pkiBUserProfile
+			WHERE U.pkiBUser=$pkiBUser
 				AND bo.Active=1;
 			";
 			

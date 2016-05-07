@@ -74,6 +74,8 @@ use \App\data\DataGridView as DGV;
     <link href="<?php echo $url; ?>/App/web/css/plugins/steps/jquery.steps.css" rel="stylesheet">
 	<!-- dataTable CSS-->
     <link href="<?php echo $url; ?>/App/web/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+	 <!-- Toastr style -->
+    <link href="<?php echo $url; ?>/App/web/css/plugins/toastr/toastr.min.css" rel="stylesheet">
 	
 </head>
 <body class="top-navigation">

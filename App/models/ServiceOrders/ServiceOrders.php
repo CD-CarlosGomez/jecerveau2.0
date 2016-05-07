@@ -90,10 +90,14 @@ class ServiceOrders implements iCrud{
         try {
 			$PDOcnn = Database::instance();
 			$PDOQuery =
-			"SELECT * FROM sorder o
+			"
+			SELECT * FROM sorder so
 				INNER JOIN customercontact cc
-					ON o.CustomerContact_pkCustomerContact=cc.pkCustomerContact
-			WHERE pkSorder=$pkso;
+					ON so.CustomerContact_pkCustomerContact=cc.pkCustomerContact
+				LEFT JOIN sodetail sod 
+					ON so.pkSorder=sod.fkSorder
+			WHERE pkSorder=$pkso
+			ORDER BY sod.pkSODetail DESC LIMIT 1;
 			";
 			$PDOResultSet = $PDOcnn->query($PDOQuery);
 			return $PDOResultSet;
