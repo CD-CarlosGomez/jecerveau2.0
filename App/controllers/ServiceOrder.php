@@ -21,7 +21,7 @@ use \APP\Models\ServiceOrders\SODetails 		as SOD;
 use \App\Models\ServiceOrders\SOLogs			as SOL;
 use \App\Models\Contacts\Contacts 				as Co;
 use \App\Models\CurrentUser 					as CU;
-use \App\Models\Users 							as Us;
+use \App\Models\Users\Users						as Us;
 use \App\web\API\Mailer\PHPMailer;
 use \App\web\API\fpdf\fpdfExtended as fpdfExt;
 

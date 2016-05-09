@@ -139,7 +139,7 @@ class ServiceOrders implements iCrud{
     		echo 'Incidencia al generar nuevo código ',  $e->getMessage(), ".\n";
 		}
 	}
-	public static function getSelectIbSO189A1(){
+	public static function getKanbanSO(){
 		 try {
 			$PDOcnn = Database::instance();
 			$PDOQuery=
@@ -151,8 +151,8 @@ class ServiceOrders implements iCrud{
 				so.SODate
 			FROM sorder so
 				LEFT JOIN customercontact cc
-					ON so.CustomerContact_pkCustomerContact=cc.pkCustomerContact;
-		ORDER BY so.SODate DESC;
+					ON so.CustomerContact_pkCustomerContact=cc.pkCustomerContact
+		ORDER BY so.SODate;
 			";
 			$PDOResultSet = $PDOcnn->query($PDOQuery);
 			return $PDOResultSet;

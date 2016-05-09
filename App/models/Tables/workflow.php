@@ -110,6 +110,12 @@ class WorkFlow extends DP{
 *                  ##########MÉTODOS MÁGICOS##########                         *
 *                                                                              *
 *******************************************************************************/
+	public static function __getter($field){
+		return $this->tableFields->getValue($field);
+	}
+	public static function __setter($field,$value){
+		$this->tableFields->setValue($field,$value)
+	}
 /*******************************************************************************
 *                                                                              *
 *                  ##########MÉTODOS PÚBLICOS##########                        *
@@ -127,193 +133,77 @@ class WorkFlow extends DP{
 		$this->tableFields->setAI(0,AI['SI']);
 		
 		$this->tableFields->setValue(1,'');
-		$this->tableFields->setName(1,'Sworkflow');
+		$this->tableFields->setName(1,'RE');
 		$this->tableFields->setType(1,DT['STRING']);
-		$this->tableFields->setKey(1,PK['SI']);
-		$this->tableFields->setAI(1,AI['SI']);
+		$this->tableFields->setKey(1,PK['NO']);
+		$this->tableFields->setAI(1,AI['NO']);
 		
-		$this->tableFields->setValue(0,'0');
-		$this->tableFields->setName(0,'pkOSworkflow');
-		$this->tableFields->setType(0,DT['STRING']);
-		$this->tableFields->setKey(0,PK['SI']);
-		$this->tableFields->setAI(0,AI['SI']);
+		$this->tableFields->setValue(2,'');
+		$this->tableFields->setName(2,'AS');
+		$this->tableFields->setType(2,DT['STRING']);
+		$this->tableFields->setKey(2,PK['NO']);
+		$this->tableFields->setAI(2,AI['NO']);
 		
-		$this->tableFields->setValue(0,'0');
-		$this->tableFields->setName(0,'pkOSworkflow');
-		$this->tableFields->setType(0,DT['STRING']);
-		$this->tableFields->setKey(0,PK['SI']);
-		$this->tableFields->setAI(0,AI['SI']);
-	}
-	
-	public static function showAttribInfo($var){
-		$varinfo=var_dump($var);
-		return $varinfo;
-		//print_r ('<script>alert("$varinfo");</script>');
-		//redirect('orderManagement/index');
-	}
-	public static function testAttrb(){
+		$this->tableFields->setValue(3,'');
+		$this->tableFields->setName(3,'PD');
+		$this->tableFields->setType(3,DT['STRING']);
+		$this->tableFields->setKey(3,PK['NO']);
+		$this->tableFields->setAI(3,AI['NO']);
 		
-	}
-    public static function getAll(){
-        try {
-			$connection = Database::instance();
-			$sql = "SELECT * from ibuserprofile;";
-			$query = $connection->prepare($sql);
-			$query->execute();
-			return $query->fetchAll();
-		}
-        catch(\PDOException $e)
-        {
-			print "Error!: " . $e->getMessage();
-		}
-    }
-	public static function getAllIbUserProfile(){
-		try {
-			$PDOcnn = Database::instance();
-			$PDOQuery="SELECT * FROM `ibuserprofile`";
-			$PDOResultSet = $PDOcnn->query($PDOQuery);
-			return $PDOResultSet;
-		}
-        catch(\PDOException $e)
-        {
-			print "Error!: " . $e->getMessage();
-		}
-	}
-    public static function getById($id) {
-        try {
-            $connection = Database::instance();
-            $sql = "SELECT * from ibuser WHERE pkibuser = ?";
-            $query = $connection->prepare($sql);
-            $query->bindParam(1, $id, \PDO::PARAM_INT);
-            $query->execute();
-            return $query->fetch();
-        }
-        catch(\PDOException $e){
-            print "Error!: " . $e->getMessage();
-        }
-    }
-	public static function selectKanbanProfile($pkiBUser){
-		try{
-			$PDOcnn=Database::instance();
-			$PDOQuery=
-			"
-			SELECT 
-				pkBranchOffice, 
-				BOName,
-				Name,
-				wf.*
-			FROM ibuser u
-				LEFT JOIN branchoffice_has_ibuserprofile bohup 
-					ON u.pkiBUser=bohup.ibuser_pkiBUser
-				LEFT JOIN branchoffice bo
-					ON bohup.branchoffice_pkBranchOffice=bo.pkBranchOffice
-				LEFT JOIN ibuserprofile up
-					ON bohup.ibuserprofile_pkiBUserProfile=up.pkiBUserProfile
-				LEFT JOIN osworkflow_has_ibuserprofile wfhup
-					ON up.pkiBUserProfile=wfhup.iBUserProfile_pkiBUserProfile
-				LEFT JOIN osworkflow wf
-					ON wfhup.OSworkflow_pkOSworkflow=wf.pkOSworkflow
-			WHERE U.pkiBUser=$pkiBUser
-				AND bo.Active=1
-			GROUP BY bo.pkBranchOffice
-			";
+		$this->tableFields->setValue(4,'');
+		$this->tableFields->setName(4,'AD');
+		$this->tableFields->setType(4,DT['STRING']);
+		$this->tableFields->setKey(4,PK['NO']);
+		$this->tableFields->setAI(4,AI['NO']);
 		
-			$resultSet=$PDOcnn->query($PDOQuery);
-			return $resultSet;
-		}
-		catch(\PDOException $e){
-			print "Error!: " . $e->getMessage();
-		}
-	}
-    public static function insertData($data){
-		try {
-            $connection = Database::instance();
-			$sql = "INSERT INTO $data VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
-            $query = $connection->prepare($sql);
-            $query->bindParam(1, self::$_pkiBUserProfile, \PDO::PARAM_INT);
-			$query->bindParam(2, self::$_profileName, \PDO::PARAM_STR);
-			$query->bindParam(3, self::$_toBeCollected, \PDO::PARAM_STR);
-			$query->bindParam(4, self::$_toBeAssigned, \PDO::PARAM_STR);
-            $query->bindParam(5, self::$_toBeDiagnosed, \PDO::PARAM_STR);
-			$query->bindParam(6, self::$_diagnosisToBeAuthorized, \PDO::PARAM_STR);
-			$query->bindParam(7, self::$_toNotifyTheClient, \PDO::PARAM_STR);
-			$query->bindParam(8, self::$_toBeAuthorizedByClient, \PDO::PARAM_STR);
-            $query->bindParam(9, self::$_inRepairProcess, \PDO::PARAM_STR);
-			$query->bindParam(10, self::$_repaired, \PDO::PARAM_STR);
-			$query->bindParam(11, self::$_toDelivery, \PDO::PARAM_STR);
-			$query->bindParam(12, self::$_toBeCharged, \PDO::PARAM_INT);
-			$query->bindParam(13, self::$_deliveredToClient, \PDO::PARAM_STR);
-			$query->bindParam(14, self::$_cancelled, \PDO::PARAM_STR);
-            $query->execute();
-            return true;
-        }
-        catch(\PDOException $e){
-            print "Error!: " . $e->getMessage();
-        }
-    }
-    public static function updateById($id){
-		try {
-            $connection = Database::instance();
-            $sql = "UPDATE ibuser SET pkibuser=?,username=?,pwd=? WHERE pkibuser=?";
-            $query = $connection->prepare($sql);
-            $query->bindParam(1, $this->_pkibuser, \PDO::PARAM_INT);
-			$query->bindParam(2, $this->_username, \PDO::PARAM_STR);
-			$query->bindParam(3, $this->_pwd, \PDO::PARAM_STR);
-			$query->bindParam(4, $id, \PDO::PARAM_INT);
-            $query->execute();
-            return $query->fetch();
-        }
-        catch(\PDOException $e){
-            print "Error!: " . $e->getMessage();
-        }
-    }
-    public static function deleteById($id){
-			try {
-            $connection = Database::instance();
-            $sql = "UPDATE ibuser SET Active=0 WHERE pkibuser=?";
-            $query = $connection->prepare($sql);
-         	$query->bindParam(1, $id, \PDO::PARAM_INT);
-            $query->execute();
-            return $query->fetch();
-        }
-        catch(\PDOException $e){
-            print "Error!: " . $e->getMessage();
-        }
-	}
-	public static function getNextId($column,$table){
-		try {
-				$cnn=Database::instance();
-				$PDOQuery = "SELECT MAX($column) AS Maximo FROM $table;";
-				$dso=$cnn->query($PDOQuery);
-				$ultimo=$dso->fetch();
-				$plusid=$ultimo['Maximo'];
-				if ($plusid=="") {
-					$plusid=1;
-				}
-				else{
-					$plusid++;
-				}
-				return $plusid;
-        	}
-        catch (\PDOException $e) {
-    		echo 'Incidencia al generar nuevo código ',  $e->getMessage(), ".\n";
-		}
-	}
-	public static function getSelectibfunctiongroup12(){
-		 try {
-			$PDOcnn = Database::instance();
-			$PDOQuery="	SELECT 
-							pkiBFunctionGroup,
-							iBFunctionGroupName
-						FROM ibfunctiongroup;";
-			$PDOResultSet = $PDOcnn->query($PDOQuery);
-			return $PDOResultSet;
-		}
-        catch(\PDOException $e)
-        {
-			print "Error!: " . $e->getMessage();
-		}
-	}
+		$this->tableFields->setValue(5,'');
+		$this->tableFields->setName(5,'PN');
+		$this->tableFields->setType(5,DT['STRING']);
+		$this->tableFields->setKey(5,PK['NO']);
+		$this->tableFields->setAI(5,AI['NO']);
+		
+		$this->tableFields->setValue(6,'');
+		$this->tableFields->setName(6,'PA');
+		$this->tableFields->setType(6,DT['STRING']);
+		$this->tableFields->setKey(6,PK['NO']);
+		$this->tableFields->setAI(6,AI['NO']);
+		
+		$this->tableFields->setValue(7,'');
+		$this->tableFields->setName(7,'PR');
+		$this->tableFields->setType(7,DT['STRING']);
+		$this->tableFields->setKey(7,PK['NO']);
+		$this->tableFields->setAI(7,AI['NO']);
+		
+		$this->tableFields->setValue(8,'');
+		$this->tableFields->setName(8,'TE');
+		$this->tableFields->setType(8,DT['STRING']);
+		$this->tableFields->setKey(8,PK['NO']);
+		$this->tableFields->setAI(8,AI['NO']);
+		
+		$this->tableFields->setValue(9,'');
+		$this->tableFields->setName(9,'PS');
+		$this->tableFields->setType(9,DT['STRING']);
+		$this->tableFields->setKey(9,PK['NO']);
+		$this->tableFields->setAI(9,AI['NO']);
+		
+		$this->tableFields->setValue(10,'');
+		$this->tableFields->setName(10,'EC');
+		$this->tableFields->setType(10,DT['STRING']);
+		$this->tableFields->setKey(10,PK['NO']);
+		$this->tableFields->setAI(10,AI['NO']);
+		
+		$this->tableFields->setValue(11,'');
+		$this->tableFields->setName(11,'OK');
+		$this->tableFields->setType(11,DT['STRING']);
+		$this->tableFields->setKey(11,PK['NO']);
+		$this->tableFields->setAI(11,AI['NO']);
+		
+		$this->tableFields->setValue(12,'');
+		$this->tableFields->setName(12,'CA');
+		$this->tableFields->setType(12,DT['STRING']);
+		$this->tableFields->setKey(12,PK['NO']);
+		$this->tableFields->setAI(12,AI['NO']);		
+			
 /*******************************************************************************
 *                                                                              *
 *                  ##########MÉTODOS PRIVADOS##########                        *

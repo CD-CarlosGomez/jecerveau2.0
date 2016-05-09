@@ -4,17 +4,30 @@
 // | @date Miércoles 5 de diciembre de 2012
 // |  * @Version 1.0, esta clase crea los queries automáticamente
 // +-----------------------------------------------
-namespace App\data;
+namespace App\Data;
 defined("APPPATH") OR die("Access denied");
 //use \Core\Database as DB;
-use \data\DatabaseExtended as DBE;
+use \App\Data\DatabaseExtended as DBE;
+use \App\Interfaces\iCrud;
 
-Class Data{
-//CONSTANTES#########################################
-//ATRIBUTOS##########################################
+Class Data implements iCrud{
+/*******************************************************************************
+*                                                                              *
+*                           ##########REQUEST##########                        *
+*                                                                              *
+*******************************************************************************/
+/*******************************************************************************
+*                                                                              *
+*                        ##########CONSTANTES##########                        *
+*                                                                              *
+*******************************************************************************/
+/*******************************************************************************
+*                                                                              *
+*                         ##########ATRIBUTOS##########                        *
+*                                                                              *
+*******************************************************************************/
 	private $_PDOcnn=null;
     private $_DataSource=array();
-	
 	Protected $mSQLRead;
     Protected $mlDataTabla;
 	Protected $_mySQLiDataset=array();
@@ -24,14 +37,204 @@ Class Data{
     Protected $mlWhere= "";
     Protected $mlCadena= "";
     Protected $i=0, $j=0, $n=0, $m=0, $swKey=0, $swCampo=0;
-
-//PROPIEDADES##################################################################################
-//CONSTRUCTORES Y DESTRUCTORES##############################################################
+/*******************************************************************************
+*                                                                              *
+*                       ##########PROPIEDADES##########                        *
+*                                                                              *
+*******************************************************************************/
+/*******************************************************************************
+*                                                                              *
+*                  ##########MÉTODOS ABSTRACTOS##########                      *
+*                                                                              *
+*******************************************************************************/
+/*******************************************************************************
+*                                                                              *
+*                  ######CONSTRUCTORES Y DESTRUCTORES####                      *
+*                                                                              *
+*******************************************************************************/
 	public function __construct(){
 		$this->_PDOcnn=DBE::getPDOcnn();
 	}
-//MÉTODOS MÁGICOS##############################################################################
-//MÉTODOS PÚBLICOS##############################################################################
+
+/*******************************************************************************
+*                                                                              *
+*                  ##########MÉTODOS MÁGICOS##########                         *
+*                                                                              *
+*******************************************************************************/
+/*******************************************************************************
+*                                                                              *
+*                  ##########MÉTODOS PÚBLICOS##########                        *
+*                                                                              *
+*******************************************************************************/
+	public static function showAttribInfo($var){
+		$varinfo=var_dump($var);
+		return $varinfo;
+		//print_r ('<script>alert("$varinfo");</script>');
+		//redirect('orderManagement/index');
+	}
+	public static function testAttrb(){
+		
+	}
+    public static function getAll(){
+        try {
+			$connection = Database::instance();
+			$sql = "SELECT * from ibuserprofile;";
+			$query = $connection->prepare($sql);
+			$query->execute();
+			return $query->fetchAll();
+		}
+        catch(\PDOException $e)
+        {
+			print "Error!: " . $e->getMessage();
+		}
+    }
+	public static function getAllIbUserProfile(){
+		try {
+			$PDOcnn = Database::instance();
+			$PDOQuery="SELECT * FROM `ibuserprofile`";
+			$PDOResultSet = $PDOcnn->query($PDOQuery);
+			return $PDOResultSet;
+		}
+        catch(\PDOException $e)
+        {
+			print "Error!: " . $e->getMessage();
+		}
+	}
+    public static function getById($id) {
+        try {
+            $connection = Database::instance();
+            $sql = "SELECT * from ibuser WHERE pkibuser = ?";
+            $query = $connection->prepare($sql);
+            $query->bindParam(1, $id, \PDO::PARAM_INT);
+            $query->execute();
+            return $query->fetch();
+        }
+        catch(\PDOException $e){
+            print "Error!: " . $e->getMessage();
+        }
+    }
+	public static function selectKanbanProfile($pkiBUser){
+		try{
+			$PDOcnn=Database::instance();
+			$PDOQuery=
+			"
+			SELECT 
+				pkBranchOffice, 
+				BOName,
+				Name,
+				wf.*
+			FROM ibuser u
+				LEFT JOIN branchoffice_has_ibuserprofile bohup 
+					ON u.pkiBUser=bohup.ibuser_pkiBUser
+				LEFT JOIN branchoffice bo
+					ON bohup.branchoffice_pkBranchOffice=bo.pkBranchOffice
+				LEFT JOIN ibuserprofile up
+					ON bohup.ibuserprofile_pkiBUserProfile=up.pkiBUserProfile
+				LEFT JOIN osworkflow_has_ibuserprofile wfhup
+					ON up.pkiBUserProfile=wfhup.iBUserProfile_pkiBUserProfile
+				LEFT JOIN osworkflow wf
+					ON wfhup.OSworkflow_pkOSworkflow=wf.pkOSworkflow
+			WHERE U.pkiBUser=$pkiBUser
+				AND bo.Active=1
+			GROUP BY bo.pkBranchOffice
+			";
+		
+			$resultSet=$PDOcnn->query($PDOQuery);
+			return $resultSet;
+		}
+		catch(\PDOException $e){
+			print "Error!: " . $e->getMessage();
+		}
+	}
+    public static function insertData($data){
+		try {
+            $connection = Database::instance();
+			$sql = "INSERT INTO $data VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+            $query = $connection->prepare($sql);
+            $query->bindParam(1, self::$_pkiBUserProfile, \PDO::PARAM_INT);
+			$query->bindParam(2, self::$_profileName, \PDO::PARAM_STR);
+			$query->bindParam(3, self::$_toBeCollected, \PDO::PARAM_STR);
+			$query->bindParam(4, self::$_toBeAssigned, \PDO::PARAM_STR);
+            $query->bindParam(5, self::$_toBeDiagnosed, \PDO::PARAM_STR);
+			$query->bindParam(6, self::$_diagnosisToBeAuthorized, \PDO::PARAM_STR);
+			$query->bindParam(7, self::$_toNotifyTheClient, \PDO::PARAM_STR);
+			$query->bindParam(8, self::$_toBeAuthorizedByClient, \PDO::PARAM_STR);
+            $query->bindParam(9, self::$_inRepairProcess, \PDO::PARAM_STR);
+			$query->bindParam(10, self::$_repaired, \PDO::PARAM_STR);
+			$query->bindParam(11, self::$_toDelivery, \PDO::PARAM_STR);
+			$query->bindParam(12, self::$_toBeCharged, \PDO::PARAM_INT);
+			$query->bindParam(13, self::$_deliveredToClient, \PDO::PARAM_STR);
+			$query->bindParam(14, self::$_cancelled, \PDO::PARAM_STR);
+            $query->execute();
+            return true;
+        }
+        catch(\PDOException $e){
+            print "Error!: " . $e->getMessage();
+        }
+    }
+    public static function updateById($id){
+		try {
+            $connection = Database::instance();
+            $sql = "UPDATE ibuser SET pkibuser=?,username=?,pwd=? WHERE pkibuser=?";
+            $query = $connection->prepare($sql);
+            $query->bindParam(1, $this->_pkibuser, \PDO::PARAM_INT);
+			$query->bindParam(2, $this->_username, \PDO::PARAM_STR);
+			$query->bindParam(3, $this->_pwd, \PDO::PARAM_STR);
+			$query->bindParam(4, $id, \PDO::PARAM_INT);
+            $query->execute();
+            return $query->fetch();
+        }
+        catch(\PDOException $e){
+            print "Error!: " . $e->getMessage();
+        }
+    }
+    public static function deleteById($id){
+			try {
+            $connection = Database::instance();
+            $sql = "UPDATE ibuser SET Active=0 WHERE pkibuser=?";
+            $query = $connection->prepare($sql);
+         	$query->bindParam(1, $id, \PDO::PARAM_INT);
+            $query->execute();
+            return $query->fetch();
+        }
+        catch(\PDOException $e){
+            print "Error!: " . $e->getMessage();
+        }
+	}
+	public static function getNextId($column,$table){
+		try {
+				$cnn=Database::instance();
+				$PDOQuery = "SELECT MAX($column) AS Maximo FROM $table;";
+				$dso=$cnn->query($PDOQuery);
+				$ultimo=$dso->fetch();
+				$plusid=$ultimo['Maximo'];
+				if ($plusid=="") {
+					$plusid=1;
+				}
+				else{
+					$plusid++;
+				}
+				return $plusid;
+        	}
+        catch (\PDOException $e) {
+    		echo 'Incidencia al generar nuevo código ',  $e->getMessage(), ".\n";
+		}
+	}
+	public static function getSelectibfunctiongroup12(){
+		 try {
+			$PDOcnn = Database::instance();
+			$PDOQuery="	SELECT 
+							pkiBFunctionGroup,
+							iBFunctionGroupName
+						FROM ibfunctiongroup;";
+			$PDOResultSet = $PDOcnn->query($PDOQuery);
+			return $PDOResultSet;
+		}
+        catch(\PDOException $e)
+        {
+			print "Error!: " . $e->getMessage();
+		}
+	}
 	public function fillDataSource($resultSet=array()){
 		while ($resultSet){
 			$this->_DataSource[]=$resultSet;
@@ -96,6 +299,11 @@ Class Data{
         $retorno = "SELECT " . $lCampo . " FROM " . $ltabla . $lWhere .";" ;
 		Return $retorno;
 	}
+/*******************************************************************************
+*                                                                              *
+*                  ##########MÉTODOS PRIVADOS##########                        *
+*                                                                              *
+*******************************************************************************/
 	private function getInsertQueryWithNewId($clase){
 		$retorno="";
 		$vlnewCodigo=0;
@@ -132,7 +340,6 @@ Class Data{
         return $retorno;
 		}
 	}
-//MÉTODOS PRIVADOS##############################################################################
 	private function getNextId($column,$table){
 		try {
 				$cnn=Database::instance();
@@ -153,24 +360,21 @@ Class Data{
 		}		
 	}
 }
-
-	/*public function LLenarDataGridViewer($datasource=array(),$noMostrarColumna){
-		$this->_mySQLiDataGridView->getInstance($datasource);
-		$this->_mySQLiDataGridView->setGridAttributes(array('cellspacing' => '1', 'cellpadding' => '5', 'border' => '0'));
-		$this->_mySQLiDataGridView->enableSorting(true);
-		$this->_mySQLiDataGridView->removeColumn('$noMostrarColumna');
-		return $this->_mySQLiDataGridView->render();
-		//return $this-_mySQLDataGridView;
-		/*try{
-			$SQLquery=GetSQLQuery($clase);
-			$this->ldatatabla=$mconexion->GetDatatable($SQLquery);
-			$dgwGrid->datasource=$lDatatabla;
-		}
-		catch(Exception $ex){
-			echo '$ex';
-			
-		}
-	}*/
+/*******************************************************************************
+*                                                                              *
+*                  ##########EVENTOS##########                                 *
+*                                                                              *
+*******************************************************************************/
+/*******************************************************************************
+*                                                                              *
+*                  ##########CONTROLES##########                               *
+*                                                                              *
+*******************************************************************************/
+/*******************************************************************************
+*                                                                              *
+*                  ##########MAIN##########                                    *
+*                                                                              *
+*******************************************************************************/
 //Crear sqlcomand de modelos
 	/*
 	Private Function getQueryINSERTNoGenerarCodigo($Clase){
