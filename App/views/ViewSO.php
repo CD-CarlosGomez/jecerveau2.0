@@ -118,7 +118,7 @@ use \Core\Controller;
 														<div class="form-group">
 															<label class="col-md-4 control-label">Serie:*</label>
 															<div class="col-lg-8">
-																<input type="text" id="txt_gsxSerialNumber_h" class="form-control required" value="<?php echo $obj_gsx_p->{'serialNumber'}; ?>"  name="txt_gsxSerialNumber_h"/>
+																<input type="text" id="txt_gsxSerialNumber_h" class="form-control required" value="<?php echo $obj_gsx_p->{'serialNumber'}; ?>" readonly="readonly" name="txt_gsxSerialNumber_h"/>
 															</div>
 														</div>
 														<div class="form-group">
@@ -361,22 +361,20 @@ use \Core\Controller;
 																<fieldset>
 																		<div class="col-md-6">																				
 																				<div class="form-group">
+																						<?php foreach($ds_so as $dr_so){	$currentUserAssigned=$dr_so["fkiBUser"];}?>
 																						<label class="col-lg-4 control-label">Asignar:</label>
 																						<div class="input-group col-lg-8">
-																								<select id="slt_pkEmployee_h" class=" selectSearch form-control m-b required" style="width:350px;" tabindex="5" name="slt_pkEmployee_h">
+																								<select id="slt_pkEmployee_h" class="selectSearch required" style="width:350px;" name="slt_pkEmployee_h">
 																										<?php
-																										foreach($ds_so as $dr_so){
-																												$currentUserAssigned=$dr_so["fkiBUser"];
-																										}
 																										foreach ($dt_Us as $datarow) {
-																												if($datarow['pkiBUser']==$currentUserAssigned){
+																											if($datarow['pkiBUser']==$currentUserAssigned){
 																										?>
 																												<option value="<?php echo $datarow['pkiBUser'] ?>" selected="selected"><?php echo $datarow['realname'] ?></option>
 																										<?php
 																												}
 																												else{
 																										?>
-																														<option value="<?php echo $datarow['pkiBUser'] ?>"><?php echo $datarow['realname'] ?></option>
+																												<option value="<?php echo $datarow['pkiBUser'] ?>"><?php echo $datarow['realname'] ?></option>
 																										<?php 
 																												}
 																										}
@@ -397,7 +395,6 @@ use \Core\Controller;
 														</form>
 														</p>
 												</div>
-											
 										</div>
 								</div>
 							</div>
@@ -533,9 +530,9 @@ use \Core\Controller;
 						}
 			});
 				$(".selectSearch").select2({
-                placeholder: "Asignar a...",
-                allowClear: true
-            });
+						placeholder: "Asignar a...",
+						allowClear: true
+				});
 		});	
 	
 		function ObjJ2ObjP(object){

@@ -75,7 +75,7 @@ class ServiceOrder extends Controller{
 		View::set("title", "Listado de &oacute;rdenes");
 		#get_data_variables
 		$currentMainMenu=CU::getMainMenu2($this->_sesionpkiBUser);
-		$dsSO=SO::getSelectIbSO189A1();
+		$dsSO=SO::getKanbanSO();
 		while ($row =$dsSO->fetch( \PDO::FETCH_BOTH )){
 			$dt_SO[] = $row;
 		}

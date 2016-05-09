@@ -148,11 +148,18 @@ class ServiceOrders implements iCrud{
 				so.pkSOrder,
 				so.SONumber,
 				cc.contactName,
-				so.SODate
+				so.SODate,
+				max(sod.fkOSstatus) as lastst,
+				u.realname
 			FROM sorder so
-				LEFT JOIN customercontact cc
+				INNER JOIN customercontact cc
 					ON so.CustomerContact_pkCustomerContact=cc.pkCustomerContact
-		ORDER BY so.SODate;
+				LEFT JOIN sodetail sod
+					ON so.pkSorder=sod.fkSorder
+				LEFT JOIN ibuser u 
+					ON sod.fkiBUser=u.pkiBUser
+			GROUP BY so.pkSorder 
+			ORDER BY so.SODate DESC
 			";
 			$PDOResultSet = $PDOcnn->query($PDOQuery);
 			return $PDOResultSet;
