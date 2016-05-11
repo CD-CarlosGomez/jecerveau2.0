@@ -394,6 +394,27 @@ use \Core\Controller;
 																</fieldset>
 														</form>
 														</p>
+														<p>
+																<form id="frm_SO_h" class="form-horizontal" action="<?php echo $url; ?>private/ServiceOrder"  enctype="multipart/form-data"  method="POST" name="frm_SO_h">
+																		<fieldset>
+																				<div class="col-md-6">
+																						<div class="form-group">
+																								<label class="col-lg-4 control-label">Estado del equipo:</label>
+																								<div class="col-lg-8">
+																										<textarea id="tta_SODeviceCondition_h" class="form-control required" data-provide="markdown" rows="5" name="tta_SODeviceCondition_h"><?php foreach($ds_so as $dr_so){ echo $dr_so["SODeviceCondition"];} ?></textarea>
+																								</div>
+																						</div>
+																						<div class="form-group">
+																								<div class="form-inline">
+																										<input type="file" name="files[]" id="js-upload-files" multiple>
+																								</div>
+																										<button type="submit" class="btn btn-sm btn-primary" id="js-upload-submit">Upload files</button>
+																						</div>
+																				</div>
+																		</fieldset>
+																</form>
+														</p>
+														</p>
 												</div>
 										</div>
 								</div>

@@ -78,7 +78,7 @@ Class LayoutCSS extends LayoutHTML{
 					<link href="http://localhost:8012/ibrain2.0/App/web/js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
 					<link href="http://localhost:8012/ibrain2.0/App/web/css/animate.css" rel="stylesheet">
 					<link href="http://localhost:8012/ibrain2.0/App/web/css/style.css" rel="stylesheet">
-			</head
+</head>
 	<?php }
 	public function getDebugBody(){
 	?>
