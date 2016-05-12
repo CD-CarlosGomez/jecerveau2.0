@@ -22,6 +22,7 @@ use \App\Models\ServiceOrders\SOLogs			as SOL;
 use \App\Models\Contacts\Contacts 				as Co;
 use \App\Models\CurrentUser 					as CU;
 use \App\Models\Users\Users						as Us;
+use \App\Web\Lib\Multiload						as Ml;
 use \App\web\API\Mailer\PHPMailer;
 use \App\web\API\fpdf\fpdfExtended as fpdfExt;
 
@@ -63,9 +64,9 @@ class ServiceOrder extends Controller{
     public function index(){
 	//$layout=new WithSiteMap(new WithTemplate(new WithMenu(new LayoutCSS())));
 	//$layout= Layouts::render();
-		self::showSO();
-		//View::set("foo",true);
-		//View::render("z_testPost");
+		//self::showSO();
+		View::set("foo",true);
+		View::render("z_testPost");
 	}
 	public function showSO(){
 		#get_main_variables
@@ -239,8 +240,8 @@ class ServiceOrder extends Controller{
 		case "CMDassign":
 			AssignOrder();
 		break;
-		case "Eliminar":
-			Delete();
+		case "CMDDiagnose":
+			Diagnose();
 		break;
  	}
 	function CreateSO(){
@@ -312,7 +313,8 @@ class ServiceOrder extends Controller{
 				$sod->setPKSODetail($nextSODpk);
 				$sod->setFKSorder($pkSOrder);
 				$sod->setOsstatus(0);
-				$sod->setSODetailDesc("Órden creada");
+				$sod->setSODetailDesc("Orden creada");
+				$sod->setSODetailObs("");
 				$sod->setFKiBUser($_SESSION['pkiBUser_p']);
 				
 				if($sod->insertData("sodetail")){
@@ -408,5 +410,8 @@ class ServiceOrder extends Controller{
 						$sol->insertData('solog');
 						header("Location:" . $url= Globales::$absoluteURL . 'private/ServiceOrder/ViewSO/' . $_POST['hdn_currentSO_h']);
 				}
+	}
+	function Diagnose(){
+		
 	}
 ?>

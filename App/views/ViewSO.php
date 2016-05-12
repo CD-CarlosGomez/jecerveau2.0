@@ -232,11 +232,11 @@ use \Core\Controller;
 																				</div>
 																				<div class="form-group">
 																					<label class="col-md-4 control-label">Accesorios:</label>
-																					<div class="col-md-8">
+																					<!-- div class="col-md-8">
 																						<div class="pull-right">
 																							<button type="button" id="btn_newAccessory_h" class="btn btn-primary btn-md btn-block" value="" name="btn_newAccessory_h">Nuevo Accesorio</button>
 																						</div>
-																					</div>
+																					</div-->
 																				</div>
 																				<div class="form-group">
 																					<label class="col-md-1 control-label">&nbsp;</label>
@@ -342,12 +342,11 @@ use \Core\Controller;
 																						<textarea id="tta_contactObs_h" class="form-control" data-provide="markdown" rows="5" name="tta_contactObs_h"><?php foreach($ds_so as $dr_so){ echo $dr_so["contactObs"];} ?></textarea>
 																					</div>
 																				</div>
-																				<div class="col-md-4 pull-right">
+																				<!-- div class="col-md-4 pull-right">
 																						<div class="form-group">
 																							<button type="submit" id="btn_command_h" class="btn btn-primary btn-md btn-block" value="AddSO" name="btn_command_h">Guardar</button>
-																							<input type="hidden" id="hdn_devices_h" class="" value="" name="hdn_devices_h"/>
 																						</div>
-																				</div>
+																				</div-->
 																			</div>
 																		</div>
 																	</fieldset>
@@ -387,7 +386,7 @@ use \Core\Controller;
 																		<div class="col-md-6">
 																				<div class="col-md-4 pull-right">
 																						<div class="form-group">
-																							<button type="submit" id="btn_command_h" class="btn btn-primary btn-md btn-block" value="CMDassign" name="btn_command_h">Guardar</button>
+																							<button type="submit" id="btn_command_h" class="btn btn-primary btn-md btn-block" value="CMDassign" name="btn_command_h">Asignar</button>
 																						</div>
 																				</div>
 																		</div>
@@ -397,36 +396,75 @@ use \Core\Controller;
 														<hr>
 														<p><h3>Diagn&oacute;stico t&eacute;cnico</h3></p>
 														<p>
-																<form id="frm_SO_h" class="form-horizontal" action="<?php echo $url; ?>private/ServiceOrder"  enctype="multipart/form-data"  method="POST" name="frm_SO_h">
+																<form id="frm_SO_h" class="form-horizontal" action="<?php echo $url; ?>private/ServiceOrder"   accept-charset="utf-8" enctype="multipart/form-data"  method="POST" name="frm_SO_h">
 																		<fieldset>
+																			<div class="row">	
 																				<div class="col-md-6">
 																						<div class="form-group">
-																								<label class="col-lg-4 control-label">Estado del equipo:</label>
+																								<label class="col-lg-4 control-label">Dian&oacute;stico:</label>
 																								<div class="col-lg-8">
-																										<textarea id="tta_SODeviceCondition_h" class="form-control required" data-provide="markdown" rows="5" name="tta_SODeviceCondition_h"><?php foreach($ds_so as $dr_so){ echo $dr_so["SODeviceCondition"];} ?></textarea>
+																										<textarea id="tta_SODDesc_h" class="form-control required" data-provide="markdown" rows="5" name="tta_SODDesc_h"></textarea>
 																								</div>
 																						</div>
-																						<div class="col-xs-12 col-sm-8 col-md-8 col-xs-offset-4 col-sm-offset-2 col-md-offset-2">
-																							<table class="table table-bordered">
-																							  <tr>
-																							    <th>Country Name</th>
-																							    <th>Country Number</th>
-																							    <th>Country Phone code</th>
-																							    <th>Country code</th>
-																							  </tr>
-																							  <tr>
-																							    <td><input type='text' id='countryname_1' name='countryname[]'/></td>
-																							    <td><input type='text' id='country_no_1' name='country_no[]'/></td>
-																							    <td><input type='text' id='phone_code_1' name='phone_code[]'/></td>
-																							    <td><input type='text' id='country_code_1' name='country_code'/> </td>
-																							  </tr>
-																						</table>
-																						
-																						<button type="button" class='btn btn-danger delete'>- Delete</button>
-																						<button type="button" class='btn btn-success addmore'>+ Add More</button>
-																						</form>
-																					</div>																					
+																						<div class="form-group">
+																							<label class="col-lg-4 control-label">&nbsp;</label>
+																								<div class="col-lg-8">
+																									<button id="btn_showdanoincidental_h" type="button" class='btn btn-success'>Da&ntilde;o incidental </button>
+																							   	</div>
+																						</div>
 																				</div>
+																				<div class="col-md-6">
+																					<table class="tableAttach table-bordered">
+																							  <tr>
+																							    <th>Seleccionar archivo
+																							    		<button type="button" class='btn btn-success addmore'>Agregar </button>
+																							   			<button type="button" class='btn btn-danger delete'>Eliminar</button>	
+																							    </th>
+																							  </tr>
+																							  <tr>
+																							    <td>
+																							    	<input type="file" id="ofd_SOAttachment_h"  class="file-loading" multiple name="ofd_SOAttachement_h[]">
+																							    </td>
+																							  </tr>
+																					</table>																						
+																				</div>
+																			</div>
+																			<div id="danoincidental" class="row">	
+																				<div class="col-md-6">
+																						<div class="form-group">
+																								<label class="col-lg-4 control-label">Descripci&oacute;n del da&ntilde;o:</label>
+																								<div class="col-lg-8">
+																										<textarea id="tta_SODObs_h" class="form-control required" data-provide="markdown" rows="5" name="tta_SODObs_h"></textarea>
+																								</div>
+																						</div>
+																				</div>
+																				<div class="col-md-6">
+																					<table class="tableDanoI table-bordered">
+																							  <tr>
+																							    <th>Seleccionar archivo
+																							    		<button type="button" class='btn btn-success addmoreDI'>Agregar </button>
+																							   			<button type="button" class='btn btn-danger deleteDI'>Eliminar</button>	
+																							    </th>
+																							  </tr>
+																							  <tr>
+																							    <td>
+																							    	<input type="file" id="ofd_SOAttachDanoI_h"  class="file-loading" multiple name="ofd_SOAttachDanoI_h[]">
+																							    </td>
+																							  </tr>
+																					</table>																																											
+																				</div>
+																			</div>
+																			<div class="row">
+																				<div class="col-md-6">
+																				</div>
+																				<div class="col-md-6">
+																					<div class="col-md-4 pull-right">
+																							<div class="form-group">
+																								<button type="submit" id="btn_command_h" class="btn btn-primary btn-md btn-block" value="CMDDiagnose" name="btn_command_h">Diagnosticar</button>
+																							</div>
+																					</div>
+																				</div>
+																			</div>
 																		</fieldset>
 																</form>
 														</p>
@@ -481,137 +519,144 @@ use \Core\Controller;
 		success:"valid"
 		});
         $(document).ready(function(){
+
         	var i=$('table tr').length;
-        	
-				$("#frm_SO_h").validate({
-				      rules: {
-							slt_fkCollectMethod_h:	{
-								required:true,
-								min:0
-							},
-							tta_SODeviceCondition_h: {
-								required:true
-							},
-							tta_SOTechDetail_h:{
-								required:true
-							},
-							txt_contactPhone_h:{
-								required:true,
-								number:true,
-								minlength:10,
-								maxlength:15
-						    },
-							txt_contactMovil_h:{
-								required:true,
-								number:true,
-								minlength:10,
-								maxlength:15
-							},
-							txt_contactName_h:{
-								required:true,
-								minlength: 2
-							},
-							txt_contactEmail_h:{
-								required:true,
-								email:true
-							},
-							txt_contactAddress_h:{
-								required:true
-							},
-							txt_contactLocation_h:{
-								required:true
-							},
-							txt_contactCounty_h:{
-								required:true
-							},
-							txt_contactZipCode_h:{
-								required:true,
-								number:true,
-								minlength:5,
-								maxlength:6
-							},
-							txt_contactProvince_h:{
-								required:true
-							}
-                        },
-						messages:{
-							slt_fkCollectMethod_h: "Por favor, selecciona un m&eacute;todo de recollecci&oacute;n.",
-							tta_SODeviceCondition_h: "Por favor, especifique la condici&oacute;n actual del equipo.",
-							tta_SOTechDetail_h:"Por favor, especifique la condici&oacute;n t&eacute;cnica del equipo.",
-							txt_contactPhone_h:{
-								required:"Por favor, introduzca un n&uacute;mero de tel&eacute;fono.",
-								number:"Por favor, introduzca s&oacute;lo n&uacute;meros.",
-								minlength:"Debe de contener al menos diez d&iacute;gitos.",
-								maxlength:"Debe contener m&aacute;ximo diez d&iacute;gitos."
-							},
-							txt_contactMovil_h:{
-								required:"Por favor, introduzca un n&uacute;mero de tel&eacute;fono.",
-								matches:"Por favor, introduzca s&oacute;lo n&uacute;meros.",
-								minlength:"Debe de contener al menos diez d&iacute;gitos.",
-								maxlength:"Debe contener m&aacute;ximo diez d&iacute;gitos."
-							},
-							txt_contactName_h:{
-								required:"Por favor, introduzca el nombre del contacto.",
-								minlength:"Por favor, escriba un verdadero nombre."
-						    },
-							txt_contactEmail_h:"Por favor, introduzca un email v&aacute;lido.",
-							txt_contactAddress_h:"Por favor, introduzca un direcci&oacute;n v&aacute;lida.",
-							txt_contactLocation_h:"Por favor, introduzca una Colonia.",
-							txt_contactCounty_h:"Por favor, introduzca un municipio o delegaci&oacute;n.",
-							txt_contactZipCode_h:{
-								required:"Por favor, introduzca un c&oacute;digo postal v&aacute;lido.",
-								number:"Por favor, introduzca s&oacute;lo n&uacute;meros.",
-								minlength:"Debe de contener al menos cinco d&iacute;gitos.",
-								maxlength:"Debe contener m&aacute;ximo seis d&iacute;gitos."
-								},
-							txt_contactProvince_h:"Por favor, introduzca una Provincia o Estado."
-						}
-			});
+
+    		$("#danoincidental").hide();
+
 			$(".selectSearch").select2({
 					placeholder: "Asignar a...",
 					allowClear: true
 			});
 			$(".addmore").on('click',function(){
-				count=$('table tr').length;
+				count=$('.tableAttach tr').length;
 				
-			    var data="<tr><td><input type='checkbox' class='case'/></td><td><span id='snum"+i+"'>"+count+".</span></td>";
-			    data +="<td><input type='text' id='countryname_"+i+"' name='countryname[]'/></td> <td><input type='text' id='country_no_"+i+"' name='country_no[]'/></td><td><input type='text' id='phone_code_"+i+"' name='phone_code[]'/></td><td><input type='text' id='country_code_"+i+"' name='country_code[]'/></td></tr>";
-				$('table').append(data);
+			    var data="<tr>";
+			    	data += "<td><input id='ofd_SOAttachment_h_"+i+"' class='file-loading' type='file' name='ofd_SOAttachement_h[]'/></td>";
+			    	data += "</tr>";
+				$('.tableAttach').append(data);
 				row = i ;
-				$('#countryname_'+i).autocomplete({
-		      	source: function( request, response ) {
-		      		$.ajax({
-		      			url : 'ajax.php',
-		      			dataType: "json",
-						data: {
-						   name_startsWith: request.term,
-						   type: 'country_table',
-						   row_num : row
-						},
-						 success: function( data ) {
-							 response( $.map( data, function( item ) {
-							 	var code = item.split("|");
-								return {
-									label: code[0],
-									value: code[0],
-									data : item
-								}
-							}));
-						}
-		      		});
-		      	},
-		      	autoFocus: true,	      	
-		      	minLength: 0,
-		      	select: function( event, ui ) {
-					var names = ui.item.data.split("|");
-					console.log(names[1], names[2], names[3]);						
-					$('#country_no_'+row).val(names[1]);
-					$('#phone_code_'+row).val(names[2]);
-					$('#country_code_'+row).val(names[3]);
-				}		      	
-		      });
 				i++;
 			});
+			$(".delete").on('click', function() {
+				//Obtenemos el total de columnas de la tabla
+				var trs=$(".tableAttach tr").length;
+				if (trs>1){
+					$(".tableAttach tr:last").remove();
+				}
+				/*$('.case:checkbox:checked').parents("tr").remove();
+			    $('.check_all').prop("checked", false); 
+				check();*/
+			});
+			$(".addmoreDI").on('click',function(){
+				count=$('.tableDanoI tr').length;
+				
+			    var data="<tr>";
+			    	data += "<td><input type='file' id='ofd_SOAttachDanoI_h_"+i+"' class='file-loading' name='ofd_SOAttachDanoI_h[]'/></td>";
+			    	data += "</tr>";
+				$('.tableDanoI').append(data);
+				row = i ;
+				i++;
+			});
+			$(".deleteDI").on('click', function() {
+				//Obtenemos el total de columnas de la tabla
+				var trs=$(".tableDanoI tr").length;
+				if (trs>1){
+					$(".tableDanoI tr:last").remove();
+				}
+				/*$('.case:checkbox:checked').parents("tr").remove();
+			    $('.check_all').prop("checked", false); 
+				check();*/
+			});
+			$("#btn_showdanoincidental_h").on(
+					'click',function(){
+						$("#danoincidental").show("slow");
+					}
+			);
+			$("#frm_SO_h").validate({
+			      rules: {
+						slt_fkCollectMethod_h:	{
+							required:true,
+							min:0
+						},
+						tta_SODeviceCondition_h: {
+							required:true
+						},
+						tta_SOTechDetail_h:{
+							required:true
+						},
+						txt_contactPhone_h:{
+							required:true,
+							number:true,
+							minlength:10,
+							maxlength:15
+					    },
+						txt_contactMovil_h:{
+							required:true,
+							number:true,
+							minlength:10,
+							maxlength:15
+						},
+						txt_contactName_h:{
+							required:true,
+							minlength: 2
+						},
+						txt_contactEmail_h:{
+							required:true,
+							email:true
+						},
+						txt_contactAddress_h:{
+							required:true
+						},
+						txt_contactLocation_h:{
+							required:true
+						},
+						txt_contactCounty_h:{
+							required:true
+						},
+						txt_contactZipCode_h:{
+							required:true,
+							number:true,
+							minlength:5,
+							maxlength:6
+						},
+						txt_contactProvince_h:{
+							required:true
+						}
+                  },
+					messages:{
+						slt_fkCollectMethod_h: "Por favor, selecciona un m&eacute;todo de recollecci&oacute;n.",
+						tta_SODeviceCondition_h: "Por favor, especifique la condici&oacute;n actual del equipo.",
+						tta_SOTechDetail_h:"Por favor, especifique la condici&oacute;n t&eacute;cnica del equipo.",
+						txt_contactPhone_h:{
+							required:"Por favor, introduzca un n&uacute;mero de tel&eacute;fono.",
+							number:"Por favor, introduzca s&oacute;lo n&uacute;meros.",
+							minlength:"Debe de contener al menos diez d&iacute;gitos.",
+							maxlength:"Debe contener m&aacute;ximo diez d&iacute;gitos."
+						},
+						txt_contactMovil_h:{
+							required:"Por favor, introduzca un n&uacute;mero de tel&eacute;fono.",
+							matches:"Por favor, introduzca s&oacute;lo n&uacute;meros.",
+							minlength:"Debe de contener al menos diez d&iacute;gitos.",
+							maxlength:"Debe contener m&aacute;ximo diez d&iacute;gitos."
+						},
+						txt_contactName_h:{
+							required:"Por favor, introduzca el nombre del contacto.",
+							minlength:"Por favor, escriba un verdadero nombre."
+					    },
+						txt_contactEmail_h:"Por favor, introduzca un email v&aacute;lido.",
+						txt_contactAddress_h:"Por favor, introduzca un direcci&oacute;n v&aacute;lida.",
+						txt_contactLocation_h:"Por favor, introduzca una Colonia.",
+						txt_contactCounty_h:"Por favor, introduzca un municipio o delegaci&oacute;n.",
+						txt_contactZipCode_h:{
+							required:"Por favor, introduzca un c&oacute;digo postal v&aacute;lido.",
+							number:"Por favor, introduzca s&oacute;lo n&uacute;meros.",
+							minlength:"Debe de contener al menos cinco d&iacute;gitos.",
+							maxlength:"Debe contener m&aacute;ximo seis d&iacute;gitos."
+							},
+						txt_contactProvince_h:"Por favor, introduzca una Provincia o Estado."
+					}
+		});
 		});	
 	
 		function ObjJ2ObjP(object){

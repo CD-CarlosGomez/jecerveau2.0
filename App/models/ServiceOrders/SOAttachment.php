@@ -5,7 +5,7 @@ defined("APPPATH") OR die("Access denied");
 use \Core\Database;
 use \App\Interfaces\iCrud;
 
-class SODetails implements iCrud{
+class SOAttachment implements iCrud{
 	private static $_pkSODetail=Null;
 	private static $_fkSorder=Null;
 	private static $_fkOsstatus=Null;
