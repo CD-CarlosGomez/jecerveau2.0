@@ -17,6 +17,7 @@ use \App\Models\ServiceOrders\ServiceOrders 	as SO;
 use \App\Models\ServiceOrders\CollectMethods 	as CM;
 use \App\Models\ServiceOrders\SoTypes 			as SOT;
 use \App\Models\ServiceOrders\SOAccessories 	as SOA;
+use \App\Models\ServiceOrders\SOAttachment		as SOAt;
 use \APP\Models\ServiceOrders\SODetails 		as SOD;
 use \App\Models\ServiceOrders\SOLogs			as SOL;
 use \App\Models\Contacts\Contacts 				as Co;
@@ -412,6 +413,44 @@ class ServiceOrder extends Controller{
 				}
 	}
 	function Diagnose(){
+		$currentSO=$_POST['hdn_currentSO_h'];
 		
+		$sod=new SOD();
+		$nextSODpk=$sod->getNextId('pkSODetail','sodetail');
+		$sod->setPKSODetail($nextSODpk);
+		$sod->setFKSorder($currentSO);
+		$sod->setOsstatus(3);
+		$sod->setSODetailDesc($_POST["tta_SODDesc_h"]);
+		if($_POST["tta_SODObs_h"]){
+			$sod->setSODetailObs($_POST["tta_SODObs_h"]);
+		}
+		else{
+			$sod->setSODetailObs("");
+		}
+		$sod->setFKiBUser($_SESSION['pkiBUser_p']);
+		
+		if($sod->insertData("sodetail")){
+				$sol=new SOL();
+				$nextSOLpk=$sod->getNextId('pkSOlog','solog');
+				$sol->setPKSOLog($nextSOLpk);
+				$sol->setFKSODetail($nextSODpk);
+				$sol-> setFKiBUser($_SESSION['pkiBUser_p']);
+				$sol->insertData('solog');
+
+		}
+
+		$files=$_FILES["ofd_SOAttachment_h"]["name"];
+		$upload = new Ml();
+		$isUpload = $upload->upFiles($files,'ofd_SOAttachment_h');
+			
+			
+		$soat=new SOAt();
+		$nextpkSoat=$soat->getNextId("pkSOrderAttachment","sorderattachment");
+		$soat->setPKSOAttach($nextpkSoat);
+		$soat->setFKSorder($currentSO);
+		$soat->setSOAttachLink("test1");
+		
+
+
 	}
 ?>

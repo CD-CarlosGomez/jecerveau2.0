@@ -397,6 +397,7 @@ use \Core\Controller;
 														<p><h3>Diagn&oacute;stico t&eacute;cnico</h3></p>
 														<p>
 																<form id="frm_SO_h" class="form-horizontal" action="<?php echo $url; ?>private/ServiceOrder"   accept-charset="utf-8" enctype="multipart/form-data"  method="POST" name="frm_SO_h">
+																		<input type="hidden" id="" value="<?php echo $currentSO ?>" name="hdn_currentSO_h">
 																		<fieldset>
 																			<div class="row">	
 																				<div class="col-md-6">
@@ -423,7 +424,7 @@ use \Core\Controller;
 																							  </tr>
 																							  <tr>
 																							    <td>
-																							    	<input type="file" id="ofd_SOAttachment_h"  class="file-loading" multiple name="ofd_SOAttachement_h[]">
+																							    	<input type="file" id="ofd_SOAttachment_h"  class="file-loading" multiple name="ofd_SOAttachment_h[]">
 																							    </td>
 																							  </tr>
 																					</table>																						
@@ -532,7 +533,7 @@ use \Core\Controller;
 				count=$('.tableAttach tr').length;
 				
 			    var data="<tr>";
-			    	data += "<td><input id='ofd_SOAttachment_h_"+i+"' class='file-loading' type='file' name='ofd_SOAttachement_h[]'/></td>";
+			    	data += "<td><input id='ofd_SOAttachment_h_"+i+"' class='file-loading' type='file' name='ofd_SOAttachment_h[]'/></td>";
 			    	data += "</tr>";
 				$('.tableAttach').append(data);
 				row = i ;

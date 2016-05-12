@@ -114,7 +114,7 @@ class SODetails implements iCrud{
 	public static function insertData($table){
 		try {
             $connection = Database::instance();
-            $sql = "INSERT INTO $table VALUES (?,?,?,?,?)";
+            $sql = "INSERT INTO $table VALUES (?,?,?,?,?,?)";
             $query = $connection->prepare($sql);
             $query->bindParam(1, self::$_pkSODetail, \PDO::PARAM_INT);
 			$query->bindParam(2, self::$_fkSorder, \PDO::PARAM_INT);

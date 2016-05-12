@@ -6,18 +6,15 @@ use \Core\Database;
 use \App\Interfaces\iCrud;
 
 class SOAttachment implements iCrud{
-	private static $_pkSODetail=Null;
+	private static $_pkSOAttach=Null;
 	private static $_fkSorder=Null;
-	private static $_fkOsstatus=Null;
-	private static $_SODetailDesc=Null;
-	private static $_SODetailObs=Null;
-	private static $_fkiBUser=Null;
+	private static $_SOAttachLink=Null;
 //PROPIEDADES########################################
-	public static function getPKSODetail(){
-		return self::$_pkSODetail;
+	public static function getPKSOAttach(){
+		return self::$_pkSOAttach;
 	}
-	public static function setPKSODetail($value){
-		self::$_pkSODetail=$value;
+	public static function setPKSOAttach($value){
+		self::$_pkSOAttach=$value;
 	}
 	public static function getFKSorder(){
 		return self::$_fkSorder;
@@ -25,29 +22,11 @@ class SOAttachment implements iCrud{
 	public static function setFKSorder($value){
 		self::$_fkSorder=$value;
 	}
-	public static function setOsstatus($valor){
-		self::$_fkOsstatus=$valor;
+	public static function setSOAttachLink($valor){
+		self::$_SOAttachLink=$valor;
 	}
-	public static function getOsstatus()	{
-		return self::$_fkOsstatus;
-	}
-	public static function setSODetailDesc($valor){
-		self::$_SODetailDesc=$valor;
-	}
-	public static function getSODetailDesc(){
-		return self::$_SODetailDesc;
-	}
-	public static function setSODetailObs($valor){
-		self::$_SODetailObs=$valor;
-	}
-	public static function getSODetailObs(){
-		return self::$_SODetailObs;
-	}
-	public static function setFKiBUser($valor){
-		self::$_fkiBUser=$valor;
-	}
-	public static function getFKiBUser(){
-		return self::$_fkiBUser;
+	public static function getSOAttachLink()	{
+		return self::$_SOAttachLink;
 	}
 //MÉTODOS ABSTRACTOS#################################
 //CONSTRUCTORES Y DESTRUCTORES#######################
@@ -59,7 +38,7 @@ class SOAttachment implements iCrud{
 	public static function getAll(){
         try {
 			$PDOcnn = Database::instance();
-			$PDOQuery = "SELECT * from sodetail";
+			$PDOQuery = "SELECT * from sorderattachment";
 			$PDOResultSet = $PDOcnn->query($PDOQuery);
 			return $PDOResultSet;
 		}
@@ -114,14 +93,12 @@ class SOAttachment implements iCrud{
 	public static function insertData($table){
 		try {
             $connection = Database::instance();
-            $sql = "INSERT INTO $table VALUES (?,?,?,?,?)";
+            $sql = "INSERT INTO $table VALUES (?,?,?)";
             $query = $connection->prepare($sql);
-            $query->bindParam(1, self::$_pkSODetail, \PDO::PARAM_INT);
+            $query->bindParam(1, self::$_pkSOAttach, \PDO::PARAM_INT);
 			$query->bindParam(2, self::$_fkSorder, \PDO::PARAM_INT);
-			$query->bindParam(3, self::$_fkOsstatus, \PDO::PARAM_INT);
-			$query->bindParam(4, self::$_SODetailDesc, \PDO::PARAM_STR);
-			$query->bindParam(5, self::$_SODetailObs, \PDO::PARAM_STR);
-			$query->bindParam(6, self::$_fkiBUser, \PDO::PARAM_INT);
+			$query->bindParam(3, self::$_SOAttachLink, \PDO::PARAM_STR);
+			
 			$resultSet=$query->execute();
 			
 			return true;//$resultSet;//Retornará True o false, dependiendo si se ejecuta la sentencia.
