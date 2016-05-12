@@ -394,6 +394,8 @@ use \Core\Controller;
 																</fieldset>
 														</form>
 														</p>
+														<hr>
+														<p><h3>Diagn&oacute;stico t&eacute;cnico</h3></p>
 														<p>
 																<form id="frm_SO_h" class="form-horizontal" action="<?php echo $url; ?>private/ServiceOrder"  enctype="multipart/form-data"  method="POST" name="frm_SO_h">
 																		<fieldset>
@@ -404,12 +406,26 @@ use \Core\Controller;
 																										<textarea id="tta_SODeviceCondition_h" class="form-control required" data-provide="markdown" rows="5" name="tta_SODeviceCondition_h"><?php foreach($ds_so as $dr_so){ echo $dr_so["SODeviceCondition"];} ?></textarea>
 																								</div>
 																						</div>
-																						<div class="form-group">
-																								<div class="form-inline">
-																										<input type="file" name="files[]" id="js-upload-files" multiple>
-																								</div>
-																										<button type="submit" class="btn btn-sm btn-primary" id="js-upload-submit">Upload files</button>
-																						</div>
+																						<div class="col-xs-12 col-sm-8 col-md-8 col-xs-offset-4 col-sm-offset-2 col-md-offset-2">
+																							<table class="table table-bordered">
+																							  <tr>
+																							    <th>Country Name</th>
+																							    <th>Country Number</th>
+																							    <th>Country Phone code</th>
+																							    <th>Country code</th>
+																							  </tr>
+																							  <tr>
+																							    <td><input type='text' id='countryname_1' name='countryname[]'/></td>
+																							    <td><input type='text' id='country_no_1' name='country_no[]'/></td>
+																							    <td><input type='text' id='phone_code_1' name='phone_code[]'/></td>
+																							    <td><input type='text' id='country_code_1' name='country_code'/> </td>
+																							  </tr>
+																						</table>
+																						
+																						<button type="button" class='btn btn-danger delete'>- Delete</button>
+																						<button type="button" class='btn btn-success addmore'>+ Add More</button>
+																						</form>
+																					</div>																					
 																				</div>
 																		</fieldset>
 																</form>
@@ -465,7 +481,8 @@ use \Core\Controller;
 		success:"valid"
 		});
         $(document).ready(function(){
-			
+        	var i=$('table tr').length;
+        	
 				$("#frm_SO_h").validate({
 				      rules: {
 							slt_fkCollectMethod_h:	{
@@ -550,10 +567,51 @@ use \Core\Controller;
 							txt_contactProvince_h:"Por favor, introduzca una Provincia o Estado."
 						}
 			});
-				$(".selectSearch").select2({
-						placeholder: "Asignar a...",
-						allowClear: true
-				});
+			$(".selectSearch").select2({
+					placeholder: "Asignar a...",
+					allowClear: true
+			});
+			$(".addmore").on('click',function(){
+				count=$('table tr').length;
+				
+			    var data="<tr><td><input type='checkbox' class='case'/></td><td><span id='snum"+i+"'>"+count+".</span></td>";
+			    data +="<td><input type='text' id='countryname_"+i+"' name='countryname[]'/></td> <td><input type='text' id='country_no_"+i+"' name='country_no[]'/></td><td><input type='text' id='phone_code_"+i+"' name='phone_code[]'/></td><td><input type='text' id='country_code_"+i+"' name='country_code[]'/></td></tr>";
+				$('table').append(data);
+				row = i ;
+				$('#countryname_'+i).autocomplete({
+		      	source: function( request, response ) {
+		      		$.ajax({
+		      			url : 'ajax.php',
+		      			dataType: "json",
+						data: {
+						   name_startsWith: request.term,
+						   type: 'country_table',
+						   row_num : row
+						},
+						 success: function( data ) {
+							 response( $.map( data, function( item ) {
+							 	var code = item.split("|");
+								return {
+									label: code[0],
+									value: code[0],
+									data : item
+								}
+							}));
+						}
+		      		});
+		      	},
+		      	autoFocus: true,	      	
+		      	minLength: 0,
+		      	select: function( event, ui ) {
+					var names = ui.item.data.split("|");
+					console.log(names[1], names[2], names[3]);						
+					$('#country_no_'+row).val(names[1]);
+					$('#phone_code_'+row).val(names[2]);
+					$('#country_code_'+row).val(names[3]);
+				}		      	
+		      });
+				i++;
+			});
 		});	
 	
 		function ObjJ2ObjP(object){
