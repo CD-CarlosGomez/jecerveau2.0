@@ -51,6 +51,8 @@ use \Core\Controller;
 	<link href="<?php echo $url; ?>App/web/css/plugins/jQueryUI/jquery-ui-1.10.4.custom.min.css">
 	
 	<link href="<?php echo $url; ?>App/web/css/plugins/select2/select2.min.css" rel="stylesheet">
+	
+	
     <style>
         #alertmod_table_accessory{
             top: 900px !important;
@@ -424,9 +426,34 @@ use \Core\Controller;
 																							  </tr>
 																							  <tr>
 																							    <td>
-																							    	<input type="file" id="ofd_SOAttachment_h"  class="file-loading required" name="ofd_SOAttachment_h[]">
+																							    	<input type="file" id="ofd_SOAttachment_h"  class="file-loading required fileInput" name="ofd_SOAttachment_h[]">
 																							    </td>
 																							  </tr>
+																					</table>
+																					<br>	
+																					<table class="tableAttach table-bordered">
+																							  <tr>
+																							    <th>Archivos actualmente adjuntados</th>
+																							  </tr>
+																							  <?php 
+																							  	$dir = "../App/web/media/upload/files/$currentSO/";
+																							  	if (is_dir($dir)) { 
+																								    if ($gd = opendir($dir)) { 
+																								        while (($archivo = readdir($gd)) !== false) { 
+																								            if (($archivo != ".") && ($archivo != "..")){ 
+																								?>
+																							  <tr>
+																							    <td>
+																							    	<?php echo $archivo; ?>
+																							    </td>
+																							  </tr>
+																							  <?php 
+																							  				}
+																							  			}
+																							  			closedir($gd);
+																							  		}
+																							  	}
+																							   ?>
 																					</table>																						
 																				</div>
 																			</div>
@@ -436,7 +463,7 @@ use \Core\Controller;
 																						<div class="form-group">
 																								<label class="col-lg-4 control-label">Descripci&oacute;n del da&ntilde;o:</label>
 																								<div class="col-lg-8">
-																										<textarea id="tta_SODObs_h" class="form-control required" data-provide="markdown" rows="5" name="tta_SODObs_h"></textarea>
+																										<textarea id="tta_SODObs_h" class="form-control required " data-provide="markdown" rows="5" name="tta_SODObs_h"></textarea>
 																								</div>
 																						</div>
 																				</div>
@@ -450,7 +477,7 @@ use \Core\Controller;
 																							  </tr>
 																							  <tr>
 																							    <td>
-																							    	<input type="file" id="ofd_SOAttachDanoI_h"  class="file-loading required" name="ofd_SOAttachDanoI_h[]">
+																							    	<input type="file" id="ofd_SOAttachDanoI_h"  class="file-loading required fileInput" name="ofd_SOAttachDanoI_h[]">
 																							    </td>
 																							  </tr>
 																					</table>																																											
@@ -513,6 +540,7 @@ use \Core\Controller;
     <script src="<?php echo $url; ?>App/web/js/plugins/peity/jquery.peity.min.js"></script>
 	 <!-- Select2 -->
     <script src="<?php echo $url; ?>App/web/js/plugins/select2/select2.full.min.js"></script>
+   
     <script type="text/javascript">
 		$.validator.setDefaults({
 		submitHandler: function(form) {
@@ -521,7 +549,10 @@ use \Core\Controller;
 		/*debug:true,
 		success:"valid"*/
 		});
-        $(document).ready(function(){
+		
+		
+		$(document).ready(function(){
+			
 			//Obtenemos el valor total de filas contenidas actualmente en la tabla.
         		var i=$('table tr').length;
 			//Ocultamos los inputs del daño incidental
@@ -541,8 +572,8 @@ use \Core\Controller;
 				$(".addmore").on('click',function(){
 					count=$('.tableAttach tr').length;
 					
-				    var data="<tr>";
-				    	data += "<td><input id='ofd_SOAttachment_h_"+i+"' class='file-loading' type='file' name='ofd_SOAttachment_h[]'/></td>";
+				    var data = "<tr>";
+				    	data += '<td><input type="file" id="ofd_SOAttachment_h_' + i + '" class="file-loading required fileInput" name="ofd_SOAttachment_h[]"></td>';
 				    	data += "</tr>";
 					$('.tableAttach').append(data);
 					row = i ;
@@ -551,7 +582,7 @@ use \Core\Controller;
 				$(".addmoreDI").on('click',function(){
 					count=$('.tableDanoI tr').length;
 				    var data="<tr>";
-			    	data += "<td><input type='file' id='ofd_SOAttachDanoI_h_"+i+"' class='file-loading' name='ofd_SOAttachDanoI_h[]'/></td>";
+			    	data += '<td><input type="file" id="ofd_SOAttachDanoI_h_' + i + '" class="file-loading required fileInput" name="ofd_SOAttachDanoI_h[]"></td>';
 			    	data += "</tr>";
 					$('.tableDanoI').append(data);
 					row = i ;
@@ -578,44 +609,53 @@ use \Core\Controller;
 			    	$('.check_all').prop("checked", false); 
 					check();*/
 				});
-			$("#btn_showdanoincidental_h").on(
-					'click',function(){
-						$("#danoincidental").show("slow");
-					}
-			);
+			//Mostrar y ocultar div daño incidental
+				$(function(){
+					$("#btn_showdanoincidental_h").on(
+						'click',function(){
+							if($('#danoincidental').is(":visible")){
+								$("#danoincidental").hide("slow");
+							}else{
+								$("#danoincidental").show("slow");		
+							}
+						}
+					);
+				});
+			//Mostramos los files input
 			
-			$("#frm_SOAt_h").validate(
-			{
-				rules:{
-					tta_SODDesc_h:{
-						required : true,
-						minlength : 2
+			//Validar formulario de diagnóstico
+				$("#frm_SOAt_h").validate(
+				{
+					rules:{
+						tta_SODDesc_h:{
+							required : true,
+							minlength : 2
+						},
+						'ofd_SOAttachment_h[]' : {
+							required : true
+						},
+						tta_SODObs_h:{
+							required : "#danoincidental:visible",
+							minlength : 2
+						},
+						'ofd_SOAttachDanoI_h[]' : {
+							required : "#danoincidental:visible"
+						}
 					},
-					'ofd_SOAttachment_h[]' : {
-						required : true
-					},
-					tta_SODObs_h:{
-						required : "#danoincidental:visible",
-						minlength : 2
-					},
-					'ofd_SOAttachDanoI_h[]' : {
-						required : "#danoincidental:visible"
+					messages :{
+						tta_SODDesc_h : {
+							required : "Por favor, introduzca el diagn&oacute;stico t&eacute;cnico del dispositivo.",
+							minlength : "Por favor, escriba un verdadero diagn&oacute;stico t&eacute;cnico."					
+						},
+						'ofd_SOAttachment_h[]' :  "Favor de seleccionar un archivo para subir.",
+						tta_SODObs_h:{
+							required : "Usted ha seleccionado que el equipo presenta un da&ntilde;o incidental, favor de describirlo.",
+							minlength : "Por favor, escriba una verdadera descripci&oacute;n de da&ntilde;o incidental."
+						},
+						'ofd_SOAttachDanoI_h[]' :  "Favor de seleccionar un archivo para subir."
 					}
-				},
-				messages :{
-					tta_SODDesc_h : {
-						required : "Por favor, introduzca el diagn&oacute;stico t&eacute;cnico del dispositivo.",
-						minlength : "Por favor, escriba un verdadero diagn&oacute;stico t&eacute;cnico."					
-					},
-					'ofd_SOAttachment_h[]' :  "Favor de seleccionar un archivo para subir.",
-					tta_SODObs_h:{
-						required : "Usted ha seleccionado que el equipo presenta un da&ntilde;o incidental, favor de describirlo.",
-						minlength : "Por favor, escriba una verdadera descripci&oacute;n de da&ntilde;o incidental."
-					},
-					'ofd_SOAttachDanoI_h[]' :  "Favor de seleccionar un archivo para subir."
-				}
-			}		
-			);
+				}		
+				);
 			
 			
 						
