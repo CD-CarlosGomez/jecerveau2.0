@@ -396,7 +396,7 @@ use \Core\Controller;
 														<hr>
 														<p><h3>Diagn&oacute;stico t&eacute;cnico</h3></p>
 														<p>
-																<form id="frm_SO_h" class="form-horizontal" action="<?php echo $url; ?>private/ServiceOrder"   accept-charset="utf-8" enctype="multipart/form-data"  method="POST" name="frm_SO_h">
+																<form id="frm_SOAt_h" class="form-horizontal" action="<?php echo $url; ?>private/ServiceOrder"   accept-charset="utf-8" enctype="multipart/form-data"  method="POST" name="frm_SOAt_h">
 																		<input type="hidden" id="" value="<?php echo $currentSO ?>" name="hdn_currentSO_h">
 																		<fieldset>
 																			<div class="row">	
@@ -513,11 +513,11 @@ use \Core\Controller;
     <script src="<?php echo $url; ?>App/web/js/plugins/select2/select2.full.min.js"></script>
     <script type="text/javascript">
 		$.validator.setDefaults({
-		/*submitHandler: function() {
-			alert("submitted!");
-		}*/
-		debug:true,
-		success:"valid"
+		submitHandler: function(form) {
+			form.submit();
+		}
+		/*debug:true,
+		success:"valid"*/
 		});
         $(document).ready(function(){
 
@@ -574,6 +574,27 @@ use \Core\Controller;
 						$("#danoincidental").show("slow");
 					}
 			);
+			
+			/*$("#frm_SOAt_h").validate(
+			{
+				rules:{
+					field:{
+						required:true,
+						step:2
+					}
+				}
+			}		
+			);*/
+			
+			$(function(){
+				$("input[type='submit']").click(function(){
+					var $fileUpload = $("input[type='file']");
+					if (parseInt($fileUpload.get(0).files.length)>1){
+					alert("S&oacute;lo puedes elegir un archivo por campo.");
+				}
+				});    
+			});
+			
 			$("#frm_SO_h").validate({
 			      rules: {
 						slt_fkCollectMethod_h:	{
