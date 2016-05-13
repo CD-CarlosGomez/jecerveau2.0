@@ -1,7 +1,7 @@
 <?php
-#Agregar los select de las llaves for·neas
-#16.3.26 mensaje modal de confirmaciÛn de movimiento CRUD
-#16.3.29 incluir en la sesiÛn el BO
+#Agregar los select de las llaves forÔøΩneas
+#16.3.26 mensaje modal de confirmaciÔøΩn de movimiento CRUD
+#16.3.29 incluir en la sesiÔøΩn el BO
 namespace App\View;
 defined("APPPATH") OR die("Access denied");
 use \Core\View;
@@ -396,7 +396,7 @@ use \Core\Controller;
 														<hr>
 														<p><h3>Diagn&oacute;stico t&eacute;cnico</h3></p>
 														<p>
-																<form id="frm_SO_h" class="form-horizontal" action="<?php echo $url; ?>private/ServiceOrder"   accept-charset="utf-8" enctype="multipart/form-data"  method="POST" name="frm_SO_h">
+																<form id="frm_SOAt_h" class="form-horizontal" action="<?php echo $url; ?>private/ServiceOrder"   accept-charset="utf-8" enctype="multipart/form-data"  method="POST" name="frm_SOAt_h">
 																		<input type="hidden" id="" value="<?php echo $currentSO ?>" name="hdn_currentSO_h">
 																		<fieldset>
 																			<div class="row">	
@@ -424,13 +424,14 @@ use \Core\Controller;
 																							  </tr>
 																							  <tr>
 																							    <td>
-																							    	<input type="file" id="ofd_SOAttachment_h"  class="file-loading" multiple name="ofd_SOAttachment_h[]">
+																							    	<input type="file" id="ofd_SOAttachment_h"  class="file-loading required" name="ofd_SOAttachment_h[]">
 																							    </td>
 																							  </tr>
 																					</table>																						
 																				</div>
 																			</div>
-																			<div id="danoincidental" class="row">	
+																			<div id="danoincidental" class="row">
+																				<fieldset id="fls_danoincidental_h">	
 																				<div class="col-md-6">
 																						<div class="form-group">
 																								<label class="col-lg-4 control-label">Descripci&oacute;n del da&ntilde;o:</label>
@@ -449,11 +450,12 @@ use \Core\Controller;
 																							  </tr>
 																							  <tr>
 																							    <td>
-																							    	<input type="file" id="ofd_SOAttachDanoI_h"  class="file-loading" multiple name="ofd_SOAttachDanoI_h[]">
+																							    	<input type="file" id="ofd_SOAttachDanoI_h"  class="file-loading required" name="ofd_SOAttachDanoI_h[]">
 																							    </td>
 																							  </tr>
 																					</table>																																											
 																				</div>
+																				</fieldset>
 																			</div>
 																			<div class="row">
 																				<div class="col-md-6">
@@ -513,67 +515,110 @@ use \Core\Controller;
     <script src="<?php echo $url; ?>App/web/js/plugins/select2/select2.full.min.js"></script>
     <script type="text/javascript">
 		$.validator.setDefaults({
-		/*submitHandler: function() {
-			alert("submitted!");
-		}*/
-		debug:true,
-		success:"valid"
+		submitHandler: function(form) {
+			form.submit();
+		}
+		/*debug:true,
+		success:"valid"*/
 		});
         $(document).ready(function(){
-
-        	var i=$('table tr').length;
-
-    		$("#danoincidental").hide();
-
-			$(".selectSearch").select2({
+			//Obtenemos el valor total de filas contenidas actualmente en la tabla.
+        		var i=$('table tr').length;
+			//Ocultamos los inputs del da√±o incidental
+    			$("#danoincidental").hide();
+    		//Habilitamos e inhabilitamos los inputs seg√∫n si son visibles o no
+				var initial;
+				$('#danoincidental').is(":visible")? initial = true :	initial =false;
+				var fls_danoincidental_j = $("#fls_danoincidental_h");
+				var fls_danoincidentalInputs_j=fls_danoincidental_j.find("input").attr("disabled",initial);
+				$("#tta_SODObs_h").attr("disabled",initial);
+			//cargamos los usuarios en el select2
+				$(".selectSearch").select2({	
 					placeholder: "Asignar a...",
 					allowClear: true
-			});
-			$(".addmore").on('click',function(){
-				count=$('.tableAttach tr').length;
-				
-			    var data="<tr>";
-			    	data += "<td><input id='ofd_SOAttachment_h_"+i+"' class='file-loading' type='file' name='ofd_SOAttachment_h[]'/></td>";
-			    	data += "</tr>";
-				$('.tableAttach').append(data);
-				row = i ;
-				i++;
-			});
-			$(".delete").on('click', function() {
-				//Obtenemos el total de columnas de la tabla
-				var trs=$(".tableAttach tr").length;
-				if (trs>1){
-					$(".tableAttach tr:last").remove();
-				}
-				/*$('.case:checkbox:checked').parents("tr").remove();
-			    $('.check_all').prop("checked", false); 
-				check();*/
-			});
-			$(".addmoreDI").on('click',function(){
-				count=$('.tableDanoI tr').length;
-				
-			    var data="<tr>";
+				});
+			//Agregar fila a la tabla para el file input
+				$(".addmore").on('click',function(){
+					count=$('.tableAttach tr').length;
+					
+				    var data="<tr>";
+				    	data += "<td><input id='ofd_SOAttachment_h_"+i+"' class='file-loading' type='file' name='ofd_SOAttachment_h[]'/></td>";
+				    	data += "</tr>";
+					$('.tableAttach').append(data);
+					row = i ;
+					i++;
+				});
+				$(".addmoreDI").on('click',function(){
+					count=$('.tableDanoI tr').length;
+				    var data="<tr>";
 			    	data += "<td><input type='file' id='ofd_SOAttachDanoI_h_"+i+"' class='file-loading' name='ofd_SOAttachDanoI_h[]'/></td>";
 			    	data += "</tr>";
-				$('.tableDanoI').append(data);
-				row = i ;
-				i++;
-			});
-			$(".deleteDI").on('click', function() {
-				//Obtenemos el total de columnas de la tabla
-				var trs=$(".tableDanoI tr").length;
-				if (trs>1){
-					$(".tableDanoI tr:last").remove();
-				}
+					$('.tableDanoI').append(data);
+					row = i ;
+					i++;
+				});
+			//Elimiar √∫ltima fila
+				$(".delete").on('click', function() {
+					//Obtenemos el total de columnas de la tabla
+					var trs=$(".tableAttach tr").length;
+					if (trs>1){
+						$(".tableAttach tr:last").remove();
+					}
 				/*$('.case:checkbox:checked').parents("tr").remove();
 			    $('.check_all').prop("checked", false); 
 				check();*/
-			});
+				});
+				$(".deleteDI").on('click', function() {
+					//Obtenemos el total de columnas de la tabla
+					var trs=$(".tableDanoI tr").length;
+					if (trs>1){
+						$(".tableDanoI tr:last").remove();
+					}
+					/*$('.case:checkbox:checked').parents("tr").remove();
+			    	$('.check_all').prop("checked", false); 
+					check();*/
+				});
 			$("#btn_showdanoincidental_h").on(
 					'click',function(){
 						$("#danoincidental").show("slow");
 					}
 			);
+			
+			$("#frm_SOAt_h").validate(
+			{
+				rules:{
+					tta_SODDesc_h:{
+						required : true,
+						minlength : 2
+					},
+					'ofd_SOAttachment_h[]' : {
+						required : true
+					},
+					tta_SODObs_h:{
+						required : "#danoincidental:visible",
+						minlength : 2
+					},
+					'ofd_SOAttachDanoI_h[]' : {
+						required : "#danoincidental:visible"
+					}
+				},
+				messages :{
+					tta_SODDesc_h : {
+						required : "Por favor, introduzca el diagn&oacute;stico t&eacute;cnico del dispositivo.",
+						minlength : "Por favor, escriba un verdadero diagn&oacute;stico t&eacute;cnico."					
+					},
+					'ofd_SOAttachment_h[]' :  "Favor de seleccionar un archivo para subir.",
+					tta_SODObs_h:{
+						required : "Usted ha seleccionado que el equipo presenta un da&ntilde;o incidental, favor de describirlo.",
+						minlength : "Por favor, escriba una verdadera descripci&oacute;n de da&ntilde;o incidental."
+					},
+					'ofd_SOAttachDanoI_h[]' :  "Favor de seleccionar un archivo para subir."
+				}
+			}		
+			);
+			
+			
+						
 			$("#frm_SO_h").validate({
 			      rules: {
 						slt_fkCollectMethod_h:	{

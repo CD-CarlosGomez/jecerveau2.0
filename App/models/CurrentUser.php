@@ -17,7 +17,7 @@ class CurrentUser {
 //REQUEST############################################
 //CONSTANTES#########################################
 //ATRIBUTOS##########################################
-	public static $pMainMenu;
+	public $pMainMenu;
 	public static $ppkiBUser_p;
 	public static $currenBO;
 	private static $_instancia;

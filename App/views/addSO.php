@@ -396,7 +396,7 @@ use \Core\Controller;
     <script type="text/javascript">
 		$.validator.setDefaults({
 				submitHandler: function(form) {
-					form.submitt();
+					form.submit();
 				}
 		});
         $(document).ready(function(){

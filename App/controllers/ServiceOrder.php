@@ -441,14 +441,16 @@ class ServiceOrder extends Controller{
 
 		$files=$_FILES["ofd_SOAttachment_h"]["name"];
 		$upload = new Ml();
-		$isUpload = $upload->upFiles($files,'ofd_SOAttachment_h');
+		$isUpload = $upload->upFiles('ofd_SOAttachment_h','Archivo_',$currentSO,$files);
 			
 			
-		$soat=new SOAt();
-		$nextpkSoat=$soat->getNextId("pkSOrderAttachment","sorderattachment");
-		$soat->setPKSOAttach($nextpkSoat);
-		$soat->setFKSorder($currentSO);
-		$soat->setSOAttachLink("test1");
+		if($_POST["tta_SODObs_h"]){
+			$filesDI=$_FILES["ofd_SOAttachDanoI_h"]["name"];
+			$upload2=new Ml();
+			$isUpload = $upload2->upFiles('ofd_SOAttachDanoI_h','DanoIncidental_',$currentSO,$files);
+			
+		}
+		
 		
 
 
