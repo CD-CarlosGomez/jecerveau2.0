@@ -390,6 +390,7 @@ use \Core\Controller;
 																						<label class="col-lg-4 control-label">Asignar:</label>
 																						<div class="input-group col-lg-8">
 																								<select id="slt_pkEmployee_h" class="selectSearch required" style="width:350px;" name="slt_pkEmployee_h">
+																										 <option></option>
 																										<?php
 																										foreach ($dt_Us as $datarow) {
 																											if($datarow['pkiBUser']==$currentUserAssigned){
@@ -430,10 +431,11 @@ use \Core\Controller;
 																						<div class="form-group">
 																								<label class="col-lg-4 control-label">Dian&oacute;stico:</label>
 																								<div class="col-lg-8">
-																										<?php foreach($ds_sod as $dr_sod){	 $diagnose= trim($dr_sod["SODetailDesc"]);}?>
-																										<textarea id="tta_SODDesc_h" class="form-control required" data-provide="markdown" rows="5" name="tta_SODDesc_h">
-																											<?php echo $diagnose; ?>
-																										</textarea>
+																										<textarea id="tta_SODDesc_h" class="form-control required" data-provide="markdown" rows="5" cols="80" name="tta_SODDesc_h"><?php 
+																										if ($tabActive==2){
+																											foreach($ds_sod as $dr_sod){	 echo trim(@$dr_sod["SODetailDesc"]);}
+																										}
+																										?></textarea>
 																								</div>
 																						</div>
 																						<div class="form-group">
@@ -453,7 +455,7 @@ use \Core\Controller;
 																							  </tr>
 																							  <tr>
 																							    <td>
-																							    	<input type="file" id="ofd_SOAttachment_h"  class="file-loading required fileInput" name="ofd_SOAttachment_h[]">
+																							    	<input type="file" id="ofd_SOAttachment_h"  class="file-loading fileInput" name="ofd_SOAttachment_h[]">
 																							    </td>
 																							  </tr>
 																					</table>
@@ -490,9 +492,11 @@ use \Core\Controller;
 																						<div class="form-group">
 																								<label class="col-lg-4 control-label">Descripci&oacute;n del da&ntilde;o:</label>
 																								<div class="col-lg-8">
-																										<textarea id="tta_SODObs_h" class="form-control required " data-provide="markdown" rows="5" name="tta_SODObs_h">
-																											
-																										</textarea>
+																										<textarea id="tta_SODObs_h" class="form-control required " data-provide="markdown" rows="5" name="tta_SODObs_h"><?php 
+																											if ($tabActive==2){
+																												foreach($ds_sod as $dr_sod){	 echo trim(@$dr_sod["SODetailObs"]);}
+																											}
+																										?></textarea>
 																								</div>
 																						</div>
 																				</div>
@@ -585,7 +589,15 @@ use \Core\Controller;
 			//Obtenemos el valor total de filas contenidas actualmente en la tabla.
         		var i=$('table tr').length;
 			//Ocultamos los inputs del daño incidental
-    			$("#danoincidental").hide();
+				var flag_incidentalDamage_j="<?php if(isset($ds_sod)){foreach($ds_sod as $dr_sod){	 echo trim($dr_sod["SODetailObs"]);}}?>";
+				
+				if(!flag_incidentalDamage_j){
+					$("#danoincidental").hide();
+				}
+				else{
+					$("#danoincidental").show();
+				}
+    			
     		//Habilitamos e inhabilitamos los inputs según si son visibles o no
 				var initial;
 				$('#danoincidental').is(":visible")? initial = true :	initial =false;
@@ -660,9 +672,9 @@ use \Core\Controller;
 							required : true,
 							minlength : 2
 						},
-						'ofd_SOAttachment_h[]' : {
+						/*'ofd_SOAttachment_h[]' : {
 							required : true
-						},
+						},*/
 						tta_SODObs_h:{
 							required : "#danoincidental:visible",
 							minlength : 2
@@ -676,7 +688,7 @@ use \Core\Controller;
 							required : "Por favor, introduzca el diagn&oacute;stico t&eacute;cnico del dispositivo.",
 							minlength : "Por favor, escriba un verdadero diagn&oacute;stico t&eacute;cnico."					
 						},
-						'ofd_SOAttachment_h[]' :  "Favor de seleccionar un archivo para subir.",
+						/*'ofd_SOAttachment_h[]' :  "Favor de seleccionar un archivo para subir.",*/
 						tta_SODObs_h:{
 							required : "Usted ha seleccionado que el equipo presenta un da&ntilde;o incidental, favor de describirlo.",
 							minlength : "Por favor, escriba una verdadera descripci&oacute;n de da&ntilde;o incidental."

@@ -320,7 +320,7 @@ class ServiceOrder extends Controller{
 				$sod->setOsstatus(0);
 				$sod->setSODetailDesc("Orden creada");
 				$sod->setSODetailObs("");
-				$sod->setFKiBUser($_SESSION['pkiBUser_p']);
+				$sod->setFKiBUser(null);
 				
 				if($sod->insertData("sodetail")){
 						$sol=new SOL();
