@@ -143,9 +143,7 @@ class ServiceOrder extends Controller{
 			View::render("addSO");       
 		
 	}
-	
-
-	public function ViewSO($pkso){
+	public function ViewSO($pkso,$tabActive=1){
 				$arr_gsx_p= array(
 					"serialNumber"=>"C02L71R9FFT1",
 					"warrantyStatus"=>"Out Of Warranty (No Coverage)",
@@ -185,6 +183,7 @@ class ServiceOrder extends Controller{
 					View::set("title", "iBrain>Orden de servicio");
 					View::set("jsn_gsx_p",$jsn_gsx_p);
 					View::set("currentSO",$currentSO);
+					View::set("tabActive",$tabActive);
 				#get_data_variables
 					$currentMainMenu=$cu->getMainMenu2($this->_sesionpkiBUser);
 					$ResultSet_cm=$cm->getAll();
@@ -199,6 +198,10 @@ class ServiceOrder extends Controller{
 					while($row=$ResultSet_soa->fetch(\PDO::FETCH_ASSOC)){
 						$ds_soa[]=$row;
 					}
+					$ResultSet_sod=SOD::getStatusBySO($pkso,3);
+					while($row=$ResultSet_sod->fetch(\PDO::FETCH_ASSOC)){
+						$ds_sod[]=$row;
+					}
 					$ds_Us=Us::getAll();
 					while($row=$ds_Us->fetch(\PDO::FETCH_ASSOC)){
 						$dt_Us[]=$row;
@@ -207,6 +210,7 @@ class ServiceOrder extends Controller{
 					View::set("ds_cm",$ds_cm);
 					View::set("ds_so",$ds_so);
 					View::set("ds_soa",@$ds_soa);
+					View::set("ds_sod",@$ds_sod);
 					View::set("dt_Us",$dt_Us);
 					View::set("currentMainMenu", $currentMainMenu);
 				#render
@@ -409,7 +413,7 @@ class ServiceOrder extends Controller{
 						//$sol->setLogDate(date("Y-m-d H-m-s"));
 						$sol-> setFKiBUser($_SESSION['pkiBUser_p']);
 						$sol->insertData('solog');
-						header("Location:" . $url= Globales::$absoluteURL . 'private/ServiceOrder/ViewSO/' . $_POST['hdn_currentSO_h']);
+						header("Location:" . $url= Globales::$absoluteURL . 'private/ServiceOrder/ViewSO/' . $_POST['hdn_currentSO_h'] . '/2');
 				}
 	}
 	function Diagnose(){
@@ -436,23 +440,17 @@ class ServiceOrder extends Controller{
 				$sol->setFKSODetail($nextSODpk);
 				$sol-> setFKiBUser($_SESSION['pkiBUser_p']);
 				$sol->insertData('solog');
-
-		}
-
-		$files=$_FILES["ofd_SOAttachment_h"]["name"];
-		$upload = new Ml();
-		$isUpload = $upload->upFiles('ofd_SOAttachment_h','Archivo_',$currentSO,$files);
 			
+			$files=$_FILES["ofd_SOAttachment_h"]["name"];
+			$upload = new Ml();
+			$isUpload = $upload->upFiles('ofd_SOAttachment_h','Archivo_',$currentSO,$files);
 			
-		if($_POST["tta_SODObs_h"]){
+			if($_POST["tta_SODObs_h"]){
 			$filesDI=$_FILES["ofd_SOAttachDanoI_h"]["name"];
 			$upload2=new Ml();
 			$isUpload = $upload2->upFiles('ofd_SOAttachDanoI_h','DanoIncidental_',$currentSO,$files);
-			
+			}
+			header("Location:" . $url= Globales::$absoluteURL . 'private/ServiceOrder/ViewSO/' . $_POST['hdn_currentSO_h'] . '/2');
 		}
-		
-		
-
-
 	}
 ?>

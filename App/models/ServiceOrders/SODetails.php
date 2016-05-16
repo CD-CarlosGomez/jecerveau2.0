@@ -49,13 +49,13 @@ class SODetails implements iCrud{
 	public static function getFKiBUser(){
 		return self::$_fkiBUser;
 	}
-//MÉTODOS ABSTRACTOS#################################
+//Mï¿½TODOS ABSTRACTOS#################################
 //CONSTRUCTORES Y DESTRUCTORES#######################
 	public function __construct(){
 	
 	}
-//MÉTODOS MÁGICOS####################################
-//MÉTODOS PÚBLICOS###################################
+//Mï¿½TODOS Mï¿½GICOS####################################
+//Mï¿½TODOS Pï¿½BLICOS###################################
 	public static function getAll(){
         try {
 			$PDOcnn = Database::instance();
@@ -92,6 +92,18 @@ class SODetails implements iCrud{
             print "Error!: " . $e->getMessage();
         }
     }
+	public static function getStatusBySO($pkSO,$stSO){
+		try {
+            $PDOcnn = Database::instance();
+            $PDOQuery = "SELECT * FROM `sodetail` WHERE `fkSorder`=$pkSO AND `fkOSstatus`=$stSO ORDER BY `pkSODetail` DESC LIMIT 1";
+            $PDOResulSet = $PDOcnn->query($PDOQuery);
+			return $PDOResulSet;
+        }
+        catch(\PDOException $e){
+            print "Error!: " . $e->getMessage();
+        }
+		 
+	}
     public static function getNextId($column,$table){
 		try {
 				$cnn=Database::instance();
@@ -108,7 +120,7 @@ class SODetails implements iCrud{
 				return $plusid;
         	}
         catch (\PDOException $e) {
-    		echo 'Incidencia al generar nuevo código ',  $e->getMessage(), ".\n";
+    		echo 'Incidencia al generar nuevo cï¿½digo ',  $e->getMessage(), ".\n";
 		}
 	}
 	public static function insertData($table){
@@ -124,7 +136,7 @@ class SODetails implements iCrud{
 			$query->bindParam(6, self::$_fkiBUser, \PDO::PARAM_INT);
 			$resultSet=$query->execute();
 			
-			return true;//$resultSet;//Retornará True o false, dependiendo si se ejecuta la sentencia.
+			return true;//$resultSet;//Retornarï¿½ True o false, dependiendo si se ejecuta la sentencia.
 		}
         catch(\PDOException $e){
             print "Error!: " . $e->getMessage();
@@ -159,7 +171,7 @@ class SODetails implements iCrud{
             print "Error!: " . $e->getMessage();
         }
 	}
-//MÉTODOS PRIVADOS###################################
+//Mï¿½TODOS PRIVADOS###################################
 //EVENTOS############################################
 //CONTROLES##########################################
 }

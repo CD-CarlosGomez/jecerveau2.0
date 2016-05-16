@@ -184,15 +184,39 @@ use \Core\Controller;
 								</div>
 								<div class="ibox-content">
 										<ul class="nav nav-tabs">
-												<li class="active"><a data-toggle="tab" href="#tab1"><h3>Informaci&oacute;n de la &oacute;rden</h3></a></li>
-												<li><a data-toggle="tab" href="#tab2"><h3>Seguimiento de la &oacute;rden</h3></a></li>
+											<?php
+												switch($tabActive){
+													case "1":
+														$tab1="active";
+														$expanded1="true";
+														$tabshowed1="tab-pane fade active in";
+														$tab2="";
+														$expanded2="false";
+														$tabshowed2="tab-pane fade";
+													break;	
+													case "2":
+														$tab1="";
+														$expanded1="false";
+														$tabshowed1="tab-pane fade";
+														$tab2="active";
+														$expanded2="true";
+														$tabshowed2="tab-pane fade active in";
+													break;
+													/*default:
+														$tab1="Active";
+														$tab2="";*/
+												}
+											?>
+												<li class="<?php echo $tab1; ?>"><a data-toggle="tab" href="#tab1" aria-expanded="<?php echo $expanded1; ?>"><h3>Informaci&oacute;n de la &oacute;rden</h3></a></li>
+												<li class="<?php echo $tab2; ?>"><a data-toggle="tab" href="#tab2" aria-expanded="<?php echo $expanded2; ?>"><h3>Seguimiento de la &oacute;rden</h3></a></li>
 										</ul>
 										<div class="tab-content">
-												<div id="tab1" class="tab-pane fade in active">
+												<div id="tab1" class="<?php echo $tabshowed1; ?>">
 														<p>
 																<form id="frm_SO_h" class="form-horizontal" action="<?php echo $url; ?>private/ServiceOrder"   method="POST" name="frm_SO_h">
 																	<fieldset>
 																		<div class="row">
+																			
 																			<div class="col-md-6">
 																				<div class="form-group">
 																					<label class="col-md-4 control-label">Recolecci&oacute;n:*</label>
@@ -355,7 +379,7 @@ use \Core\Controller;
 																</form>
 														</p>
 												</div>
-												<div id="tab2" class="tab-pane fade">
+												<div id="tab2" class="<?php echo $tabshowed2; ?>">
 														<h3>Asignaci&oacute;n de la &Oacute;rden</h3>
 														<p>
 														<form id="frm_SO_h" class="form-horizontal" action="<?php echo $url; ?>private/ServiceOrder"   method="POST" name="frm_SO_h">
@@ -406,7 +430,10 @@ use \Core\Controller;
 																						<div class="form-group">
 																								<label class="col-lg-4 control-label">Dian&oacute;stico:</label>
 																								<div class="col-lg-8">
-																										<textarea id="tta_SODDesc_h" class="form-control required" data-provide="markdown" rows="5" name="tta_SODDesc_h"></textarea>
+																										<?php foreach($ds_sod as $dr_sod){	 $diagnose= trim($dr_sod["SODetailDesc"]);}?>
+																										<textarea id="tta_SODDesc_h" class="form-control required" data-provide="markdown" rows="5" name="tta_SODDesc_h">
+																											<?php echo $diagnose; ?>
+																										</textarea>
 																								</div>
 																						</div>
 																						<div class="form-group">
@@ -444,7 +471,7 @@ use \Core\Controller;
 																								?>
 																							  <tr>
 																							    <td>
-																							    	<?php echo $archivo; ?>
+																							    	<?php echo '<a href="' . $url . 'App/web/media/upload/files/' . $currentSO . '/' . $archivo . '" target="_blank">' . $archivo . '</a>'; ?>
 																							    </td>
 																							  </tr>
 																							  <?php 
@@ -463,7 +490,9 @@ use \Core\Controller;
 																						<div class="form-group">
 																								<label class="col-lg-4 control-label">Descripci&oacute;n del da&ntilde;o:</label>
 																								<div class="col-lg-8">
-																										<textarea id="tta_SODObs_h" class="form-control required " data-provide="markdown" rows="5" name="tta_SODObs_h"></textarea>
+																										<textarea id="tta_SODObs_h" class="form-control required " data-provide="markdown" rows="5" name="tta_SODObs_h">
+																											
+																										</textarea>
 																								</div>
 																						</div>
 																				</div>
