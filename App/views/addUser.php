@@ -143,7 +143,7 @@ use \Core\Controller;
 														<div class="form-group">
 															<label class="col-md-4 control-label">Contrase&ntilde;a:*</label>
 															<div class="col-md-8">
-																<input id="txt_password_h" class="form-control required" name="txt_password_h" type="text">
+																<input type="password" id="txt_password_h" class="form-control required" name="txt_password_h" >
 															</div>
 														</div>
 														<div class="form-group">
@@ -177,64 +177,7 @@ use \Core\Controller;
 							</div>
                         </div>
                     </div>
-					<!--div class="row">
-						<div class="col-lg-12">
-							<div class="ibox float-e-margins">
-								<div class="ibox-title">
-									<h5>Titulo del ibox </h5>
-									<div class="ibox-tools">
-										<a class="collapse-link">
-											<i class="fa fa-chevron-up"></i>
-										</a>
-										<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-											<i class="fa fa-wrench"></i>
-										</a>
-										<ul class="dropdown-menu dropdown-user">
-											<li><a href="#">Config option 1</a>
-											</li>
-											<li><a href="#">Config option 2</a>
-											</li>
-										</ul>
-										<a class="close-link">
-											<i class="fa fa-times"></i>
-										</a>
-									</div>
-								</div>
-								<div class="ibox-content">
-									Texto
-								</div>
-							</div>
-                        </div>
-					</div>
-					<div class="row">
-						<div class="col-lg-12">
-							<div class="ibox float-e-margins">
-								<div class="ibox-title">
-									<h5>Titulo del ibox </h5>
-									<div class="ibox-tools">
-										<a class="collapse-link">
-											<i class="fa fa-chevron-up"></i>
-										</a>
-										<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-											<i class="fa fa-wrench"></i>
-										</a>
-										<ul class="dropdown-menu dropdown-user">
-											<li><a href="#">Config option 1</a>
-											</li>
-											<li><a href="#">Config option 2</a>
-											</li>
-										</ul>
-										<a class="close-link">
-											<i class="fa fa-times"></i>
-										</a>
-									</div>
-								</div>
-								<div class="ibox-content">
-									Texto
-								</div>
-							</div>
-                        </div>
-					</div-->
+					
 				</div>
 			</div>
 			<div class="footer">

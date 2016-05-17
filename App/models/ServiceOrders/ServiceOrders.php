@@ -136,7 +136,7 @@ class ServiceOrders implements iCrud{
 				return $plusid;
         	}
         catch (\PDOException $e) {
-    		echo 'Incidencia al generar nuevo código ',  $e->getMessage(), ".\n";
+    		echo 'Incidencia al generar nuevo cï¿½digo ',  $e->getMessage(), ".\n";
 		}
 	}
 	public static function getKanbanSO(){
@@ -145,21 +145,39 @@ class ServiceOrders implements iCrud{
 			$PDOQuery=
 			"
 			SELECT 
-				so.pkSOrder,
-				so.SONumber,
-				cc.contactName,
-				so.SODate,
-				max(sod.fkOSstatus) as lastst,
-				u.realname
-			FROM sorder so
-				INNER JOIN customercontact cc
-					ON so.CustomerContact_pkCustomerContact=cc.pkCustomerContact
-				LEFT JOIN sodetail sod
-					ON so.pkSorder=sod.fkSorder
-				LEFT JOIN ibuser u 
-					ON sod.fkiBUser=u.pkiBUser
-			GROUP BY so.pkSorder 
-			ORDER BY so.SODate DESC
+				so2.pkSOrder,
+				so2.SONumber,
+				so2.contactName,
+				so2.SODate,
+		        sos2.SOstatusName,
+				so2.realname
+			FROM sostatus sos2
+				JOIN (
+					SELECT 
+							so.pkSOrder,
+							so.SONumber,
+							cc.contactName,
+							so.SODate,
+			                sod2.lastst,
+							u.realname
+						FROM sorder so
+							INNER JOIN customercontact cc
+								ON so.CustomerContact_pkCustomerContact=cc.pkCustomerContact
+							LEFT JOIN sodetail sod
+								ON so.pkSorder=sod.fkSorder
+							LEFT JOIN ibuser u 
+								ON sod.fkiBUser=u.pkiBUser
+			                JOIN (SELECT 
+			                        pkSOrder, 
+			                        MAX(sod.fkOSstatus) as lastst
+			                    FROM sodetail sod 
+			                        LEFT JOIN sorder so 
+			                            ON pkSorder=sod.fkSorder
+			                    GROUP BY pkSorder) sod2 ON so.pkSorder=sod2.pkSorder
+						GROUP BY so.pkSorder 
+						ORDER BY so.SODate DESC
+					) so2 ON so2.lastst=sos2.pkOSstatus
+			ORDER BY so2.pkSorder
 			";
 			$PDOResultSet = $PDOcnn->query($PDOQuery);
 			return $PDOResultSet;

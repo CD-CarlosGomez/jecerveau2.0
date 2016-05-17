@@ -38,7 +38,7 @@ use \App\data\DataGridView as DGV;
 			'Modelo' => array('header' => 'Device'),
 			'Tipo' => array('header' => 'Tipo'),
 			'realname' => array('header' => 'Asignado a'),
-			'lastst' => array('header' => 'Estatus'),
+			'SOstatusName' => array('header' => 'Estatus'),
 			'SODate' => array('header' => 'Fecha'),
 			'DT' => array('header' => 'DT'),
 			'Due' => array('header' => 'Due'),
