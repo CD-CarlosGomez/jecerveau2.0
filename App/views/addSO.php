@@ -1,7 +1,7 @@
 <?php
-#Agregar los select de las llaves foráneas
-#16.3.26 mensaje modal de confirmación de movimiento CRUD
-#16.3.29 incluir en la sesión el BO
+#Agregar los select de las llaves forï¿½neas
+#16.3.26 mensaje modal de confirmaciï¿½n de movimiento CRUD
+#16.3.29 incluir en la sesiï¿½n el BO
 namespace App\View;
 defined("APPPATH") OR die("Access denied");
 use \Core\View;
@@ -277,55 +277,51 @@ use \Core\Controller;
 																</div>
 																<div class="col-md-6">
 																		<div class="form-group">
-																				<label class="col-lg-4 control-label">Tel&eacute;fono:</label>
-																				<div class="input-group col-lg-7">
-																						<input type="tel" id="txt_contactPhone_h" class="form-control" value="" name="txt_contactPhone_h"/>
-																						<span class="input-group-addon"><i class="fa fa-search"></i></span>
+																				<label class="col-lg-4 control-label">Tel&eacute;fono:*</label>
+																				<div class="col-lg-8">
+																						<input type="tel" id="txt_contactPhone_h" class="form-control" value="" name="txt_contactPhone_h"/>																						
 																				</div>
 																		</div>
 																		<div class="form-group">
-																				<label class="col-lg-4 control-label">M&oacute;vil:</label>
-																				<div class="input-group col-lg-7">
+																				<label class="col-lg-4 control-label">M&oacute;vil:*</label>
+																				<div class="col-lg-8">
 																						<input type="tel" id="txt_contactMovil_h" class="form-control" value="" name="txt_contactMovil_h"/>
-																						<span class="input-group-addon"><i class="fa fa-search"></i></span>
 																				</div>
 																		</div>
 																		<div class="form-group">
-																				<label class="col-lg-4 control-label">Contacto:</label>
-																				<div class="input-group col-lg-7">
+																				<label class="col-lg-4 control-label">Contacto:*</label>
+																				<div class="col-lg-8">
 																						<input type="text" id="txt_contactName_h" class="form-control" value="" name="txt_contactName_h"/>
-																						<span class="input-group-addon"><i class="fa fa-search"></i></span>
 																				</div>
 																		</div>
 																		<div class="form-group">
-																				<label class="col-lg-4 control-label">Correo electr&oacute;nico:</label>
-																				<div class="input-group col-lg-7">
+																				<label class="col-lg-4 control-label">Correo electr&oacute;nico:*</label>
+																				<div class="col-lg-8">
 																						<input type="email" id="txt_contactEmail_h" class="form-control" value="" name="txt_contactEmail_h"/>
-																						<span class="input-group-addon"><i class="fa fa-search"></i></span>
 																				</div>
 																		</div>
 																		<div class="form-group">
-																				<label class="col-lg-4 control-label">Direcci&oacute;n:*</label>
+																				<label class="col-lg-4 control-label">Direcci&oacute;n:</label>
 																				<div class="col-lg-8">
-																						<input type="text" id="txt_contactAddress_h" class="form-control required" name="txt_contactAddress_h">
+																						<input type="text" id="txt_contactAddress_h" class="form-control" name="txt_contactAddress_h">
 																				</div>
 																		</div>
 																		<div class="form-group">
-																				<label class="col-lg-4 control-label">Colonia:*</label>
+																				<label class="col-lg-4 control-label">Colonia:</label>
 																				<div class="col-lg-8">
-																						<input id="txt_contactLocation_h" class="form-control required" name="txt_contactLocation_h" type="text">
+																						<input id="txt_contactLocation_h" class="form-control" name="txt_contactLocation_h" type="text">
 																				</div>
 																		</div>
 																		<div class="form-group">
-																				<label class="col-lg-4 control-label">Delegaci&oacute;n o municipio:*</label>
+																				<label class="col-lg-4 control-label">Delegaci&oacute;n o municipio:</label>
 																				<div class="col-lg-8">
-																						<input id="txt_contactCounty_h" class="form-control required" name="txt_contactCounty_h" type="text">
+																						<input id="txt_contactCounty_h" class="form-control" name="txt_contactCounty_h" type="text">
 																				</div>
 																		</div>
 																		<div class="form-group">
-																				<label class="col-lg-4 control-label">C.P.:*</label>
+																				<label class="col-lg-4 control-label">C.P.:</label>
 																				<div class="col-lg-8">
-																						<input id="txt_contactZipCode_h" class="form-control required" name="txt_contactZipCode_h" type="text">
+																						<input id="txt_contactZipCode_h" class="form-control" name="txt_contactZipCode_h" type="text">
 																				</div>
 																		</div>
 																		<div class="form-group">
@@ -439,7 +435,7 @@ use \Core\Controller;
 								required:true,
 								email:true
 							},
-							txt_contactAddress_h:{
+							/*txt_contactAddress_h:{
 								required:true
 							},
 							txt_contactLocation_h:{
@@ -453,7 +449,7 @@ use \Core\Controller;
 								number:true,
 								minlength:5,
 								maxlength:6
-							},
+							},*/
 							txt_contactProvince_h:{
 								required:true
 							}
@@ -479,7 +475,7 @@ use \Core\Controller;
 								minlength:"Por favor, escriba un verdadero nombre."
 						    },
 							txt_contactEmail_h:"Por favor, introduzca un email v&aacute;lido.",
-							txt_contactAddress_h:"Por favor, introduzca un direcci&oacute;n v&aacute;lida.",
+							/*txt_contactAddress_h:"Por favor, introduzca un direcci&oacute;n v&aacute;lida.",
 							txt_contactLocation_h:"Por favor, introduzca una Colonia.",
 							txt_contactCounty_h:"Por favor, introduzca un municipio o delegaci&oacute;n.",
 							txt_contactZipCode_h:{
@@ -487,7 +483,7 @@ use \Core\Controller;
 								number:"Por favor, introduzca s&oacute;lo n&uacute;meros.",
 								minlength:"Debe de contener al menos cinco d&iacute;gitos.",
 								maxlength:"Debe contener m&aacute;ximo seis d&iacute;gitos."
-								},
+								},*/
 							txt_contactProvince_h:"Por favor, introduzca una Provincia o Estado."
 						}
 			});

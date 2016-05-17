@@ -100,11 +100,7 @@ class Users implements iCrud{
 			$PDOcnn=Database::instance();
 			$PDOQuery=
 			"
-			SELECT
-				u.* 
-			FROM (SELECT
-					@u1:=$pkiBUser p) pcxu ,
-				v_kanbanuserbybo u;
+			SELECT * FROM `v_kanbanuser` 
 			";
 			$resultSet=$PDOcnn->query($PDOQuery);
 			return $resultSet;

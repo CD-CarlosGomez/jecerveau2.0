@@ -1,5 +1,5 @@
 <?php
-#Agregar los select de las llaves foráneas
+#Agregar los select de las llaves forï¿½neas
 
 namespace App\View\EnterpriseGroup;
 defined("APPPATH") OR die("Access denied");
@@ -22,6 +22,9 @@ use \App\data\DataGridView as DGV;
 		$outputTableCompany=DGV::getInstance($dt_Company)
 		->setGridAttributes(array('class' => 'table table-striped table-bordered table-hover dataTables-example'))
 		->enableSorting(false)
+		->removeColumn('pkCompany')
+		->removeColumn('pkSubCompany')
+		->removeColumn('pkBranchOffice')
 		->removeColumn('pkiBUser')
 		->setup(array(
 			'username' => array('header' => 'Usuario'),
@@ -29,7 +32,7 @@ use \App\data\DataGridView as DGV;
 			'BOName' => array('header' => 'Sucursal'),
 			'Name' => array('header' => 'Perfil asignado')
 		))
-		->addColumnAfter('actions', 
+		->addColumnAfter('Acciones', 
 									'<a href="'.$url.'private/User/showProfile">Ver Perfil</a>',
 									'Actions', array('align' => 'center'))
 		//->addColumnBefore('counter', '%counter%.', 'Counter', array('align' => 'right'))
@@ -101,7 +104,7 @@ use \App\data\DataGridView as DGV;
 						<div class="col-lg-12">
 							<div class="ibox float-e-margins">
 								<div class="ibox-title">
-									<h5>Cuenta maestra</h5>
+									<h5>Listado de usuarios</h5>
 									<div class="ibox-tools">
 										<a class="collapse-link">
 											<i class="fa fa-chevron-up"></i>
@@ -131,7 +134,7 @@ use \App\data\DataGridView as DGV;
 				<div class="pull-right">
 				</div>
 				<div>
-					<strong>Copyright</strong> Example Company © 2014-2015
+					<strong>iBrain&#174</strong>2.0
 				</div>
 			</div>
 		</div>

@@ -1,5 +1,5 @@
 <?php
-#Agregar los select de las llaves foráneas
+#Agregar los select de las llaves forï¿½neas
 
 namespace App\View\EnterpriseGroup;
 defined("APPPATH") OR die("Access denied");
@@ -29,14 +29,16 @@ use \App\data\DataGridView as DGV;
 		->removeColumn(1)
 		->removeColumn(2)
 		->removeColumn(3)
+		->removeColumn(4)
+		->removeColumn(5)
 		->setup(array(
 			'SONumber' => array('header' => 'N&uacute;mero de orden','link'=>$url . 'private/ServiceOrder/ViewSO/','filterColumn'=>0),
 			'Serie' => array('header' => 'Serie'),
 			'contactName' => array('header' => 'Nombre'),
 			'Modelo' => array('header' => 'Device'),
 			'Tipo' => array('header' => 'Tipo'),
-			'Asignado' => array('header' => 'Asignado'),
-			'Estatus' => array('header' => 'Estatus'),
+			'realname' => array('header' => 'Asignado a'),
+			'lastst' => array('header' => 'Estatus'),
 			'SODate' => array('header' => 'Fecha'),
 			'DT' => array('header' => 'DT'),
 			'Due' => array('header' => 'Due'),

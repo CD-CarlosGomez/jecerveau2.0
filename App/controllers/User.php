@@ -1,10 +1,10 @@
 <?php
 // +-----------------------------------------------
-// | @author Carlos M. Gómez
+// | @author Carlos M. Gï¿½mez
 // | @date 5 de Marzo del 2016
 // | @Version 1.0
 // +-----------------------------------------------
-#16.3.22 Agregar validación del lado del servidor
+#16.3.22 Agregar validaciï¿½n del lado del servidor
 namespace App\Controllers;
 defined("APPPATH") OR die("Access denied");
 
@@ -39,8 +39,8 @@ class User extends Controller{
 private $_sesionUsuario;
 private $_sesionpkiBUser;
 //PROPIEDADES########################################
-//MÉTODOS ABSTRACTOS#################################
-//MÉTODOS PÚBLICOS###################################
+//Mï¿½TODOS ABSTRACTOS#################################
+//Mï¿½TODOS Pï¿½BLICOS###################################
 	public function __construct(){
 		$this->_sesionUsuario=$_SESSION["nombreUsuario"];
 		$this->_sesionpkiBUser=$_SESSION['pkiBUser_p'];		
@@ -127,7 +127,7 @@ private $_sesionpkiBUser;
 		View::render("addProfile");
 	}
 }
-//MÉTODOS PRIVADOS###################################
+//Mï¿½TODOS PRIVADOS###################################
 //EVENTOS############################################
 //CONTROLES##########################################
 //MAIN###############################################
@@ -190,8 +190,8 @@ private $_sesionpkiBUser;
 			$mail->SMTPAuth = true;
 			$mail->Username = 'santi.notificaciones@gmail.com';
 			$mail->Password = 'envios2015';
-			$mail->setFrom($micorreo,"Carlos Gómez");
-			//$mail->AddReplyTo($micorreo,"Carlos Gómez 2");
+			$mail->setFrom($micorreo,"Carlos Gï¿½mez");
+			//$mail->AddReplyTo($micorreo,"Carlos Gï¿½mez 2");
 			$mail->AddAddress ("$destinatario","andres@consultoriadual");
 			$mail->Subject = "$asunto";
 			$mail->MsgHTML($bodyMessage);
@@ -209,10 +209,10 @@ private $_sesionpkiBUser;
 			else{
 				$msg="<p>Tu informacion se recibio correctamente <br> Se ha enviado una confirmacion al correo <b>correo</b></p>";
 			}
-			header("Location:http://localhost:8012/iBrain2.0/private/user");
+			header("Location:" . Globales::$absoluteURL . "/private/user");
 		}	
 		else
-			echo "Error,no se puede enviar el correo electrónico ";
+			echo "Error,no se puede enviar el correo electrï¿½nico ";
 	}
 	function CreateProfile(){
 		

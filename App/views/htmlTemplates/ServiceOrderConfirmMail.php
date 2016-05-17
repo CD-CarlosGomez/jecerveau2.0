@@ -142,7 +142,7 @@ $bodyMessageMail= "
 																	Tipo de servicio:
 																</td>
 																<td width=\"260\" valign=\"top\" style=\"border-bottom:#ececec solid 2px; width:60%;\">
-																   Garant&iacute;a
+																   Servicio
 																</td>
 															</tr>
 															<tr>
