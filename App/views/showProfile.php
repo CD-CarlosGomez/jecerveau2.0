@@ -25,22 +25,23 @@ use \App\data\DataGridView as DGV;
 		$outputTableCompany=DGV::getInstance($dt_Company)
 		->setGridAttributes(array('class' => 'table table-striped table-bordered table-hover dataTables-example'))
 		->enableSorting(false)
-		->removeColumn('pkiBUserProfile')
+		->removeColumn('pkBranchOffice')
 		->setup(array(
 			'realname' => array('header' => 'Usuario'),
-			'profileName' => array('header' => 'Perfil'),
-			'toBeCollected' => array('header' => 'Recolecci&oacute;n'),
-			'toBeAssigned' => array('header' => 'Reasignaci&oacute;n'),
-			'toBeDiagnosed' => array('header' => 'Dian&oacute;stico'),
-			'diagnosisToBeAuthorized' => array('header' => 'Autoriza diagn&oacutestico'),
-			'toNotifyTheClient' => array('header' => 'Notificaciones al cliente'),
-			'toBeAuthorizedByClient' => array('header' => 'Autorizados por el cliente'),
-			'inRepairProcess' => array('header' => 'En reparaci&oacute;n'),
-			'repaired' => array('header' => 'Reparados'),
-			'toDelivery' => array('header' => 'Para entregar al cliente'),
-			'toBeCharged' => array('header' => 'Por saldar'),
-			'deliveredToClient' => array('header' => 'Entregados al cliente'),
-			'cancelled' => array('header' => 'Canceladas')
+			'BOName' => array ('header' =>'AASP'),
+			'Name' => array('header' => 'Perfil'),
+			'RE' => array('header' => 'Recolecci&oacute;n'),
+			'AS' => array('header' => 'Reasignaci&oacute;n'),
+			'PD' => array('header' => 'Dian&oacute;stico'),
+			'AD' => array('header' => 'Autoriza diagn&oacutestico'),
+			'PN' => array('header' => 'Notificaciones al cliente'),
+			'PA' => array('header' => 'Autorizados por el cliente'),
+			'PR' => array('header' => 'En reparaci&oacute;n'),
+			'TE' => array('header' => 'Reparados'),
+			'PS' => array('header' => 'Para entregar al cliente'),
+			'EC' => array('header' => 'Por saldar'),
+			'OK' => array('header' => 'Entregados al cliente'),
+			'CA' => array('header' => 'Canceladas')
 		))
 		/*->addColumnAfter('actions', 
 									'<a href="'.$url.'private/BranchOffice">\'s</a>',
@@ -99,7 +100,7 @@ use \App\data\DataGridView as DGV;
 			</div>
 			<div class="row wrapper border-bottom white-bg page-heading">
 				<div class="col-sm-4">
-					<h2>Grupo Empresarial</h2>
+					<h2>Perfiles</h2>
 					<ol class="breadcrumb">
 						<li>
 							<a href="<?php echo $url; ?>private/home">Inicio</a>
@@ -119,7 +120,7 @@ use \App\data\DataGridView as DGV;
 						<div class="col-lg-12">
 							<div class="ibox float-e-margins">
 								<div class="ibox-title">
-									<h5>Cuenta maestra</h5>
+									<h5>Listado de perfiles</h5>
 									<div class="ibox-tools">
 										<a class="collapse-link">
 											<i class="fa fa-chevron-up"></i>
@@ -131,7 +132,7 @@ use \App\data\DataGridView as DGV;
 								</div>
 								<div class="ibox-content">					
 								<div class="pull-right">
-									<a onclick="" href="<?php echo $url; ?>private/User/addProfile" class="btn btn-primary ">Agregar nuevo perfil</a>
+									<a onclick="" href="<?php echo $url; ?>private/User/addProfile" class="btn btn-primary ">Nuevo perfil</a>
 								</div>
 								<br />
 								<br />
@@ -149,7 +150,7 @@ use \App\data\DataGridView as DGV;
 				<div class="pull-right">
 				</div>
 				<div>
-					<strong>Copyright</strong> Example Company © 2014-2015
+					<strong>iBrain&#174;</strong> 2.0
 				</div>
 			</div>
 		</div>
@@ -201,24 +202,29 @@ use \App\data\DataGridView as DGV;
                                     .css('font-size', 'inherit');
                     }
                     }
-                ]
-
+                ],
+                   language : {
+						buttons : {
+								copy : 'Copiar',
+								print : 'Imprimir'
+						}
+				},
+				"language" : {
+						"lengthMenu": "Mostrar _MENU_ registros por p&aacute;gina",
+						"zeroRecords": "No se encontraron registros.",
+						"info": "Mostrando p&aacute;gina _PAGE_ de _PAGES_",
+						"infoEmpty": "No registros disponibles",
+						"infoFiltered": "(filtrado desde _MAX_ registros totales)",
+						"search":         "Buscar:",
+						"paginate": {
+						"first":      "Primero",
+						"last":       "&Uacute;ltimo",
+						"next":       "Siguiente",
+						"previous":   "Anterior"
+						}
+				}
             });
 			
-			$.ajax({
-				url: '',
-				type: 'post',
-				data:{tag:'getCompany'},
-				dataType:'json',
-				succes: function (data){
-					if (data.succes){
-						$.each(data,function (index,record ){
-							if 
-						})
-					}
-				}
-			});
-            
 			$('.i-checks').iCheck({
                     checkboxClass: 'icheckbox_square-green',
                 });	

@@ -576,8 +576,8 @@ use \Core\Controller;
    
     <script type="text/javascript">
 		$.validator.setDefaults({
-		submitHandler: function(form) {
-			form.submit();
+			submitHandler: function(form) {
+				form.submit();
 		}
 		/*debug:true,
 		success:"valid"*/
@@ -585,7 +585,6 @@ use \Core\Controller;
 		
 		
 		$(document).ready(function(){
-			
 			//Obtenemos el valor total de filas contenidas actualmente en la tabla.
         		var i=$('table tr').length;
 			//Ocultamos los inputs del daño incidental
@@ -597,7 +596,6 @@ use \Core\Controller;
 				else{
 					$("#danoincidental").show();
 				}
-    			
     		//Habilitamos e inhabilitamos los inputs según si son visibles o no
 				var initial;
 				$('#danoincidental').is(":visible")? initial = true :	initial =false;

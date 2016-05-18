@@ -116,7 +116,7 @@ use \Core\Controller;
 								<div class="ibox-content" >
 									<fieldset>
 											<form id="formUser" class="form-horizontal" action="<?php echo $url; ?>private/User" method="POST" role="form">
-													<div class="col-lg-6 form-group-dark">
+													<div class="col-lg-6">
 														<div class="form-group">&nbsp;</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">Usuario:*</label>
@@ -132,13 +132,13 @@ use \Core\Controller;
 															</div>
 														</div>
 														<div class="form-group">
-															<label class="col-md-4 control-label">E-mail:*</label>
+															<label class="col-md-4 control-label">Correo electr&oacute;nico:*</label>
 															<div class="col-md-8">
 																<input id="txt_email_h" class="form-control required" name="txt_email_h" type="text">
 															</div>
 														</div>
 													</div>
-													<div class="col-md-6 form-group-dark">
+													<div class="col-md-6">
 														<div class="form-group">&nbsp;</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">Contrase&ntilde;a:*</label>
@@ -167,7 +167,7 @@ use \Core\Controller;
 													<div class="form-group">&nbsp;</div>
 													<div class="col-md-4 pull-right">
 														<div class="form-group">
-															<button type="submit" id="" class="btn btn-primary btn-md btn-block" name="btn-AddBO">Agregar usuario</button>
+															<button type="submit" id="" class="btn btn-primary btn-md btn-block" name="btn-AddBO">Guardar</button>
 														</div>
 													</div>
 											</form>

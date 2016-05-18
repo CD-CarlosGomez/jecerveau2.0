@@ -113,7 +113,7 @@ use \Core\Controller;
 												<div class="form-group">&nbsp;</div>
 													<div class="col-md-4 pull-right">
 														<div class="form-group">
-															<button type="" id="btn_showFormSubcuenta_h" class="btn btn-primary btn-md btn-block" value="" name="btn_showFormSubcuenta_h">Siguiente</button>
+															<button type="button" id="btn_showFormSubcuenta_h" class="btn btn-primary btn-md btn-block" value="" name="btn_showFormSubcuenta_h">Siguiente</button>
 														</div>
 													</div>
 											</div>
@@ -129,13 +129,13 @@ use \Core\Controller;
 									<h5>Nueva Subcuenta </h5>
 								</div>
 								<div class="ibox-content">
-									<fieldset>
+									<fieldset id="fls_subcuenta_h">
 											<div class="col-lg-6">
 												<div class="form-group">&nbsp;</div>
 												<div class="form-group">
 													<label class="col-md-4 control-label">Subcuenta maestra:*</label>
 													<div class="col-lg-8">
-														<input id="txt_subCompanyName_h" class="form-control required" name="txt_subCompanyName_h" type="text">
+														<input id="txt_subCompanyName_h" class="form-control required" data-provide="markdown" name="txt_subCompanyName_h" type="text">
 													</div>
 												</div>
 												
@@ -153,7 +153,7 @@ use \Core\Controller;
 												<div class="form-group">&nbsp;</div>
 												<div class="col-md-4 pull-right">
 													<div class="form-group">
-														<button type="" id="btn_showFormBO_h" class="btn btn-primary btn-md btn-block" value="" name="btn_showFormBO_h">Siguiente</button>
+														<button type="button" id="btn_showFormBO_h" class="btn btn-primary btn-md btn-block" value="" name="btn_showFormBO_h">Siguiente</button>
 													</div>
 												</div>
 											</div>
@@ -169,9 +169,10 @@ use \Core\Controller;
 									<h5>Nuevo AASP </h5>
 								</div>
 								<div class="ibox-content">
-									<fieldset>
+									<fieldset id="fls_aasp_h">
 												<div class="col-lg-6">
-													<div class="form-group">&nbsp;</div>
+													<fieldset class="form-group grouper"><leyend class="grouper"><h3>Datos de facturaci&oacute;n</h3></leyend>
+													<hr>
 													<div class="form-group">
 															<label class="col-md-4 control-label">Sucursal:*</label>
 															<div class="col-lg-8">
@@ -179,7 +180,7 @@ use \Core\Controller;
 															</div>
 														</div>
 													<div class="form-group">
-														<label class="col-md-4 control-label">Direcci&oacute;n:*</label>
+														<label class="col-md-4 control-label">Calle:*</label>
 														<div class="col-md-8">
 															<input id="txt_BOStreet_h" class="form-control required" name="txt_BOStreet_h" type="text">
 														</div>
@@ -197,54 +198,44 @@ use \Core\Controller;
 														</div>
 													</div>
 													<div class="form-group">
-														<label class="col-md-4 control-label">Direcci&oacute;n de atenci&oacute;n</label>
-														<div class="col-md-8">
-															<input id="txt_serviceAddress_h" class="form-control required" name="txt_serviceAddress_h" type="text">
-														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-md-4 control-label">Gerente:</label>
-														<div class="col-md-8">
-															<input id="txt_serviceManager_h" class="form-control required" name="txt_serviceManager_h" type="text">
-														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-md-4 control-label">Correo electr&oacute;nico de atenci&oacute;n:</label>
-														<div class="col-md-8">
-															<input id="txt_serviceEmail_h" class="form-control required" name="txt_serviceEmail_h" type="text">
-														</div>
-													</div>
-												</div>
-												<div class="col-md-6">
-														<div class="form-group">&nbsp;</div>
-														<div class="form-group">
-															<label class="col-md-4 control-label">Regi&oacute;n:*</label>
-															<div class="col-md-8">
-																<input id="txt_BORegion_h" class="form-control required" name="txt_BORegion_h" type="text">
-															</div>
-														</div>
-														<div class="form-group">
-															<label class="col-md-4 control-label">Zona:*</label>
-															<div class="col-md-8">
-																<input id="txt_BOZone_h" class="form-control required" name="txt_BOZone_h" type="text">
-															</div>
-														</div>
-														<div class="form-group">
-															<label class="col-md-4 control-label">Provincia:*</label>
-															<div class="col-md-8">
-																<input  id="txt_BOProvince_h" class="form-control required" name="txt_BOProvince_h" type="text">
-															</div>
-														</div>
-														<div class="form-group">
 															<label class="col-md-4 control-label">C&oacute;digo postal:*</label>
 															<div class="col-md-8">
 																<input  id="txt_BOZipCode_h" class="form-control required" name="txt_BOZipCode_h" type="text">
 															</div>
+													</div>
+													<div class="form-group">
+															<label class="col-md-4 control-label">Estado:*</label>
+															<div class="col-md-8">
+																<input  id="txt_BOProvince_h" class="form-control required" name="txt_BOProvince_h" type="text">
+															</div>
+													</div>
+													<div class="form-group">
+														<label class="col-md-4 control-label">Regi&oacute;n:*</label>
+														<div class="col-md-8">
+															<input id="txt_BORegion_h" class="form-control required" name="txt_BORegion_h" type="text">
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="col-md-4 control-label">Zona:*</label>
+															<div class="col-md-8">
+																<input id="txt_BOZone_h" class="form-control required" name="txt_BOZone_h" type="text">
+															</div>
+														</div>
+													</fieldset>
+												</div>
+												<div class="col-md-6">
+													<fieldset class="form-group grouper"><leyend class="grouper"><h3>Datos de atenci&oacute;n</h3></leyend>
+														<hr>
+														<div class="form-group">
+															<label class="col-md-4 control-label">Gerente:</label>
+															<div class="col-md-8">
+																<input id="txt_serviceManager_h" class="form-control required" name="txt_serviceManager_h" type="text">
+															</div>
 														</div>
 														<div class="form-group">
-															<label class="col-md-4 control-label">Horario de atenci&oacute;n:</label>
+															<label class="col-md-4 control-label">Direcci&oacute;n de atenci&oacute;n</label>
 															<div class="col-md-8">
-																<input id="txt_officeHour_h" class="form-control required" name="txt_officeHour_h" type="text">
+																<input id="txt_serviceAddress_h" class="form-control required" name="txt_serviceAddress_h" type="text">
 															</div>
 														</div>
 														<div class="form-group">
@@ -254,16 +245,40 @@ use \Core\Controller;
 															</div>
 														</div>
 														<div class="form-group">
-															<label class="col-md-4 control-label">&nbsp;</label>
+															<label class="col-md-4 control-label">Correo electr&oacute;nico de atenci&oacute;n:</label>
 															<div class="col-md-8">
-																&nbsp;
+																<input id="txt_serviceEmail_h" class="form-control required" name="txt_serviceEmail_h" type="text">
+															</div>
+														</div>													
+														<div class="form-group">
+															<label class="col-md-4 control-label">Horario de atenci&oacute;n:</label>
+															<div class="col-md-8">
+																<input id="txt_officeHour_h" class="form-control required" name="txt_officeHour_h" type="text">
 															</div>
 														</div>
+													</fieldset>
+													<fieldset class="form-group grouper"><leyend class="grouper"><h3>Datos de configuraci&oacute;n</h3></leyend>
+														<hr>
+														<div class="form-group">
+															<label class="col-md-4 control-label">SoldTo:</label>
+															<div class="col-md-8">
+																<input type="text" id="txt_soldTo_h" class="form-control required" name="txt_soldTo_h">
+															</div>
+														</div>
+														<div class="form-group">
+															<label class="col-md-4 control-label">ShipTo:</label>
+															<div class="col-md-8">
+																<input type="text" id="txt_shipTo_h" class="form-control required" name="txt_shipTo_h">
+															</div>
+														</div>
+													</fieldset>	
+													<div class="form-group">
 														<div class="col-md-4 pull-right">
-															<div class="form-group">
-																<button type="" id="btn_command_h" class="btn btn-primary btn-md btn-block" value="AddAll" name="btn_command_h">Guardar</button>
-															</div>
+														<div class="form-group">
+															<button type="" id="btn_command_h" class="btn btn-primary btn-md btn-block" value="AddAll" name="btn_command_h">Guardar</button>
 														</div>
+													</div>
+														
 												</div>
 										</fieldset>
 								</div>
@@ -292,43 +307,189 @@ use \Core\Controller;
 	<!-- Jquery Validate -->
     <script src="<?php echo $url; ?>App/web/js/plugins/validate/jquery.validate.min.js"></script>
 	<script>
-	/*$.validator.setDefaults({
-		submitHandler: function() {
-			alert("submitted!");
+	$.validator.setDefaults({
+		submitHandler: function(form) {
+			form.submit();
 		}
-	});*/
-
+	});
+	$.validator.addMethod('regex', function (value,element) { 
+    	return  this.optional(element)|| /^[A-Za-zñÑ0-9\-\sáéíóúÁÉÍÓÚ]*$/g.test(value); 
+	}, 'Por favor, introduzca s&oacute;lo n&uacute;meros y letras.');
+	
 	$().ready(function() {
-		var div_subcuenta_j=$("#nuevaSubcuenta");
-		var div_sucursal_j=$("#nuevaSucursal");
+		$("#nuevaSubcuenta").hide();
+		$("#nuevaSucursal").hide();
 		var div_btnSaveAll_j=$("#div_btnSaveAll_h");
-		var btn_addSubcuenta_j=$("#btn_showFormSubcuenta_h");
+		
 		var btn_addBO_j=$("#btn_showFormBO_h");
 		
-		div_subcuenta_j.hide();
-		div_sucursal_j.hide();
-		div_btnSaveAll_j.hide();
-					
+		$("#btn_showFormSubcuenta_h").on(
+			'click',function(){
+				if ($("#nuevaSubcuenta").is(":visible")){
+					$("#nuevaSubcuenta").hide("slow");
+				}
+				else{
+					$("#nuevaSubcuenta").show("slow");
+				}
+			}
+		);
+		$("#btn_showFormBO_h").on(
+			'click',function(){
+				if($("#nuevaSucursal").is(":visible")){
+					$("#nuevaSucursal").hide("slow");
+				}
+				else{
+					$("#nuevaSucursal").show("slow");
+				}
+			}
+		);		
+
+		//Habilitamos e inhabilitamos los inputs según si son visibles o no
+				var initial;
+				$('#nuevaSubcuenta').is(":visible")? initial = true :	initial =false;
+				$('#nuevaSucursal').is(":visible")? initial = true :	initial =false;
+				
+				var fls_subcuenta_j = $("#fls_subcuenta_h");
+				var fls_aasp_j = $("#fls_aasp_h");
+				
+				var fls_subcuentaInputs_j=fls_subcuenta_j.find("input").attr("disabled",initial);
+				var fls_sucursalInputs_j=fls_aasp_j.find("input").attr("disabled",initial);
+				//$("#txt_subCompanyName_h").attr("disabled",initial);
+		
+		
 		$("#frm_EG_h").validate(
 			{
 				rules:{
-					field:{
-						required:true,
-						step:3
-					}
+					txt_legalName_h : {
+						required : true,
+						regex : true		
+					},
+					txt_commercialName_h : {
+						required : true,
+						regex : true
+					},
+					txt_subCompanyName_h : {
+						required : "#nuevaSubcuenta:visible",
+						regex : true
+					},
+					txt_BOName_h : {
+						required : "#nuevaSucursal:visible",
+						regex : true
+					},
+					txt_BOStreet_h : {
+						required : "#nuevaSucursal:visible",
+						regex : true
+					},
+					txt_BOExtNumber_h : {
+						required : "#nuevaSucursal:visible",
+						regex : true
+					},
+					txt_BOIntNumber_h : {
+						required : "#nuevaSucursal:visible",
+						regex : true
+					},
+					txt_BORegion_h : {
+						required : "#nuevaSucursal:visible",
+						regex : true
+					},
+					txt_BOZone_h : {
+						required : "#nuevaSucursal:visible",
+						regex : true
+					},
+					txt_BOProvince_h : {
+						required : "#nuevaSucursal:visible",
+						regex : true
+					},
+					txt_BOZipCode_h : {
+						required : "#nuevaSucursal:visible",
+						regex : true
+					},
+					txt_serviceManager_h : {
+						required : "#nuevaSucursal:visible",
+						regex : true
+					},
+					txt_serviceEmail_h : {
+						required : "#nuevaSucursal:visible",
+						regex : true
+					},
+					txt_officeHour_h : {
+						required : "#nuevaSucursal:visible",
+						regex : true
+					},
+					txt_servicePhone_h : {
+						required : "#nuevaSucursal:visible",
+						regex : true
+					},
+					txt_serviceAddress_h : {
+						required : "#nuevaSucursal:visible",
+						regex : true
+					},
+					txt_soldTo_h : {
+						required : "#nuevaSucursal:visible",
+						regex : true
+					},
+					txt_shipTo_h : {
+						required : "#nuevaSucursal:visible",
+						regex : true
+					}					
+				},
+				messages : {
+					txt_legalName_h : {
+						required : "Favor de escribir el nombre legal."
+					},
+					txt_commercialName_h : {
+						required : "Favor de escribir el nombre comercial."
+					},
+					txt_subCompanyName_h : {
+						required : "Favor de escribir el nombre sub cuenta maestra."
+					},
+					txt_BOName_h : {
+						required : "Favor de escribir el nombre del AASP."
+					},
+					txt_BOStreet_h : {
+						required : "Favor de escribir la direcci&oacute;n de la calle."
+					},
+					txt_BOExtNumber_h : {
+						required : "Favor de escribir el n&uacute;mero exterior."
+					},
+					txt_BOIntNumber_h : {
+						required : "Favor de escribir el n&uacute;mero interior."
+					},
+					txt_BORegion_h : {
+						required : "Favor de escribir el nombre  de la regi&oacute;n."
+					},
+					txt_BOZone_h : {
+						required : "Favor de escribir el nombre de la zona."
+					},
+					txt_BOProvince_h : {
+						required : "Favor de escribir el nombre del estado."
+					},
+					txt_BOZipCode_h : {
+						required : "Favor de escribir el c&oacute;digo postal."
+					},
+					txt_serviceManager_h : {
+						required : "Favor de escribir el nombre del gerente del AASP."
+					},
+					txt_serviceEmail_h : {
+						required : "Favor de escribir el correo electr&oacute;nico  de atenci&oacute;n."
+					},
+					txt_officeHour_h : {
+						required : "Favor de escribir el horario de atenci&oacute;n de la oficina."
+					},
+					txt_servicePhone_h : {
+						required : "Favor de escribir el n&uacute;mero de tel&eacute;fono de atenci&oacute;n."
+					},
+					txt_serviceAddress_h : {
+						required : "Favor de escribir la direcci&oacute;n de atenci&oacute;n."
+					},
+					txt_soldTo_h : {
+						required : "Favor de escribir el soldTo."
+					},
+					txt_shipTo_h : {
+						required : "Favor de escribir el shipTo."
+					}					
 				}
 			}		
-		);
-
-		btn_addSubcuenta_j.on(
-			'click',function(){
-				div_subcuenta_j.show("slow");
-			}
-		);
-		btn_addBO_j.on(
-			'click',function(){
-				div_sucursal_j.show("slow");
-			}
 		);
 	});
 	</script>

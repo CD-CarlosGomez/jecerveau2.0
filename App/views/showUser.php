@@ -50,16 +50,16 @@ use \App\data\DataGridView as DGV;
 
     <title>iBrain 2.0</title>
 	<!-- Mainly CSS -->
-    <link href="<?php echo $url; ?>/App/web/css/bootstrap.min.css" rel="stylesheet">
-    <link href="<?php echo $url; ?>/App/web/font-awesome/css/font-awesome.css" rel="stylesheet">
-	<link href="<?php echo $url; ?>/App/web/css/animate.css" rel="stylesheet">
-    <link href="<?php echo $url; ?>/App/web/css/style.css" rel="stylesheet">
+    <link href="<?php echo $url; ?>App/web/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo $url; ?>App/web/font-awesome/css/font-awesome.css" rel="stylesheet">
+	<link href="<?php echo $url; ?>App/web/css/animate.css" rel="stylesheet">
+    <link href="<?php echo $url; ?>App/web/css/style.css" rel="stylesheet">
 	<!-- Custom CSS -->
-	<link href="<?php echo $url; ?>/App/web/css/plugins/iCheck/custom.css" rel="stylesheet">
+	<link href="<?php echo $url; ?>App/web/css/plugins/iCheck/custom.css" rel="stylesheet">
 	<!-- Wizard CSS -->
-    <link href="<?php echo $url; ?>/App/web/css/plugins/steps/jquery.steps.css" rel="stylesheet">
+    <link href="<?php echo $url; ?>App/web/css/plugins/steps/jquery.steps.css" rel="stylesheet">
 	<!-- dataTable CSS-->
-    <link href="<?php echo $url; ?>/App/web/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+    <link href="<?php echo $url; ?>App/web/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
 	
 </head>
 <body class="top-navigation">
@@ -116,7 +116,7 @@ use \App\data\DataGridView as DGV;
 								</div>
 								<div class="ibox-content">					
 								<div class="pull-right">
-									<a onclick="" href="<?php echo $url; ?>private/User/addUser" class="btn btn-primary btn-lg btn-block">Agregar nuevo usuario</a>
+									<a onclick="" href="<?php echo $url; ?>private/User/addUser" class="btn btn-primary btn-lg btn-block">Nuevo usuario</a>
 								</div>
 								<br />
 								<br />
@@ -183,7 +183,27 @@ use \App\data\DataGridView as DGV;
                                     .css('font-size', 'inherit');
                     }
                     }
-                ]
+                ],
+                language : {
+						buttons : {
+								copy : 'Copiar',
+								print : 'Imprimir'
+						}
+				},
+				"language" : {
+						"lengthMenu": "Mostrar _MENU_ registros por p&aacute;gina",
+						"zeroRecords": "No se encontraron registros.",
+						"info": "Mostrando p&aacute;gina _PAGE_ de _PAGES_",
+						"infoEmpty": "No registros disponibles",
+						"infoFiltered": "(filtrado desde _MAX_ registros totales)",
+						"search":         "Buscar:",
+						"paginate": {
+						"first":      "Primero",
+						"last":       "&Uacute;ltimo",
+						"next":       "Siguiente",
+						"previous":   "Anterior"
+						}
+				}
 
             });
 			
