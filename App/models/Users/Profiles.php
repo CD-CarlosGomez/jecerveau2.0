@@ -137,7 +137,7 @@ class Profiles implements iCrud{
 					ON up.pkiBUserProfile=wfhup.iBUserProfile_pkiBUserProfile
 				LEFT JOIN osworkflow wf
 					ON wfhup.OSworkflow_pkOSworkflow=wf.pkOSworkflow
-			WHERE U.pkiBUser=$pkiBUser
+			WHERE u.pkiBUser=$pkiBUser
 				AND bo.Active=1
 			GROUP BY bo.pkBranchOffice
 			";

@@ -45,23 +45,28 @@ class App{
         //obtenemos la url parseada
         $url = $this->parseUrl();
         //comprobamos que exista el archivo en el directorio controllers
-        if(file_exists(self::CONTROLLERS_PATH.ucfirst($url[0]) . ".php")){
+        
+		if(file_exists(self::CONTROLLERS_PATH . ucfirst($url[0]) . ".php")){
+        //if(file_exists(self::CONTROLLERS_PATH . $url[0]) . ".php"){
             //nombre del archivo a llamar
             $this->_controller = ucfirst($url[0]);
+            //$this->_controller = $url[0];
             //eliminamos el controlador de url, así sólo nos quedaran los parámetros del método
             unset($url[0]);
         }
         else{
-            include APPPATH . "/views/errors/404.php";
-            exit;
+            //include APPPATH . "/views/errors/404.php";
+            //exit;
+			//echo $fullClass = self::NAMESPACE_CONTROLLERS.$this->_controller;
         }
-
-        //obtenemos la clase con su espacio de nombres
-		$fullClass = self::NAMESPACE_CONTROLLERS.$this->_controller;
-
-        //asociamos la instancia a $this->_controller
-        $this->_controller = new $fullClass;
-
+		
+		//obtenemos la clase con su espacio de nombres
+		$fullClass = self::NAMESPACE_CONTROLLERS . ucfirst($url[0]);//$this->_controller;
+		
+		//echo ucfirst($url[0]);
+		//asociamos la instancia a $this->_controller
+		$this->_controller = new $fullClass;
+		
         //si existe el segundo segmento comprobamos que el método exista en esa clase
         if(isset($url[1])){
             //aquí tenemos el método
@@ -74,7 +79,7 @@ class App{
                 throw new \Exception("Error Processing Method {$this->_method}", 1);
             }
         }
-        //asociamos el resto de segmentos a $this->_params para pasarlos al método llamado, por defecto será un array vacío
+        //asociamos el resto de segmentos a $this->_params para pasarlos al método llamado, por defecto será un array vacío.
         $this->_params = $url ? array_values($url) : [];
     }
     /**
@@ -97,7 +102,7 @@ class App{
      * @return [Array] [Array con la config]
      */
     public static function getConfig(){
-        return parse_ini_file(APPPATH . '/config/config.ini');
+        return parse_ini_file(APPPATH . '/Config/config.ini');
     }
     /**
      * [getController Devolvemos el controlador actual]

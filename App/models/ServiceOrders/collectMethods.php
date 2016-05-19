@@ -56,7 +56,7 @@ class CollectMethods implements iCrud{
 	public static function getAll(){
         try {
 			$PDOcnn = Database::instance();
-			$PDOQuery = "SELECT * from collectMethod";
+			$PDOQuery = "SELECT * from collectmethod";
 			$PDOResultSet = $PDOcnn->query($PDOQuery);
 			return $PDOResultSet;
 		}

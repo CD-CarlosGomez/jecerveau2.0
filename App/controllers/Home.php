@@ -26,7 +26,7 @@ use \Core\Controller;
 		echo "Su sesion a terminado, <a href='" . Globales::$absoluteURL. "'>
 			  Necesita Hacer Login</a>";
 		exit;
-		}
+}
 
 
 
@@ -75,6 +75,9 @@ class Home extends Controller{
      * [login]
 	 *
      */
+	public function login(){	
+	}
+	
 	public function login(){
 		
 	}

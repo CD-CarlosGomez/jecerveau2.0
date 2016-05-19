@@ -26,13 +26,13 @@ public function __clone(){
 }	
 //MÉTODOS ABSTRACTOS#################################
 //MÉTODOS PÚBLICOS###################################
-public static function getInstance(){
+/*public static function getInstance(){
 	if (!empty(self::$_instancia instanceof self)) {
             $miclase = __CLASS__;
             self::$_instancia = new $miclase;
         } 
         return self::$instancia;
-}
+}*/
 //MÉTODOS PRIVADOS###################################
 //EVENTOS############################################
 //CONTROLES##########################################

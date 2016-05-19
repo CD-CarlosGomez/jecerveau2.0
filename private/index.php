@@ -5,6 +5,10 @@
 // | @Version 1.0
 // +-----------------------------------------------
 //directorio del proyecto
+//defined("APPPATH") OR die("Access denied");
+
+//use \Core\App;
+
 define("PROJECTPATH", dirname(__DIR__));
 //directorio app
 define("APPPATH", PROJECTPATH . '/App');
@@ -22,12 +26,14 @@ define("APPPATH", PROJECTPATH . '/App');
 	}
 	//registramos el autoload autoload_classes
 	spl_autoload_register('autoload_classes');
-
+	//Incluimos la clase APP de forma rústica
+	//require_once PROJECTPATH . "/App/controllers/Home.php";
 	//instancia de la app
 	$app = new \Core\App;
 
 	//lanzamos la app
 	$app->render();
+	//echo PROJECTPATH . "/Core/App.php";
 //MÉTODOS PRIVADOS###################################
 //EVENTOS############################################
 //CONTROLES##########################################

@@ -213,7 +213,7 @@ class CurrentUser {
 					ON bohup.branchoffice_pkBranchOffice=bo.pkBranchOffice
 				LEFT JOIN ibuserprofile up
 					ON bohup.ibuserprofile_pkiBUserProfile=up.pkiBUserProfile
-			WHERE U.pkiBUser=$pkiBUser
+			WHERE u.pkiBUser=$pkiBUser
 				AND bo.Active=1;
 			";
 			
