@@ -1,10 +1,10 @@
 <?php
 // +-----------------------------------------------
-// | @author Carlos M. Gómez
-// | @date Miércoles 5 de diciembre de 2012
+// | @author Carlos M. Gï¿½mez
+// | @date Miï¿½rcoles 5 de diciembre de 2012
 // | @Version 1.0
 // +-----------------------------------------------
-// +---------------------------Comentarios de versión
+// +---------------------------Comentarios de versiï¿½n
 namespace App\Models\EnterpriseGroup;
 defined("APPPATH") OR die("Access denied");
 
@@ -20,8 +20,8 @@ class Companies implements iCrud{
 	private static $_commercialName_p;
 	private static $_created_p;
 	private static $_createdBy_p;
-	private static $_modified_p;//Agregar método
-	private static $_modifiedBy_p;//Agregar método
+	private static $_modified_p;//Agregar mï¿½todo
+	private static $_modifiedBy_p;//Agregar mï¿½todo
 	private static $_active_p;
 //PROPIEDADES########################################
 	public static function setpkCompany($valor){self::$_pkCompany_p=$valor;}
@@ -47,17 +47,17 @@ class Companies implements iCrud{
 	
 	public static function setActive($valor){self::$_active_p=$valor;}
 	public static function getActive()	{return self::$_active_p;}
-//MÉTODOS ABSTRACTOS#################################
+//Mï¿½TODOS ABSTRACTOS#################################
 //CONSTRUCTORES Y DESTRUCTORES#######################
 	public function __construct(){
 	//Inicializar los atributos
 	}
-//MÉTODOS MÁGICOS####################################
-//MÉTODOS PÚBLICOS###################################
+//Mï¿½TODOS Mï¿½GICOS####################################
+//Mï¿½TODOS Pï¿½BLICOS###################################
 	public static function getAll(){
         try {
 			$connection = Database::instance();
-			$sql = "SELECT * from Company";
+			$sql = "SELECT * from company";
 			$query = $connection->prepare($sql);
 			$query->execute();
 			return $query->fetchAll();
@@ -177,11 +177,11 @@ class Companies implements iCrud{
 				return $plusid;
         	}
         catch (\PDOException $e) {
-    		echo 'Incidencia al generar nuevo código ',  $e->getMessage(), ".\n";
+    		echo 'Incidencia al generar nuevo cï¿½digo ',  $e->getMessage(), ".\n";
 		}
 		
 	}
-//MÉTODOS PRIVADOS###################################
+//Mï¿½TODOS PRIVADOS###################################
 //EVENTOS############################################
 //CONTROLES##########################################
 //MAIN###############################################

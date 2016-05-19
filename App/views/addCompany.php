@@ -97,7 +97,7 @@ use \Core\Controller;
 												<div class="form-group">
 													<label class="col-md-4 control-label">Nombre legal:*</label>
 													<div class="col-md-8">
-														<input id="txt_userName_h" class="form-control required" name="txt_legalName_h" type="text">
+														<input type="text" id="txt_legalName_h" class="form-control required" name="txt_legalName_h" >
 													</div>
 												</div>
 												
@@ -107,7 +107,7 @@ use \Core\Controller;
 												<div class="form-group">
 													<label class="col-md-4 control-label">Nombre comercial:*</label>
 													<div class="col-md-8">
-														<input id="txt_realName_h" class="form-control required" name="txt_commercialName_h" type="text">
+														<input id="txt_commercialName_h" class="form-control required" name="txt_commercialName_h" type="text">
 													</div>
 												</div>
 												<div class="form-group">&nbsp;</div>
@@ -145,9 +145,34 @@ use \Core\Controller;
 	<!-- Jquery Validate -->
     <script src="<?php echo $url; ?>App/web/js/plugins/validate/jquery.validate.min.js"></script>
 	<script>
+	$.validator.addMethod('regex', function (value,element) { 
+    	return  this.optional(element)|| /^[A-Za-zñÑ0-9\-\s\.áéíóúÁÉÍÓÚ]*$/g.test(value); 
+	}, 'Por favor, introduzca s&oacute;lo n&uacute;meros y letras.');
+	
 	$(document).ready(
 		function(){
-			$("#frm_company_h").validate();	
+			$("#frm_company_h").validate(
+				{
+				rules:{
+					txt_legalName_h : {
+						required : true,
+						regex : true		
+					},
+					txt_commercialName_h : {
+						required : true,
+						regex : true
+					}						
+				},
+				messages : {
+					txt_legalName_h : {
+						required : "Favor de escribir el nombre legal."
+					},
+					txt_commercialName_h : {
+						required : "Favor de escribir el nombre comercial."
+					}
+				}
+			}	
+		);	
     });
 	</script>
 </body>

@@ -313,7 +313,7 @@ use \Core\Controller;
 		}
 	});
 	$.validator.addMethod('regex', function (value,element) { 
-    	return  this.optional(element)|| /^[A-Za-zñÑ0-9\-\sáéíóúÁÉÍÓÚ]*$/g.test(value); 
+    	return  this.optional(element)|| /^[A-Za-zñÑ0-9\-\s\.áéíóúÁÉÍÓÚ]*$/g.test(value); 
 	}, 'Por favor, introduzca s&oacute;lo n&uacute;meros y letras.');
 	
 	$().ready(function() {
@@ -410,7 +410,7 @@ use \Core\Controller;
 					},
 					txt_serviceEmail_h : {
 						required : "#nuevaSucursal:visible",
-						regex : true
+						email:true
 					},
 					txt_officeHour_h : {
 						required : "#nuevaSucursal:visible",
@@ -471,7 +471,8 @@ use \Core\Controller;
 						required : "Favor de escribir el nombre del gerente del AASP."
 					},
 					txt_serviceEmail_h : {
-						required : "Favor de escribir el correo electr&oacute;nico  de atenci&oacute;n."
+						required : "Favor de escribir el correo electr&oacute;nico  de atenci&oacute;n.",
+						email : "Por favor, introduzca un email v&aacute;lido."
 					},
 					txt_officeHour_h : {
 						required : "Favor de escribir el horario de atenci&oacute;n de la oficina."

@@ -51,9 +51,9 @@ private $_sesionpkiBUser;
     public function index(){
 		//$layout=new WithSiteMap(new WithTemplate(new WithMenu(new LayoutCSS())));
 		//$layout= Layouts::render();
-		self::showUser();
-		//View::set("foo",true);
-		//View::render("z_testPost");
+		//self::showUser();
+		View::set("foo",true);
+		View::render("z_testPost");
 	}
 	public function showUser(){
 	#Objetos_e_instancias

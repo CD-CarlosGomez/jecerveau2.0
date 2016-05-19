@@ -1,10 +1,10 @@
 <?php
 // +-----------------------------------------------
-// | @author Carlos M. Gómez
-// | @date Miércoles 5 de diciembre de 2012
+// | @author Carlos M. Gï¿½mez
+// | @date Miï¿½rcoles 5 de diciembre de 2012
 // | @Version 1.0
 // +-----------------------------------------------
-// +---------------------------Comentarios de versión
+// +---------------------------Comentarios de versiï¿½n
 namespace App\Models\EnterpriseGroup;
 defined("APPPATH") OR die("Access denied");
 
@@ -80,13 +80,13 @@ class BranchOffices implements iCrud{
 	public static function setModifiedBy($valor){self::$_modifiedBy_p=$valor;}
 	public static function getModifiedBy()	{return self::$_modifiedBy_p;}	
 
-//MÉTODOS ABSTRACTOS#################################
+//Mï¿½TODOS ABSTRACTOS#################################
 //CONSTRUCTORES Y DESTRUCTORES#######################
 	public function __construct(){
 	//Inicializar los atributos
 	}
-//MÉTODOS MÁGICOS####################################
-//MÉTODOS PÚBLICOS###################################
+//Mï¿½TODOS Mï¿½GICOS####################################
+//Mï¿½TODOS Pï¿½BLICOS###################################
 	public static function getAll(){
         try {
 			$connection = Database::instance();
@@ -148,7 +148,7 @@ class BranchOffices implements iCrud{
     public static function getById($id) {
 	    try {
             $connection = Database::instance();
-            $sql = "SELECT * from BranchOffice WHERE pkBranchOffice = ?";
+            $sql = "SELECT * from branchoffice WHERE pkBranchOffice = ?";
             $query = $connection->prepare($sql);
             $query->bindParam(1, $id, \PDO::PARAM_INT);
             $query->execute();
@@ -278,10 +278,10 @@ class BranchOffices implements iCrud{
 				return $plusid;
         	}
         catch (\PDOException $e) {
-    		echo 'Incidencia al generar nuevo código ',  $e->getMessage(), ".\n";
+    		echo 'Incidencia al generar nuevo cï¿½digo ',  $e->getMessage(), ".\n";
 		}		
 	}
-//MÉTODOS PRIVADOS###################################
+//Mï¿½TODOS PRIVADOS###################################
 //EVENTOS############################################
 //CONTROLES##########################################
 }

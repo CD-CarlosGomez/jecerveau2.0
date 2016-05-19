@@ -16,7 +16,7 @@ use \App\Config\Globales as Globales;
 use \App\Models\EnterpriseGroup\Companies as MA;
 use \App\Models\EnterpriseGroup\Subcompanies as SC;
 use \App\Models\EnterpriseGroup\BranchOffices as BO;
-use \App\Models\Users as Us;
+use \App\Models\Users\Users as Us;
 use \App\Models\CurrentUser as CU;
 use \App\data\DataGridView as DGB;
 
@@ -63,7 +63,7 @@ private $_sesionpkiBUser;
 		#get main variables
 		$directoryPath= Globales::$absoluteURL;
 		#set main variables
-		View::set("title", "Companies");
+		View::set("title", "Listado de cuentas maestras");
 		View::set("url", $directoryPath);
 		#get data variables
 		$currentMainMenu=$cu->getMainMenu2($this->_sesionpkiBUser);
@@ -357,7 +357,7 @@ private $_sesionpkiBUser;
 		$c->setCreatedBy($_SESSION['pkiBUser_p']);
 		$c->setModified("null");
 		$c->setModifiedBy("null");
-		$c->insertData("Company");
+		$c->insertData("company");
 		
 		$sc=new SC;
 		$nextPKSubcompany=$sc->getNextId("pkSubCompany","subcompany");
@@ -408,7 +408,7 @@ private $_sesionpkiBUser;
 	$c->setCreatedBy($_SESSION['pkiBUser_p']);
 	$c->setModified("null");
 	$c->setModifiedBy("null");
-	$c->insertData("Company");
+	$c->insertData("company");
 	
 	}
 	function CreateSubCompany(){
