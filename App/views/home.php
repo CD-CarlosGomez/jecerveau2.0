@@ -1,5 +1,5 @@
 <?php
-namespace App\views;
+namespace App\Views;
 defined("APPPATH") OR die("Access denied");
 
 		$_SESSION["nombreUsuario"];
@@ -51,6 +51,9 @@ defined("APPPATH") OR die("Access denied");
 									</ul>
 									<ul class="nav navbar-top-links navbar-right">
 										<li>
+											<a href="<?php echo $url; ?>private/logout">Salir</a>
+										</li>
+										<!--li>
 											<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 												<span class="clear"> 
 													<span class="block m-t-xs"> 
@@ -63,7 +66,7 @@ defined("APPPATH") OR die("Access denied");
 												<ul class="dropdown-menu animated fadeInRight m-t-xs">
 													<li><a href="<?php echo $url; ?>App/controllers/logout.php">Salir</a></li>
 												</ul>
-										</li>
+										</li-->
 									</ul>
 								</div>
 							</nav>

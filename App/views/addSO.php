@@ -79,7 +79,7 @@ use \Core\Controller;
 							</ul>
 							<ul class="nav navbar-top-links navbar-right">
 								<li>
-									<a href="<?php echo $url; ?>App/controllers/logout.php">Log out</a>
+									<a href="<?php echo $url; ?>private/home/logout">Salir</a>
 								</li>
 							</ul>
 						</div>

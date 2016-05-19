@@ -1,5 +1,5 @@
 <?php
-namespace App\Views;
+namespace App\Controllers;
 defined("APPPATH") OR die("Access denied");
 
 use \App\Config\Globales as Globales;
@@ -26,6 +26,7 @@ session_start();
 session_destroy();
 //$directoryPath= Globales::$absoluteURL;
 //header("Location:http://localhost/www/iBrain2.0/");
-//header("Location:http://yocerebro.cloudappssolutions.com/iBrain2.0/");
-header("Location:http://192.168.1.191:8012/ibrain2.0/");
+$url=Globales::$absoluteURL;
+header("Location:$url");
+//header("Location:http://192.168.1.191:8012/ibrain2.0/");
 ?>

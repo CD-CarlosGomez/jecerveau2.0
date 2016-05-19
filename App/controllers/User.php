@@ -14,7 +14,7 @@ use \App\Config\Globales as Globales;
 use \App\Models\CurrentUser as CU;
 use \App\Models\Users\Users as Users;
 use \App\Models\Users\Profiles as Profiles;
-use \App\web\lib\Mailer\PHPMailer;
+use \App\Web\API\Mailer\PHPMailer;
 
 	
 	session_start();
@@ -57,7 +57,7 @@ private $_sesionpkiBUser;
 	}
 	public function showUser(){
 	#Objetos_e_instancias
-		$cu=new CU();
+		$cu=CU::getInstance();
 	#get main Variables
 		$url= Globales::$absoluteURL;
 		$currentMainMenu=$cu->getMainMenu2($this->_sesionpkiBUser);
@@ -93,9 +93,11 @@ private $_sesionpkiBUser;
 		View::render("showProfile");   
 	}
 	public function addUser(){
+	#Objetos_e_instancias
+		$cu=CU::getInstance();
 	#get main variables
 		$url= Globales::$absoluteURL;
-		$currentMainMenu=CU::getMainMenu2($this->_sesionpkiBUser);
+		$currentMainMenu=$cu->getMainMenu2($this->_sesionpkiBUser);
 	#set main variables
 		View::set("url", $url);
 		View::set("currentMainMenu", $currentMainMenu);
@@ -107,7 +109,7 @@ private $_sesionpkiBUser;
 		View::set("drowsP",$dsProfile);
 		View::set("drowsU",$dsUser);
 	#Renderizar
-		View::render("AddUser");       
+		View::render("addUser");       
 	}
 	public function addProfile(){
 	#get main variables
@@ -205,11 +207,13 @@ private $_sesionpkiBUser;
 			
 			if(!$mail->Send()){
 				$msg='Mailer Error: '.$mail->ErrorInfo;
+				header("Location:" . Globales::$absoluteURL . "/private/user");
 			}
 			else{
 				$msg="<p>Tu informacion se recibio correctamente <br> Se ha enviado una confirmacion al correo <b>correo</b></p>";
+				
 			}
-			header("Location:" . Globales::$absoluteURL . "/private/user");
+			
 		}	
 		else
 			echo "Error,no se puede enviar el correo electr�nico ";

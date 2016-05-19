@@ -16,7 +16,7 @@ class App{
     /**
      * @var
      */
-	const CONTROLLERS_PATH = "../App/controllers/";
+	const CONTROLLERS_PATH = "../App/Controllers/";
 //ATRIBUTOS##########################################
 	/**
     * @var
@@ -55,13 +55,15 @@ class App{
             unset($url[0]);
         }
         else{
-            //include APPPATH . "/views/errors/404.php";
-            //exit;
-			//echo $fullClass = self::NAMESPACE_CONTROLLERS.$this->_controller;
+            include APPPATH . "/views/errors/404.php";
+            exit;
+			//echo $fullClass = self::CONTROLLERS_PATH . $this->_controller . "<br> " ;
+			//print_r(ucfirst($url[0]));
         }
 		
 		//obtenemos la clase con su espacio de nombres
-		$fullClass = self::NAMESPACE_CONTROLLERS . ucfirst($url[0]);//$this->_controller;
+		//$fullClass = self::NAMESPACE_CONTROLLERS . ucfirst($url[0]);//$this->_controller;
+		$fullClass = self::NAMESPACE_CONTROLLERS . $this->_controller;
 		
 		//echo ucfirst($url[0]);
 		//asociamos la instancia a $this->_controller

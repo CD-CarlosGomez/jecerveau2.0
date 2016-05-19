@@ -249,7 +249,7 @@ private $_sesionpkiBUser;
 		View::set("url", $url);
 		
 		#get data variables
-		$currentMainMenu=CU::getMainMenu2($this->_sesionpkiBUser);
+		$currentMainMenu=$cu->getMainMenu2($this->_sesionpkiBUser);
 		$dsSlcCompany=MA::getpknaSelect();
 		$dsCompanyGrid=MA::getParcialSelect();
 		while ($row =$dsCompanyGrid->fetch( \PDO::FETCH_ASSOC )){
@@ -263,6 +263,7 @@ private $_sesionpkiBUser;
 		View::render("addEnterpriseGroup");        
 	}
 	public function addCompany(){
+		
 		#Objetos e instancias
 		$cu=CU::getInstance();
 		#get main variables
@@ -272,7 +273,7 @@ private $_sesionpkiBUser;
 		View::set("url", $url);
 		
 		#get data variables
-		$currentMainMenu=CU::getMainMenu2($this->_sesionpkiBUser);
+		$currentMainMenu=$cu->getMainMenu2($this->_sesionpkiBUser);
 		$dsSlcCompany=MA::getpknaSelect();
 		$dsCompanyGrid=MA::getParcialSelect();
 		while ($row =$dsCompanyGrid->fetch( \PDO::FETCH_ASSOC )){
@@ -295,7 +296,7 @@ private $_sesionpkiBUser;
 		View::set("url", $url);
 		
 		#get data variables
-		$currentMainMenu=CU::getMainMenu2($this->_sesionpkiBUser);
+		$currentMainMenu=$cu->getMainMenu2($this->_sesionpkiBUser);
 		$dsSlcCompany=MA::getpknaSelect();
 		/*$dsCompanyGrid=MA::getParcialSelect();
 		while ($row =$dsCompanyGrid->fetch( \PDO::FETCH_ASSOC )){
@@ -317,7 +318,7 @@ private $_sesionpkiBUser;
 		View::set("url", $url);
 		View::set("title", "AddCompany");
 		#get_data_variables
-		$currentMainMenu=CU::getMainMenu2($this->_sesionpkiBUser);
+		$currentMainMenu=$cu->getMainMenu2($this->_sesionpkiBUser);
 		$dsSlcSubCompany=SC::getpknaSelect();
 		#set_data_variables
 		View::set("drows_Subcompany",$dsSlcSubCompany);

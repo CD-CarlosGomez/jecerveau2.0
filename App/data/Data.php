@@ -1,8 +1,8 @@
 <?php
 // +-----------------------------------------------
-// | @author Carlos M. Gómez
-// | @date Miércoles 5 de diciembre de 2012
-// |  * @Version 1.0, esta clase crea los queries automáticamente
+// | @author Carlos M. Gï¿½mez
+// | @date Miï¿½rcoles 5 de diciembre de 2012
+// |  * @Version 1.0, esta clase crea los queries automï¿½ticamente
 // +-----------------------------------------------
 namespace App\Data;
 defined("APPPATH") OR die("Access denied");
@@ -44,7 +44,7 @@ Class Data implements iCrud{
 *******************************************************************************/
 /*******************************************************************************
 *                                                                              *
-*                  ##########MÉTODOS ABSTRACTOS##########                      *
+*                  ##########Mï¿½TODOS ABSTRACTOS##########                      *
 *                                                                              *
 *******************************************************************************/
 /*******************************************************************************
@@ -58,12 +58,12 @@ Class Data implements iCrud{
 
 /*******************************************************************************
 *                                                                              *
-*                  ##########MÉTODOS MÁGICOS##########                         *
+*                  ##########Mï¿½TODOS Mï¿½GICOS##########                         *
 *                                                                              *
 *******************************************************************************/
 /*******************************************************************************
 *                                                                              *
-*                  ##########MÉTODOS PÚBLICOS##########                        *
+*                  ##########Mï¿½TODOS Pï¿½BLICOS##########                        *
 *                                                                              *
 *******************************************************************************/
 	public static function showAttribInfo($var){
@@ -217,7 +217,7 @@ Class Data implements iCrud{
 				return $plusid;
         	}
         catch (\PDOException $e) {
-    		echo 'Incidencia al generar nuevo código ',  $e->getMessage(), ".\n";
+    		echo 'Incidencia al generar nuevo cï¿½digo ',  $e->getMessage(), ".\n";
 		}
 	}
 	public static function getSelectibfunctiongroup12(){
@@ -301,13 +301,13 @@ Class Data implements iCrud{
 	}
 /*******************************************************************************
 *                                                                              *
-*                  ##########MÉTODOS PRIVADOS##########                        *
+*                  ##########Mï¿½TODOS PRIVADOS##########                        *
 *                                                                              *
 *******************************************************************************/
 	private function getInsertQueryWithNewId($clase){
 		$retorno="";
 		$vlnewCodigo=0;
-		$n=$clase->tablaTamaño;
+		$n=$clase->tablaTamano;
 		$swKey=0;
 		for($i=0;$i<=$n;$i++){
 			//que cuando sea un campo cadena le agregue las ''
@@ -315,7 +315,7 @@ Class Data implements iCrud{
                 $this->mlCadena = "'";
             Else
                 $this->mlCadena = "";
-            //Validamos que el campo sea key y sea numérico buscamos el último número y le asignamos el valor + 1
+            //Validamos que el campo sea key y sea numï¿½rico buscamos el ï¿½ltimo nï¿½mero y le asignamos el valor + 1
             If ($clase->tablaCampos->obtenerAI($i) = Incrementable::SI && $clase->TablaCampos->obtenerTipo($i) = TipoDato::NUMERO){
                 If ($swKey = 0) {
                     $vlNewCodigo = GetQueryNuevoCodigo($clase->tablaNombre, $clase->tablaCampos->obtenerNombre($i));
@@ -356,7 +356,7 @@ Class Data implements iCrud{
 				return $plusid;
         	}
         catch (\PDOException $e) {
-    		echo 'Incidencia al generar nuevo código ',  $e->getMessage(), ".\n";
+    		echo 'Incidencia al generar nuevo cï¿½digo ',  $e->getMessage(), ".\n";
 		}		
 	}
 }
@@ -379,7 +379,7 @@ Class Data implements iCrud{
 	/*
 	Private Function getQueryINSERTNoGenerarCodigo($Clase){
         $retorno="";
-        $n = $Clase->tablaTamaño;
+        $n = $Clase->tablaTamaï¿½o;
         For ($i = 0;$i<=$n;$i++){
             If ($Clase->tablaCampos->obtenerTipo($i) = TipoDato::CADENA) 
                 $this->lCadena = "'";
@@ -396,7 +396,7 @@ Class Data implements iCrud{
 	}
 	Private Function getSQLQueryUpDate($Clase){
         $retorno= "";
-        $n = $Clase->tablaTamaño;
+        $n = $Clase->tablaTamaï¿½o;
         $swKey = 0;
         For ($i = 0;$i<=$n;$i++){
             If ($Clase->tablaCampos->obtenerTipo($i) = TipoDato::CADENA)$lCadena = "'";
@@ -419,7 +419,7 @@ Class Data implements iCrud{
     
 	Private Function GetSQLQueryDelete($Clase){
         $retorno = "";
-        $n = $Clase->tablaTamaño;
+        $n = $Clase->tablaTamaï¿½o;
         $swKey = 0;
         For ( $i= 0;$i<=$n;$i++){
             If ($Clase->tablaCampos->obtenerTipo($i) = TipoDato::CADENA) $lCadena = "'";
@@ -443,7 +443,7 @@ Class Data implements iCrud{
 	}
 	Private Function GetSQLQueryListaDeCodigo($Clase){
         $retorno = "";
-        $n = $Clase->tablaTamaño;
+        $n = $Clase->tablaTamaï¿½o;
         $swKey = 0;
         For ($i = 0;$i<=$n;$i++){
             If ($Clase->tablaCampos->obtenerTipo($i) = TipoDato::CADENA) $lCadena = "'";
@@ -463,7 +463,7 @@ Class Data implements iCrud{
 	}*/
 	/*Private Function GetSQLQuery($Clase){
         $retorno= "";
-        $n = $Clase->tablaTamaño;
+        $n = $Clase->tablaTamaï¿½o;
         $swKey = 0;
         For ($i = 0;$i<=$n;$i++){
             If ($Clase->mTablaCampos->obtenerTipo($i) = TipoDato::CADENA) $lCadena = "'";
