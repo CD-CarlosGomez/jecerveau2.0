@@ -277,10 +277,10 @@ use \Core\Controller;
 														<div class="form-group">
 															<button type="" id="btn_command_h" class="btn btn-primary btn-md btn-block" value="AddAll" name="btn_command_h">Guardar</button>
 														</div>
+														</div>
 													</div>
-														
 												</div>
-										</fieldset>
+									</fieldset>
 								</div>
 							</div>
                         </div>

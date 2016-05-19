@@ -1,5 +1,5 @@
 <?php
-#Agregar los select de las llaves foráneas
+#Agregar los select de las llaves forï¿½neas
 
 namespace App\View\Company;
 defined("APPPATH") OR die("Access denied");
@@ -37,9 +37,9 @@ use \App\data\DataGridView as DGV;
 			'totalBO' => array('header' => 'Sucursales','link'=>$url . 'private/EnterpriseGroup/showBranchOfficeSubCompany/','filterColumn'=>1),
 			'totalUsers' => array('header' => 'Usuarios','link'=>$url . 'private/EnterpriseGroup/showUserSubCompany/','filterColumn'=>1)
 		))
-		->addColumnAfter('actions', 
-									'<a href="'.$url.'private/EnterpriseGroup/showBranchOffice">Ver Subcompanie\'s</a>',
-									'Actions', array('align' => 'center'))
+		//->addColumnAfter('actions', 
+		//							'<a href="'.$url.'private/EnterpriseGroup/showBranchOffice">Ver Subcompanie\'s</a>',
+		//							'Actions', array('align' => 'center'))
 		//->addColumnBefore('counter', '%counter%.', 'Counter', array('align' => 'right'))
 		//->setStartingCounter(1)
 		//->setRowClass('')
@@ -112,19 +112,11 @@ use \App\data\DataGridView as DGV;
 							<div class="col-lg-12">
 								<div class="ibox float-e-margins">
 									<div class="ibox-title">
-										<h5>sub cuentas maestra</h5>
-										<div class="ibox-tools">
-											<a class="collapse-link">
-												<i class="fa fa-chevron-up"></i>
-											</a>
-											<a class="close-link">
-												<i class="fa fa-times"></i>
-											</a>
-										</div>
+										<h5>Listado de subcuentas</h5>
 									</div>
 									<div class="ibox-content">					
 									<div class="pull-right">
-										<a onclick="" href="<?php echo $url; ?>private/EnterpriseGroup/AddSubcompany" class="btn btn-primary ">Agregar nueva subcuenta maestra</a>
+										<a onclick="" href="<?php echo $url; ?>private/EnterpriseGroup/AddSubcompany" class="btn btn-primary ">Nueva subcuenta</a>
 									</div>
 									<br />
 									<br />
@@ -142,7 +134,7 @@ use \App\data\DataGridView as DGV;
 				<div class="pull-right">
 				</div>
 				<div>
-					<strong>Copyright</strong> Example Company © 2014-2015
+					<strong>Copyright</strong> Example Company ï¿½ 2014-2015
 				</div>
 			</div>
 		</div>
@@ -187,7 +179,27 @@ use \App\data\DataGridView as DGV;
                                     .css('font-size', 'inherit');
                     }
                     }
-                ]
+                ],
+                language : {
+						buttons : {
+								copy : 'Copiar',
+								print : 'Imprimir'
+						}
+				},
+				"language" : {
+						"lengthMenu": "Mostrar _MENU_ registros por p&aacute;gina",
+						"zeroRecords": "No se encontraron registros.",
+						"info": "Mostrando p&aacute;gina _PAGE_ de _PAGES_",
+						"infoEmpty": "No registros disponibles",
+						"infoFiltered": "(filtrado desde _MAX_ registros totales)",
+						"search":         "Buscar:",
+						"paginate": {
+						"first":      "Primero",
+						"last":       "&Uacute;ltimo",
+						"next":       "Siguiente",
+						"previous":   "Anterior"
+						}
+				}
 
             });
 			

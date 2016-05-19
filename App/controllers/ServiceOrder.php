@@ -18,7 +18,7 @@ use \App\Models\ServiceOrders\CollectMethods 	as CM;
 use \App\Models\ServiceOrders\SoTypes 			as SOT;
 use \App\Models\ServiceOrders\SOAccessories 	as SOA;
 use \App\Models\ServiceOrders\SOAttachment		as SOAt;
-use \APP\Models\ServiceOrders\SODetails 		as SOD;
+use \App\Models\ServiceOrders\SODetails 		as SOD;
 use \App\Models\ServiceOrders\SOLogs			as SOL;
 use \App\Models\Contacts\Contacts 				as Co;
 use \App\Models\CurrentUser 					as CU;

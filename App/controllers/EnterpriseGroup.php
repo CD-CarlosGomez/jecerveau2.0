@@ -19,6 +19,8 @@ use \App\Models\EnterpriseGroup\BranchOffices as BO;
 use \App\Models\Users\Users as Us;
 use \App\Models\CurrentUser as CU;
 use \App\data\DataGridView as DGB;
+use \App\Data\Crud as Crud;
+
 
 	if (strlen(session_id()) < 1){session_start();}
 		$_SESSION["nombreUsuario"];
@@ -97,7 +99,7 @@ private $_sesionpkiBUser;
 		#set data variables
 		View::set("currentMainMenu", $currentMainMenu);
 		View::set("drows_Company",$dsSlcCompany);
-		View::set("dt_Company",$dt_Company);
+		View::set("dt_Company",@$dt_Company);
 		#Render
 		View::render("showSubcompanyCompany");        
 	}
@@ -178,7 +180,7 @@ private $_sesionpkiBUser;
 		}
 		#set data variables
 		View::set("currentMainMenu", $currentMainMenu);
-		View::set("dt_Company",$dt_Company);
+		View::set("dt_Company",@$dt_Company);
 		#render
 		View::render("showBranchOfficeSubcompany");
 	}
@@ -297,7 +299,7 @@ private $_sesionpkiBUser;
 		
 		#get data variables
 		$currentMainMenu=$cu->getMainMenu2($this->_sesionpkiBUser);
-		$dsSlcCompany=MA::getpknaSelect();
+		$dsSlcCompany=MA::getParcialSelect();
 		/*$dsCompanyGrid=MA::getParcialSelect();
 		while ($row =$dsCompanyGrid->fetch( \PDO::FETCH_ASSOC )){
 			$dt_Company[] = $row;

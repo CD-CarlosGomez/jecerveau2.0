@@ -101,7 +101,7 @@ use \Core\Controller;
 															<select id="" class="form-control m-b" name="slt_fkCompany_h">
 																<option value="-1">Selecciona una cuenta maestra ...</option>
 															<?php foreach ($drows_Company as $companyOption) {?>
-																	<option value="<?php echo $companyOption['pkSubCompany'] ?>"><?php echo $companyOption['subCompanyName'] ?></option>
+																	<option value="<?php echo $companyOption['pkCompany'] ?>"><?php echo $companyOption['legalName'] ?></option>
 															<?php } ?>
 															</select>
 														</div>
@@ -149,18 +149,26 @@ use \Core\Controller;
 	<!-- Jquery Validate -->
     <script src="<?php echo $url; ?>App/web/js/plugins/validate/jquery.validate.min.js"></script>
 	<script>
+	$.validator.addMethod('regex', function (value,element) { 
+    	return  this.optional(element)|| /^[A-Za-zñÑ0-9\-\s\.áéíóúÁÉÍÓÚ]*$/g.test(value); 
+	}, 'Por favor, introduzca s&oacute;lo n&uacute;meros y letras.');
+	
 	$(document).ready(
 		function(){
 			$("#frm_subCompany_h").validate(
 			{
 				rules: {
-					slt_fkCompany_h: {
+					slt_fkCompany_h : {
 					  required: true,
 					  min: 0
+					},
+					txt_subCompanyName_h : {
+						required : true						
 					}
 				},
 				messages:{
-				slt_pkSubCompany_h:"Please, choose a Company."
+					slt_fkCompany_h : "Por favor, selecciona una cuenta maestra.",
+					txt_subCompanyName_h : "Por favor, introduce el nombre de una subcuenta."
 				}
 			}
 			);	

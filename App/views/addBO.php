@@ -37,6 +37,8 @@ use \Core\Controller;
 	<link href="<?php echo $url; ?>App/web/css/plugins/iCheck/custom.css" rel="stylesheet">
 	<!-- steps CSS -->
 	<link href="<?php echo $url; ?>App/web/css/plugins/steps/jquery.steps.css" rel="stylesheet">
+	<!-- Select2 -->
+	<link href="<?php echo $url; ?>App/web/css/plugins/select2/select2.min.css" rel="stylesheet">
 
 </head>
 <body class="top-navigation">
@@ -96,20 +98,16 @@ use \Core\Controller;
 									<fieldset>
 											<form id="frm_BO_h" class="form-horizontal" action="<?php echo $url; ?>private/EnterpriseGroup" method="POST">
 												<div class="col-lg-6">
-													<div class="form-group">&nbsp;</div>
+													<fieldset class="form-group grouper"><leyend class="grouper"><h3>Datos de facturaci&oacute;n</h3></leyend>
+													<hr>
 													<div class="form-group">
-														<label class="col-md-4 control-label">Cuenta maestra:*</label>
-														<div class="col-lg-8">
-															<select id="" class="form-control m-b" name="slt_fkSubCompany_h">
-																<option value="-1">Selecciona una SubCuenta ...</option>
-															<?php foreach ($drows_Subcompany as $subcompanyOption) {?>
-																	<option value="<?php echo $subcompanyOption['pkSubCompany'] ?>"><?php echo $subcompanyOption['subCompanyName'] ?></option>
-															<?php } ?>
-															</select>
+															<label class="col-md-4 control-label">Sucursal:*</label>
+															<div class="col-lg-8">
+																<input id="txt_BOName_h" class="form-control required" name="txt_BOName_h" type="text">
+															</div>
 														</div>
-													</div>
 													<div class="form-group">
-														<label class="col-md-4 control-label">Direcci&oacute;n:*</label>
+														<label class="col-md-4 control-label">Calle:*</label>
 														<div class="col-md-8">
 															<input id="txt_BOStreet_h" class="form-control required" name="txt_BOStreet_h" type="text">
 														</div>
@@ -127,74 +125,95 @@ use \Core\Controller;
 														</div>
 													</div>
 													<div class="form-group">
-														<label class="col-md-4 control-label">Direcci&oacute;n de atenci&oacute;n:</label>
-														<div class="col-md-8">
-															<input id="txt_serviceAddress_h" class="form-control required" name="txt_serviceAddress_h" type="text">
-														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-md-4 control-label">Gerente:</label>
-														<div class="col-md-8">
-															<input id="txt_serviceManager_h" class="form-control required" name="txt_serviceManager_h" type="text">
-														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-md-4 control-label">Correo electr&oacute;nico del servicio:</label>
-														<div class="col-md-8">
-															<input id="txt_serviceEmail_h" class="form-control required" name="txt_serviceEmail_h" type="text">
-														</div>
-													</div>
-												</div>
-												<div class="col-md-6">
-														<div class="form-group">&nbsp;</div>
-														<div class="form-group">
-															<label class="col-md-4 control-label">Sucursal:*</label>
-															<div class="col-lg-8">
-																<input id="txt_BOName_h" class="form-control required" name="txt_BOName_h" type="text">
-															</div>
-														</div>
-														<div class="form-group">
-															<label class="col-md-4 control-label">Regi&oacute;n:*</label>
-															<div class="col-md-8">
-																<input id="txt_BORegion_h" class="form-control required" name="txt_BORegion_h" type="text">
-															</div>
-														</div>
-														<div class="form-group">
-															<label class="col-md-4 control-label">Zona:*</label>
-															<div class="col-md-8">
-																<input id="txt_BOZone_h" class="form-control required" name="txt_BOZone_h" type="text">
-															</div>
-														</div>
-														<div class="form-group">
-															<label class="col-md-4 control-label">Provincia:*</label>
-															<div class="col-md-8">
-																<input  id="txt_BOProvince_h" class="form-control required" name="txt_BOProvince_h" type="text">
-															</div>
-														</div>
-														<div class="form-group">
 															<label class="col-md-4 control-label">C&oacute;digo postal:*</label>
 															<div class="col-md-8">
 																<input  id="txt_BOZipCode_h" class="form-control required" name="txt_BOZipCode_h" type="text">
 															</div>
-														</div>
-														<div class="form-group">
-															<label class="col-md-4 control-label">Horario de atenci&oacute;n</label>
+													</div>
+													<div class="form-group">
+															<label class="col-md-4 control-label">Estado:*</label>
 															<div class="col-md-8">
-																<input id="txt_officeHour_h" class="form-control required" name="txt_officeHour_h" type="text">
+																<input  id="txt_BOProvince_h" class="form-control required" name="txt_BOProvince_h" type="text">
+															</div>
+													</div>
+													<div class="form-group">
+														<label class="col-md-4 control-label">Regi&oacute;n:*</label>
+														<div class="col-md-8">
+															<input id="txt_BORegion_h" class="form-control required" name="txt_BORegion_h" type="text">
+														</div>
+													</div>
+													<div class="form-group">
+														<label class="col-md-4 control-label">Zona:*</label>
+															<div class="col-md-8">
+																<input id="txt_BOZone_h" class="form-control required" name="txt_BOZone_h" type="text">
+															</div>
+													</div>
+													<div class="form-group">
+														<label class="col-md-4 control-label">Pa&iacute;s:*</label>
+															<div class="col-md-8">
+																<select id="slt_pkCountry_h" class="selectSearch required" style="width:310px;" name="slt_pkCountry_h">
+																	<option></option>
+																</select>
+															</div>
+													</div>
+													</fieldset>
+												</div>
+												<div class="col-md-6">
+													<fieldset class="form-group grouper"><leyend class="grouper"><h3>Datos de atenci&oacute;n</h3></leyend>
+														<hr>
+														<div class="form-group">
+															<label class="col-md-4 control-label">Gerente:</label>
+															<div class="col-md-8">
+																<input id="txt_serviceManager_h" class="form-control required" name="txt_serviceManager_h" type="text">
 															</div>
 														</div>
 														<div class="form-group">
-															<label class="col-md-4 control-label">Tel&eacute;fono de atenci&oacute;n:</label>
+															<label class="col-md-4 control-label">Direcci&oacute;n de atenci&oacute;n</label>
+															<div class="col-md-8">
+																<input id="txt_serviceAddress_h" class="form-control required" name="txt_serviceAddress_h" type="text">
+															</div>
+														</div>
+														<div class="form-group">
+															<label class="col-md-4 control-label">Tel&eacute;lefono de atenci&oacute;n:</label>
 															<div class="col-md-8">
 																<input id="txt_servicePhone_h" class="form-control required" name="txt_servicePhone_h" type="text">
 															</div>
 														</div>
-														
-														<div class="col-md-4 pull-right">
-															<div class="form-group">
-																<button type="submit" id="btn_command_h" class="btn btn-primary btn-md btn-block" value="AddBO" name="btn_command_h">Guardar</button>
+														<div class="form-group">
+															<label class="col-md-4 control-label">Correo electr&oacute;nico de atenci&oacute;n:</label>
+															<div class="col-md-8">
+																<input id="txt_serviceEmail_h" class="form-control required" name="txt_serviceEmail_h" type="text">
+															</div>
+														</div>													
+														<div class="form-group">
+															<label class="col-md-4 control-label">Horario de atenci&oacute;n:</label>
+															<div class="col-md-8">
+																<input id="txt_officeHour_h" class="form-control required" name="txt_officeHour_h" type="text">
 															</div>
 														</div>
+													</fieldset>
+													<fieldset class="form-group grouper"><leyend class="grouper"><h3>Datos de configuraci&oacute;n</h3></leyend>
+														<hr>
+														<div class="form-group">
+															<label class="col-md-4 control-label">SoldTo:</label>
+															<div class="col-md-8">
+																<input type="text" id="txt_soldTo_h" class="form-control required" name="txt_soldTo_h">
+															</div>
+														</div>
+														<div class="form-group">
+															<label class="col-md-4 control-label">ShipTo:</label>
+															<div class="col-md-8">
+																<input type="text" id="txt_shipTo_h" class="form-control required" name="txt_shipTo_h">
+															</div>
+														</div>
+													</fieldset>	
+													<div class="form-group">
+														<div class="col-md-4 pull-right">
+														<div class="form-group">
+															<button type="" id="btn_command_h" class="btn btn-primary btn-md btn-block" value="AddAll" name="btn_command_h">Guardar</button>
+														</div>
+														</div>
+													</div>
 												</div>
 											</form>
 										</fieldset>								
@@ -226,10 +245,17 @@ use \Core\Controller;
 
     <!-- Jquery Validate -->
     <script src="<?php echo $url; ?>App/web/js/plugins/validate/jquery.validate.min.js"></script>
+	 <!-- Select2 -->
+    <script src="<?php echo $url; ?>App/web/js/plugins/select2/select2.full.min.js"></script>
 	<script>
-	$(document).ready(
-		function(){
-			$("#frm_BO_h").validate(
+	$(document).ready(function(){
+	//cargamos los usuarios en el select2
+		$(".selectSearch").select2({	
+			placeholder: "Selecciona un pa&iacute;s a...",
+			allowClear: true
+		});
+	//Validamos el formulario
+		$("#frm_BO_h").validate(
 			{
 				rules: {
 					slt_fkSubCompany_h: {
@@ -241,8 +267,8 @@ use \Core\Controller;
 				slt_fkSubCompany_h:"Por favor, Tienes que seleccionar una subcompa&ntilde;&iacute;a."
 				}
 			}
-			);	
-    });
+		);	
+	});
 	</script>
 
 </body>
