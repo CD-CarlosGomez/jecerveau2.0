@@ -9,7 +9,7 @@
  * integralmente via parâmetro.                                                                                 *  
  *************************************************************************************************************/  
  // +---------------------------Comentarios de versión
-namespace App\Data;
+namespace App\data;
 defined("APPPATH") OR die("Access denied");
 
 use \Core\Database;
@@ -102,6 +102,31 @@ class Crud{
 *                  ##########MÉTODOS PÚBLICOS##########                        *
 *                                                                              *
 *******************************************************************************/
+   /*   
+   * Método público para generar el siguiente PK  
+   * @param string $column = Nombre del field a sacar el valor   
+   * @param string $table = Nombre de la tabla a la que se le sacará el valor
+   * @return  int $plusid el siguiente PK     
+   */    
+	public static function getNextId($field,$table){
+		try {
+				$cnn=Database::instance();
+				$PDOQuery = "SELECT MAX($field) AS Maximo FROM $table;";
+				$dso=$cnn->query($PDOQuery);
+				$ultimo=$dso->fetch();
+				$plusid=$ultimo['Maximo'];
+				if ($plusid=="") {
+					$plusid=1;
+				}
+				else{
+					$plusid++;
+				}
+				return $plusid;
+        	}
+        catch (\PDOException $e) {
+    		echo 'Incidencia al generar nuevo c?digo ',  $e->getMessage(), ".\n";
+		}
+	}
    public static function getAll($table){
         try {
 			$PDOcnn = Database::instance();
@@ -149,28 +174,27 @@ class Crud{
    * @param $arrayDados = Array de dados contendo colunas e valores   
    * @return Retorna resultado booleano da instrução SQL   
    */   
-   public function insert($arrayDados){   
+   public static function insert($arrayDados,$table){   
       try {   
-    
+		$PDOcnn = Database::instance();
         // Atribui a instrução SQL construida no método   
-        $sql = $this->buildInsert($arrayDados);   
-    
-        // Passa a instrução para o PDO   
-        $stm = $this->pdo->prepare($sql);   
+        $PDOquery = self::buildInsert($arrayDados,$table);   
+		// Passa a instrução para o PDO   
+        $PDOstm = $PDOcnn->prepare($PDOquery);   
     
         // Loop para passar os dados como parâmetro   
         $cont = 1;   
               foreach ($arrayDados as $valor):   
-                    $stm->bindValue($cont, $valor);   
+                    $PDOstm->bindValue($cont, $valor);   
                     $cont++;   
               endforeach;   
     
         // Executa a instrução SQL e captura o retorno   
-        $retorno = $stm->execute();   
+        $PDOResultSet = $PDOstm->execute();   
     
-        return $retorno;   
+        return true;   
            
-      } catch (PDOException $e) {   
+      } catch (\PDOException $e) {   
         echo "Erro: " . $e->getMessage();   
       }   
    }   
@@ -295,8 +319,7 @@ class Crud{
    * @param $arrayDados = Array de dados contendo colunas e valores   
    * @return String contendo instrução SQL   
    */    
-   private function buildInsert($arrayDados){   
-    
+   public static function buildInsert($arrayDados,$table){   
        // Inicializa variáveis   
        $sql = "";   
        $campos = "";   
@@ -315,7 +338,7 @@ class Crud{
        $valores = (substr($valores, -2) == ', ') ? trim(substr($valores, 0, (strlen($valores) - 2))) : $valores ;    
               
        // Concatena todas as variáveis e finaliza a instrução   
-       $sql .= "INSERT INTO {$this->tabla} (" . $campos . ")VALUES(" . $valores . ")";   
+       $sql .= "INSERT INTO {$table} (" . $campos . ")VALUES(" . $valores . ")";   
               
        // Retorna string com instrução SQL   
        return trim($sql);   
@@ -379,7 +402,8 @@ class Crud{
               
         // Retorna string com instrução SQL   
         return trim($sql);   
-   }   
+   } 
+	
 /*******************************************************************************
 *                                                                              *
 *                  ##########EVENTOS##########                                 *

@@ -38,9 +38,10 @@ use \Core\Controller;
 		<link href="<?php echo $url; ?>App/web/css/plugins/iCheck/custom.css" rel="stylesheet">
 		<!-- steps CSS -->
 		<link href="<?php echo $url; ?>App/web/css/plugins/steps/jquery.steps.css" rel="stylesheet">
-		<!-- Mainly scripts -->
-		
-		<!-- Mainly scripts -->
+		<!-- Select2 -->
+	<link href="<?php echo $url; ?>App/web/css/plugins/select2/select2.min.css" rel="stylesheet">
+		<!-- TouchSpin -->
+	<link href="<?php echo $url; ?>App/web/css/plugins/touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet">
 	</head>
 <body class="top-navigation">
     <div id="wrapper">
@@ -173,112 +174,164 @@ use \Core\Controller;
 												<div class="col-lg-6">
 													<fieldset class="form-group grouper"><leyend class="grouper"><h3>Datos de facturaci&oacute;n</h3></leyend>
 													<hr>
-													<div class="form-group">
+														<div class="form-group">
 															<label class="col-md-4 control-label">Sucursal:*</label>
 															<div class="col-lg-8">
 																<input id="txt_BOName_h" class="form-control required" name="txt_BOName_h" type="text">
 															</div>
 														</div>
-													<div class="form-group">
-														<label class="col-md-4 control-label">Calle:*</label>
-														<div class="col-md-8">
-															<input id="txt_BOStreet_h" class="form-control required" name="txt_BOStreet_h" type="text">
-														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-md-4 control-label">N&uacute;mero exterior:*</label>
-														<div class="col-md-8">
-															<input id="txt_BOExtNumber_h" class="form-control required" name="txt_BOExtNumber_h" type="text">
-														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-md-4 control-label">N&uacute;mero interior:*</label>
-														<div class="col-md-8">
-															<input id="txt_BOIntNumber_h" class="form-control required" name="txt_BOIntNumber_h" type="text">
-														</div>
-													</div>
-													<div class="form-group">
-															<label class="col-md-4 control-label">C&oacute;digo postal:*</label>
+														<div class="form-group">
+															<label class="col-md-4 control-label">Calle:*</label>
 															<div class="col-md-8">
-																<input  id="txt_BOZipCode_h" class="form-control required" name="txt_BOZipCode_h" type="text">
+																<input id="txt_BOStreet_h" class="form-control required" name="txt_BOStreet_h" type="text">
 															</div>
-													</div>
-													<div class="form-group">
-															<label class="col-md-4 control-label">Estado:*</label>
-															<div class="col-md-8">
-																<input  id="txt_BOProvince_h" class="form-control required" name="txt_BOProvince_h" type="text">
-															</div>
-													</div>
-													<div class="form-group">
-														<label class="col-md-4 control-label">Regi&oacute;n:*</label>
-														<div class="col-md-8">
-															<input id="txt_BORegion_h" class="form-control required" name="txt_BORegion_h" type="text">
 														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-md-4 control-label">Zona:*</label>
+														<div class="form-group">
+															<label class="col-md-4 control-label">N&uacute;mero exterior:*</label>
 															<div class="col-md-8">
-																<input id="txt_BOZone_h" class="form-control required" name="txt_BOZone_h" type="text">
+																<input id="txt_BOExtNumber_h" class="form-control required" name="txt_BOExtNumber_h" type="text">
 															</div>
+														</div>
+														<div class="form-group">
+															<label class="col-md-4 control-label">N&uacute;mero interior:*</label>
+															<div class="col-md-8">
+																<input id="txt_BOIntNumber_h" class="form-control required" name="txt_BOIntNumber_h" type="text">
+															</div>
+														</div>
+														<div class="form-group">
+																<label class="col-md-4 control-label">C&oacute;digo postal:*</label>
+																<div class="col-md-8">
+																	<input  id="txt_BOZipCode_h" class="form-control required" name="txt_BOZipCode_h" type="text">
+																</div>
+														</div>
+														<div class="form-group">
+																<label class="col-md-4 control-label">Estado:*</label>
+																<div class="col-md-8">
+																	<input  id="txt_BOProvince_h" class="form-control required" name="txt_BOProvince_h" type="text">
+																</div>
+														</div>
+														<div class="form-group">
+															<label class="col-md-4 control-label">Regi&oacute;n:*</label>
+															<div class="col-md-8">
+																<input id="txt_BORegion_h" class="form-control required" name="txt_BORegion_h" type="text">
+															</div>
+														</div>
+														<div class="form-group">
+															<label class="col-md-4 control-label">Zona:*</label>
+																<div class="col-md-8">
+																	<input id="txt_BOZone_h" class="form-control required" name="txt_BOZone_h" type="text">
+																</div>
+														</div>
+														<div class="form-group">
+															<label class="col-md-4 control-label">Pa&iacute;s:*</label>
+																<div class="col-md-8">
+																	<select id="slt_pkCountry_h" class="required" style="width:310px;" name="slt_pkCountry_h">
+																		<option></option>
+																		<?php
+																			foreach ($dt_country as $dr_country) {
+																		?>
+																					<option value="<?php echo $dr_country['CountryAb'] ?>"><?php echo $dr_country['CountryName'] ?></option>
+																		<?php 
+																			}
+																		?>
+																	</select>
+																</div>
 														</div>
 													</fieldset>
 												</div>
 												<div class="col-md-6">
-													<fieldset class="form-group grouper"><leyend class="grouper"><h3>Datos de atenci&oacute;n</h3></leyend>
-														<hr>
+														<fieldset class="form-group grouper"><leyend class="grouper"><h3>Datos de configuraci&oacute;n</h3></leyend>
+															<hr>
+															<div class="form-group">
+															<label class="col-md-4 control-label">Tipo de sucursal:*</label>
+																<div class="col-md-8">
+																	<select id="slt_aaspType_h" class="required" style="width:310px;" name="slt_aaspType_h">
+																		<option value="AASP">AASP</option>
+																		<option value="Retail">Retail</option>
+																		<option value="Tienda">Tienda</option>
+																	</select>
+																</div>
+															</div>
+															<div class="form-group">
+																<label class="col-md-4 control-label">SoldTo:</label>
+																<div class="col-md-8">
+																	<input type="text" id="txt_soldTo_h" class="form-control required" name="txt_soldTo_h">
+																</div>
+															</div>
+															<div class="form-group">
+																<label class="col-md-4 control-label">ShipTo:</label>
+																<div class="col-md-8">
+																	<input type="text" id="txt_shipTo_h" class="form-control required" name="txt_shipTo_h">
+																</div>
+															</div>
+															<div class="form-group">
+																<label class="col-md-4 control-label">Inicio de Folio:</label>
+																<div class="col-md-8">
+																	<input type="text" id="txt_folioStart_h" class="touchspin1 form-control required" value="" name="txt_folioStart_h">
+																</div>
+															</div>
+															<div class="form-group">
+																<label class="col-md-4 control-label">Inicio de serie:</label>
+																<div class="col-md-8">
+																	<input type="text" id="txt_folioSerie_h" class="form-control required" name="txt_folioSerie_h">
+																</div>
+															</div>
+															<div class="form-group">
+															<label class="col-md-4 control-label">Zona horaria:</label>
+																<div class="col-md-8">
+																	<select id="slt_timeZone_h" class="selectSearch required" style="width:310px;" name="slt_timeZone_h">
+																		<option></option>
+																		<?php
+																			foreach ($dt_timezone as $dr_tz => $dr_tzItem) {
+																		?>
+																					<option value="<?php echo $dr_tz; ?>"><?php echo $dr_tzItem; ?></option>
+																		<?php 
+																			}
+																		?>
+																	</select>
+																	</div>
+														</div>
+														</fieldset>	
+														<fieldset class="form-group grouper"><leyend class="grouper"><h3>Datos de atenci&oacute;n</h3></leyend>
+															<hr>
+															<div class="form-group">
+																<label class="col-md-4 control-label">Gerente:</label>
+																<div class="col-md-8">
+																	<input id="txt_serviceManager_h" class="form-control required" name="txt_serviceManager_h" type="text">
+																</div>
+															</div>
+															<div class="form-group">
+																<label class="col-md-4 control-label">Direcci&oacute;n de atenci&oacute;n</label>
+																<div class="col-md-8">
+																	<input id="txt_serviceAddress_h" class="form-control required" name="txt_serviceAddress_h" type="text">
+																</div>
+															</div>
+															<div class="form-group">
+																<label class="col-md-4 control-label">Tel&eacute;lefono de atenci&oacute;n:</label>
+																<div class="col-md-8">
+																	<input id="txt_servicePhone_h" class="form-control required" name="txt_servicePhone_h" type="text">
+																</div>
+															</div>
+															<div class="form-group">
+																<label class="col-md-4 control-label">Correo electr&oacute;nico de atenci&oacute;n:</label>
+																<div class="col-md-8">
+																	<input id="txt_serviceEmail_h" class="form-control required" name="txt_serviceEmail_h" type="text">
+																</div>
+															</div>													
+															<div class="form-group">
+																<label class="col-md-4 control-label">Horario de atenci&oacute;n:</label>
+																<div class="col-md-8">
+																	<input id="txt_officeHour_h" class="form-control required" name="txt_officeHour_h" type="text">
+																</div>
+															</div>
+														</fieldset>	
 														<div class="form-group">
-															<label class="col-md-4 control-label">Gerente:</label>
-															<div class="col-md-8">
-																<input id="txt_serviceManager_h" class="form-control required" name="txt_serviceManager_h" type="text">
+															<div class="col-md-4 pull-right">
+															<div class="form-group">
+																<button type="" id="btn_command_h" class="btn btn-primary btn-md btn-block" value="AddAll" name="btn_command_h">Guardar</button>
+															</div>
 															</div>
 														</div>
-														<div class="form-group">
-															<label class="col-md-4 control-label">Direcci&oacute;n de atenci&oacute;n</label>
-															<div class="col-md-8">
-																<input id="txt_serviceAddress_h" class="form-control required" name="txt_serviceAddress_h" type="text">
-															</div>
-														</div>
-														<div class="form-group">
-															<label class="col-md-4 control-label">Tel&eacute;lefono de atenci&oacute;n:</label>
-															<div class="col-md-8">
-																<input id="txt_servicePhone_h" class="form-control required" name="txt_servicePhone_h" type="text">
-															</div>
-														</div>
-														<div class="form-group">
-															<label class="col-md-4 control-label">Correo electr&oacute;nico de atenci&oacute;n:</label>
-															<div class="col-md-8">
-																<input id="txt_serviceEmail_h" class="form-control required" name="txt_serviceEmail_h" type="text">
-															</div>
-														</div>													
-														<div class="form-group">
-															<label class="col-md-4 control-label">Horario de atenci&oacute;n:</label>
-															<div class="col-md-8">
-																<input id="txt_officeHour_h" class="form-control required" name="txt_officeHour_h" type="text">
-															</div>
-														</div>
-													</fieldset>
-													<fieldset class="form-group grouper"><leyend class="grouper"><h3>Datos de configuraci&oacute;n</h3></leyend>
-														<hr>
-														<div class="form-group">
-															<label class="col-md-4 control-label">SoldTo:</label>
-															<div class="col-md-8">
-																<input type="text" id="txt_soldTo_h" class="form-control required" name="txt_soldTo_h">
-															</div>
-														</div>
-														<div class="form-group">
-															<label class="col-md-4 control-label">ShipTo:</label>
-															<div class="col-md-8">
-																<input type="text" id="txt_shipTo_h" class="form-control required" name="txt_shipTo_h">
-															</div>
-														</div>
-													</fieldset>	
-													<div class="form-group">
-														<div class="col-md-4 pull-right">
-														<div class="form-group">
-															<button type="" id="btn_command_h" class="btn btn-primary btn-md btn-block" value="AddAll" name="btn_command_h">Guardar</button>
-														</div>
-														</div>
-													</div>
 												</div>
 									</fieldset>
 								</div>
@@ -306,6 +359,10 @@ use \Core\Controller;
     <script src="<?php echo $url; ?>App/web/js/plugins/pace/pace.min.js"></script>
 	<!-- Jquery Validate -->
     <script src="<?php echo $url; ?>App/web/js/plugins/validate/jquery.validate.min.js"></script>
+	<!-- TouchSpin -->
+    <script src="<?php echo $url; ?>App/web/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
+	<!-- Select2 -->
+    <script src="<?php echo $url; ?>App/web/js/plugins/select2/select2.full.min.js"></script>
 	<script>
 	$.validator.setDefaults({
 		submitHandler: function(form) {
@@ -343,7 +400,20 @@ use \Core\Controller;
 				}
 			}
 		);		
-
+		//cargamos los usuarios en el select2
+		$("#slt_pkCountry_h").select2({	
+			placeholder: "Selecciona un país a...",
+			allowClear: true
+		});
+		$("#slt_timeZone_h").select2({	
+			placeholder: "Selecciona una zona horaria...",
+			allowClear: true
+		});
+		//Touch spin numérico para los folios
+		$(".touchspin1").TouchSpin({
+                buttondown_class: 'btn btn-white',
+                buttonup_class: 'btn btn-white'
+        });
 		//Habilitamos e inhabilitamos los inputs según si son visibles o no
 				var initial;
 				$('#nuevaSubcuenta').is(":visible")? initial = true :	initial =false;
@@ -359,90 +429,77 @@ use \Core\Controller;
 		
 		$("#frm_EG_h").validate(
 			{
-				rules:{
-					txt_legalName_h : {
+				rules: {
+					
+						txt_BOName_h : {
 						required : true,
-						regex : true		
-					},
-					txt_commercialName_h : {
-						required : true,
-						regex : true
-					},
-					txt_subCompanyName_h : {
-						required : "#nuevaSubcuenta:visible",
-						regex : true
-					},
-					txt_BOName_h : {
-						required : "#nuevaSucursal:visible",
 						regex : true
 					},
 					txt_BOStreet_h : {
-						required : "#nuevaSucursal:visible",
+						required : true,
 						regex : true
 					},
 					txt_BOExtNumber_h : {
-						required : "#nuevaSucursal:visible",
+						required : true,
 						regex : true
 					},
 					txt_BOIntNumber_h : {
-						required : "#nuevaSucursal:visible",
+						required : true,
 						regex : true
 					},
 					txt_BORegion_h : {
-						required : "#nuevaSucursal:visible",
+						required : true,
 						regex : true
 					},
 					txt_BOZone_h : {
-						required : "#nuevaSucursal:visible",
+						required : true,
 						regex : true
 					},
 					txt_BOProvince_h : {
-						required : "#nuevaSucursal:visible",
+						required : true,
 						regex : true
 					},
 					txt_BOZipCode_h : {
-						required : "#nuevaSucursal:visible",
+						required : true,
 						regex : true
 					},
 					txt_serviceManager_h : {
-						required : "#nuevaSucursal:visible",
+						required : true,
 						regex : true
 					},
 					txt_serviceEmail_h : {
-						required : "#nuevaSucursal:visible",
+						required : true,
 						email:true
 					},
 					txt_officeHour_h : {
-						required : "#nuevaSucursal:visible",
+						required : true,
 						regex : true
 					},
 					txt_servicePhone_h : {
-						required : "#nuevaSucursal:visible",
+						required : true,
 						regex : true
 					},
 					txt_serviceAddress_h : {
-						required : "#nuevaSucursal:visible",
+						required : true,
 						regex : true
 					},
 					txt_soldTo_h : {
-						required : "#nuevaSucursal:visible",
+						required : true,
 						regex : true
 					},
 					txt_shipTo_h : {
-						required : "#nuevaSucursal:visible",
+						required : true,
 						regex : true
-					}					
+					},
+					slt_pkCountry_h : {
+						required : true
+					},
+					slt_timeZone_h : {
+						required : true
+					}
 				},
 				messages : {
-					txt_legalName_h : {
-						required : "Favor de escribir el nombre legal."
-					},
-					txt_commercialName_h : {
-						required : "Favor de escribir el nombre comercial."
-					},
-					txt_subCompanyName_h : {
-						required : "Favor de escribir el nombre sub cuenta maestra."
-					},
+					
 					txt_BOName_h : {
 						required : "Favor de escribir el nombre del AASP."
 					},
@@ -488,7 +545,9 @@ use \Core\Controller;
 					},
 					txt_shipTo_h : {
 						required : "Favor de escribir el shipTo."
-					}					
+					},
+					slt_pkCountry_h : "Favor de seleccionar un pa&iacute;s",
+					slt_timeZone_h : "Favor de seleccionar una zona horaria"
 				}
 			}		
 		);

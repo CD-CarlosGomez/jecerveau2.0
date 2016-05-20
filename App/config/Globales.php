@@ -2,6 +2,10 @@
 namespace App\Config;
 defined("APPPATH") OR die("Access denied");
 
+use \DateTimeZone as DateTimeZone,
+\DateTime as DateTime;
+
+
 Class Globales {
 const BASE_URL 	='http://localhost:8012/';  //base url location
 const DOMINIO	='localhost:8012'; 
@@ -14,9 +18,9 @@ public static $domain		='http://localhost:8012/';
 public static $base_path	='iBrain2.0/';
 //public static $absoluteURL	='http://yocerebro.cloudappssolutions.com/iBrain2.0/';
 public static $absoluteURL	='http://192.168.1.191:8012/ibrain2.0/';
-//public static $absoluteURL	='http://localhost/www/iBrain2.0/';
+//public static $absoluteURL	='http://localhost:8012/iBrain2.0/';
 
-function timezone_list() {
+public static function timezone_list() {
     static $timezones = null;
 
     if ($timezones === null) {
@@ -27,7 +31,7 @@ function timezone_list() {
         foreach (DateTimeZone::listIdentifiers() as $timezone) {
             $now->setTimezone(new DateTimeZone($timezone));
             $offsets[] = $offset = $now->getOffset();
-            $timezones[$timezone] = '(' . format_GMT_offset($offset) . ') ' . format_timezone_name($timezone);
+            $timezones[$timezone] = '(' . self::format_GMT_offset($offset) . ') ' .self::format_timezone_name($timezone);
         }
 
         array_multisort($offsets, $timezones);
@@ -36,13 +40,13 @@ function timezone_list() {
     return $timezones;
 }
 
-function format_GMT_offset($offset) {
+public static function format_GMT_offset($offset) {
     $hours = intval($offset / 3600);
     $minutes = abs(intval($offset % 3600 / 60));
     return 'GMT' . ($offset ? sprintf('%+03d:%02d', $hours, $minutes) : '');
 }
 
-function format_timezone_name($name) {
+public static function format_timezone_name($name) {
     $name = str_replace('/', ', ', $name);
     $name = str_replace('_', ' ', $name);
     $name = str_replace('St ', 'St. ', $name);

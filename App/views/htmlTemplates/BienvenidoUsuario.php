@@ -177,7 +177,7 @@ $bodyMessage= "
 																									 font-family:\"Arial Narrow\", Arial, sans-serif;
 																										text-align:center;
 																										font-size:30px;
-																									 \" >Usuario</span>
+																									 \" ><strong>Usuario : </strong></span>
 																									</td>
 																									<td>
 																									<span 
@@ -192,7 +192,7 @@ $bodyMessage= "
 																								</tr>
 																								<tr>
 																									<td>
-																									<span>Contraseña</span>
+																									<span><strong>Contraseña : </strong></span>
 																									</td>
 																									<td>
 																									<span 

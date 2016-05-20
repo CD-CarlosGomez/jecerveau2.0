@@ -19,7 +19,7 @@ use \App\Models\EnterpriseGroup\BranchOffices as BO;
 use \App\Models\Users\Users as Us;
 use \App\Models\CurrentUser as CU;
 use \App\data\DataGridView as DGB;
-use \App\Data\Crud as Crud;
+use \App\data\Crud as Crud;
 
 
 	if (strlen(session_id()) < 1){session_start();}
@@ -246,10 +246,12 @@ private $_sesionpkiBUser;
 		$cu=CU::getInstance();
 		#get main variables
 		$url= Globales::$absoluteURL;
-		View::set("title", "AddCompany");
+		$timezone=Globales::timezone_list();
+		
 		#set main variables
 		View::set("url", $url);
-		
+		View::set("title", "AddCompany");
+		View::set("dt_timezone",$timezone);
 		#get data variables
 		$currentMainMenu=$cu->getMainMenu2($this->_sesionpkiBUser);
 		$dsSlcCompany=MA::getpknaSelect();
@@ -257,10 +259,12 @@ private $_sesionpkiBUser;
 		while ($row =$dsCompanyGrid->fetch( \PDO::FETCH_ASSOC )){
 			$dt_Company[] = $row;
 		}
+		$ds_country=Crud::getAll("country");
 		#set data variables
 		View::set("currentMainMenu", $currentMainMenu);
 		View::set("drows_Company",$dsSlcCompany);
 		View::set("dt_Company",$dt_Company);
+		View::set("dt_country",$ds_country);
 		#render
 		View::render("addEnterpriseGroup");        
 	}
@@ -316,15 +320,21 @@ private $_sesionpkiBUser;
 		$cu=CU::getInstance();
 		#get_main_variables
 		$url= Globales::$absoluteURL;
+		$timezone=Globales::timezone_list();
 		#set_main_variables
 		View::set("url", $url);
 		View::set("title", "AddCompany");
+		View::set("dt_timezone",$timezone);
 		#get_data_variables
 		$currentMainMenu=$cu->getMainMenu2($this->_sesionpkiBUser);
 		$dsSlcSubCompany=SC::getpknaSelect();
+		$ds_country=Crud::getAll("country");
+		//$ds_timezone=Crud::getAll("timezone");
 		#set_data_variables
 		View::set("drows_Subcompany",$dsSlcSubCompany);
 		View::set("currentMainMenu", $currentMainMenu);
+		View::set("dt_country",$ds_country);
+		
 		#render
 		View::render("addBO");
 	}
@@ -359,45 +369,61 @@ private $_sesionpkiBUser;
 		$c->setCreatedBy($_SESSION['pkiBUser_p']);
 		$c->setModified("null");
 		$c->setModifiedBy("null");
-		$c->insertData("company");
+		if($c->insertData("company")){
 		
-		$sc=new SC;
-		$nextPKSubcompany=$sc->getNextId("pkSubCompany","subcompany");
-		$sc->setPkSubCompany($nextPKSubcompany);
-		$sc->setCompany_pkCompany($nextPKCompany);
-		$sc->setSubCompanyName($_POST["txt_subCompanyName_h"]);
-		$sc->setActive("1");
-		$sc->setCreated(date("Y-m-d"));
-		$sc->setCreatedBy($_SESSION['pkiBUser_p']);
-		$sc->setModified("null");
-		$sc->setModifiedBy("null");
-		$sc->insertData("subcompany");
-		
-		$bo=new BO;
-		$nextPKBO=$bo->getNextId("pkBranchOffice","branchoffice");
-		$bo->setpkBO($nextPKBO);
-		$bo->setpkSC($nextPKSubcompany);
-		$bo->setBOName($_POST["txt_BOName_h"]);
-		$bo->setBOStreet($_POST["txt_BOStreet_h"]);
-		$bo->setBOExtNumber($_POST["txt_BOExtNumber_h"]);
-		$bo->setBOIntNumber($_POST["txt_BOIntNumber_h"]);
-		$bo->setBORegion($_POST["txt_BORegion_h"]);
-		$bo->setBOZone($_POST["txt_BOZone_h"]);
-		$bo->setBOProvince($_POST["txt_BOProvince_h"]);
-		$bo->setBOZipCode($_POST["txt_BOZipCode_h"]);
-		$bo->setServiceAddress($_POST['txt_serviceAddress_h']);
-		$bo->setServiceManager($_POST['txt_serviceManager_h']);
-		$bo->setServiceEmail($_POST['txt_serviceEmail_h']);
-		$bo->setLogoFile('null');
-		$bo->setOfficeHour($_POST['txt_officeHour_h']);
-		$bo->setServicePhone($_POST['txt_servicePhone_h']);
-		$bo->setActive("1");
-		$bo->setCreated(date("Y-m-d"));
-		$bo->setCreatedBy($_SESSION['pkiBUser_p']);
-		$bo->setModified("null");
-		$bo->setModifiedBy("null");
-		$bo->insertData("branchoffice");	
-		
+			$sc=new SC;
+			$nextPKSubcompany=$sc->getNextId("pkSubCompany","subcompany");
+			$sc->setPkSubCompany($nextPKSubcompany);
+			$sc->setCompany_pkCompany($nextPKCompany);
+			$sc->setSubCompanyName($_POST["txt_subCompanyName_h"]);
+			$sc->setActive("1");
+			$sc->setCreated(date("Y-m-d"));
+			$sc->setCreatedBy($_SESSION['pkiBUser_p']);
+			$sc->setModified("null");
+			$sc->setModifiedBy("null");
+			if ($sc->insertData("subcompany")){
+			
+				$bo=new BO;
+				$nextPKBO=$bo->getNextId("pkBranchOffice","branchoffice");
+				$bo->setpkBO($nextPKBO);
+				$bo->setpkSC($nextPKSubcompany);
+				$bo->setBOName($_POST["txt_BOName_h"]);
+				$bo->setBOStreet($_POST["txt_BOStreet_h"]);
+				$bo->setBOExtNumber($_POST["txt_BOExtNumber_h"]);
+				$bo->setBOIntNumber($_POST["txt_BOIntNumber_h"]);
+				$bo->setBORegion($_POST["txt_BORegion_h"]);
+				$bo->setBOZone($_POST["txt_BOZone_h"]);
+				$bo->setBOProvince($_POST["txt_BOProvince_h"]);
+				$bo->setBOZipCode($_POST["txt_BOZipCode_h"]);
+				$bo->setServiceAddress($_POST['txt_serviceAddress_h']);
+				$bo->setServiceManager($_POST['txt_serviceManager_h']);
+				$bo->setServiceEmail($_POST['txt_serviceEmail_h']);
+				$bo->setLogoFile('null');
+				$bo->setOfficeHour($_POST['txt_officeHour_h']);
+				$bo->setServicePhone($_POST['txt_servicePhone_h']);
+				$bo->setActive("1");
+				$bo->setCreated(date("Y-m-d"));
+				$bo->setCreatedBy($_SESSION['pkiBUser_p']);
+				$bo->setModified("null");
+				$bo->setModifiedBy("null");
+			
+				if ($bo->insertData("branchoffice")){
+					$bos['pkBranchOfficeSetting']=Crud::getNextId('pkBranchOfficeSetting','branchofficesetting');
+					$bos['BranchOffice_pkBranchOffice']=$nextPKBO;
+					$bos['Currency_pkCurrency']=0;
+					$bos['fktimeZone']=$_POST['slt_timeZone_h'];
+					$bos['fkLanguage']="";
+					$bos['fkCountry']=$_POST['slt_pkCountry_h'];
+					$bos['fkAASPType']=$_POST['slt_aaspType_h'];
+					$bos['shipTo']=$_POST['txt_shipTo_h'];
+					$bos['soldTo']=$_POST['txt_soldTo_h'];
+					$bos['folioStart']=$_POST['txt_folioStart_h'];
+					$bos['folioSerie']=$_POST['txt_folioSerie_h'];
+					
+					$buildQueryInsert=Crud::insert($bos,'branchofficesetting');
+				}
+			}
+		}
 	}
 	function CreateCompany(){
 	$c=new MA;
@@ -431,26 +457,42 @@ private $_sesionpkiBUser;
 	$nextPKBO=$bo->getNextId("pkBranchOffice","branchoffice");
 	$bo->setpkBO($nextPKBO);
 	$bo->setpkSC($_POST['slt_fkSubCompany_h']);
-	$bo->setBOName($_POST["txt_BOName_h"]);
-	$bo->setBOStreet($_POST["txt_BOStreet_h"]);
-	$bo->setBOExtNumber($_POST["txt_BOExtNumber_h"]);
-	$bo->setBOIntNumber($_POST["txt_BOIntNumber_h"]);
-	$bo->setBORegion($_POST["txt_BORegion_h"]);
-	$bo->setBOZone($_POST["txt_BOZone_h"]);
+	$bo->setBOName($_POST["txt_BOName_h"]); 
+	$bo->setBOStreet($_POST["txt_BOStreet_h"]); 
+	$bo->setBOExtNumber($_POST["txt_BOExtNumber_h"]); 
+	$bo->setBOIntNumber($_POST["txt_BOIntNumber_h"]); 
+	$bo->setBORegion($_POST["txt_BORegion_h"]); 
+	$bo->setBOZone($_POST["txt_BOZone_h"]); 
 	$bo->setBOProvince($_POST["txt_BOProvince_h"]);
-	$bo->setBOZipCode($_POST["txt_BOZipCode_h"]);
+	$bo->setBOZipCode($_POST["txt_BOZipCode_h"]); 
 	$bo->setServiceAddress($_POST['txt_serviceAddress_h']);
-	$bo->setServiceManager($_POST['txt_serviceManager_h']);
-	$bo->setServiceEmail($_POST['txt_serviceEmail_h']);
+	$bo->setServiceManager($_POST['txt_serviceManager_h']); 
+	$bo->setServiceEmail($_POST['txt_serviceEmail_h']); 
 	$bo->setLogoFile('null');
-	$bo->setOfficeHour($_POST['txt_officeHour_h']);
+	$bo->setOfficeHour($_POST['txt_officeHour_h']); 
 	$bo->setServicePhone($_POST['txt_servicePhone_h']);
 	$bo->setActive("1");
 	$bo->setCreated(date("Y-m-d"));
 	$bo->setCreatedBy($_SESSION['pkiBUser_p']);
 	$bo->setModified("null");
 	$bo->setModifiedBy("null");
-	$bo->insertData("branchoffice");
-	//header("Location:http://localhost:8012/iBrain2.0/private/EnterpriseGroup/showBranchOffice");
+	
+	if ($bo->insertData("branchoffice")){
+		$bos['pkBranchOfficeSetting']=Crud::getNextId('pkBranchOfficeSetting','branchofficesetting');
+		$bos['BranchOffice_pkBranchOffice']=$nextPKBO;
+		$bos['Currency_pkCurrency']=0;
+		$bos['fktimeZone']=$_POST['slt_timeZone_h'];
+		$bos['fkLanguage']="";
+		$bos['fkCountry']=$_POST['slt_pkCountry_h'];
+		$bos['fkAASPType']=$_POST['slt_aaspType_h'];
+		$bos['shipTo']=$_POST['txt_shipTo_h'];
+		$bos['soldTo']=$_POST['txt_soldTo_h'];
+		$bos['folioStart']=$_POST['txt_folioStart_h'];
+		$bos['folioSerie']=$_POST['txt_folioSerie_h'];
+		
+		$buildQueryInsert=Crud::insert($bos,'branchofficesetting');
 	}
+	header("Location:http://localhost:8012/iBrain2.0/private/EnterpriseGroup/showBranchOffice");
+	}
+	
 ?>

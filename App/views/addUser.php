@@ -16,13 +16,13 @@ use \Core\Controller;
 		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
 		else{
 				echo "Esta pagina es solo para usuarios registrados.<br>";
-			echo "<a href='http://localhost:8012/ibrain2.0'>Login Here!</a>";
+			echo "<a href='" . $url. "'>Login Here!</a>";
 			exit;
 		}
 		$now = time(); 
 		if($now > $_SESSION['expire']){
 		session_destroy();
-		echo "Su sesion a terminado, <a href='http://localhost:8012/ibrain2.0'>
+		echo "Su sesion a terminado, <a href='<a href='" . $url. "'>Login Here!</a>'>
 			  Necesita Hacer Login</a>";
 		exit;
 		}
@@ -66,7 +66,7 @@ use \Core\Controller;
 						</ul>
 						<ul class="nav navbar-top-links navbar-right">
 							<li>
-								<a href="<?php echo $url; ?>App/controllers/logout.php">Log out</a>
+								<a href="<?php echo $url; ?>private/logout">Salir</a>
 							</li>
 						</ul>
 					</div>
@@ -95,34 +95,16 @@ use \Core\Controller;
 							<div class="ibox float-e-margins">
 								<div class="ibox-title">
 									<h5>Nuevo usuario</h5>
-									<div class="ibox-tools">
-										<a class="collapse-link">
-											<i class="fa fa-chevron-up"></i>
-										</a>
-										<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-											<i class="fa fa-wrench"></i>
-										</a>
-										<ul class="dropdown-menu dropdown-user">
-											<li><a href="#">Config option 1</a>
-											</li>
-											<li><a href="#">Config option 2</a>
-											</li>
-										</ul>
-										<a class="close-link">
-											<i class="fa fa-times"></i>
-										</a>
-									</div>
 								</div>
 								<div class="ibox-content" >
 									<fieldset>
-											<form id="formUser" class="form-horizontal" action="<?php echo $url; ?>private/User" method="POST" role="form">
+											<form id="frm_user_h" class="form-horizontal" action="<?php echo $url; ?>private/User" method="POST" role="form">
 													<div class="col-lg-6">
-														<div class="form-group">&nbsp;</div>
+														
 														<div class="form-group">
 															<label class="col-md-4 control-label">Usuario:*</label>
 															<div class="col-lg-8">
 																<input id="txt_userName_h" class="form-control required" name="txt_userName_h" type="text">
-																<input id="" name="hdn_toDo_h" class="" value="AddUser" type="hidden">
 															</div>
 														</div>
 														<div class="form-group">
@@ -139,7 +121,7 @@ use \Core\Controller;
 														</div>
 													</div>
 													<div class="col-md-6">
-														<div class="form-group">&nbsp;</div>
+														
 														<div class="form-group">
 															<label class="col-md-4 control-label">Contrase&ntilde;a:*</label>
 															<div class="col-md-8">
@@ -147,46 +129,33 @@ use \Core\Controller;
 															</div>
 														</div>
 														<div class="form-group">
-														<label class="col-lg-4 control-label">Perfil:*</label>
-															<div class="col-lg-8">
-															<select id="" class="form-control m-b" name="slt_pkiBUsersProfile_h">
-																<option value="-1">Selecciona Perfil...</option>
-																	<?php foreach ($drowsP as $Options) {?>
-																		<option value="<?php echo $Options['pkiBUserProfile']; ?>"><?php echo $Options['Name']; ?></option>
-																	<?php } ?>
-															</select>
-															</div>
-														</div>
-														<div class="form-group">
-															<label class="col-md-4 control-label">P&aacute;gina de inicio:*</label>
+															<label class="col-md-4 control-label">P&aacute;gina de inicio:</label>
 															<div class="col-md-8">
-																<input id="txt_defaultFunction_h" class="form-control required" name="txt_defaultFunction_h" type="text">
+																<input id="txt_defaultFunction_h" class="form-control " name="txt_defaultFunction_h" type="text">
 															</div>
 														</div>
-													</div>
-													<div class="form-group">&nbsp;</div>
-													<div class="col-md-4 pull-right">
-														<div class="form-group">
-															<button type="submit" id="" class="btn btn-primary btn-md btn-block" name="btn-AddBO">Guardar</button>
+														<div class="col-md-4 pull-right">
+															<div class="form-group">
+																<button type="submit" id="" class="btn btn-primary btn-md btn-block" value="AddUser" name="btn_toDo_h">Guardar</button>
+															</div>
 														</div>
 													</div>
 											</form>
-										</fieldset>
-									
+									</fieldset>
 								</div>
 							</div>
-                        </div>
-                    </div>
-					
-				</div>
-			</div>
+						</div>
+					</div>
+                </div>
+            </div>
 			<div class="footer">
 				<div>
-					<strong>Copyright</strong> Example Company &copy; 2014-2015
+					<strong>iBrain&#174;</strong> 2.0
 				</div>
 			</div>
 		</div>
-    </div>
+	</div>
+    
 
    <!-- Mainly scripts -->
     <script src="<?php echo $url; ?>App/web/js/jquery-2.1.1.js"></script>
@@ -212,8 +181,59 @@ use \Core\Controller;
 	<script src="<?php echo $url; ?>App/web/js/demo/peity-demo.js"></script>
 	<!-- iCheck -->
     <script src="<?php echo $url; ?>App/web/js/plugins/iCheck/icheck.min.js"></script>
+	
 	<script>
+		$.validator.setDefaults({
+		submitHandler: function(form) {
+			form.submit();
+		}
+		});
+		
+		$.validator.addMethod('regex', function (value,element) { 
+    	return  this.optional(element)|| /^[A-Za-zñÑ0-9\-\s\.áéíóúÁÉÍÓÚ]*$/g.test(value); 
+		}, 'Por favor, introduzca s&oacute;lo n&uacute;meros y letras.');
+	
         $(document).ready(function(){
+			$("#frm_user_h").validate(
+			{
+				rules: {
+					txt_userName_h : {
+						required : true,
+						email : true
+					},
+					txt_realName_h : {
+						required : true,
+						regex : true
+					},
+					txt_email_h : {
+						required : true,
+						email:true
+					},
+					txt_password_h : {
+						required : true,
+						//regex : true
+					}
+				},
+				messages : {
+					txt_userName_h : {
+						required : "Favor de escribir el nombre del usuario.",
+						email : "Por favor, introduzca un email v&aacute;lido."
+					},
+					txt_realName_h : {
+						required : "Favor de escribir nombre completo del usuario."
+					},
+					txt_serviceEmail_h : {
+						required : "Favor de escribir el correo electr&oacute;nico del usuario.",
+						email : "Por favor, introduzca un email v&aacute;lido."
+					},
+					txt_password_h : {
+						required : "Favor de escribir el horario de atenci&oacute;n de la oficina."
+					}
+				}
+			}
+		);	
+		
+		
             $("#Wzd_Customazing").steps({
 				headerTag: "h3",
 				bodyTag: "section",

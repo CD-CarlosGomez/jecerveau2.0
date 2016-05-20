@@ -39,7 +39,8 @@ use \Core\Controller;
 	<link href="<?php echo $url; ?>App/web/css/plugins/steps/jquery.steps.css" rel="stylesheet">
 	<!-- Select2 -->
 	<link href="<?php echo $url; ?>App/web/css/plugins/select2/select2.min.css" rel="stylesheet">
-
+	<!-- TouchSpin -->
+	<link href="<?php echo $url; ?>App/web/css/plugins/touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet">
 </head>
 <body class="top-navigation">
     <div id="wrapper">
@@ -58,7 +59,7 @@ use \Core\Controller;
 						</ul>
 						<ul class="nav navbar-top-links navbar-right">
 							<li>
-								<a href="<?php echo $url; ?>App/controllers/logout.php">Log out</a>
+								<a href="<?php echo $url; ?>App/controllers/logout.php">Salir</a>
 							</li>
 						</ul>
 					</div>
@@ -100,6 +101,17 @@ use \Core\Controller;
 												<div class="col-lg-6">
 													<fieldset class="form-group grouper"><leyend class="grouper"><h3>Datos de facturaci&oacute;n</h3></leyend>
 													<hr>
+													<div class="form-group">
+														<label class="col-md-4 control-label">Cuenta maestra:*</label>
+														<div class="col-lg-8">
+															<select id="" class="form-control m-b" name="slt_fkSubCompany_h">
+																<option value="-1">Selecciona una SubCuenta ...</option>
+															<?php foreach ($drows_Subcompany as $subcompanyOption) {?>
+																	<option value="<?php echo $subcompanyOption['pkSubCompany'] ?>"><?php echo $subcompanyOption['subCompanyName'] ?></option>
+															<?php } ?>
+															</select>
+														</div>
+													</div>
 													<div class="form-group">
 															<label class="col-md-4 control-label">Sucursal:*</label>
 															<div class="col-lg-8">
@@ -151,14 +163,73 @@ use \Core\Controller;
 													<div class="form-group">
 														<label class="col-md-4 control-label">Pa&iacute;s:*</label>
 															<div class="col-md-8">
-																<select id="slt_pkCountry_h" class="selectSearch required" style="width:310px;" name="slt_pkCountry_h">
+																<select id="slt_pkCountry_h" class="required" style="width:310px;" name="slt_pkCountry_h">
 																	<option></option>
+																	<?php
+																		foreach ($dt_country as $dr_country) {
+																	?>
+																				<option value="<?php echo $dr_country['CountryAb'] ?>"><?php echo $dr_country['CountryName'] ?></option>
+																	<?php 
+																		}
+																	?>
 																</select>
 															</div>
 													</div>
 													</fieldset>
 												</div>
 												<div class="col-md-6">
+													<fieldset class="form-group grouper"><leyend class="grouper"><h3>Datos de configuraci&oacute;n</h3></leyend>
+														<hr>
+														<div class="form-group">
+														<label class="col-md-4 control-label">Tipo de sucursal:*</label>
+															<div class="col-md-8">
+																<select id="slt_aaspType_h" class="required" style="width:310px;" name="slt_aaspType_h">
+																	<option value="AASP">AASP</option>
+																	<option value="Retail">Retail</option>
+																	<option value="Tienda">Tienda</option>
+																</select>
+															</div>
+														</div>
+														<div class="form-group">
+															<label class="col-md-4 control-label">SoldTo:</label>
+															<div class="col-md-8">
+																<input type="text" id="txt_soldTo_h" class="form-control required" name="txt_soldTo_h">
+															</div>
+														</div>
+														<div class="form-group">
+															<label class="col-md-4 control-label">ShipTo:</label>
+															<div class="col-md-8">
+																<input type="text" id="txt_shipTo_h" class="form-control required" name="txt_shipTo_h">
+															</div>
+														</div>
+														<div class="form-group">
+															<label class="col-md-4 control-label">Inicio de Folio:</label>
+															<div class="col-md-8">
+																<input type="text" id="txt_folioStart_h" class="touchspin1 form-control required" value="" name="txt_folioStart_h">
+															</div>
+														</div>
+														<div class="form-group">
+															<label class="col-md-4 control-label">Inicio de serie:</label>
+															<div class="col-md-8">
+																<input type="text" id="txt_folioSerie_h" class="form-control required" name="txt_folioSerie_h">
+															</div>
+														</div>
+														<div class="form-group">
+														<label class="col-md-4 control-label">Zona horaria:</label>
+															<div class="col-md-8">
+																<select id="slt_timeZone_h" class="selectSearch required" style="width:310px;" name="slt_timeZone_h">
+																	<option></option>
+																	<?php
+																		foreach ($dt_timezone as $dr_tz => $dr_tzItem) {
+																	?>
+																				<option value="<?php echo $dr_tz; ?>"><?php echo $dr_tzItem; ?></option>
+																	<?php 
+																		}
+																	?>
+																</select>
+																</div>
+													</div>
+													</fieldset>	
 													<fieldset class="form-group grouper"><leyend class="grouper"><h3>Datos de atenci&oacute;n</h3></leyend>
 														<hr>
 														<div class="form-group">
@@ -192,25 +263,10 @@ use \Core\Controller;
 															</div>
 														</div>
 													</fieldset>
-													<fieldset class="form-group grouper"><leyend class="grouper"><h3>Datos de configuraci&oacute;n</h3></leyend>
-														<hr>
-														<div class="form-group">
-															<label class="col-md-4 control-label">SoldTo:</label>
-															<div class="col-md-8">
-																<input type="text" id="txt_soldTo_h" class="form-control required" name="txt_soldTo_h">
-															</div>
-														</div>
-														<div class="form-group">
-															<label class="col-md-4 control-label">ShipTo:</label>
-															<div class="col-md-8">
-																<input type="text" id="txt_shipTo_h" class="form-control required" name="txt_shipTo_h">
-															</div>
-														</div>
-													</fieldset>	
 													<div class="form-group">
 														<div class="col-md-4 pull-right">
 														<div class="form-group">
-															<button type="" id="btn_command_h" class="btn btn-primary btn-md btn-block" value="AddAll" name="btn_command_h">Guardar</button>
+															<button type="" id="btn_command_h" class="btn btn-primary btn-md btn-block" value="AddBO" name="btn_command_h">Guardar</button>
 														</div>
 														</div>
 													</div>
@@ -245,15 +301,36 @@ use \Core\Controller;
 
     <!-- Jquery Validate -->
     <script src="<?php echo $url; ?>App/web/js/plugins/validate/jquery.validate.min.js"></script>
-	 <!-- Select2 -->
+	<!-- Select2 -->
     <script src="<?php echo $url; ?>App/web/js/plugins/select2/select2.full.min.js"></script>
+	<!-- TouchSpin -->
+    <script src="<?php echo $url; ?>App/web/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
 	<script>
+	$.validator.setDefaults({
+		submitHandler: function(form) {
+			form.submit();
+		}
+	});
+	
+	$.validator.addMethod('regex', function (value,element) { 
+    	return  this.optional(element)|| /^[A-Za-zñÑ0-9\-\s\.áéíóúÁÉÍÓÚ]*$/g.test(value); 
+	}, 'Por favor, introduzca s&oacute;lo n&uacute;meros y letras.');
+	
 	$(document).ready(function(){
 	//cargamos los usuarios en el select2
-		$(".selectSearch").select2({	
-			placeholder: "Selecciona un pa&iacute;s a...",
+		$("#slt_pkCountry_h").select2({	
+			placeholder: "Selecciona un país a...",
 			allowClear: true
 		});
+		$("#slt_timeZone_h").select2({	
+			placeholder: "Selecciona una zona horaria...",
+			allowClear: true
+		});
+	//Touch spin numérico para los folios
+		$(".touchspin1").TouchSpin({
+                buttondown_class: 'btn btn-white',
+                buttonup_class: 'btn btn-white'
+        });
 	//Validamos el formulario
 		$("#frm_BO_h").validate(
 			{
@@ -261,10 +338,126 @@ use \Core\Controller;
 					slt_fkSubCompany_h: {
 					  required: true,
 					  min: 0
+					},
+						txt_BOName_h : {
+						required : true,
+						regex : true
+					},
+					txt_BOStreet_h : {
+						required : true,
+						regex : true
+					},
+					txt_BOExtNumber_h : {
+						required : true,
+						regex : true
+					},
+					txt_BOIntNumber_h : {
+						required : true,
+						regex : true
+					},
+					txt_BORegion_h : {
+						required : true,
+						regex : true
+					},
+					txt_BOZone_h : {
+						required : true,
+						regex : true
+					},
+					txt_BOProvince_h : {
+						required : true,
+						regex : true
+					},
+					txt_BOZipCode_h : {
+						required : true,
+						regex : true
+					},
+					txt_serviceManager_h : {
+						required : true,
+						regex : true
+					},
+					txt_serviceEmail_h : {
+						required : true,
+						email:true
+					},
+					txt_officeHour_h : {
+						required : true,
+						regex : true
+					},
+					txt_servicePhone_h : {
+						required : true,
+						regex : true
+					},
+					txt_serviceAddress_h : {
+						required : true,
+						regex : true
+					},
+					txt_soldTo_h : {
+						required : true,
+						regex : true
+					},
+					txt_shipTo_h : {
+						required : true,
+						regex : true
+					},
+					slt_pkCountry_h : {
+						required : true
+					},
+					slt_timeZone_h : {
+						required : true
 					}
 				},
-				messages:{
-				slt_fkSubCompany_h:"Por favor, Tienes que seleccionar una subcompa&ntilde;&iacute;a."
+				messages : {
+					slt_fkSubCompany_h : {
+						required : "Por favor, Tienes que seleccionar una subcompa&ntilde;&iacute;a.",
+					},
+					txt_BOName_h : {
+						required : "Favor de escribir el nombre del AASP."
+					},
+					txt_BOStreet_h : {
+						required : "Favor de escribir la direcci&oacute;n de la calle."
+					},
+					txt_BOExtNumber_h : {
+						required : "Favor de escribir el n&uacute;mero exterior."
+					},
+					txt_BOIntNumber_h : {
+						required : "Favor de escribir el n&uacute;mero interior."
+					},
+					txt_BORegion_h : {
+						required : "Favor de escribir el nombre  de la regi&oacute;n."
+					},
+					txt_BOZone_h : {
+						required : "Favor de escribir el nombre de la zona."
+					},
+					txt_BOProvince_h : {
+						required : "Favor de escribir el nombre del estado."
+					},
+					txt_BOZipCode_h : {
+						required : "Favor de escribir el c&oacute;digo postal."
+					},
+					txt_serviceManager_h : {
+						required : "Favor de escribir el nombre del gerente del AASP."
+					},
+					txt_serviceEmail_h : {
+						required : "Favor de escribir el correo electr&oacute;nico  de atenci&oacute;n.",
+						email : "Por favor, introduzca un email v&aacute;lido."
+					},
+					txt_officeHour_h : {
+						required : "Favor de escribir el horario de atenci&oacute;n de la oficina."
+					},
+					txt_servicePhone_h : {
+						required : "Favor de escribir el n&uacute;mero de tel&eacute;fono de atenci&oacute;n."
+					},
+					txt_serviceAddress_h : {
+						required : "Favor de escribir la direcci&oacute;n de atenci&oacute;n."
+					},
+					txt_soldTo_h : {
+						required : "Favor de escribir el soldTo."
+					},
+					txt_shipTo_h : {
+						required : "Favor de escribir el shipTo."
+					},
+					slt_pkCountry_h : "Favor de seleccionar un pa&iacute;s",
+					slt_timeZone_h : "Favor de seleccionar una zona horaria"
 				}
 			}
 		);	

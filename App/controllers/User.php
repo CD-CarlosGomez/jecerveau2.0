@@ -14,7 +14,8 @@ use \App\Config\Globales as Globales;
 use \App\Models\CurrentUser as CU;
 use \App\Models\Users\Users as Users;
 use \App\Models\Users\Profiles as Profiles;
-use \App\Web\API\Mailer\PHPMailer;
+use \App\web\API\Mailer\PHPMailer as PHPMailer;
+use \App\web\API\Mailer\smtp;
 
 	
 	session_start();
@@ -51,9 +52,9 @@ private $_sesionpkiBUser;
     public function index(){
 		//$layout=new WithSiteMap(new WithTemplate(new WithMenu(new LayoutCSS())));
 		//$layout= Layouts::render();
-		//self::showUser();
-		View::set("foo",true);
-		View::render("z_testPost");
+		self::showUser();
+		//View::set("foo",true);
+		//View::render("z_testPost");
 	}
 	public function showUser(){
 	#Objetos_e_instancias
@@ -65,7 +66,7 @@ private $_sesionpkiBUser;
 		View::set("url", $url);
 		View::set("currentMainMenu", $currentMainMenu);	
 	#get data variables
-		$dsCompanyGrid=Users::selectKanbanUser($this->_sesionpkiBUser);
+		$dsCompanyGrid=Users::getAll();
 		while ($row =$dsCompanyGrid->fetch( \PDO::FETCH_ASSOC )){$dt_Company[] = $row;}
 	#set data variables
 		View::set("dt_Company",$dt_Company);
@@ -137,7 +138,7 @@ private $_sesionpkiBUser;
 		case "AddProfile_1":
 			CreateProfile();
 		break;
-		case "AddUser":
+		case "AddUser2":
 			CreateUser();
 		break;
 		case "Eliminar":
@@ -162,58 +163,63 @@ private $_sesionpkiBUser;
 		$u->setPwdTmp($_POST['txt_password_h']);
 		$u->setRealName($_POST['txt_realName_h']);
 		$u->setEmail($_POST['txt_email_h']);
-		$u->setDefaultF("null");
+		$u->setDefaultF($_POST['txt_defaultFunction_h']);//
 		$u->setActive("2");
-		$u->setCreated('null');
-		$u->setCreatedBy('null');
+		$u->setCreated(date("Y-m-d"));
+		$u->setCreatedBy($_SESSION['pkiBUser_p']);
 		$u->setModified('null');
 		$u->setModifiedBy('null');
 		if ($u->insertData('ibuser')){
 			$destinatario=$u->getEmail();
 			$asunto="Bienvenido a iBrain 2.0";
-			$cuerpo = "";
 			
-			//include_once "../App/web/lib/Mailer/PHPMailerAutoload.php";
-			include_once "../App/views/htmlTemplates/BienvenidoUsuario.php";
-			$micorreo="cgomez@consultoriadual.com";
-			$nombreFrom="iBrain info";
-			$nombreadmin="";
-			$asunto="Bienvenida a usuario";
-			//$sucorreo=$u->getEmail();
-//////////////////////////////////////////////DATOS DE EMAIL DE confirmacion////////////////////////////////////
-			date_default_timezone_set('Etc/UTC');
-			$mail= new PHPMailer(false);
-			$mail->IsSMTP();
-			$mail->SMTPDebug = 0;
-			$mail->Debugoutput = 'html';
-			$mail->Host       = "smtp.gmail.com";
-			$mail->Port       = 587;
-			$mail->SMTPSecure = "tls";  
-			$mail->SMTPAuth = true;
-			$mail->Username = 'santi.notificaciones@gmail.com';
-			$mail->Password = 'envios2015';
-			$mail->setFrom($micorreo,"Carlos G�mez");
-			//$mail->AddReplyTo($micorreo,"Carlos G�mez 2");
-			$mail->AddAddress ("$destinatario","andres@consultoriadual");
-			$mail->Subject = "$asunto";
-			$mail->MsgHTML($bodyMessage);
-			$mail->AltBody='This is a plain-text message body';
-			$mail->isHTML(true);
-			$mail->SMTPOptions = array(
-				'ssl' => array(
-				'verify_peer' => false,
-				'verify_peer_name' => false,
-				'allow_self_signed' => true));
-			
-			if(!$mail->Send()){
-				$msg='Mailer Error: '.$mail->ErrorInfo;
-				header("Location:" . Globales::$absoluteURL . "/private/user");
+			if(file_exists("../App/views/htmlTemplates/BienvenidoUsuario.php")){
+				include_once "../App/views/htmlTemplates/BienvenidoUsuario.php";
+				include_once APPPATH . "/web/API/Mailer/PHPMailerAutoload.php";
+				//include_once "../App/views/htmlTemplates/BienvenidoUsuario.php";
+				$micorreo="cgomez@consultoriadual.com";
+				$nombreFrom="iBrain info";
+				$nombreadmin="";
+				$asunto="Bienvenida a usuario";
+				//$sucorreo=$u->getEmail();
+	//////////////////////////////////////////////DATOS DE EMAIL DE confirmacion////////////////////////////////////
+				date_default_timezone_set('Etc/UTC');
+				$mail= new PHPMailer;
+				$mail->IsSMTP();
+				$mail->SMTPDebug = 0;
+				$mail->Debugoutput = 'html';
+				$mail->Host       = "smtp.gmail.com";
+				$mail->Port       = 587;
+				$mail->SMTPSecure = "tls";  
+				$mail->SMTPAuth = true;
+				$mail->Username = 'santi.notificaciones@gmail.com';
+				$mail->Password = 'envios2015';
+				$mail->setFrom($micorreo,"Carlos Gómez");
+				//$mail->AddReplyTo($micorreo,"G&oacute;mez 2");
+				$mail->AddAddress ("$destinatario","cgomez@consultoriadual");
+				$mail->Subject = "$asunto";
+				$mail->MsgHTML($bodyMessage);
+				$mail->AltBody='This is a plain-text message body';
+				$mail->isHTML(true);
+				$mail->SMTPOptions = array(
+					'ssl' => array(
+					'verify_peer' => false,
+					'verify_peer_name' => false,
+					'allow_self_signed' => true)
+				);
+				
+				if(!$mail->Send()){
+					$msg='Mailer Error: '.$mail->ErrorInfo;
+				}
+				else{
+					$msg="<p>Tu informacion se recibio correctamente <br> Se ha enviado una confirmacion al correo <b>correo</b></p>";
+					header("Location:" . Globales::$absoluteURL . "/private/user");
+				}
 			}
 			else{
-				$msg="<p>Tu informacion se recibio correctamente <br> Se ha enviado una confirmacion al correo <b>correo</b></p>";
-				
+				include APPPATH . "/views/errors/404.php";
+				exit;
 			}
-			
 		}	
 		else
 			echo "Error,no se puede enviar el correo electr�nico ";

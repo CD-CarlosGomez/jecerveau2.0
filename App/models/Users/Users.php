@@ -268,7 +268,7 @@ class Users implements iCrud{
 		}
 	}
 //MÉTODOS PRIVADOS###################################
-	private function getNextId($column,$table){
+	private static function getNextId($column,$table){
 		try {
 				$cnn=Database::instance();
 				$PDOQuery = "SELECT MAX($column) AS Maximo FROM $table;";
