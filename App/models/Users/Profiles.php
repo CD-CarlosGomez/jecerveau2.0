@@ -122,9 +122,11 @@ class Profiles implements iCrud{
 			$PDOQuery=
 			"
 			SELECT 
+				u.realname,
 				pkBranchOffice, 
 				BOName,
 				Name,
+				
 				wf.*
 			FROM ibuser u
 				LEFT JOIN branchoffice_has_ibuserprofile bohup 
@@ -137,8 +139,7 @@ class Profiles implements iCrud{
 					ON up.pkiBUserProfile=wfhup.iBUserProfile_pkiBUserProfile
 				LEFT JOIN osworkflow wf
 					ON wfhup.OSworkflow_pkOSworkflow=wf.pkOSworkflow
-			WHERE u.pkiBUser=$pkiBUser
-				AND bo.Active=1
+			WHERE bo.Active=1
 			GROUP BY bo.pkBranchOffice
 			";
 		
@@ -152,22 +153,21 @@ class Profiles implements iCrud{
     public static function insertData($data){
 		try {
             $connection = Database::instance();
-			$sql = "INSERT INTO $data VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+			$sql = "INSERT INTO $data VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);";
             $query = $connection->prepare($sql);
             $query->bindParam(1, self::$_pkiBUserProfile, \PDO::PARAM_INT);
-			$query->bindParam(2, self::$_profileName, \PDO::PARAM_STR);
-			$query->bindParam(3, self::$_toBeCollected, \PDO::PARAM_STR);
-			$query->bindParam(4, self::$_toBeAssigned, \PDO::PARAM_STR);
-            $query->bindParam(5, self::$_toBeDiagnosed, \PDO::PARAM_STR);
-			$query->bindParam(6, self::$_diagnosisToBeAuthorized, \PDO::PARAM_STR);
-			$query->bindParam(7, self::$_toNotifyTheClient, \PDO::PARAM_STR);
-			$query->bindParam(8, self::$_toBeAuthorizedByClient, \PDO::PARAM_STR);
-            $query->bindParam(9, self::$_inRepairProcess, \PDO::PARAM_STR);
-			$query->bindParam(10, self::$_repaired, \PDO::PARAM_STR);
-			$query->bindParam(11, self::$_toDelivery, \PDO::PARAM_STR);
-			$query->bindParam(12, self::$_toBeCharged, \PDO::PARAM_INT);
-			$query->bindParam(13, self::$_deliveredToClient, \PDO::PARAM_STR);
-			$query->bindParam(14, self::$_cancelled, \PDO::PARAM_STR);
+			$query->bindParam(2, self::$_toBeCollected, \PDO::PARAM_STR);
+			$query->bindParam(3, self::$_toBeAssigned, \PDO::PARAM_STR);
+            $query->bindParam(4, self::$_toBeDiagnosed, \PDO::PARAM_STR);
+			$query->bindParam(5, self::$_diagnosisToBeAuthorized, \PDO::PARAM_STR);
+			$query->bindParam(6, self::$_toNotifyTheClient, \PDO::PARAM_STR);
+			$query->bindParam(7, self::$_toBeAuthorizedByClient, \PDO::PARAM_STR);
+            $query->bindParam(8, self::$_inRepairProcess, \PDO::PARAM_STR);
+			$query->bindParam(9, self::$_repaired, \PDO::PARAM_STR);
+			$query->bindParam(10, self::$_toDelivery, \PDO::PARAM_STR);
+			$query->bindParam(11, self::$_toBeCharged, \PDO::PARAM_INT);
+			$query->bindParam(12, self::$_deliveredToClient, \PDO::PARAM_STR);
+			$query->bindParam(13, self::$_cancelled, \PDO::PARAM_STR);
             $query->execute();
             return true;
         }
@@ -223,13 +223,13 @@ class Profiles implements iCrud{
     		echo 'Incidencia al generar nuevo código ',  $e->getMessage(), ".\n";
 		}
 	}
-	public static function getSelectibfunctiongroup12(){
+	public static function getSelectibfunctionDetail(){
 		 try {
 			$PDOcnn = Database::instance();
 			$PDOQuery="	SELECT 
-							pkiBFunctionGroup,
-							iBFunctionGroupName
-						FROM ibfunctiongroup;";
+							pkibFunctionDetail,
+							ibfunctionDetailName
+						FROM ibfunctiondetail WHERE Active=1;";
 			$PDOResultSet = $PDOcnn->query($PDOQuery);
 			return $PDOResultSet;
 		}

@@ -90,10 +90,10 @@ class BranchOffices implements iCrud{
 	public static function getAll(){
         try {
 			$connection = Database::instance();
-			$sql = "SELECT * from BranchOffice";
-			$query = $connection->prepare($sql);
-			$query->execute();
-			return $query->fetchAll();
+			$sql = "SELECT * from branchoffice";
+			$query = $connection->query($sql);
+			
+			return $query;
 		}
         catch(\PDOException $e)
         {

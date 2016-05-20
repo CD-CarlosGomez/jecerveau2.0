@@ -26,22 +26,23 @@ use \App\data\DataGridView as DGV;
 		->setGridAttributes(array('class' => 'table table-striped table-bordered table-hover dataTables-example'))
 		->enableSorting(false)
 		->removeColumn('pkBranchOffice')
+		->removeColumn('pkOSworkflow')
 		->setup(array(
 			'realname' => array('header' => 'Usuario'),
 			'BOName' => array ('header' =>'AASP'),
 			'Name' => array('header' => 'Perfil'),
-			'RE' => array('header' => 'Recolecci&oacute;n'),
-			'AS' => array('header' => 'Reasignaci&oacute;n'),
-			'PD' => array('header' => 'Dian&oacute;stico'),
-			'AD' => array('header' => 'Autoriza diagn&oacutestico'),
-			'PN' => array('header' => 'Notificaciones al cliente'),
-			'PA' => array('header' => 'Autorizados por el cliente'),
-			'PR' => array('header' => 'En reparaci&oacute;n'),
-			'TE' => array('header' => 'Reparados'),
-			'PS' => array('header' => 'Para entregar al cliente'),
-			'EC' => array('header' => 'Por saldar'),
-			'OK' => array('header' => 'Entregados al cliente'),
-			'CA' => array('header' => 'Canceladas')
+			'RE' => array('header' => 'RE'),
+			'AS' => array('header' => 'AS'),
+			'PD' => array('header' => 'PD'),
+			'AD' => array('header' => 'AD'),
+			'PN' => array('header' => 'PN'),
+			'PA' => array('header' => 'PA'),
+			'PR' => array('header' => 'PR'),
+			'TE' => array('header' => 'TE'),
+			'PS' => array('header' => 'PS'),
+			'EC' => array('header' => 'EC'),
+			'OK' => array('header' => 'OK'),
+			'CA' => array('header' => 'CA')
 		))
 		/*->addColumnAfter('actions', 
 									'<a href="'.$url.'private/BranchOffice">\'s</a>',
@@ -92,7 +93,7 @@ use \App\data\DataGridView as DGV;
 					</ul>
 					<ul class="nav navbar-top-links navbar-right">
 						<li>
-							<a href="<?php echo $url; ?>App/controllers/logout.php">Salir</a>
+							<a href="<?php echo $url; ?>private/logout">Salir</a>
 						</li>
 					</ul>
 				</div>

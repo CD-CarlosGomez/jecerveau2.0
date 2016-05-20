@@ -79,7 +79,7 @@ use \App\data\DataGridView as DGV;
 					</ul>
 					<ul class="nav navbar-top-links navbar-right">
 						<li>
-							<a href="<?php echo $url; ?>App/controllers/logout.php">Salir</a>
+							<a href="<?php echo $url; ?>private/logout">Salir</a>
 						</li>
 					</ul>
 				</div>

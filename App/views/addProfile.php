@@ -74,7 +74,7 @@ use \Core\Controller;
 					</ul>
 					<ul class="nav navbar-top-links navbar-right">
 						<li>
-							<a href="<?php echo $url; ?>App/controllers/logout.php">Log out</a>
+							<a href="<?php echo $url; ?>private/logout">Salir</a>
 						</li>
 					</ul>
 				</div>
@@ -113,17 +113,39 @@ use \Core\Controller;
 												<div class="col-lg-10">
 													<fieldset>
 														<div class="form-group">
+															<label class="col-lg-3 control-label">Usuario:*</label>
+																<div class="col-lg-8">
+																<select id="" class="form-control m-b" name="slt_pkiBUsers_h">
+																	<option value="-1">Selecciona un usuario ...</option>
+																		<?php foreach ($drowsU as $Options) {?>
+																			<option value="<?php echo $Options['pkiBUser']; ?>"><?php echo $Options['realname']; ?></option>
+																		<?php } ?>
+																</select>
+																</div>
+														</div>
+														<div class="form-group">
+															<label class="col-lg-3 control-label">Permiso para sucursal:*</label>
+																<div class="col-lg-8">
+																<select id="" class="form-control m-b" name="slt_pkBO_h">
+																	<option value="-1">Selecciona una sucursal ...</option>
+																		<?php foreach ($ds_BO as $dr_BO) {?>
+																			<option value="<?php echo $dr_BO['pkBranchOffice']; ?>"><?php echo $dr_BO['BOName'] ?></option>
+																		<?php } ?>
+																</select>
+																</div>
+														</div>
+														<div class="form-group">
 															<label class="col-lg-3 control-label">Descripci&oacute;n del perfil:*</label>
 															<div class="col-lg-8">
-																<input type="text" id="txt_realName_h" class="form-control required" name="txt_profileName_h">
+																<input type="text" id="txt_profileName_h" class="form-control required" name="txt_profileName_h">
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="col-lg-3 control-label">Permiso a contenido:*</label>
 															<div class="col-lg-8">
-																<select multiple="multiple" id="slt_pkiBFunctionGroup_h" name="slt_pkiBFunctionGroup_h[]">
+																<select multiple="multiple" id="slt_pkiBFunctionDetail_h" name="slt_pkiBFunctionDetail_h[]">
 																	<?php foreach ($drowsF as $options){?>
-																	<option value="<?php echo $options['pkiBFunctionGroup'];?>"><?php echo $options['iBFunctionGroupName']; ?></option>
+																	<option value="<?php echo $options['pkibFunctionDetail'];?>"><?php echo $options['ibfunctionDetailName']; ?></option>
 																	<?php } ?>
 																</select>
 															</div>
@@ -217,7 +239,7 @@ use \Core\Controller;
 																		<i class="fa fa-share-square-o"></i>
 																	</div>
 																	<div class="vertical-timeline-content">
-																		<div class="i-checks"><label> <input type="checkbox"  value="1" name="chk__deliveredToClient_h"> <i></i>Entregado al cliente</label></div>
+																		<div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_deliveredToClient_h"> <i></i>Entregado al cliente</label></div>
 																	</div>
 																</div>
 																<div class="vertical-timeline-block">
@@ -225,31 +247,20 @@ use \Core\Controller;
 																		<i class="fa fa-thumbs-down"></i>
 																	</div>
 																	<div class="vertical-timeline-content">
-																		<div class="i-checks"><label> <input type="checkbox"  value="1" name="chk__cancelled_h"> <i></i>Cancelados</label></div>
+																		<div class="i-checks"><label> <input type="checkbox"  value="1" name="chk_cancelled_h"> <i></i>Cancelados</label></div>
 																	</div>
 																</div>
 															</div>
 															</div>
 														</div>
-														<div class="form-group">
-														<label class="col-lg-3 control-label">Usuario:*</label>
-															<div class="col-lg-8">
-															<select id="" class="form-control m-b" name="slt_pkiBUsers_h">
-																<option value="-1">Selecciona un usuario ...</option>
-																	<?php foreach ($drowsU as $Options) {?>
-																		<option value="<?php echo $Options['pkiBUser']; ?>"><?php echo $Options['realname']; ?></option>
-																	<?php } ?>
-															</select>
+														<div class="col-lg-2 pull-right">
+															<div class="form-group">
+																<button type="submit" id="btn_toDo_h" class="btn btn-primary btn-block" value="addProfile" name="btn_toDo_h">Guardar</button>
 															</div>
 														</div>
 													</fieldset>
 												</div>
-												<div class="col-lg-2">
-													<div class="form-group">
-														<button type="submit" id="" class="btn btn-primary btn-block" value="addProfile" name="btn-AddProfile">Guardar</button>
-														<input id="" name="hdn_toDo_h" class="" value="AddProfile" type="hidden">
-													</div>
-												</div>
+												
 											</form>
 										</fieldset>
 									</p>
@@ -264,8 +275,8 @@ use \Core\Controller;
             <div class="pull-right">
             </div>
             <div>
-                <strong>Copyright</strong> Example Company © 2014-2015
-            </div>
+                <strong>iBrain&#174;</strong> 2.0
+			</div>
         </div>
 		</div>
 	</div>
@@ -297,13 +308,7 @@ use \Core\Controller;
 	<script src="<?php echo $url; ?>App/web/js/plugins/multiselect/jquery.multi-select.js"></script>
     <script>
         $(document).ready(function(){
-            $("#Wzd_Customazing").steps({
-				headerTag: "h3",
-				bodyTag: "section",
-				enableAllSteps: true,
-				enablePagination: false,
-				transitionEffect: "slideLeft"
-			});
+          
 			$("#formCompany").validate({
 				errorPlacement: function (error, element)
                         {
@@ -323,7 +328,7 @@ use \Core\Controller;
                     checkboxClass: 'icheckbox_square-green',
                 });
 			
-			$('#slt_pkiBFunctionGroup_h').multiSelect({keepOrder:true});
+			$('#slt_pkiBFunctionDetail_h').multiSelect({keepOrder:true});
 		});
 		 
     </script>

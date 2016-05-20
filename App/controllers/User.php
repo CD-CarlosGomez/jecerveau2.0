@@ -14,9 +14,10 @@ use \App\Config\Globales as Globales;
 use \App\Models\CurrentUser as CU;
 use \App\Models\Users\Users as Users;
 use \App\Models\Users\Profiles as Profiles;
+use \App\Models\EnterpriseGroup\BranchOffices as BO;
 use \App\web\API\Mailer\PHPMailer as PHPMailer;
 use \App\web\API\Mailer\smtp;
-
+use \App\data\Crud as Crud;
 	
 	session_start();
 		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
@@ -74,7 +75,9 @@ private $_sesionpkiBUser;
 	#Renderizar
 		View::render("showUser");	
 	}
-	public function showProfile(){		
+	public function showProfile(){
+		#Objetos_e_instancias
+		$cu=CU::getInstance();
 		#get main variables
 		$url= Globales::$absoluteURL;
 		
@@ -82,14 +85,16 @@ private $_sesionpkiBUser;
 		View::set("url", $url);
 		View::set("title", "Users");
 		#get data variables
-		$currentMainMenu=CU::getMainMenu2($this->_sesionpkiBUser);
+		$currentMainMenu=$cu->getMainMenu2($this->_sesionpkiBUser);
 		$dsCompanyGrid=Profiles::selectKanbanProfile($this->_sesionpkiBUser);
 		while ($row =$dsCompanyGrid->fetch( \PDO::FETCH_ASSOC )){
 			$dt_Company[] = $row;
 		}
+		
 		#set data variables
 		View::set("dt_Company",$dt_Company);
 		View::set("currentMainMenu", $currentMainMenu);
+		
 		#render
 		View::render("showProfile");   
 	}
@@ -113,19 +118,25 @@ private $_sesionpkiBUser;
 		View::render("addUser");       
 	}
 	public function addProfile(){
+	#Objetos_e_instancias
+	$cu=CU::getInstance();
 	#get main variables
 		$url= Globales::$absoluteURL;
-		$currentMainMenu=CU::getMainMenu2($this->_sesionpkiBUser);
+		;
 	#set main variables
 		View::set("url", $url);
-		View::set("currentMainMenu", $currentMainMenu);
+		
 		View::set("title", "Nuevo Perfil");
     #get data variables
-		$dsGFunction=Profiles::getSelectibfunctiongroup12();
+		$currentMainMenu=$cu->getMainMenu2($this->_sesionpkiBUser);
+		$dsGFunction=Profiles::getSelectibfunctionDetail();
+		$ds_BO=BO::getAll();
 		$dsUser=Users::getParcialSelect();
 	#set data variables
+		View::set("currentMainMenu", $currentMainMenu);
 		View::set("drowsF",$dsGFunction);
 		View::set("drowsU",$dsUser);
+		View::set("ds_BO", $ds_BO);
 	#Renderizar Vista
 		View::render("addProfile");
 	}
@@ -134,20 +145,9 @@ private $_sesionpkiBUser;
 //EVENTOS############################################
 //CONTROLES##########################################
 //MAIN###############################################
-	switch(@$_POST['hdn_toDo_h']){
-		case "AddProfile_1":
-			CreateProfile();
-		break;
-		case "AddUser2":
-			CreateUser();
-		break;
-		case "Eliminar":
-			Delete();
-		break;
- 	}
 	switch(@$_POST['btn_toDo_h']){
-		case "assignProfileToUser":
-			assignProfileToUser();
+		case "addProfile":
+			CreateProfile();
 		break;
 		case "AddUser":
 			CreateUser();
@@ -175,7 +175,7 @@ private $_sesionpkiBUser;
 			
 			if(file_exists("../App/views/htmlTemplates/BienvenidoUsuario.php")){
 				include_once "../App/views/htmlTemplates/BienvenidoUsuario.php";
-				include_once APPPATH . "/web/API/Mailer/PHPMailerAutoload.php";
+				//include_once APPPATH . "/web/API/Mailer/PHPMailerAutoload.php";
 				//include_once "../App/views/htmlTemplates/BienvenidoUsuario.php";
 				$micorreo="cgomez@consultoriadual.com";
 				$nombreFrom="iBrain info";
@@ -226,52 +226,62 @@ private $_sesionpkiBUser;
 	}
 	function CreateProfile(){
 		
-		$b=(empty($_POST['chk_toBecollected_h']))			?' <input type="checkbox" name=""/>':' <input type="checkbox" checked  name=""/>';
-		$c=(empty($_POST['chk_toBeAssigned_h']))			?' <input type="checkbox" name=""/>':' <input type="checkbox" checked  name=""/>';
-		$d=(empty($_POST['chk_toBeDiagnosed_h']))			?' <input type="checkbox" name=""/>':' <input type="checkbox" checked  name=""/>';
-		$f=(empty($_POST['chk_diagnosisToBeAuthorized_h']))	?' <input type="checkbox" name=""/>':' <input type="checkbox" checked  name=""/>';
-		$g=(empty($_POST['chk_toNotifyTheClient_h']))		?' <input type="checkbox" name=""/>':' <input type="checkbox" checked  name=""/>';
-		$h=(empty($_POST['chk_toBeAuthorizedByClient_h']))	?' <input type="checkbox" name=""/>':' <input type="checkbox" checked  name=""/>';
-		$l=(empty($_POST['chk_inRepairProcess_h']))			?' <input type="checkbox" name=""/>':' <input type="checkbox" checked  name=""/>';
-		$m=(empty($_POST['chk_repaired_h']))				?' <input type="checkbox" name=""/>':' <input type="checkbox" checked  name=""/>';
-		$n=(empty($_POST['chk_toDelivery_h']))				?' <input type="checkbox" name=""/>':' <input type="checkbox" checked  name=""/>';
-		$q=(empty($_POST['chk_toBeCharged_h']))				?' <input type="checkbox" name=""/>':' <input type="checkbox" checked  name=""/>';
-		$r=(empty($_POST['chk__deliveredToClient_h']))		?' <input type="checkbox" name=""/>':' <input type="checkbox" checked  name=""/>';
-		$s=(empty($_POST['chk__cancelled_h']))				?' <input type="checkbox" name=""/>':' <input type="checkbox" checked  name=""/>';
+		$up['pkiBUserProfile']=Crud::getNextId('pkiBUserProfile','ibuserprofile');
+		$up['Name']=$_POST['txt_profileName_h'];
 		
-		@$functionGroup=$_POST['slt_pkiBFunctionGroup_h'];
-		$p=new Profiles;
-		$nextId=$p->getNextId("pkiBUserProfile","ibuserprofile");
-		$p->setpkiBUserProfile($nextId);
-		$p->setProfileName($_POST['txt_profileName_h']);
-		$p->setToBeCollected($b);
-		$p->setToBeAssigned($c);
-		$p->setToBeDiagnosed($d);
-		$p->setDiagnosisToBeAuthorized($f);
-		$p->setToNotifyTheClient($g);
-		$p->setToBeAuthorizedByClient($h);
-		$p->setInRepairProcess($l);
-		$p->setRepaired($m);
-		$p->setToDelivery($n);
-		$p->setToBeCharged($q);
-		$p->setDeliveredToClient($r);
-		$p->setCancelled($s);
-		if($p-> insertData("ibuserprofile")){
-			if(!empty($_POST['slt_pkiBUsers_h'])){
-				Users::updateProfile($nextId,$_POST['slt_pkiBUsers_h']);
-			}
-			foreach ($functionGroup as $modules){
-				$value[]=$modules;
-			}
-			$values=implode(',',$value);
-			$bindParam="(".$values.")";
-			Users::insertProfileHasFunction($nextId,$bindParam);
+		if($PDOCommand1=Crud::insert($up,'ibuserprofile')){
+			$bohup['ibuser_pkiBUser']=$_POST['slt_pkiBUsers_h'];
+			$bohup['branchoffice_pkBranchOffice']=$_POST['slt_pkBO_h'];
+			$bohup['ibuserprofile_pkiBUserProfile']=$up['pkiBUserProfile'];
+			
+			if($PDOCommand2=Crud::insert($bohup,'branchoffice_has_ibuserprofile')){
+				$b=(empty($_POST['chk_toBecollected_h']))			?' <input type="checkbox" name=""/>':' <input type="checkbox" checked  name=""/>';
+				$c=(empty($_POST['chk_toBeAssigned_h']))			?' <input type="checkbox" name=""/>':' <input type="checkbox" checked  name=""/>';
+				$d=(empty($_POST['chk_toBeDiagnosed_h']))			?' <input type="checkbox" name=""/>':' <input type="checkbox" checked  name=""/>';
+				$f=(empty($_POST['chk_diagnosisToBeAuthorized_h']))	?' <input type="checkbox" name=""/>':' <input type="checkbox" checked  name=""/>';
+				$g=(empty($_POST['chk_toNotifyTheClient_h']))		?' <input type="checkbox" name=""/>':' <input type="checkbox" checked  name=""/>';
+				$h=(empty($_POST['chk_toBeAuthorizedByClient_h']))	?' <input type="checkbox" name=""/>':' <input type="checkbox" checked  name=""/>';
+				$l=(empty($_POST['chk_inRepairProcess_h']))			?' <input type="checkbox" name=""/>':' <input type="checkbox" checked  name=""/>';
+				$m=(empty($_POST['chk_repaired_h']))				?' <input type="checkbox" name=""/>':' <input type="checkbox" checked  name=""/>';
+				$n=(empty($_POST['chk_toDelivery_h']))				?' <input type="checkbox" name=""/>':' <input type="checkbox" checked  name=""/>';
+				$q=(empty($_POST['chk_toBeCharged_h']))				?' <input type="checkbox" name=""/>':' <input type="checkbox" checked  name=""/>';
+				$r=(empty($_POST['chk_deliveredToClient_h']))		?' <input type="checkbox" name=""/>':' <input type="checkbox" checked  name=""/>';
+				$s=(empty($_POST['chk_cancelled_h']))				?' <input type="checkbox" name=""/>':' <input type="checkbox" checked  name=""/>';
 				
+				$p=new Profiles;
+				$nextId=$p->getNextId("pkiBUserProfile","ibuserprofile");
+				$p->setpkiBUserProfile($nextId);
+				$p->setToBeCollected($b);
+				$p->setToBeAssigned($c);
+				$p->setToBeDiagnosed($d);
+				$p->setDiagnosisToBeAuthorized($f);
+				$p->setToNotifyTheClient($g);
+				$p->setToBeAuthorizedByClient($h);
+				$p->setInRepairProcess($l);
+				$p->setRepaired($m);
+				$p->setToDelivery($n);
+				$p->setToBeCharged($q);
+				$p->setDeliveredToClient($r);
+				$p->setCancelled($s);
+				
+				if($p-> insertData("osworkflow")){
+					$wfhup['OSworkflow_pkOSworkflow']=$p->getpkiBUserProfile();
+					$wfhup['iBUserProfile_pkiBUserProfile']=$up['pkiBUserProfile'];
+					
+					Crud::insert($wfhup,'osworkflow_has_ibuserprofile');
+					
+					header("Location:" . Globales::$absoluteURL . "/private/User/showProfile");
+				}
+			}
+			
+			@$functionDetails=$_POST['slt_pkiBFunctionDetail_h'];
+			foreach ($functionDetails as $fd){
+				$uphfd['iBUserProfile_pkiBUserProfile']=$bohup['ibuser_pkiBUser'];
+				$uphfd['ibFunctionDetail_pkibFunctionDetail']=$fd;
+				
+				Crud::insert($uphfd,'ibuserprofile_has_ibfunctiondetail');
+			}			
 		}
-		header("Location:http://localhost:8012/iBrain2.0/private/User/showProfile");
-		//header("Location:http://localhost/www/iBrain2.0/private/User/showProfile");
 	}
-	function assignProfileToUser(){
-		Users::updateProfile($_POST['slt_pkiBUsersProfile_h'],$_POST['slt_pkiBUsers_h']);		
-	}
+
 ?>

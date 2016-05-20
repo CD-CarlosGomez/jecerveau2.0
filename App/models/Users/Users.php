@@ -182,7 +182,7 @@ class Users implements iCrud{
 	public static function insertProfileHasFunction($pkiBUserProfile,$pkiBFunctionGroup){
 		try {
             $connection = Database::instance();
-			$sql = "INSERT INTO ibuserprofile_has_ibfunction VALUES (?,?)";
+			$sql = "INSERT INTO ibuserprofile_has_ibfunctiondetail VALUES (?,?)";
             $query = $connection->prepare($sql);
             $query->bindParam(1, $pkiBUserProfile, \PDO::PARAM_INT);
 			$query->bindParam(2, $pkiBFunctionGroup, \PDO::PARAM_INT);
