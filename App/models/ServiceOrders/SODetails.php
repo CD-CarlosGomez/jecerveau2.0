@@ -92,7 +92,7 @@ class SODetails implements iCrud{
             print "Error!: " . $e->getMessage();
         }
     }
-	public static function getStatusBySO($pkSO,$stSO){
+	public static function getDiagnoseBySO($pkSO,$stSO){
 		try {
             $PDOcnn = Database::instance();
             $PDOQuery = "SELECT * FROM `sodetail` WHERE `fkSorder`=$pkSO AND `fkOSstatus`=$stSO ORDER BY `pkSODetail` DESC LIMIT 1";

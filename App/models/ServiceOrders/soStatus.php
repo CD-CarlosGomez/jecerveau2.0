@@ -68,7 +68,7 @@ class CollectMethods implements iCrud{
     public static function getById($id) {
         try {
             $connection = Database::instance();
-            $sql = "SELECT * from ibuser WHERE pkibuser = ?";
+            $sql = "SELECT * from sodetail WHERE pkSODetail = $id";
             $query = $connection->prepare($sql);
             $query->bindParam(1, $id, \PDO::PARAM_INT);
             $query->execute();

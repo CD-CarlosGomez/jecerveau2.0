@@ -26,6 +26,7 @@ use \App\Models\Users\Users						as Us;
 use \App\Web\Lib\Multiload						as Ml;
 use \App\web\API\Mailer\PHPMailer;
 use \App\web\API\fpdf\fpdfExtended as fpdfExt;
+use \App\data\Crud 								as Crud;
 
 	if (strlen(session_id()) < 1){session_start();}
 		$_SESSION["nombreUsuario"];
@@ -65,18 +66,20 @@ class ServiceOrder extends Controller{
     public function index(){
 	//$layout=new WithSiteMap(new WithTemplate(new WithMenu(new LayoutCSS())));
 	//$layout= Layouts::render();
-		self::showSO();
-		//View::set("foo",true);
-		//View::render("z_testPost");
+		//self::showSO();
+		View::set("foo",true);
+		View::render("z_testPost");
 	}
 	public function showSO(){
+		#Objetos_e_Instancias
+		$cu=CU::getInstance();
 		#get_main_variables
 		$url= Globales::$absoluteURL;
 		#set_main_variables
 		View::set("url", $url);
 		View::set("title", "Listado de &oacute;rdenes");
 		#get_data_variables
-		$currentMainMenu=CU::getMainMenu2($this->_sesionpkiBUser);
+		$currentMainMenu=$cu->getMainMenu2($this->_sesionpkiBUser);
 		$dsSO=SO::getKanbanSO();
 		while ($row =$dsSO->fetch( \PDO::FETCH_BOTH )){
 			$dt_SO[] = $row;
@@ -144,79 +147,157 @@ class ServiceOrder extends Controller{
 		
 	}
 	public function ViewSO($pkso,$tabActive=1){
-				$arr_gsx_p= array(
-					"serialNumber"=>"C02L71R9FFT1",
-					"warrantyStatus"=>"Out Of Warranty (No Coverage)",
-					"daysRemaining"=>"0",
-					"estimatedPurchaseDate"=> "10/06/13" ,
-					"purchaseCountry"=>"Mexico", 
-					"registrationDate"=>"07/09/14",
-					"imageURL"=> "", 
-					"explodedViewURL"=>"",
-					"manualURL"=>"", 
-					"productDescription"=> "MacBook Pro (Retina, 15-inch,Early 2013)",
-					"configDescription"=>"MBP 15.4 RETINA,2.7GHZ,16GB,512GB FLASH",
-					"slaGroupDescription"=> "", 
-					"acPlusFlag"=>"" ,
-					"isLoaner"=> "N" ,
-					"consumerLawInfo"=> array(
-						"serviceType"=>"", 
-						"popMandatory"=> "",
-						"allowedPartType"=>"", 
-						),
-					"messages"=>"00007" ,
-					"availableRepairStrategies"=> array(
-						"availableRepairStrategy"=>"Return Before Replace" 
-						)
-					);
-					
-				#Objetos_e_Instancias;
-					$cu=new CU();
-					$cm=New CM();
-					$sot=New SOT();
-				#get_main_variables
-					$url= Globales::$absoluteURL;
-					$jsn_gsx_p=json_encode($arr_gsx_p);
-					$currentSO=$pkso;
-				#set_main_variables
-					View::set("url", $url);
-					View::set("title", "iBrain>Orden de servicio");
-					View::set("jsn_gsx_p",$jsn_gsx_p);
-					View::set("currentSO",$currentSO);
-					View::set("tabActive",$tabActive);
-				#get_data_variables
-					$currentMainMenu=$cu->getMainMenu2($this->_sesionpkiBUser);
-					$ResultSet_cm=$cm->getAll();
-					while ($row =$ResultSet_cm->fetch(\PDO::FETCH_ASSOC)){
-						$ds_cm[] = $row;
-					}
-					$ResultSet_so=SO::getoxcc($pkso);
-					while ($row =$ResultSet_so->fetch(\PDO::FETCH_ASSOC)){
-						$ds_so[] = $row;
-					}
-					$ResultSet_soa=SOA::getBySO($pkso);
-					while($row=$ResultSet_soa->fetch(\PDO::FETCH_ASSOC)){
-						$ds_soa[]=$row;
-					}
-					$ResultSet_sod=SOD::getStatusBySO($pkso,3);
-					while($row=$ResultSet_sod->fetch(\PDO::FETCH_ASSOC)){
-						$ds_sod[]=$row;
-					}
-					$ds_Us=Us::getAll();
-					while($row=$ds_Us->fetch(\PDO::FETCH_ASSOC)){
-						$dt_Us[]=$row;
-					}
-				#set_data_variables
-					View::set("ds_cm",$ds_cm);
-					View::set("ds_so",$ds_so);
-					View::set("ds_soa",@$ds_soa);
-					View::set("ds_sod",@$ds_sod);
-					View::set("dt_Us",$dt_Us);
-					View::set("currentMainMenu", $currentMainMenu);
-				#render
-					View::render("ViewSO");       
-		
-	}
+		$arr_gsx_p= array(
+			"serialNumber"=>"C02L71R9FFT1",
+			"warrantyStatus"=>"Out Of Warranty (No Coverage)",
+			"daysRemaining"=>"0",
+			"estimatedPurchaseDate"=> "10/06/13" ,
+			"purchaseCountry"=>"Mexico", 
+			"registrationDate"=>"07/09/14",
+			"imageURL"=> "", 
+			"explodedViewURL"=>"",
+			"manualURL"=>"", 
+			"productDescription"=> "MacBook Pro (Retina, 15-inch,Early 2013)",
+			"configDescription"=>"MBP 15.4 RETINA,2.7GHZ,16GB,512GB FLASH",
+			"slaGroupDescription"=> "", 
+			"acPlusFlag"=>"" ,
+			"isLoaner"=> "N" ,
+			"consumerLawInfo"=> array(
+			"serviceType"=>"", 
+			"popMandatory"=> "",
+			"allowedPartType"=>"", 
+			),
+			"messages"=>"00007" ,
+			"availableRepairStrategies"=> array(
+			"availableRepairStrategy"=>"Return Before Replace" 
+			)
+		);
+			
+		#Objetos_e_Instancias;
+			$cu=new CU();
+			$cm=New CM();
+			$sot=New SOT();
+		#get_main_variables
+			$url= Globales::$absoluteURL;
+			$jsn_gsx_p=json_encode($arr_gsx_p);
+			$currentSO=$pkso;
+		#set_main_variables
+			View::set("url", $url);
+			View::set("title", "iBrain>Orden de servicio");
+			View::set("jsn_gsx_p",$jsn_gsx_p);
+			View::set("currentSO",$currentSO);
+			View::set("tabActive",$tabActive);
+		#get_data_variables
+			//Obtiene el menú del usuario actual
+			$currentMainMenu=$cu->getMainMenu2($this->_sesionpkiBUser);
+			//Obtiene registros del catálogo métodos de recolección...
+			$ResultSet_cm=$cm->getAll();
+			while ($row =$ResultSet_cm->fetch(\PDO::FETCH_ASSOC)){
+				$ds_cm[] = $row;
+			}
+			//Obtiene el producto cartesiano de la orden por customercontact
+			$ResultSet_so=SO::getoxcc($pkso);
+			while ($row =$ResultSet_so->fetch(\PDO::FETCH_ASSOC)){
+				$ds_so[] = $row;
+			}
+			//Obtiene todos los accesorios incluidos en la orden especificada en el parámetro de la función 
+			$ResultSet_soa=SOA::getBySO($pkso);
+			while($row=$ResultSet_soa->fetch(\PDO::FETCH_ASSOC)){
+				$ds_soa[]=$row;
+			}
+			//Obtiene el diagnóstico técnico de la SO, el parámetro 3 = Diagnosticada
+			$ResultSet_sod=SOD::getDiagnoseBySO($pkso,3);
+			while($row=$ResultSet_sod->fetch(\PDO::FETCH_ASSOC)){
+				$ds_sod[]=$row;
+			}
+			//Obtiene a todos los usuarios para hacer un catálogo de ellos y así poder asignarles una orden
+			$ds_Us=Us::getAll();
+			while($row=$ds_Us->fetch(\PDO::FETCH_ASSOC)){
+				$dt_Us[]=$row;
+			}
+			//Obtiene el pk del estatus actual de la orden 
+			foreach($ds_so as $dr_so){ $currentST=$dr_so["fkOSstatus"];}
+			//Obtiene el pk del usuario actual de la orden 
+			foreach($ds_so as $dr_so){ $currentAssignTo=$dr_so["fkiBUser"];}
+			//Obtiene el nombre del estatus para la cabecera de la SO.
+			$resultSet_sosbypk=Crud::getById('sostatus','pkOSstatus',$currentST);
+			//Obtiene el nombre del usuario siempre y cuando la SO haya tenido por lo menos una asignación, de lo contrario la variable que se mandará por default es un string
+			if($currentAssignTo<>null){
+				$resultSet_userbypk=Crud::getById('ibuser','pkiBUser',$currentAssignTo);
+			}
+			else{
+				$resultSet_userbypk = "No asignada.";
+			}
+			$ResultSet_SOHistory=SO::getOrderHistory($pkso);
+			//Variables para el siguiente status
+			switch($currentST){
+				case 0:
+					$nextST="Asignada";
+					$nextSTLabel="Esperando a ser $nextST";
+					$nextPKOSstatus=2;
+					break;
+				case 1:
+					$nextST="Asignada";
+					$nextSTLabel="Esperando a ser $nextST";
+					$nextPKOSstatus=2;
+						break;
+				case 2:
+					$nextST="Diagnosticada";
+					$nextSTLabel="Esperando a ser $nextST";
+					$nextPKOSstatus=3;
+						break;
+				case 3:
+					$nextST="Diagn&oacute;stico autorizado";
+					$nextSTLabel="Esperando a ser $nextST";
+					$nextPKOSstatus=4;
+						break;
+				case 4:
+					$nextST="Notificada";
+					$nextSTLabel="Esperando a ser $nextST";
+					$nextPKOSstatus=5;
+						break;
+				case 5:
+					$nextST="Autorizada";
+					$nextSTLabel="Esperando a ser $nextST";
+					$nextPKOSstatus=6;
+						break;
+				case 6:
+					$nextST="Reparada";
+					$nextSTLabel="Esperando a ser $nextST";
+					$nextPKOSstatus=7;
+						break;
+				case 7:
+					$nextST="Entregada";
+					$nextSTLabel="Esperando a ser $nextST";
+					$nextPKOSstatus=8;
+						break;
+				case 8:
+					$nextST="Saldada";
+					$nextSTLabel="Esperando a ser $nextST";
+					$nextPKOSstatus=9;
+						break;
+				case 9:
+					$nextST="Cerrada";
+					$nextSTLabel="Esperando a ser $nextST";
+					$nextPKOSstatus=10;
+						break;
+			}
+			
+		#set_data_variables
+			View::set("ds_cm",@$ds_cm);
+			View::set("ds_so",@$ds_so);
+			View::set("ds_soa",@$ds_soa);
+			View::set("ds_sod",@$ds_sod);
+			View::set("dt_Us",@$dt_Us);
+			View::set("currentMainMenu", @$currentMainMenu);
+			View::set("currentST",@$resultSet_sosbypk);
+			View::set("currentAssignTo",$resultSet_userbypk);
+			View::set("SOHistory",$ResultSet_SOHistory);
+			View::set("nextST",$nextST);
+			View::set("nextSTLabel",$nextSTLabel);
+		#render
+			View::render("ViewSO");       
+		}
 	public function AddAccessory(){
 		#get_main_variables
 				$url= Globales::$absoluteURL;
@@ -295,7 +376,6 @@ class ServiceOrder extends Controller{
 			$so->setSOTechDetail($_POST["tta_SOTechDetail_h"]);
 			
 			if ($so->insertData("sorder")){
-				
 				if(isset($_SESSION["accessories"])){
 						//var_dump($_SESSION["accessories"]);
 					foreach($_SESSION["accessories"] as $k=>$v){
@@ -318,7 +398,7 @@ class ServiceOrder extends Controller{
 				$sod->setPKSODetail($nextSODpk);
 				$sod->setFKSorder($pkSOrder);
 				$sod->setOsstatus(0);
-				$sod->setSODetailDesc("Orden creada");
+				$sod->setSODetailDesc("Entrada");
 				$sod->setSODetailObs("");
 				$sod->setFKiBUser(null);
 				

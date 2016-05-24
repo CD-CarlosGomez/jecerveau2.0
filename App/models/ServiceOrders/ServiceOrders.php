@@ -73,7 +73,6 @@ class ServiceOrders implements iCrud{
 	public function getSOTechDetail(){
 		return self::$_SOTechDetail_p;
 	}
-		
 	public static function getAll(){
         try {
 			$PDOcnn = Database::instance();
@@ -97,7 +96,7 @@ class ServiceOrders implements iCrud{
 				LEFT JOIN sodetail sod 
 					ON so.pkSorder=sod.fkSorder
 			WHERE pkSorder=$pkso
-			ORDER BY sod.pkSODetail DESC LIMIT 1;
+			ORDER BY sod.fkOSstatus DESC LIMIT 1;
 			";
 			$PDOResultSet = $PDOcnn->query($PDOQuery);
 			return $PDOResultSet;
@@ -136,7 +135,7 @@ class ServiceOrders implements iCrud{
 				return $plusid;
         	}
         catch (\PDOException $e) {
-    		echo 'Incidencia al generar nuevo c�digo ',  $e->getMessage(), ".\n";
+    		echo 'Incidencia al generar nuevo c&oacute;digo ',  $e->getMessage(), ".\n";
 		}
 	}
 	public static function getKanbanSO(){
@@ -201,6 +200,37 @@ class ServiceOrders implements iCrud{
 			ORDER BY 
 				so.pkSorder 
 			DESC LIMIT 1;
+			";
+            $resultSet=$PDOcnn->query($sql);
+            return $resultSet;
+        }
+        catch(\PDOException $e){
+            print "Error!: " . $e->getMessage();
+        }
+		
+	}
+	public static function getOrderHistory($id){
+		try {
+            $PDOcnn = Database::instance();
+            $sql = 
+			"
+			SELECT 
+				pkSODetail,
+				fkSorder,
+				fkOSstatus,
+				SOstatusName,
+				SOlogDate,
+				fkiBUser,
+				realname 
+			FROM `sodetail` 
+				INNER JOIN solog 
+					ON pkSODetail=SOrderDetail_pkSOrderDetail 
+				INNER JOIN sostatus
+					ON fkOSstatus=pkOSstatus
+				LEFT JOIN ibuser
+					ON fkiBUser=pkiBUser
+			WHERE fkSorder=$id GROUP BY fkOSstatus
+			ORDER BY fkOSstatus DESC
 			";
             $resultSet=$PDOcnn->query($sql);
             return $resultSet;
