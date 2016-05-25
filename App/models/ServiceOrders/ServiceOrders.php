@@ -99,7 +99,7 @@ class ServiceOrders implements iCrud{
 					ON so.pkSorder=de.sorder_pkSorder
 				LEFT JOIN gsx
 					ON de.pkDevice=gsx.fkDevice
-			WHERE pkSorder=112
+			WHERE pkSorder=$pkso
 			ORDER BY sod.fkOSstatus DESC LIMIT 1;
 			";
 			$PDOResultSet = $PDOcnn->query($PDOQuery);

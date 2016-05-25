@@ -23,9 +23,6 @@ use \Core\Controller;
 		exit;
 		}
 		
-		$obj_gsx_p=json_decode($jsn_gsx_p);
-		//foreach($ds_so as $dr_so){ echo $dr_so["SODate"];}
-		
 		foreach($currentST as $dr_sos){ $currentSTName=$dr_sos['SOstatusName'];}
 		
 		if (is_string($currentAssignTo)){
@@ -134,19 +131,19 @@ use \Core\Controller;
 															<div class="form-group">
 																<label class="col-md-4 control-label">Serie:*</label>
 																<div class="col-lg-8">
-																	<input type="text" id="txt_gsxSerialNumber_h" class="form-control required" value="<?php echo $obj_gsx_p->{'serialNumber'}; ?>" readonly="readonly" name="txt_gsxSerialNumber_h"/>
+																	<input type="text" id="txt_gsxSerialNumber_h" class="form-control required" value="<?php foreach($ds_so as $dr_so){ echo $dr_so["deviceSerialNumber"];} ?>" readonly="readonly" name="txt_gsxSerialNumber_h"/>
 																</div>
 															</div>
 															<div class="form-group">
 																<label class="col-md-4 control-label">Modelo:*</label>
 																<div class="col-lg-8">
-																	<input type="text" id="txt_gsxModel_h" class="form-control required" value="<?php echo $obj_gsx_p->{'productDescription'};?>" readonly="readonly" name="txt_gsxModel_h"/>
+																	<input type="text" id="txt_gsxModel_h" class="form-control required" value="<?php foreach($ds_so as $dr_so){ echo $dr_so["deviceModel"];} ?>" readonly="readonly" name="txt_gsxModel_h"/>
 																</div>
 															</div>
 															<div class="form-group">
 																<label class="col-md-4 control-label">Configuraci&oacute;n:*</label>
 																<div class="col-md-8">
-																	<input type="text" id="txt_gsxConfigDesc_h" class="form-control required" value="<?php echo $obj_gsx_p->{'configDescription'};?>" readonly="readonly" name="txt_gsxConfigDesc_h" />
+																	<input type="text" id="txt_gsxConfigDesc_h" class="form-control required" value="<?php foreach($ds_so as $dr_so){ echo $dr_so["deviceFeatures"];} ?>" readonly="readonly" name="txt_gsxConfigDesc_h" />
 																</div>
 															</div>
 														</fieldset>
@@ -156,19 +153,19 @@ use \Core\Controller;
 															<div class="form-group">
 																<label class="col-md-4 control-label">Estado de la cobertura:*</label>
 																<div class="col-md-8">
-																	<input  type="text" id="txt_gsxWarrantyST_h" class="form-control required" value="<?php echo $obj_gsx_p->{'warrantyStatus'};?>" readonly="readonly" name="txt_gsxWarrantyST_h"/>
+																	<input  type="text" id="txt_gsxWarrantyST_h" class="form-control required" value="<?php foreach($ds_so as $dr_so){ echo $dr_so["warrantyStatus"];} ?>" readonly="readonly" name="txt_gsxWarrantyST_h"/>
 																</div>
 															</div>
 															<div class="form-group">
 																<label class="col-md-4 control-label">Fecha de compra:*</label>
 																<div class="col-md-8">
-																	<input  type="text" id="txt_gsxPurchaseDate_h" class="form-control required" value="<?php echo $obj_gsx_p->{'estimatedPurchaseDate'};?>" readonly="readonly" name="txt_gsxPurchaseDate_h"/>
+																	<input  type="text" id="txt_gsxPurchaseDate_h" class="form-control required" value="<?php foreach($ds_so as $dr_so){ echo $dr_so["purchaseDate"];}?>" readonly="readonly" name="txt_gsxPurchaseDate_h"/>
 																</div>
 															</div>
 															<div class="form-group">
 																<label class="col-md-4 control-label">Comprado en:*</label>
 																<div class="col-md-8">
-																	<input type="text" id="txt_gsxPurchaseCountry_h" class="form-control required" value="<?php echo $obj_gsx_p->{'purchaseCountry'};?>" readonly="readonly" name="txt_gsxPurchaseCountry_h"/>
+																	<input type="text" id="txt_gsxPurchaseCountry_h" class="form-control required" value="<?php foreach($ds_so as $dr_so){ echo $dr_so["purchasePlace"];} ?>" readonly="readonly" name="txt_gsxPurchaseCountry_h"/>
 																</div>
 															</div>
 															<div class="form-group">
@@ -370,10 +367,8 @@ use \Core\Controller;
 												</div>
 												<div id="tab2" class="tab-pane"> 
 													 <div class="panel-body">
-														<h3>Asignaci&oacute;n de la Orden</h3>
-														<p>
 														<form id="frm_SO_h" class="form-horizontal" action="<?php echo $url; ?>private/ServiceOrder"   method="POST" name="frm_SO_h">
-																<fieldset>
+																<fieldset class="form-group grouper"><leyend><h3>Asignaci&oacute;n de la orden</h3></leyend>
 																		<div class="col-md-6">																				
 																				<div class="form-group">
 																						<?php foreach($ds_so as $dr_so){	$currentUserAssigned=$dr_so["fkiBUser"];}?>
@@ -409,13 +404,10 @@ use \Core\Controller;
 																		</div>
 																</fieldset>
 														</form>
-														</p>
 														<hr>
-														<p><h3>Diagn&oacute;stico t&eacute;cnico</h3></p>
-														<p>
-																<form id="frm_SOAt_h" class="form-horizontal" action="<?php echo $url; ?>private/ServiceOrder"   accept-charset="utf-8" enctype="multipart/form-data"  method="POST" name="frm_SOAt_h">
-																		<input type="hidden" id="" value="<?php echo $currentSO ?>" name="hdn_currentSO_h">
-																		<fieldset>
+														<form id="frm_SOAt_h" class="form-horizontal" action="<?php echo $url; ?>private/ServiceOrder"   accept-charset="utf-8" enctype="multipart/form-data"  method="POST" name="frm_SOAt_h">
+															<input type="hidden" id="" value="<?php echo $currentSO ?>" name="hdn_currentSO_h">
+															<fieldset class="form-group grouper"><leyend><h3>Diagn&oacute;stico t&eacute;cnico</h3></leyend>
 																			<div class="row">	
 																				<div class="col-md-6">
 																						<div class="form-group">
@@ -524,8 +516,7 @@ use \Core\Controller;
 																				</div>
 																			</div>
 																		</fieldset>
-																</form>
-														</p>
+														</form>
 													</div>
 												</div>
 												<div id="tab3" class="tab-pane">
