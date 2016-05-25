@@ -95,7 +95,11 @@ class ServiceOrders implements iCrud{
 					ON so.CustomerContact_pkCustomerContact=cc.pkCustomerContact
 				LEFT JOIN sodetail sod 
 					ON so.pkSorder=sod.fkSorder
-			WHERE pkSorder=$pkso
+				LEFT JOIN device de
+					ON so.pkSorder=de.sorder_pkSorder
+				LEFT JOIN gsx
+					ON de.pkDevice=gsx.fkDevice
+			WHERE pkSorder=112
 			ORDER BY sod.fkOSstatus DESC LIMIT 1;
 			";
 			$PDOResultSet = $PDOcnn->query($PDOQuery);
@@ -217,6 +221,7 @@ class ServiceOrders implements iCrud{
 			SELECT 
 				pkSODetail,
 				fkSorder,
+				SODetailDesc,
 				fkOSstatus,
 				SOstatusName,
 				SOlogDate,

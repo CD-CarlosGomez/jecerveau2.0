@@ -48,15 +48,17 @@ use \Core\Controller;
     <link href="<?php echo $url; ?>App/web/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="<?php echo $url; ?>App/web/css/animate.css" rel="stylesheet">
     <link href="<?php echo $url; ?>App/web/css/style.css" rel="stylesheet">
-	
+	<!-- iCheck -->
     <link href="<?php echo $url; ?>App/web/css/plugins/iCheck/custom.css" rel="stylesheet">
+	<!-- Steps -->
     <link href="<?php echo $url; ?>App/web/css/plugins/steps/jquery.steps.css" rel="stylesheet">
-   
+	<!-- DatePicker -->
 	<link href="<?php echo $url; ?>App/web/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+	<!-- JQGrid -->
 	<link href="<?php echo $url; ?>App/web/css/plugins/jqGrid/ui.jqgrid.css" rel="stylesheet">
-	
+	<!-- JQuery-UI -->
 	<link href="<?php echo $url; ?>App/web/css/plugins/jQueryUI/jquery-ui-1.10.4.custom.min.css">
-	
+	<!-- Select 2 -->
 	<link href="<?php echo $url; ?>App/web/css/plugins/select2/select2.min.css" rel="stylesheet">
 	<!-- Toastr style -->
     <link href="<?php echo $url; ?>App/web/css/plugins/toastr/toastr.min.css" rel="stylesheet">
@@ -127,63 +129,61 @@ use \Core\Controller;
 								<div class="ibox-content" >
 									<fieldset>
 											<form id="formUser" class="form-horizontal" action="<?php echo $url; ?>private/User" method="POST" role="form">
-													<div class="col-lg-6 form-group-dark">
-														<div class="form-group">&nbsp;</div>
-														<div class="form-group">
-															<label class="col-md-4 control-label">Serie:*</label>
-															<div class="col-lg-8">
-																<input type="text" id="txt_gsxSerialNumber_h" class="form-control required" value="<?php echo $obj_gsx_p->{'serialNumber'}; ?>" readonly="readonly" name="txt_gsxSerialNumber_h"/>
+													<div class="col-lg-6">
+														<fieldset class="form-group grouper"><leyend><h3>Informaci&oacute;n del dispositivo</h3></leyend>
+															<div class="form-group">
+																<label class="col-md-4 control-label">Serie:*</label>
+																<div class="col-lg-8">
+																	<input type="text" id="txt_gsxSerialNumber_h" class="form-control required" value="<?php echo $obj_gsx_p->{'serialNumber'}; ?>" readonly="readonly" name="txt_gsxSerialNumber_h"/>
+																</div>
 															</div>
-														</div>
-														<div class="form-group">
-															<label class="col-md-4 control-label">Modelo:*</label>
-															<div class="col-lg-8">
-																<input type="text" id="txt_gsxModel_h" class="form-control required" value="<?php echo $obj_gsx_p->{'productDescription'};?>" readonly="readonly" name="txt_gsxModel_h"/>
+															<div class="form-group">
+																<label class="col-md-4 control-label">Modelo:*</label>
+																<div class="col-lg-8">
+																	<input type="text" id="txt_gsxModel_h" class="form-control required" value="<?php echo $obj_gsx_p->{'productDescription'};?>" readonly="readonly" name="txt_gsxModel_h"/>
+																</div>
 															</div>
-														</div>
-														<div class="form-group">
-															<label class="col-md-4 control-label">Configuraci&oacute;n:*</label>
-															<div class="col-md-8">
-																<input type="text" id="txt_gsxConfigDesc_h" class="form-control required" value="<?php echo $obj_gsx_p->{'configDescription'};?>" readonly="readonly" name="txt_gsxConfigDesc_h" />
+															<div class="form-group">
+																<label class="col-md-4 control-label">Configuraci&oacute;n:*</label>
+																<div class="col-md-8">
+																	<input type="text" id="txt_gsxConfigDesc_h" class="form-control required" value="<?php echo $obj_gsx_p->{'configDescription'};?>" readonly="readonly" name="txt_gsxConfigDesc_h" />
+																</div>
 															</div>
-														</div>
-														<div class="form-group">
-															<label class="col-md-4 control-label">Estado de la cobertura:*</label>
-															<div class="col-md-8">
-																<input  type="text" id="txt_gsxWarrantyST_h" class="form-control required" value="<?php echo $obj_gsx_p->{'warrantyStatus'};?>" readonly="readonly" name="txt_gsxWarrantyST_h"/>
-															</div>
-														</div>
+														</fieldset>
 													</div>
-													<div class="col-md-6 form-group-dark">
-														<div class="form-group">&nbsp;</div>
-														<div class="form-group">
-															<label class="col-md-4 control-label">Fecha de compra:*</label>
-															<div class="col-md-8">
-																<input  type="text" id="txt_gsxPurchaseDate_h" class="form-control required" value="<?php echo $obj_gsx_p->{'estimatedPurchaseDate'};?>" readonly="readonly" name="txt_gsxPurchaseDate_h"/>
+													<div class="col-md-6">
+														<fieldset class="form-group grouper"><leyend><h3>Informaci&oacute;n de la cobertura</h3></leyend>
+															<div class="form-group">
+																<label class="col-md-4 control-label">Estado de la cobertura:*</label>
+																<div class="col-md-8">
+																	<input  type="text" id="txt_gsxWarrantyST_h" class="form-control required" value="<?php echo $obj_gsx_p->{'warrantyStatus'};?>" readonly="readonly" name="txt_gsxWarrantyST_h"/>
+																</div>
 															</div>
-														</div>
-														<div class="form-group">
-															<label class="col-md-4 control-label">Comprado en:*</label>
-															<div class="col-md-8">
-																<input type="text" id="txt_gsxPurchaseCountry_h" class="form-control required" value="<?php echo $obj_gsx_p->{'purchaseCountry'};?>" readonly="readonly" name="txt_gsxPurchaseCountry_h"/>
+															<div class="form-group">
+																<label class="col-md-4 control-label">Fecha de compra:*</label>
+																<div class="col-md-8">
+																	<input  type="text" id="txt_gsxPurchaseDate_h" class="form-control required" value="<?php echo $obj_gsx_p->{'estimatedPurchaseDate'};?>" readonly="readonly" name="txt_gsxPurchaseDate_h"/>
+																</div>
 															</div>
-														</div>
-														<div class="form-group">
-															<label class="col-md-4 control-label">Sin Cobertura desde hace:*</label>
-															<div class="col-md-8">
-																<input type="text" id="txt_fkiUserPRofile_h" class="form-control required" readonly="readonly" name="txt_fkiUserPRofile_h">
+															<div class="form-group">
+																<label class="col-md-4 control-label">Comprado en:*</label>
+																<div class="col-md-8">
+																	<input type="text" id="txt_gsxPurchaseCountry_h" class="form-control required" value="<?php echo $obj_gsx_p->{'purchaseCountry'};?>" readonly="readonly" name="txt_gsxPurchaseCountry_h"/>
+																</div>
 															</div>
-														</div>
-														<div class="form-group">
-															<label class="col-md-4 control-label">Fecha de cobertura:*</label>
-															<div class="col-md-8">
-																<input type="text" id="txt_defaultFunction_h" class="form-control required" readonly="readonly" name="txt_defaultFunction_h">
+															<div class="form-group">
+																<label class="col-md-4 control-label">Extensi&oacute;n de la cobertura:</label>
+																<div class="col-md-8 input-group">
+																	<input type="text" id="txt_contractStartDate_h" class="form-control" readonly="readonly" name="txt_contractStartDate_h">
+																	<span class="input-group-addon">a</span>
+																	<input type="text" id="txt_contractEndDate_h" class="form-control" readonly="readonly" name="txt_contractEndDate_h"/>
+																</div>
 															</div>
-														</div>
+														</fieldset>
 													</div>
-													<div class="form-group">&nbsp;</div>
+													
 											</form>
-										</fieldset>
+									</fieldset>
 								</div>
 							</div>
                         </div>
@@ -532,7 +532,8 @@ use \Core\Controller;
 													 <div class="panel-body">
 														<p><h3>Estatus actual: <?php echo $nextSTLabel; ?></h3></p>
 															<form id="frm_SOAt_h" class="form-horizontal" action="<?php echo $url; ?>private/ServiceOrder"   accept-charset="utf-8" enctype="multipart/form-data"  method="POST" name="frm_SOAt_h">
-																<input type="hidden" id="" value="<?php echo $currentSO ?>" name="hdn_currentSO_h">
+																<input type="hidden" id="" value="<?php echo $currentSO; ?>" name="hdn_currentSO_h">
+																<input type="hidden" id="" value="<?php echo $nextPKOSstatus; ?>" name="hdn_nextPkSt_h">
 																	<fieldset>
 																		<div class="row">	
 																			<div class="col-md-6">
@@ -560,7 +561,7 @@ use \Core\Controller;
 																<?php foreach ($SOHistory as $dr_SOH){ ?>
 																	
 																<li class="success-element" id="task9">
-																	<?php echo $dr_SOH['realname']; ?>
+																	<?php echo '<strong>' . $dr_SOH['realname'] . '</strong>&nbsp; Seguimiento : ' .  $dr_SOH['SODetailDesc']; ?>  
 																	<div class="agile-detail">
 																		<a href="#" class="pull-right btn btn-xs btn-white"><?php echo $dr_SOH['SOstatusName']; ?></a>
 																	<i class="fa fa-clock-o"></i><?php 
@@ -712,7 +713,14 @@ use \Core\Controller;
 						$('#navli3').removeClass('disabled');
 						$('#navli3').find('a').attr('data-toggle','tab');
 					}
-				});*/
+				});
+				
+				 $('button').click(function(){
+					//enable next tab//
+					$('.nav li.active').next('li').removeClass('disabled');
+					$('.nav li.active').next('li').find('a').attr("data-toggle","tab")
+				});
+				*/
 				
 			//Validar formulario de diagnóstico
 				$("#frm_SOAt_h").validate({

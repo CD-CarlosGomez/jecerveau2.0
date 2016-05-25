@@ -328,6 +328,10 @@ use \Core\Controller;
 		});
 	//Touch spin numérico para los folios
 		$(".touchspin1").TouchSpin({
+				min : 0,
+                max : 1000000000,
+                stepinterval: 50,
+                maxboostedstep: 10000000,
                 buttondown_class: 'btn btn-white',
                 buttonup_class: 'btn btn-white'
         });

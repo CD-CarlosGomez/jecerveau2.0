@@ -492,7 +492,7 @@ private $_sesionpkiBUser;
 		
 		$buildQueryInsert=Crud::insert($bos,'branchofficesetting');
 	}
-	header("Location:http://localhost:8012/iBrain2.0/private/EnterpriseGroup/showBranchOffice");
+	header("Location:" . Globales::$absoluteURL . "/private/EnterpriseGroup/showBranchOffice");
 	}
 	
 ?>

@@ -127,7 +127,7 @@ class Crud{
     		echo 'Incidencia al generar nuevo c?digo ',  $e->getMessage(), ".\n";
 		}
 	}
-   public static function getAll($table){
+	public static function getAll($table){
         try {
 			$PDOcnn = Database::instance();
 			$PDOQuery = "SELECT * from $table";
@@ -150,7 +150,7 @@ class Crud{
             print "Error!: " . $e->getMessage();
         }
     }
-   /*    
+	/*    
    * Método público estático que retorna uma instância da classe Crud    
    * @param $conexao = Conexão PDO configurada   
    * @param $tabla = Nome da tabla   
@@ -181,8 +181,7 @@ class Crud{
         $PDOquery = self::buildInsert($arrayDados,$table);   
 		// Passa a instrução para o PDO   
         $PDOstm = $PDOcnn->prepare($PDOquery);   
-    
-        // Loop para passar os dados como parâmetro   
+       // Loop para passar os dados como parâmetro   
         $cont = 1;   
               foreach ($arrayDados as $valor):   
                     $PDOstm->bindValue($cont, $valor);   
@@ -194,12 +193,12 @@ class Crud{
     
         return true;   
            
-      } catch (\PDOException $e) {   
+      }
+	  catch (\PDOException $e) {   
         echo "Erro: " . $e->getMessage();   
       }   
-   }   
-    
-   /*   
+	}   
+	/*   
    * Método público para atualizar os dados na tabla   
    * @param $arrayDados = Array de dados contendo colunas e valores   
    * @param $arrayCondicao = Array de dados contendo colunas e valores para condição WHERE - Exemplo array('$id='=>1)   
@@ -236,8 +235,7 @@ class Crud{
         echo "Erro: " . $e->getMessage();   
       }   
    }   
-    
-   /*   
+    /*   
    * Método público para excluir os dados na tabla   
    * @param $arrayCondicao = Array de dados contendo colunas e valores para condição WHERE - Exemplo array('$id='=>1)   
    * @return Retorna resultado booleano da instrução SQL   
@@ -267,8 +265,7 @@ class Crud{
         echo "Erro: " . $e->getMessage();   
       }   
    }   
-  
-   /*  
+    /*  
    * Método genérico para executar instruções de consulta independente do nome da tabla passada no _construct  
    * @param $sql = Instrução SQL inteira contendo, nome das tablas envolvidas, JOINS, WHERE, ORDER BY, GROUP BY e LIMIT  
    * @param $arrayParam = Array contendo somente os parâmetros necessários para clásusla WHERE  
@@ -403,7 +400,6 @@ class Crud{
         // Retorna string com instrução SQL   
         return trim($sql);   
    } 
-	
 /*******************************************************************************
 *                                                                              *
 *                  ##########EVENTOS##########                                 *

@@ -66,9 +66,9 @@ class ServiceOrder extends Controller{
     public function index(){
 	//$layout=new WithSiteMap(new WithTemplate(new WithMenu(new LayoutCSS())));
 	//$layout= Layouts::render();
-		//self::showSO();
-		View::set("foo",true);
-		View::render("z_testPost");
+		self::showSO();
+		//View::set("foo",true);
+		//View::render("z_testPost");
 	}
 	public function showSO(){
 		#Objetos_e_Instancias
@@ -147,7 +147,7 @@ class ServiceOrder extends Controller{
 		
 	}
 	public function ViewSO($pkso,$tabActive=1){
-		$arr_gsx_p= array(
+		/*$arr_gsx_p= array(
 			"serialNumber"=>"C02L71R9FFT1",
 			"warrantyStatus"=>"Out Of Warranty (No Coverage)",
 			"daysRemaining"=>"0",
@@ -171,7 +171,7 @@ class ServiceOrder extends Controller{
 			"availableRepairStrategies"=> array(
 			"availableRepairStrategy"=>"Return Before Replace" 
 			)
-		);
+		);*/
 			
 		#Objetos_e_Instancias;
 			$cu=new CU();
@@ -284,17 +284,18 @@ class ServiceOrder extends Controller{
 			}
 			
 		#set_data_variables
-			View::set("ds_cm",@$ds_cm);
-			View::set("ds_so",@$ds_so);
-			View::set("ds_soa",@$ds_soa);
-			View::set("ds_sod",@$ds_sod);
-			View::set("dt_Us",@$dt_Us);
-			View::set("currentMainMenu", @$currentMainMenu);
-			View::set("currentST",@$resultSet_sosbypk);
-			View::set("currentAssignTo",$resultSet_userbypk);
-			View::set("SOHistory",$ResultSet_SOHistory);
-			View::set("nextST",$nextST);
-			View::set("nextSTLabel",$nextSTLabel);
+			View::set("ds_cm"			,	@$ds_cm);
+			View::set("ds_so"			,	@$ds_so);
+			View::set("ds_soa"			,	@$ds_soa);
+			View::set("ds_sod"			,	@$ds_sod);
+			View::set("dt_Us"			,	@$dt_Us);
+			View::set("currentMainMenu"	,	@$currentMainMenu);
+			View::set("currentST"		,	@$resultSet_sosbypk);
+			View::set("currentAssignTo"	,	$resultSet_userbypk);
+			View::set("SOHistory"		,	$ResultSet_SOHistory);
+			View::set("nextST"			,	$nextST);
+			View::set("nextSTLabel"		,	$nextSTLabel);
+			View::set("nextPKOSstatus"	,	$nextPKOSstatus);
 		#render
 			View::render("ViewSO");       
 		}
@@ -328,6 +329,9 @@ class ServiceOrder extends Controller{
 		break;
 		case "CMDDiagnose":
 			Diagnose();
+		break;
+		case "CMDupdateStatus":
+			UpdateStatus();
 		break;
  	}
 	function CreateSO(){
@@ -393,6 +397,30 @@ class ServiceOrder extends Controller{
 						unset($_SESSION['accessories']);
 				}
 				
+				$device['pkDevice'] = Crud::getNextId('pkDevice','device');
+				$device['sorder_pkSorder'] = $pkSOrder;
+				$device['deviceDesc'] =  $_POST['txt_gsxModel_h'];
+				$device['deviceBrand'] = 'Apple';
+				$device['deviceModel'] = 'SM';
+				$device['deviceSerialNumber'] = $_POST['txt_gsxSerialNumber_h'];
+				$device['devicePartNumber'] = 'SN'; 
+				$device['deviceFeatures'] = $_POST['txt_gsxConfigDesc_h'];
+				$device['deviceSNReplacement'] = '';
+				
+				if ($PDOcmdDeviceC=Crud::insert($device,'device')){
+					$gsx['pkgsx'] = Crud::getNextId('pkgsx','gsx');
+					$gsx['fkDevice'] = $device['pkDevice'];
+					$gsx['warrantyStatus'] = $_POST['txt_gsxWarrantyST_h'];
+					$gsx['purchaseDate'] = $_POST['txt_gsxPurchaseDate_h'];
+					$gsx['purchasePlace'] = $_POST['txt_gsxPurchaseCountry_h'];
+					$gsx['registrationDate'] = '';
+					$gsx['contractStartDate'] = $_POST['txt_contractStartDate_h'];
+					$gsx['contractEndDate'] = $_POST['txt_contractEndDate_h'];
+					
+					$PDOcmdGsxC=Crud::insert($gsx,'gsx');
+				}
+				
+				
 				$sod=new SOD();
 				$nextSODpk=$sod->getNextId('pkSODetail','sodetail');
 				$sod->setPKSODetail($nextSODpk);
@@ -449,7 +477,7 @@ class ServiceOrder extends Controller{
 			$mail->SMTPAuth = true;
 			$mail->Username = 'santi.notificaciones@gmail.com';
 			$mail->Password = 'envios2015';
-			$mail->setFrom($micorreo,"Carlos Gómez");
+			$mail->setFrom($micorreo,"iBrain info");
 			//$mail->AddReplyTo($micorreo,"Carlos Gómez 2");
 			$mail->AddAddress ("$destinatario","cgomez@consultoriadual.com");
 			$mail->Subject = "$asunto";
@@ -478,23 +506,23 @@ class ServiceOrder extends Controller{
 	}
     function AssignOrder(){
 		$sod=new SOD();
-				$nextSODpk=$sod->getNextId('pkSODetail','sodetail');
-				$sod->setPKSODetail($nextSODpk);
-				$sod->setFKSorder($_POST['hdn_currentSO_h']);
-				$sod->setOsstatus(2);
-				$sod->setSODetailDesc("Órden asignada");
-				$sod->setFKiBUser($_POST['slt_pkEmployee_h']);
+			$nextSODpk=$sod->getNextId('pkSODetail','sodetail');
+			$sod->setPKSODetail($nextSODpk);
+			$sod->setFKSorder($_POST['hdn_currentSO_h']);
+			$sod->setOsstatus(2);
+			$sod->setSODetailDesc("Órden asignada");
+			$sod->setFKiBUser($_POST['slt_pkEmployee_h']);
 				
-				if($sod->insertData("sodetail")){
-						$sol=new SOL();
-						$nextSOLpk=$sod->getNextId('pkSOlog','solog');
-						$sol->setPKSOLog($nextSOLpk);
-						$sol->setFKSODetail($nextSODpk);
-						//$sol->setLogDate(date("Y-m-d H-m-s"));
-						$sol-> setFKiBUser($_SESSION['pkiBUser_p']);
-						$sol->insertData('solog');
-						header("Location:" . $url= Globales::$absoluteURL . 'private/ServiceOrder/ViewSO/' . $_POST['hdn_currentSO_h'] . '/2');
-				}
+			if($sod->insertData("sodetail")){
+					$sol=new SOL();
+					$nextSOLpk=$sod->getNextId('pkSOlog','solog');
+					$sol->setPKSOLog($nextSOLpk);
+					$sol->setFKSODetail($nextSODpk);
+					//$sol->setLogDate(date("Y-m-d H-m-s"));
+					$sol-> setFKiBUser($_SESSION['pkiBUser_p']);
+					$sol->insertData('solog');
+					header("Location:" . $url= Globales::$absoluteURL . 'private/ServiceOrder/ViewSO/' . $_POST['hdn_currentSO_h'] . '/2');
+			}
 	}
 	function Diagnose(){
 		$currentSO=$_POST['hdn_currentSO_h'];
@@ -532,5 +560,25 @@ class ServiceOrder extends Controller{
 			}
 			header("Location:" . $url= Globales::$absoluteURL . 'private/ServiceOrder/ViewSO/' . $_POST['hdn_currentSO_h'] . '/2');
 		}
+	}
+	function UpdateStatus(){
+		$sod=new SOD();
+			$nextSODpk=$sod->getNextId('pkSODetail','sodetail');
+			$sod->setPKSODetail($nextSODpk);
+			$sod->setFKSorder($_POST['hdn_currentSO_h']);
+			$sod->setOsstatus($_POST['hdn_nextPkSt_h']);
+			$sod->setSODetailDesc($_POST['tta_SODDesc_h']);
+			$sod->setFKiBUser($_SESSION['pkiBUser_p']);
+				
+			if($sod->insertData("sodetail")){
+					$sol=new SOL();
+					$nextSOLpk=$sod->getNextId('pkSOlog','solog');
+					$sol->setPKSOLog($nextSOLpk);
+					$sol->setFKSODetail($nextSODpk);
+					//$sol->setLogDate(date("Y-m-d H-m-s"));
+					$sol-> setFKiBUser($_SESSION['pkiBUser_p']);
+					$sol->insertData('solog');
+					header("Location:" . $url= Globales::$absoluteURL . 'private/ServiceOrder/ViewSO/' . $_POST['hdn_currentSO_h'] . '/3');
+			}
 	}
 ?>
