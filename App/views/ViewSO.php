@@ -374,7 +374,7 @@ use \Core\Controller;
 																						<?php foreach($ds_so as $dr_so){	$currentUserAssigned=$dr_so["fkiBUser"];}?>
 																						<label class="col-lg-4 control-label">Asignar:</label>
 																						<div class="input-group col-lg-8">
-																								<select id="slt_pkEmployee_h" class="selectSearch required" style="width:350px;" name="slt_pkEmployee_h">
+																								<select id="slt_pkEmployee_h" class="selectSearch required" style="width:310px;" name="slt_pkEmployee_h">
 																										 <option></option>
 																										<?php
 																										foreach ($dt_Us as $datarow) {
@@ -433,44 +433,45 @@ use \Core\Controller;
 																						</div>
 																				</div>
 																				<div class="col-md-6">
-																					<table class="tableAttach table-bordered">
-																							  <tr>
-																							    <th>Seleccionar archivo
-																							    		<button type="button" class='btn btn-success addmore'>Agregar </button>
-																							   			<button type="button" class='btn btn-danger delete'>Eliminar</button>	
-																							    </th>
-																							  </tr>
-																							  <tr>
-																							    <td>
-																							    	<input type="file" id="ofd_SOAttachment_h"  class="file-loading fileInput" name="ofd_SOAttachment_h[]">
-																							    </td>
-																							  </tr>
-																					</table>
+																					<fieldset class="form-group grouper"><leyend><strong>Subir archivos<strong></leyend>
+																					<div class="form-group">
+																							<label class="col-md-4 control-label"> 
+																								<progress id="barra_de_progreso" value="0" max="100"></progress>
+																							</label>
+																							<div class="col-md-8">
+																								<button type="button" id="btn_addmoreFile_h" class='btn btn-success'>Agregar </button>
+																								<button type="button" id="btn_deleteFile_h" class='btn btn-danger'>Eliminar</button>	
+																							</div>
+																					</div>
+																					<div class="form-group">
+																						<label class="col-md-4 control-label">Tipo de archivo:</label>
+																							<div class="col-md-8">
+																								<select id="slt_kindFormat_h" class="" name="slt_kindFormat_h">
+																									<option value="0">Selecciona un tipo de documento...</option>
+																									<option value="1">Documento</option>
+																									<option value="2">Factura/Ticket</option>
+																									<option value="3">Fotograf&iacute;a</option>
+																									<option value="4">Fotograf&iacute;a da&ntilde;o incidental</option>
+																									<option value="5">Resultado de utiler&iacute;a</option>
+																									<option value="6">Video</option>
+																								</select>
+																							</div>
+																					</div>
+																					<div class="form-group">
+																						<label class="col-md-4 control-label">Nombre del archivo:</label>
+																							<div class="col-md-8">
+																								<input type="text" id="txt_SOAttachDRename_h"  class="file-loading fileInput" name="txt_SOAttachDRename_h">
+																							</div>
+																					</div>
+																					<div class="form-group">
+																						<label class="col-md-4 control-label">Cargar archivo:</label>
+																							<div class="col-md-8">
+																								<input type="file" id="ofd_SOAttachment_h"  class="file-loading fileInput" name="ofd_SOAttachment_h[]">
+																							</div>
+																					</div>
 																					<br>	
-																					<table class="tableAttach table-bordered">
-																							  <tr>
-																							    <th>Archivos actualmente adjuntados</th>
-																							  </tr>
-																							  <?php 
-																							  	$dir = "../App/web/media/upload/files/$currentSO/";
-																							  	if (is_dir($dir)) { 
-																								    if ($gd = opendir($dir)) { 
-																								        while (($archivo = readdir($gd)) !== false) { 
-																								            if (($archivo != ".") && ($archivo != "..")){ 
-																								?>
-																							  <tr>
-																							    <td>
-																							    	<?php echo '<a href="' . $url . 'App/web/media/upload/files/' . $currentSO . '/' . $archivo . '" target="_blank">' . $archivo . '</a>'; ?>
-																							    </td>
-																							  </tr>
-																							  <?php 
-																							  				}
-																							  			}
-																							  			closedir($gd);
-																							  		}
-																							  	}
-																							   ?>
-																					</table>																						
+																					<div id="archivos_subidos"></div>
+																					</fieldset>
 																				</div>
 																			</div>
 																			<div id="danoincidental" class="row">
@@ -488,19 +489,7 @@ use \Core\Controller;
 																						</div>
 																				</div>
 																				<div class="col-md-6">
-																					<table class="tableDanoI table-bordered">
-																							  <tr>
-																							    <th>Seleccionar archivo
-																							    		<button type="button" class='btn btn-success addmoreDI'>Agregar </button>
-																							   			<button type="button" class='btn btn-danger deleteDI'>Eliminar</button>	
-																							    </th>
-																							  </tr>
-																							  <tr>
-																							    <td>
-																							    	<input type="file" id="ofd_SOAttachDanoI_h"  class="file-loading required fileInput" name="ofd_SOAttachDanoI_h[]">
-																							    </td>
-																							  </tr>
-																					</table>																																											
+																				
 																				</div>
 																				</fieldset>
 																			</div>
@@ -605,12 +594,15 @@ use \Core\Controller;
 	<!-- jqGrid -->
     <script src="<?php echo $url; ?>App/web/js/plugins/jqGrid/i18n/grid.locale-en.js"></script>
     <script src="<?php echo $url; ?>App/web/js/plugins/jqGrid/jquery.jqGrid.min.js"></script>
-	    <!-- Peity -->
+	<!-- Peity -->
     <script src="<?php echo $url; ?>App/web/js/plugins/peity/jquery.peity.min.js"></script>
 	 <!-- Select2 -->
     <script src="<?php echo $url; ?>App/web/js/plugins/select2/select2.full.min.js"></script>
-   
+   	<!-- Ajax upload/files/ -->
+    <script src="<?php echo $url; ?>App/web/ajax/upload.js"></script>
+	
     <script type="text/javascript">
+	//Defaults settings
 		$.validator.setDefaults({
 			submitHandler: function(form) {
 				form.submit();
@@ -618,7 +610,7 @@ use \Core\Controller;
 		/*debug:true,
 		success:"valid"*/
 		});
-		
+	// DOM is already loaded
 		$(document).ready(function(){
 			//Obtenemos el valor total de filas contenidas actualmente en la tabla.
         		var i=$('table tr').length;
@@ -643,7 +635,7 @@ use \Core\Controller;
 					allowClear: true
 				});
 			//Agregar fila a la tabla para el file input
-				$(".addmore").on('click',function(){
+				/*$(".addmore").on('click',function(){
 					count=$('.tableAttach tr').length;
 					
 				    var data = "<tr>";
@@ -652,8 +644,8 @@ use \Core\Controller;
 					$('.tableAttach').append(data);
 					row = i ;
 					i++;
-				});
-				$(".addmoreDI").on('click',function(){
+				});*/
+				/*$(".addmoreDI").on('click',function(){
 					count=$('.tableDanoI tr').length;
 				    var data="<tr>";
 			    	data += '<td><input type="file" id="ofd_SOAttachDanoI_h_' + i + '" class="file-loading required fileInput" name="ofd_SOAttachDanoI_h[]"></td>';
@@ -661,9 +653,9 @@ use \Core\Controller;
 					$('.tableDanoI').append(data);
 					row = i ;
 					i++;
-				});
+				});*/
 			//Elimiar última fila
-				$(".delete").on('click', function() {
+				/*$(".delete").on('click', function() {
 					//Obtenemos el total de columnas de la tabla
 					var trs=$(".tableAttach tr").length;
 					if (trs>1){
@@ -712,7 +704,16 @@ use \Core\Controller;
 					$('.nav li.active').next('li').find('a').attr("data-toggle","tab")
 				});
 				*/
-				
+			//Upload files
+				mostrarArchivos();
+				$("#btn_addmoreFile_h").on('click', function() {
+                    subirArchivos();
+                });
+				$("#archivos_subidos").on('click', '.eliminar_archivo', function() {
+                    var archivo = $(this).parents('.row').eq(0).find('span').text();
+                    archivo = $.trim(archivo);
+                    eliminarArchivos(archivo);
+                });
 			//Validar formulario de diagnóstico
 				$("#frm_SOAt_h").validate({
 					rules:{
@@ -831,7 +832,70 @@ use \Core\Controller;
 					}
 		});
 		});	
-	
+	//Functions
+		function subirArchivos(){
+            $("#archivo").upload('subir_archivo.php',{
+                nombre_archivo: $("#nombre_archivo").val()
+            },
+			function(respuesta) {
+                //Subida finalizada.
+                    $("#barra_de_progreso").val(0);
+                    if (respuesta === 1) {
+                        mostrarRespuesta('El archivo ha sido subido correctamente.', true);
+                        $("#nombre_archivo, #archivo").val('');
+                    } else {
+                        mostrarRespuesta('El archivo NO se ha podido subir.', false);
+                    }
+                    mostrarArchivos();
+                }, function(progreso, valor) {
+                    //Barra de progreso.
+                    $("#barra_de_progreso").val(valor);
+                });
+        }
+		function eliminarArchivos(archivo) {
+                $.ajax({
+                    url: 'eliminar_archivo.php',
+                    type: 'POST',
+                    timeout: 10000,
+                    data: {archivo: archivo},
+                    error: function() {
+                        mostrarRespuesta('Error al intentar eliminar el archivo.', false);
+                    },
+                    success: function(respuesta) {
+                        if (respuesta == 1) {
+                            mostrarRespuesta('El archivo ha sido eliminado.', true);
+                        } else {
+                            mostrarRespuesta('Error al intentar eliminar el archivo.', false);                            
+                        }
+                        mostrarArchivos();
+                    }
+                });
+        }
+		function mostrarArchivos() {
+                $.ajax({
+                    url: 'mostrar_archivos.php',
+                    dataType: 'JSON',
+                    success: function(respuesta) {
+                        if (respuesta) {
+                            var html = '';
+                            for (var i = 0; i < respuesta.length; i++) {
+                                if (respuesta[i] != undefined) {
+                                    html += '<div class="row"> <span class="col-lg-2"> ' + respuesta[i] + ' </span> <div class="col-lg-2"> <a class="eliminar_archivo btn btn-danger" href="javascript:void(0);"> Eliminar </a> </div> </div> <hr />';
+                                }
+                            }
+                            $("#archivos_subidos").html(html);
+                        }
+                    }
+                });
+        }
+		function mostrarRespuesta(mensaje, ok){
+                $("#respuesta").removeClass('alert-success').removeClass('alert-danger').html(mensaje);
+                if(ok){
+                    $("#respuesta").addClass('alert-success');
+                }else{
+                    $("#respuesta").addClass('alert-danger');
+                }
+        }
 		function ObjJ2ObjP(object){
 		var json="{";
 		for (property in object){
@@ -852,6 +916,10 @@ use \Core\Controller;
 		}
 		return json.substr(0,json.length-1) + '}';
 	}
+		
+	
+	
+	
 	</script>
 
 

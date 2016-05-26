@@ -384,7 +384,7 @@ use \Core\Controller;
     <script src="<?php echo $url; ?>App/web/js/plugins/jqGrid/jquery.jqGrid.min.js"></script>
 	    <!-- Peity -->
     <script src="<?php echo $url; ?>App/web/js/plugins/peity/jquery.peity.min.js"></script>
-		<!-- Ajax -->
+	<!-- Ajax Autocomplete -->
     <script src="<?php echo $url; ?>App/web/ajax/autocompleteAddSO.js"></script>
 	
     <script type="text/javascript">
