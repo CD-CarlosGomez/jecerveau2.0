@@ -427,7 +427,7 @@ use \Core\Controller;
 																		<div class="form-group">
 																				<label class="col-lg-4 control-label">&nbsp;</label>
 																				<div class="col-lg-8">
-																					<button id="btn_showdanoincidental_h" type="button" class='btn btn-success'>Da&ntilde;o incidental </button>
+																					<button id="btn_showdanoincidental_h" type="button" class='btn btn-default'>Da&ntilde;o incidental </button>
 																				</div>
 																		</div>
 																		<fieldset id="danoincidental" class="">
@@ -441,7 +441,73 @@ use \Core\Controller;
 																						?></textarea>
 																					</div>
 																				</div>
-																		</fieldset>				
+																		</fieldset>
+																			<div class="form-group">
+																					<label class="col-lg-4 control-label">&nbsp;</label>
+																					<div class="col-lg-8">
+																						<button id="btn_showSpares_h" type="button" class='btn btn-default'>Partes</button>
+																					</div>
+																			</div>
+																		<fieldset id="spares" class="">
+																			<div class="form-group">
+																				<label class="col-md-4 control-label">Descripci&oacuten de la parte*:</label>
+																				<div class="col-md-8">
+																					<input type="text" id="txt_productDesc_h" class="form-control" value=""/>
+																				</div>
+																			</div>
+																			<div class="form-group">
+																					<label class="col-lg-4 control-label">No. de parte:</label>
+																					<div class="col-lg-8">
+																						<input type="text" id="txt_productPartNumber_h" class="form-control" value="" name="txt_SODate_h"/>
+																					</div>
+																			</div>
+																			<div class="form-group">
+																				<label class="col-md-4 control-label">No. de serie:</label>
+																				<div class="col-md-8">
+																					<div class="input-group m-b">
+																						<span class="input-group-addon"> 
+																							<input type="checkbox"> 
+																						</span> 
+																						<input type="text" id="txt_productSerialNumber_h" class="form-control" name="txt_productSerialNumber_h">
+																					</div>
+																				</div>
+																			</div>
+																			<div class="form-group">
+																					<label class="col-lg-4 control-label">Garant&iacute;a:</label>
+																					<div class="col-lg-8">
+																						<select id="slt_warrantySt_h" class="form-control m-b" name="slt_warrantySt_h">
+																							<option value="">Selecciona...</option>
+																							<option value="Aceptada">Aceptada</option>
+																							<option value="En revisi&oacute;n">En revisi&oacute;n</option>
+																							<option value="Declinada">Declinada</option>
+																						</select>
+																					</div>
+																			</div>
+																			<div class="form-group">
+																					<label class="col-lg-4 control-label">C&oacute;digo modificador:</label>
+																					<div class="col-lg-8">
+																						<select id="slt_warrantySt_h" class="form-control m-b" name="slt_warrantySt_h">
+																							<option value="">Selecciona...</option>
+																						</select>
+																					</div>
+																			</div>
+																			<div class="form-group">
+																					<label class="col-lg-4 control-label">&Aacute;rea del s&iacute;ntoma:</label>
+																					<div class="col-lg-8">
+																						<select id="slt_warrantySt_h" class="form-control m-b" name="slt_warrantySt_h">
+																							<option value="">Selecciona...</option>
+																						</select>
+																					</div>
+																			</div>
+																			<div class="form-group">
+																					<label class="col-lg-4 control-label">C&oacute;digo del s&iacute;ntoma:</label>
+																					<div class="col-lg-8">
+																						<select id="slt_warrantySt_h" class="form-control m-b" name="slt_warrantySt_h">
+																							<option value="">Selecciona...</option>
+																						</select>
+																					</div>
+																			</div>
+																		</fieldset>
 																	</div>
 																	<div class="col-md-6">
 																		<div class="col-md-4 pull-right">
@@ -451,6 +517,7 @@ use \Core\Controller;
 																		</div>
 																	</div>
 																</div>
+																</fieldset>
 																<hr>
 																<div id="" class="row">
 																	<div class="col-md-7">
@@ -458,7 +525,7 @@ use \Core\Controller;
 																		<div class="form-group">
 																			<label class="col-md-4 control-label">Tipo de archivo:</label>
 																			<div class="col-md-8">
-																				<select id="slt_kindFormat_h" class="" name="slt_kindFormat_h">
+																				<select id="slt_kindFormat_h" class="form-control m-b" name="slt_kindFormat_h">
 																					<option value="">Selecciona un tipo de documento...</option>
 																					<option value="Documento">Documento</option>
 																					<option value="Factura">Factura</option>
@@ -502,7 +569,7 @@ use \Core\Controller;
 																		</fieldset>
 																	</div>
 																</div>
-															</fieldset>
+															
 														</form>
 													</div>
 												</div>
@@ -643,6 +710,17 @@ use \Core\Controller;
 							}
 						}
 					);
+				});
+			//Agregar fila a la tabla para el file input
+				$(".addmore").on('click',function(){
+					count=$('.tableAttach tr').length;
+					
+				    var data = "<tr>";
+				    	data += '<td><input type="file" id="ofd_SOAttachment_h_' + i + '" class="file-loading required fileInput" name="ofd_SOAttachment_h[]"></td>';
+				    	data += "</tr>";
+					$('.tableAttach').append(data);
+					row = i ;
+					i++;
 				});
 			//Habilitamos y dehabilitamos tabs
 				/*$('#navli3').not('.active').addClass('disabled');
@@ -848,7 +926,7 @@ use \Core\Controller;
                             var html = '';
                             for (var i = 0; i < respuesta.length; i++) {
                                 if (respuesta[i] != undefined) {
-                                    html += '<div class="row"> <span class="col-lg-4"> ' + respuesta[i] + ' </span> <div class="col-lg-8"> <a class="eliminar_archivo btn btn-danger" href="javascript:void(0);"> Eliminar </a> </div> </div> <hr />';
+                                    html += '<div class="row"> <span class="col-md-8"><a href=" <?php echo $url; ?>App/web/media/upload/files/<?php echo $currentSO; ?>/' + respuesta[i] + '" target="_blank">' + respuesta[i] + '</a> </span> <div class="col-md-4"> <a class="eliminar_archivo btn btn-danger" href="javascript:void(0);"> Eliminar </a> </div> </div> <hr />';
                                 }
                             }
                             $("#archivos_subidos").html(html);
