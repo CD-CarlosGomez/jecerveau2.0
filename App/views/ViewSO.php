@@ -193,7 +193,7 @@ use \Core\Controller;
 								</div>
 								<div class="ibox-content">
 										<ul class="nav nav-tabs">
-												<li id="navli1" class="Active"><a data-toggle="tab" href="#tab1"><h3>Informaci&oacute;n de la orden</h3></a></li>
+												<li id="navli1" class=""><a data-toggle="tab" href="#tab1"><h3>Informaci&oacute;n de la orden</h3></a></li>
 												<li id="navli2" class=""><a data-toggle="tab" href="#tab2" ><h3>Diagn&oacute;stico t&eacute;cnico</h3></a></li>
 												<li id="navli3" class=""><a data-toggle="tab" href="#tab3" ><h3>Seguimiento de la orden</h3></a></li>
 												<li id="navli4" class=""><a data-toggle="tab" href="#tab4" ><h3>&Oacute;rdenes relacionadas</h3></a></li>
@@ -366,7 +366,7 @@ use \Core\Controller;
 														</div>
 												</div>
 												<div id="tab2" class="tab-pane"> 
-													 <div class="panel-body">
+													<div class="panel-body">
 														<form id="frm_SO_h" class="form-horizontal" action="<?php echo $url; ?>private/ServiceOrder"   method="POST" name="frm_SO_h">
 																<fieldset class="form-group grouper"><leyend><h3>Asignaci&oacute;n de la orden</h3></leyend>
 																		<div class="col-md-6">																				
@@ -374,7 +374,7 @@ use \Core\Controller;
 																						<?php foreach($ds_so as $dr_so){	$currentUserAssigned=$dr_so["fkiBUser"];}?>
 																						<label class="col-lg-4 control-label">Asignar:</label>
 																						<div class="input-group col-lg-8">
-																								<select id="slt_pkEmployee_h" class="selectSearch required" style="width:310px;" name="slt_pkEmployee_h">
+																								<select id="slt_pkEmployee_h" class="selectSearch required" style="width:350px;" name="slt_pkEmployee_h">
 																										 <option></option>
 																										<?php
 																										foreach ($dt_Us as $datarow) {
@@ -408,103 +408,101 @@ use \Core\Controller;
 														<form id="frm_SOAt_h" class="form-horizontal" action="<?php echo $url; ?>private/ServiceOrder"   accept-charset="utf-8" enctype="multipart/form-data"  method="POST" name="frm_SOAt_h">
 															<input type="hidden" id="" value="<?php echo $currentSO ?>" name="hdn_currentSO_h">
 															<fieldset class="form-group grouper"><leyend><h3>Diagn&oacute;stico t&eacute;cnico</h3></leyend>
-																			<div class="row">	
-																				<div class="col-md-6">
-																						<div class="form-group">
-																								<label class="col-lg-4 control-label">Dian&oacute;stico:</label>
-																								<div class="col-lg-8">
-																										<textarea id="tta_SODDesc_h" class="form-control required" data-provide="markdown" rows="5" cols="80" name="tta_SODDesc_h"><?php 
-																										if ($tabActive==2){
-																											foreach($ds_sod as $dr_sod){	 
-																												if(isset($dr_sod["SODetailDesc"])){
-																													echo trim($dr_sod["SODetailDesc"]);
-																												}
-																												
-																											}
-																										}
-																										?></textarea>
-																								</div>
-																						</div>
-																						<div class="form-group">
-																							<label class="col-lg-4 control-label">&nbsp;</label>
-																								<div class="col-lg-8">
-																									<button id="btn_showdanoincidental_h" type="button" class='btn btn-success'>Da&ntilde;o incidental </button>
-																							   	</div>
-																						</div>
-																				</div>
-																				<div class="col-md-6">
-																					<fieldset class="form-group grouper"><leyend><strong>Subir archivos<strong></leyend>
-																					<div class="form-group">
-																							<label class="col-md-4 control-label"> 
-																								<progress id="barra_de_progreso" value="0" max="100"></progress>
-																							</label>
-																							<div class="col-md-8">
-																								<button type="button" id="btn_addmoreFile_h" class='btn btn-success'>Agregar </button>
-																								<button type="button" id="btn_deleteFile_h" class='btn btn-danger'>Eliminar</button>	
-																							</div>
-																					</div>
-																					<div class="form-group">
-																						<label class="col-md-4 control-label">Tipo de archivo:</label>
-																							<div class="col-md-8">
-																								<select id="slt_kindFormat_h" class="" name="slt_kindFormat_h">
-																									<option value="0">Selecciona un tipo de documento...</option>
-																									<option value="1">Documento</option>
-																									<option value="2">Factura/Ticket</option>
-																									<option value="3">Fotograf&iacute;a</option>
-																									<option value="4">Fotograf&iacute;a da&ntilde;o incidental</option>
-																									<option value="5">Resultado de utiler&iacute;a</option>
-																									<option value="6">Video</option>
-																								</select>
-																							</div>
-																					</div>
-																					<div class="form-group">
-																						<label class="col-md-4 control-label">Nombre del archivo:</label>
-																							<div class="col-md-8">
-																								<input type="text" id="txt_SOAttachDRename_h"  class="file-loading fileInput" name="txt_SOAttachDRename_h">
-																							</div>
-																					</div>
-																					<div class="form-group">
-																						<label class="col-md-4 control-label">Cargar archivo:</label>
-																							<div class="col-md-8">
-																								<input type="file" id="ofd_SOAttachment_h"  class="file-loading fileInput" name="ofd_SOAttachment_h[]">
-																							</div>
-																					</div>
-																					<br>	
-																					<div id="archivos_subidos"></div>
-																					</fieldset>
-																				</div>
+																<div class="row">	
+																	<div class="col-md-6">
+																		<div class="form-group">
+																			<label class="col-lg-4 control-label">Dian&oacute;stico:</label>
+																			<div class="col-lg-8">
+																				<textarea id="tta_SODDesc_h" class="form-control required" data-provide="markdown" rows="5" cols="80" name="tta_SODDesc_h"><?php 
+																					if ($tabActive==2){
+																						foreach($ds_sod as $dr_sod){	 
+																							if(isset($dr_sod["SODetailDesc"])){
+																								echo trim($dr_sod["SODetailDesc"]);
+																							}
+																						}
+																					}
+																				?></textarea>
 																			</div>
-																			<div id="danoincidental" class="row">
-																				<fieldset id="fls_danoincidental_h">	
-																				<div class="col-md-6">
-																						<div class="form-group">
-																								<label class="col-lg-4 control-label">Descripci&oacute;n del da&ntilde;o:</label>
-																								<div class="col-lg-8">
-																										<textarea id="tta_SODObs_h" class="form-control required " data-provide="markdown" rows="5" name="tta_SODObs_h"><?php 
-																											if ($tabActive==2){
-																												foreach($ds_sod as $dr_sod){	 echo trim(@$dr_sod["SODetailObs"]);}
-																											}
-																										?></textarea>
-																								</div>
-																						</div>
+																		</div>
+																		<div class="form-group">
+																				<label class="col-lg-4 control-label">&nbsp;</label>
+																				<div class="col-lg-8">
+																					<button id="btn_showdanoincidental_h" type="button" class='btn btn-success'>Da&ntilde;o incidental </button>
 																				</div>
-																				<div class="col-md-6">
-																				
-																				</div>
-																				</fieldset>
-																			</div>
-																			<div class="row">
-																				<div class="col-md-6">
-																				</div>
-																				<div class="col-md-6">
-																					<div class="col-md-4 pull-right">
-																							<div class="form-group">
-																								<button type="submit" id="btn_command_h" class="btn btn-primary btn-md btn-block" value="CMDDiagnose" name="btn_command_h">Diagnosticar</button>
-																							</div>
+																		</div>
+																		<fieldset id="danoincidental" class="">
+																			<div class="form-group">
+																					<label class="col-lg-4 control-label">Descripci&oacute;n del da&ntilde;o:</label>
+																					<div class="col-lg-8">
+																						<textarea id="tta_SODObs_h" class="form-control required " data-provide="markdown" rows="5" name="tta_SODObs_h"><?php 
+																							if ($tabActive==2){
+																								foreach($ds_sod as $dr_sod){	 echo trim(@$dr_sod["SODetailObs"]);}
+																							}
+																						?></textarea>
 																					</div>
 																				</div>
+																		</fieldset>				
+																	</div>
+																	<div class="col-md-6">
+																		<div class="col-md-4 pull-right">
+																			<div class="form-group">
+																				<button type="submit" id="btn_command_h" class="btn btn-primary btn-md btn-block" value="CMDDiagnose" name="btn_command_h">Diagnosticar</button>
 																			</div>
+																		</div>
+																	</div>
+																</div>
+																<hr>
+																<div id="" class="row">
+																	<div class="col-md-7">
+																	<fieldset class="form-group grouper"><h3>Adjuntar archivos</h3></leyend>
+																		<div class="form-group">
+																			<label class="col-md-4 control-label">Tipo de archivo:</label>
+																			<div class="col-md-8">
+																				<select id="slt_kindFormat_h" class="" name="slt_kindFormat_h">
+																					<option value="">Selecciona un tipo de documento...</option>
+																					<option value="Documento">Documento</option>
+																					<option value="Factura">Factura</option>
+																					<option value="Ticket">Ticket</option>
+																					<option value="Fotografia">Fotograf&iacute;a</option>
+																					<option value="FDI">Fotograf&iacute;a da&ntilde;o incidental</option>
+																					<option value="RU">Resultado de utiler&iacute;a</option>
+																					<option value="Video">Video</option>
+																				</select>
+																			</div>
+																		</div>
+																		<div class="form-group">
+																			<label class="col-md-4 control-label">Nombre del archivo:</label>
+																				<div class="col-md-8">
+																						<input type="text" id="txt_SOAttachDRename_h"  class="file-loading fileInput" name="txt_SOAttachDRename_h">
+																				</div>
+																		</div>
+																		<div class="form-group">
+																			<label class="col-md-4 control-label">Cargar archivo:</label>
+																			<div class="col-md-8">
+																				<input type="file" id="ofd_SOAttachment_h"  class="file-loading fileInput" name="ofd_SOAttachment_h">
+																			</div>
+																		</div>
+																		<div class="form-group">
+																			<div class="col-md-4 pull-right">
+																				<button type="button" id="btn_uploadFile_h" class='btn btn-success'>Cargar</button>
+																			</div>
+																		</div>
+																		<div class="form-group">
+																			<label class="col-md-4 control-label">&nbsp;</label>
+																			<div class="col-md-8">
+																				<progress id="barra_de_progreso" value="0" max="100"></progress>
+																			</div>
+																		</div>
+																	</fieldset>
+																	</div>
+																	<div class="col-md-5">
+																		<fieldset class="form-group grouper"><h3>Historial de archivos adjuntados</h3></leyend>
+																			<div id="respuesta" class="alert"></div>
+																			<div id="archivos_subidos"></div>
 																		</fieldset>
+																	</div>
+																</div>
+															</fieldset>
 														</form>
 													</div>
 												</div>
@@ -594,15 +592,15 @@ use \Core\Controller;
 	<!-- jqGrid -->
     <script src="<?php echo $url; ?>App/web/js/plugins/jqGrid/i18n/grid.locale-en.js"></script>
     <script src="<?php echo $url; ?>App/web/js/plugins/jqGrid/jquery.jqGrid.min.js"></script>
-	<!-- Peity -->
+	    <!-- Peity -->
     <script src="<?php echo $url; ?>App/web/js/plugins/peity/jquery.peity.min.js"></script>
 	 <!-- Select2 -->
     <script src="<?php echo $url; ?>App/web/js/plugins/select2/select2.full.min.js"></script>
-   	<!-- Ajax upload/files/ -->
+   <!-- Ajax uploadFile -->
     <script src="<?php echo $url; ?>App/web/ajax/upload.js"></script>
 	
     <script type="text/javascript">
-	//Defaults settings
+	//////Set defaults settings
 		$.validator.setDefaults({
 			submitHandler: function(form) {
 				form.submit();
@@ -610,7 +608,7 @@ use \Core\Controller;
 		/*debug:true,
 		success:"valid"*/
 		});
-	// DOM is already loaded
+	///DOM already loaded	
 		$(document).ready(function(){
 			//Obtenemos el valor total de filas contenidas actualmente en la tabla.
         		var i=$('table tr').length;
@@ -633,47 +631,6 @@ use \Core\Controller;
 				$(".selectSearch").select2({	
 					placeholder: "Asignar a...",
 					allowClear: true
-				});
-			//Agregar fila a la tabla para el file input
-				/*$(".addmore").on('click',function(){
-					count=$('.tableAttach tr').length;
-					
-				    var data = "<tr>";
-				    	data += '<td><input type="file" id="ofd_SOAttachment_h_' + i + '" class="file-loading required fileInput" name="ofd_SOAttachment_h[]"></td>';
-				    	data += "</tr>";
-					$('.tableAttach').append(data);
-					row = i ;
-					i++;
-				});*/
-				/*$(".addmoreDI").on('click',function(){
-					count=$('.tableDanoI tr').length;
-				    var data="<tr>";
-			    	data += '<td><input type="file" id="ofd_SOAttachDanoI_h_' + i + '" class="file-loading required fileInput" name="ofd_SOAttachDanoI_h[]"></td>';
-			    	data += "</tr>";
-					$('.tableDanoI').append(data);
-					row = i ;
-					i++;
-				});*/
-			//Elimiar última fila
-				/*$(".delete").on('click', function() {
-					//Obtenemos el total de columnas de la tabla
-					var trs=$(".tableAttach tr").length;
-					if (trs>1){
-						$(".tableAttach tr:last").remove();
-					}
-				/*$('.case:checkbox:checked').parents("tr").remove();
-			    $('.check_all').prop("checked", false); 
-				check();*/
-				});
-				$(".deleteDI").on('click', function() {
-					//Obtenemos el total de columnas de la tabla
-					var trs=$(".tableDanoI tr").length;
-					if (trs>1){
-						$(".tableDanoI tr:last").remove();
-					}
-					/*$('.case:checkbox:checked').parents("tr").remove();
-			    	$('.check_all').prop("checked", false); 
-					check();*/
 				});
 			//Mostrar y ocultar div daño incidental
 				$(function(){
@@ -704,16 +661,16 @@ use \Core\Controller;
 					$('.nav li.active').next('li').find('a').attr("data-toggle","tab")
 				});
 				*/
-			//Upload files
-				mostrarArchivos();
-				$("#btn_addmoreFile_h").on('click', function() {
-                    subirArchivos();
-                });
-				$("#archivos_subidos").on('click', '.eliminar_archivo', function() {
+			//Upload files ajax
+			mostrarArchivos();
+			$("#btn_uploadFile_h").on('click', function() {
+                subirArchivos();
+            });
+			$("#archivos_subidos").on('click', '.eliminar_archivo', function() {
                     var archivo = $(this).parents('.row').eq(0).find('span').text();
                     archivo = $.trim(archivo);
                     eliminarArchivos(archivo);
-                });
+            });
 			//Validar formulario de diagnóstico
 				$("#frm_SOAt_h").validate({
 					rules:{
@@ -831,33 +788,40 @@ use \Core\Controller;
 						txt_contactProvince_h:"Por favor, introduzca una Provincia o Estado."
 					}
 		});
-		});	
-	//Functions
-		function subirArchivos(){
-            $("#archivo").upload('subir_archivo.php',{
-                nombre_archivo: $("#nombre_archivo").val()
+		});
+		//Funciones
+		function subirArchivos() {
+            $("#ofd_SOAttachment_h").upload('<?php echo $url; ?>/private/ServiceOrder/uploadAttachment',
+			{
+                nombre_archivo : $("#txt_SOAttachDRename_h").val(),
+				tipo_archivo   : $("#slt_kindFormat_h").val(),
+				SOactual	   : <?php echo $currentSO ?>
             },
-			function(respuesta) {
-                //Subida finalizada.
-                    $("#barra_de_progreso").val(0);
-                    if (respuesta === 1) {
-                        mostrarRespuesta('El archivo ha sido subido correctamente.', true);
-                        $("#nombre_archivo, #archivo").val('');
-                    } else {
-                        mostrarRespuesta('El archivo NO se ha podido subir.', false);
-                    }
-                    mostrarArchivos();
-                }, function(progreso, valor) {
-                    //Barra de progreso.
-                    $("#barra_de_progreso").val(valor);
-                });
-        }
-		function eliminarArchivos(archivo) {
+            function(respuesta) {
+            //Subida finalizada.
+            $("#barra_de_progreso").val(0);
+                if (respuesta === 1) {
+                    mostrarRespuesta('El archivo ha sido subido correctamente.', true);
+					$("#txt_SOAttachDRename_h, #ofd_SOAttachment_h").val('');
+                } else {
+                    mostrarRespuesta('El archivo NO se ha podido subir.', false);
+                }
+				mostrarArchivos();
+            }, 
+			function(progreso, valor) {
+                //Barra de progreso.
+                 $("#barra_de_progreso").val(valor);
+            });
+            }
+        function eliminarArchivos(archivo) {
                 $.ajax({
-                    url: 'eliminar_archivo.php',
+                    url: '<?php echo $url; ?>/private/ServiceOrder/deleteAttachment',
                     type: 'POST',
                     timeout: 10000,
-                    data: {archivo: archivo},
+                    data: { 
+						archivo: archivo,
+						SOactual : <?php echo $currentSO ?>
+					},
                     error: function() {
                         mostrarRespuesta('Error al intentar eliminar el archivo.', false);
                     },
@@ -870,32 +834,36 @@ use \Core\Controller;
                         mostrarArchivos();
                     }
                 });
-        }
-		function mostrarArchivos() {
+            }
+        function mostrarArchivos() {
                 $.ajax({
-                    url: 'mostrar_archivos.php',
+                    url: '<?php echo $url; ?>/private/ServiceOrder/showAttachment',
                     dataType: 'JSON',
+					type: 'POST',
+					data : {
+						SOactual : <?php echo $currentSO ?>
+					}, 
                     success: function(respuesta) {
                         if (respuesta) {
                             var html = '';
                             for (var i = 0; i < respuesta.length; i++) {
                                 if (respuesta[i] != undefined) {
-                                    html += '<div class="row"> <span class="col-lg-2"> ' + respuesta[i] + ' </span> <div class="col-lg-2"> <a class="eliminar_archivo btn btn-danger" href="javascript:void(0);"> Eliminar </a> </div> </div> <hr />';
+                                    html += '<div class="row"> <span class="col-lg-4"> ' + respuesta[i] + ' </span> <div class="col-lg-8"> <a class="eliminar_archivo btn btn-danger" href="javascript:void(0);"> Eliminar </a> </div> </div> <hr />';
                                 }
                             }
                             $("#archivos_subidos").html(html);
                         }
                     }
                 });
-        }
-		function mostrarRespuesta(mensaje, ok){
+            }
+        function mostrarRespuesta(mensaje, ok){
                 $("#respuesta").removeClass('alert-success').removeClass('alert-danger').html(mensaje);
                 if(ok){
                     $("#respuesta").addClass('alert-success');
                 }else{
                     $("#respuesta").addClass('alert-danger');
                 }
-        }
+            }
 		function ObjJ2ObjP(object){
 		var json="{";
 		for (property in object){
@@ -916,10 +884,6 @@ use \Core\Controller;
 		}
 		return json.substr(0,json.length-1) + '}';
 	}
-		
-	
-	
-	
 	</script>
 
 

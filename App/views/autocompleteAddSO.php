@@ -6,7 +6,7 @@
 // +-----------------------------------------------
 // +---------------------------Comentarios de 
 
-namespace App\web\ajax;
+namespace App\views;
 defined("APPPATH") OR die("Access denied");
 
 use \Core\Database;

@@ -286,7 +286,31 @@ class ServiceOrder extends Controller{
 				View::set("url", $url);
 		#render
 				View::render("autocompleteAddSO");
-		}
+	}
+	public function uploadAttachment(){
+		#get_main_variables
+			$url= Globales::$absoluteURL;
+		#set_main_variables
+				View::set("url", $url);
+		#render
+				View::render("uploadFile");
+	}
+	public function showAttachment(){
+		#get_main_variables
+			$url= Globales::$absoluteURL;
+		#set_main_variables
+				View::set("url", $url);
+		#render
+				View::render("showFile");
+	}
+	public function deleteAttachment(){
+		#get_main_variables
+			$url= Globales::$absoluteURL;
+		#set_main_variables
+				View::set("url", $url);
+		#render
+				View::render("deleteFile");
+	}
 }
 //MÉTODOS PRIVADOS###################################
 //EVENTOS############################################
@@ -306,6 +330,7 @@ class ServiceOrder extends Controller{
 			UpdateStatus();
 		break;
  	}
+	
 	function CreateSO(){
 		
 		$c=new Co();
