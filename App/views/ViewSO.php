@@ -500,7 +500,7 @@ use \Core\Controller;
 																						<select id="slt_pkSymptomArea_h" class="required" style="width:312px;" name="slt_pkSymptomArea_h">
 																							<option value=""></option>
 																							<?php  foreach($ds_symptomAreas as $dr_symarea){?>
-																								<option value="<?php echo $dr_symarea['pkSymtomArea'] ?>"><?php echo $dr_symarea['symptomAreaDesc'] ?></option>
+																								<option value="<?php echo $dr_symarea['pkSymptomArea'] ?>"><?php echo $dr_symarea['symptomAreaDesc'] ?></option>
 																							<?php }	?>
 																						</select>
 																					</div>
@@ -508,8 +508,8 @@ use \Core\Controller;
 																			<div class="form-group">
 																					<label class="col-lg-4 control-label">C&oacute;digo del s&iacute;ntoma:</label>
 																					<div class="col-lg-8">
-																						<select id="slt_symptomCode_h" class="required" style="width:312px;" name="slt_symptomCode_h">
-																							<option value="">Selecciona...</option>
+																						<select id="slt_pkSymptomCode_h" class="required" style="width:312px;" name="slt_pkSymptomCode_h">
+																							<option value=""></option>
 																						</select>
 																					</div>
 																			</div>
@@ -708,7 +708,7 @@ use \Core\Controller;
 					allowClear: true,
 					language : "es"
 				});
-			//cargamos los usuarios en el select2
+			//cargamos las garantías en el select2
 				$("#slt_warrantySt_h").select2({	
 					placeholder: "Selecciona ...",
 					allowClear: true,
@@ -723,6 +723,12 @@ use \Core\Controller;
 				});
 			//cargamos los symptomAreas en el select2
 				$("#slt_pkSymptomArea_h").select2({	
+					placeholder: "Selecciona...",
+					allowClear: true,
+					language : "es"
+				});
+			//cargamos los symptomAreas en el select2
+				$("#slt_pkSymptomCode_h").select2({	
 					placeholder: "Selecciona...",
 					allowClear: true,
 					language : "es"

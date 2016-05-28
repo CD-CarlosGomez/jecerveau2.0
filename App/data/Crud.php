@@ -31,13 +31,13 @@ class Crud{
 *                         ##########ATRIBUTOS##########                        *
 *                                                                              *
 *******************************************************************************/
-// Atributo para guardar uma conexão PDO   
-   private $pdo = null;   
-    
-   // Atributo onde será guardado o nome da tabla    
-   private $tabla = null;   
-    
-   // Atributo estático que contém uma instância da própria classe   
+	/*  
+	* Atributo que guarda la conexión PDO 
+	*/   
+   private $PDOcnn = null;
+	/*  
+	*Atributo estático que contém uma instância da própria classe 
+	*/   
    private static $crud = null; 
 /*******************************************************************************
 *                                                                              *
@@ -57,15 +57,6 @@ class Crud{
      }  
      return NULL;  
    }
-     /*  
-   * Método para setar o nome da tabla na propriedade $tabla  
-   * @param $tabla = String contendo o nome da tabla  
-   */   
-   public function setTableName($tabla){  
-     if(!empty($tabla)){  
-       $this->tabla = $tabla;  
-     }  
-   }  
 /*******************************************************************************
 *                                                                              *
 *                  ##########MÉTODOS ABSTRACTOS##########                      *
@@ -76,22 +67,29 @@ class Crud{
 *                  ######CONSTRUCTORES Y DESTRUCTORES####                      *
 *                                                                              *
 *******************************************************************************/
- /*   
-   * Método privado construtor da classe    
+	/* 
+	* Método privado construtor da classe trae la conexión a la base de datos
+	*/   
+   private function __construct(){   
+    $this->PDOcnn = Database::instance(); 
+   }
+   	/*    
+   * Método público estático que retorna uma instância da classe Crud    
    * @param $conexao = Conexão PDO configurada   
-   * @param $tabla = Nome da tabla    
+   * @param $tabla = Nome da tabla   
+   * @return Atributo contendo instância da classe Crud   
    */   
-   private function __construct($conexao, $tabla=NULL){   
-        
-     if (!empty($conexao)):  
-       $this->pdo = $conexao;   
-     else:  
-       echo "<h3>Conexi&oacute;m inexistente!</h3>";  
-       exit();  
-     endif;   
-        
-     if (!empty($tabla)) $this->tabla =$tabla;   
-   }   
+   public static function getInstance(){   
+     // Verifica se existe uma instância da classe   
+     if(!isset(self::$crud)):   
+        try {   
+          self::$crud = new Crud();   
+        } catch (Exception $e) {   
+          echo "Erro " . $e->getMessage();   
+        }   
+     endif;     
+     return self::$crud;   
+	}
 /*******************************************************************************
 *                                                                              *
 *                  ##########MÉTODOS MÁGICOS##########                         *
@@ -139,6 +137,9 @@ class Crud{
 			print "Error!: " . $e->getMessage();
 		}
     }
+	
+	
+	
     public static function getById($table,$field,$param) {
         try {
             $PDOcnn = Database::instance();
@@ -150,25 +151,6 @@ class Crud{
             print "Error!: " . $e->getMessage();
         }
     }
-	/*    
-   * Método público estático que retorna uma instância da classe Crud    
-   * @param $conexao = Conexão PDO configurada   
-   * @param $tabla = Nome da tabla   
-   * @return Atributo contendo instância da classe Crud   
-   */   
-   public static function getInstance($conexao, $tabla=NULL){   
-     
-     // Verifica se existe uma instância da classe   
-     if(!isset(self::$crud)):   
-        try {   
-          self::$crud = new Crud($conexao, $tabla);   
-        } catch (Exception $e) {   
-          echo "Erro " . $e->getMessage();   
-        }   
-     endif;   
-     
-     return self::$crud;   
-	}
 	/*   
    * Método público para inserir os dados na tabla   
    * @param $arrayDados = Array de dados contendo colunas e valores   

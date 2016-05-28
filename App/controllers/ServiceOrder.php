@@ -306,6 +306,14 @@ class ServiceOrder extends Controller{
 		#render
 				View::render("deleteFile");
 	}
+	public function fillSltSymptomCode(){
+		#get_main_variables
+			$url= Globales::$absoluteURL;
+		#set_main_variables
+				View::set("url", $url);
+		#render
+				View::render("slt_pkSymptomCode_h");
+	}
 }
 //MÉTODOS PRIVADOS###################################
 //EVENTOS############################################
