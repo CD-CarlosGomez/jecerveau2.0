@@ -86,7 +86,7 @@ class Crud{
      if (!empty($conexao)):  
        $this->pdo = $conexao;   
      else:  
-       echo "<h3>Conexão inexistente!</h3>";  
+       echo "<h3>Conexi&oacute;m inexistente!</h3>";  
        exit();  
      endif;   
         

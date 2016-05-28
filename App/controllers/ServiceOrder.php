@@ -160,40 +160,30 @@ class ServiceOrder extends Controller{
 			View::set("currentSO",$currentSO);
 			View::set("tabActive",$tabActive);
 		#get_data_variables
-			//Obtiene el menú del usuario actual
+		//Obtiene el menú del usuario actual
 			$currentMainMenu=$cu->getMainMenu2($this->_sesionpkiBUser);
-			//Obtiene registros del catálogo métodos de recolección...
+		//Obtiene registros del catálogo métodos de recolección...
 			$ResultSet_cm=$cm->getAll();
-			while ($row =$ResultSet_cm->fetch(\PDO::FETCH_ASSOC)){
-				$ds_cm[] = $row;
-			}
-			//Obtiene el producto cartesiano de la orden por customercontact
+			while ($row =$ResultSet_cm->fetch(\PDO::FETCH_ASSOC)){ 	$ds_cm[] = $row; }
+		//Obtiene el producto cartesiano de la orden por customercontact
 			$ResultSet_so=SO::getoxcc($pkso);
-			while ($row =$ResultSet_so->fetch(\PDO::FETCH_ASSOC)){
-				$ds_so[] = $row;
-			}
-			//Obtiene todos los accesorios incluidos en la orden especificada en el parámetro de la función 
+			while ($row =$ResultSet_so->fetch(\PDO::FETCH_ASSOC)){ 	$ds_so[] = $row;}
+		//Obtiene todos los accesorios incluidos en la orden especificada en el parámetro de la función 
 			$ResultSet_soa=SOA::getBySO($pkso);
-			while($row=$ResultSet_soa->fetch(\PDO::FETCH_ASSOC)){
-				$ds_soa[]=$row;
-			}
-			//Obtiene el diagnóstico técnico de la SO, el parámetro 3 = Diagnosticada
+			while($row=$ResultSet_soa->fetch(\PDO::FETCH_ASSOC)){ $ds_soa[]=$row; }
+		//Obtiene el diagnóstico técnico de la SO, el parámetro 3 = Diagnosticada
 			$ResultSet_sod=SOD::getDiagnoseBySO($pkso,3);
-			while($row=$ResultSet_sod->fetch(\PDO::FETCH_ASSOC)){
-				$ds_sod[]=$row;
-			}
-			//Obtiene a todos los usuarios para hacer un catálogo de ellos y así poder asignarles una orden
+			while($row=$ResultSet_sod->fetch(\PDO::FETCH_ASSOC)){ $ds_sod[]=$row; }
+		//Obtiene a todos los usuarios para hacer un catálogo de ellos y así poder asignarles una orden
 			$ds_Us=Us::getAll();
-			while($row=$ds_Us->fetch(\PDO::FETCH_ASSOC)){
-				$dt_Us[]=$row;
-			}
-			//Obtiene el pk del estatus actual de la orden 
+			while($row=$ds_Us->fetch(\PDO::FETCH_ASSOC)){ $dt_Us[]=$row;}
+		//Obtiene el pk del estatus actual de la orden 
 			foreach($ds_so as $dr_so){ $currentST=$dr_so["fkOSstatus"];}
-			//Obtiene el pk del usuario actual de la orden 
+		//Obtiene el pk del usuario actual de la orden 
 			foreach($ds_so as $dr_so){ $currentAssignTo=$dr_so["fkiBUser"];}
-			//Obtiene el nombre del estatus para la cabecera de la SO.
+		//Obtiene el nombre del estatus para la cabecera de la SO.
 			$resultSet_sosbypk=Crud::getById('sostatus','pkOSstatus',$currentST);
-			//Obtiene el nombre del usuario siempre y cuando la SO haya tenido por lo menos una asignación, de lo contrario la variable que se mandará por default es un string
+		//Obtiene el nombre del usuario siempre y cuando la SO haya tenido por lo menos una asignación, de lo contrario la variable que se mandará por default es un string
 			if($currentAssignTo<>null){
 				$resultSet_userbypk=Crud::getById('ibuser','pkiBUser',$currentAssignTo);
 			}
@@ -201,7 +191,7 @@ class ServiceOrder extends Controller{
 				$resultSet_userbypk = "No asignada.";
 			}
 			$ResultSet_SOHistory=SO::getOrderHistory($pkso);
-			//Variables para el siguiente status
+		//Variables para el siguiente status
 			switch($currentST){
 				case 0:
 					$nextST="Asignada";
@@ -254,7 +244,10 @@ class ServiceOrder extends Controller{
 					$nextPKOSstatus=10;
 						break;
 			}
-			
+		//Traemos los modificationCodes
+			$RS_modificationCodes = Crud::getAll('modificationcode');
+		//Traemos los symptomsAreas
+			$RS_symptomAreas = Crud::getAll('symptomarea');
 		#set_data_variables
 			View::set("ds_cm"			,	@$ds_cm);
 			View::set("ds_so"			,	@$ds_so);
@@ -268,6 +261,8 @@ class ServiceOrder extends Controller{
 			View::set("nextST"			,	$nextST);
 			View::set("nextSTLabel"		,	$nextSTLabel);
 			View::set("nextPKOSstatus"	,	$nextPKOSstatus);
+			View::set("ds_modificationCodes", $RS_modificationCodes);
+			View::set("ds_symptomAreas" , $RS_symptomAreas);
 		#render
 			View::render("ViewSO");       
 		}

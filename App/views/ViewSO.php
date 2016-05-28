@@ -374,7 +374,7 @@ use \Core\Controller;
 																						<?php foreach($ds_so as $dr_so){	$currentUserAssigned=$dr_so["fkiBUser"];}?>
 																						<label class="col-lg-4 control-label">Asignar:</label>
 																						<div class="input-group col-lg-8">
-																								<select id="slt_pkEmployee_h" class="selectSearch required" style="width:350px;" name="slt_pkEmployee_h">
+																								<select id="slt_pkEmployee_h" class="selectSearch required" style="width:310px;" name="slt_pkEmployee_h">
 																										 <option></option>
 																										<?php
 																										foreach ($dt_Us as $datarow) {
@@ -475,8 +475,8 @@ use \Core\Controller;
 																			<div class="form-group">
 																					<label class="col-lg-4 control-label">Garant&iacute;a:</label>
 																					<div class="col-lg-8">
-																						<select id="slt_warrantySt_h" class="form-control m-b" name="slt_warrantySt_h">
-																							<option value="">Selecciona...</option>
+																						<select id="slt_warrantySt_h" class="required" style="width:312px;" name="slt_warrantySt_h">
+																							<option value=""></option>
 																							<option value="Aceptada">Aceptada</option>
 																							<option value="En revisi&oacute;n">En revisi&oacute;n</option>
 																							<option value="Declinada">Declinada</option>
@@ -486,23 +486,29 @@ use \Core\Controller;
 																			<div class="form-group">
 																					<label class="col-lg-4 control-label">C&oacute;digo modificador:</label>
 																					<div class="col-lg-8">
-																						<select id="slt_warrantySt_h" class="form-control m-b" name="slt_warrantySt_h">
-																							<option value="">Selecciona...</option>
+																						<select id="slt_pkModificationCode_h" class="required" style="width:312px;" name="slt_pkModificationCode_h">
+																							<option></option>
+																							<?php  foreach($ds_modificationCodes as $dr_modcodes){?>
+																								<option value="<?php echo $dr_modcodes['pkModificationCode'] ?>"><?php echo $dr_modcodes['modificationCodeDesc'] ?></option>
+																							<?php }	?>
 																						</select>
 																					</div>
 																			</div>
 																			<div class="form-group">
 																					<label class="col-lg-4 control-label">&Aacute;rea del s&iacute;ntoma:</label>
 																					<div class="col-lg-8">
-																						<select id="slt_warrantySt_h" class="form-control m-b" name="slt_warrantySt_h">
-																							<option value="">Selecciona...</option>
+																						<select id="slt_pkSymptomArea_h" class="required" style="width:312px;" name="slt_pkSymptomArea_h">
+																							<option value=""></option>
+																							<?php  foreach($ds_symptomAreas as $dr_symarea){?>
+																								<option value="<?php echo $dr_symarea['pkSymtomArea'] ?>"><?php echo $dr_symarea['symptomAreaDesc'] ?></option>
+																							<?php }	?>
 																						</select>
 																					</div>
 																			</div>
 																			<div class="form-group">
 																					<label class="col-lg-4 control-label">C&oacute;digo del s&iacute;ntoma:</label>
 																					<div class="col-lg-8">
-																						<select id="slt_warrantySt_h" class="form-control m-b" name="slt_warrantySt_h">
+																						<select id="slt_symptomCode_h" class="required" style="width:312px;" name="slt_symptomCode_h">
 																							<option value="">Selecciona...</option>
 																						</select>
 																					</div>
@@ -665,6 +671,8 @@ use \Core\Controller;
     <script src="<?php echo $url; ?>App/web/js/plugins/select2/select2.full.min.js"></script>
    <!-- Ajax uploadFile -->
     <script src="<?php echo $url; ?>App/web/ajax/upload.js"></script>
+	<!-- Ajax carga Symtomp -->
+    <script src="<?php echo $url; ?>App/web/ajax/slt_symptomArea_h.js"></script>
 	
     <script type="text/javascript">
 	//////Set defaults settings
@@ -697,7 +705,27 @@ use \Core\Controller;
 			//cargamos los usuarios en el select2
 				$(".selectSearch").select2({	
 					placeholder: "Asignar a...",
-					allowClear: true
+					allowClear: true,
+					language : "es"
+				});
+			//cargamos los usuarios en el select2
+				$("#slt_warrantySt_h").select2({	
+					placeholder: "Selecciona ...",
+					allowClear: true,
+					language : "es"
+				});
+			//cargamos los modificationsCodes en el select2
+				$("#slt_pkModificationCode_h").select2({	
+					placeholder: "Selecciona...",
+					allowClear: true,
+					language : "es"
+					
+				});
+			//cargamos los symptomAreas en el select2
+				$("#slt_pkSymptomArea_h").select2({	
+					placeholder: "Selecciona...",
+					allowClear: true,
+					language : "es"
 				});
 			//Mostrar y ocultar div daño incidental
 				$(function(){
