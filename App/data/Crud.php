@@ -137,10 +137,7 @@ class Crud{
 			print "Error!: " . $e->getMessage();
 		}
     }
-	
-	
-	
-    public static function getById($table,$field,$param) {
+	public static function getById($table,$field,$param) {
         try {
             $PDOcnn = Database::instance();
             $PDOquery = "SELECT * from $table WHERE $field = $param";
@@ -150,6 +147,17 @@ class Crud{
         catch(\PDOException $e){
             print "Error!: " . $e->getMessage();
         }
+    }
+	public static function getByQuery($SQLQuery){
+        try {
+			$PDOcnn = Database::instance();
+			$PDOResultSet = $PDOcnn->query($SQLQuery);
+			return $PDOResultSet;
+		}
+        catch(\PDOException $e)
+        {
+			print "Error!: " . $e->getMessage();
+		}
     }
 	/*   
    * Método público para inserir os dados na tabla   

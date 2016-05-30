@@ -191,6 +191,17 @@ class ServiceOrder extends Controller{
 				$resultSet_userbypk = "No asignada.";
 			}
 			$ResultSet_SOHistory=SO::getOrderHistory($pkso);
+		//Obtener las partes ligadas a la orden
+			$SQLQuery="
+				SELECT * 
+					FROM product p 
+						LEFT JOIN product_sold_sorder pss
+							ON p.pkProduct=pss.fkproduct
+					WHERE pss.fkSorder=$pkso
+			";
+			$RS_products = Crud::getByQuery($SQLQuery);
+			while ($row =$RS_products->fetch(\PDO::FETCH_ASSOC)){ 	$ds_products[] = $row; }
+			
 		//Variables para el siguiente status
 			switch($currentST){
 				case 0:
@@ -246,8 +257,10 @@ class ServiceOrder extends Controller{
 			}
 		//Traemos los modificationCodes
 			$RS_modificationCodes = Crud::getAll('modificationcode');
+			
 		//Traemos los symptomsAreas
 			$RS_symptomAreas = Crud::getAll('symptomarea');
+			
 		#set_data_variables
 			View::set("ds_cm"			,	@$ds_cm);
 			View::set("ds_so"			,	@$ds_so);
@@ -262,7 +275,8 @@ class ServiceOrder extends Controller{
 			View::set("nextSTLabel"		,	$nextSTLabel);
 			View::set("nextPKOSstatus"	,	$nextPKOSstatus);
 			View::set("ds_modificationCodes", $RS_modificationCodes);
-			View::set("ds_symptomAreas" , $RS_symptomAreas);
+			View::set("ds_symptomAreas" , 	$RS_symptomAreas);
+			View::set("ds_products"		,	$ds_products);
 		#render
 			View::render("ViewSO");       
 		}
@@ -313,6 +327,14 @@ class ServiceOrder extends Controller{
 				View::set("url", $url);
 		#render
 				View::render("slt_pkSymptomCode_h");
+	}
+	public function ctrlSaveSpare(){
+		#get_main_variables
+			$url= Globales::$absoluteURL;
+		#set_main_variables
+				View::set("url", $url);
+		#render
+				View::render("saveSpare");
 	}
 }
 //MÉTODOS PRIVADOS###################################

@@ -4,8 +4,10 @@
 #16.3.29 incluir en la sesi�n el BO
 namespace App\View;
 defined("APPPATH") OR die("Access denied");
+
 use \Core\View;
 use \Core\Controller;
+use \App\data\DataGridView as DGV;
 		
 		$_SESSION["nombreUsuario"];
 		$_SESSION['pkiBUser_p'];
@@ -31,6 +33,39 @@ use \Core\Controller;
 		else{
 			foreach($currentAssignTo as $dr_user){ $currentAssignToName = $dr_user['realname'];}
 		}
+		
+		$outputTableProducts = DGV::getInstance($ds_products)
+		->setGridAttributes(array('class' => 'table table-striped table-bordered table-hover dataTables-example'))
+		->enableSorting(false)
+		->removeColumn('pkProduct')
+		->removeColumn('ProductCategory_pkProductCategory')
+		->removeColumn('ProductType_pkProductType')
+		->removeColumn('PODetail_pkPODetail')
+		->removeColumn('created')
+		->removeColumn('createdBy')
+		->removeColumn('modified')
+		->removeColumn('modifiedBy')
+		->removeColumn('active')
+		->removeColumn('pkProductSoldSorder')
+		->removeColumn('fkSorder')
+		->removeColumn('fkProduct')
+		->removeColumn('fkModificationCode')
+		->removeColumn('fkSymtomArea')
+		->removeColumn('fkSymtomCode')
+		->setup(array(
+			'productDesc' => array('header' => 'Descripci&oacute;n de la parte'),
+			'productPartNumber' => array('header' => 'No. de parte'),
+			'productSerialNumber' => array('header' => 'No. de serie'),
+			'productBrand' => array('header' => 'Marca')			
+		))
+		/*->addColumnAfter('actions', 
+									'<a href="'.$url.'private/ServiceOrder/ViewSO/$pkSOrder$">Ver ASP\'s</a>',
+									'Actions', array('align' => 'center'))*/
+		//->addColumnBefore('counter', '%counter%.', 'Counter', array('align' => 'right'))
+		//->setStartingCounter(1)
+		//->setRowClass('')
+		->setAlterRowClass('alterRow');
+		
 ?>
 <!DOCTYPE html>
 <html>
@@ -59,7 +94,10 @@ use \Core\Controller;
 	<link href="<?php echo $url; ?>App/web/css/plugins/select2/select2.min.css" rel="stylesheet">
 	<!-- Toastr style -->
     <link href="<?php echo $url; ?>App/web/css/plugins/toastr/toastr.min.css" rel="stylesheet">
-	
+	<!-- Sweet Alert -->
+    <link href="<?php echo $url; ?>App/web/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+	<!-- dataTable CSS-->
+    <link href="<?php echo $url; ?>/App/web/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
     <style>
         #alertmod_table_accessory{
             top: 900px !important;
@@ -405,10 +443,10 @@ use \Core\Controller;
 																</fieldset>
 														</form>
 														<hr>
+														<div class="row">
 														<form id="frm_SOAt_h" class="form-horizontal" action="<?php echo $url; ?>private/ServiceOrder"   accept-charset="utf-8" enctype="multipart/form-data"  method="POST" name="frm_SOAt_h">
 															<input type="hidden" id="" value="<?php echo $currentSO ?>" name="hdn_currentSO_h">
 															<fieldset class="form-group grouper"><leyend><h3>Diagn&oacute;stico t&eacute;cnico</h3></leyend>
-																<div class="row">	
 																	<div class="col-md-6">
 																		<div class="form-group">
 																			<label class="col-lg-4 control-label">Dian&oacute;stico:</label>
@@ -448,17 +486,32 @@ use \Core\Controller;
 																						<button id="btn_showSpares_h" type="button" class='btn btn-default'>Partes</button>
 																					</div>
 																			</div>
-																		<fieldset id="spares" class="">
+																	</div>
+																	<div class="col-md-6">
+																		<div class="col-md-4 pull-right">
+																			<div class="form-group">
+																				<button type="submit" id="btn_command_h" class="btn btn-primary btn-md btn-block" value="CMDDiagnose" name="btn_command_h">Diagnosticar</button>
+																			</div>
+																		</div>
+																	</div>
+															</fieldset>
+														</form>
+														</div>
+														<div class="row">
+															<form id="frm_SOSpares_h" class="form-horizontal upd" action="<?php echo $url; ?>private/ServiceOrder/ctrlSaveSpare"   accept-charset="utf-8" method="POST" name="frm_SOSpares_h">
+																<input type="hidden" id="" value="<?php echo $currentSO ?>" name="hdn_currentSO_h">
+																<fieldset id="spares" class="form-group grouper"><leyend><h3>Partes</h3></leyend>
+																	<div class="col-md-6">
 																			<div class="form-group">
 																				<label class="col-md-4 control-label">Descripci&oacuten de la parte*:</label>
 																				<div class="col-md-8">
-																					<input type="text" id="txt_productDesc_h" class="form-control" value=""/>
+																					<input type="text" id="txt_productDesc_h" class="form-control" value="" name="txt_productDesc_h" />
 																				</div>
 																			</div>
 																			<div class="form-group">
 																					<label class="col-lg-4 control-label">No. de parte:</label>
 																					<div class="col-lg-8">
-																						<input type="text" id="txt_productPartNumber_h" class="form-control" value="" name="txt_SODate_h"/>
+																						<input type="text" id="txt_productPartNumber_h" class="form-control" value="" name="txt_productPartNumber_h"/>
 																					</div>
 																			</div>
 																			<div class="form-group">
@@ -466,7 +519,7 @@ use \Core\Controller;
 																				<div class="col-md-8">
 																					<div class="input-group m-b">
 																						<span class="input-group-addon"> 
-																							<input type="checkbox"> 
+																							<input type="checkbox" id="chk_ifSerialNumber_h" class="" name="chk_ifSerialNumber_h"> 
 																						</span> 
 																						<input type="text" id="txt_productSerialNumber_h" class="form-control" name="txt_productSerialNumber_h">
 																					</div>
@@ -513,19 +566,26 @@ use \Core\Controller;
 																						</select>
 																					</div>
 																			</div>
-																		</fieldset>
 																	</div>
 																	<div class="col-md-6">
 																		<div class="col-md-4 pull-right">
 																			<div class="form-group">
-																				<button type="submit" id="btn_command_h" class="btn btn-primary btn-md btn-block" value="CMDDiagnose" name="btn_command_h">Diagnosticar</button>
+																				<button type="submit" id="btn_command_h" class="btn btn-primary btn-md btn-block" data-ajax="true" value="CMDSaveSpare" name="btn_command_h">Guardar</button>
 																			</div>
 																		</div>
 																	</div>
-																</div>
 																</fieldset>
-																<hr>
-																<div id="" class="row">
+															</form>
+														</div>
+														<div class="row">
+															<div class="col-lg-12">
+																<div class="table-responsive">
+																	<?php $outputTableProducts->render();?>
+																</div>
+															</div>
+														</div>
+														<hr>
+														<div id="" class="row">
 																	<div class="col-md-7">
 																	<fieldset class="form-group grouper"><h3>Adjuntar archivos</h3></leyend>
 																		<div class="form-group">
@@ -574,9 +634,7 @@ use \Core\Controller;
 																			<div id="archivos_subidos"></div>
 																		</fieldset>
 																	</div>
-																</div>
-															
-														</form>
+														</div>
 													</div>
 												</div>
 												<div id="tab3" class="tab-pane">
@@ -673,7 +731,15 @@ use \Core\Controller;
     <script src="<?php echo $url; ?>App/web/ajax/upload.js"></script>
 	<!-- Ajax carga Symtomp -->
     <script src="<?php echo $url; ?>App/web/ajax/slt_symptomArea_h.js"></script>
-	
+	<!-- Ajax submit -->
+    <script src="<?php echo $url; ?>App/web/ajax/submit.ini.js"></script>
+	<!-- jquery forms -->
+    <script src="<?php echo $url; ?>App/web/js/jquery.form.js"></script>
+	<!-- Sweet alert -->
+    <script src="<?php echo $url; ?>App/web/js/plugins/sweetalert/sweetalert.min.js"></script>
+	<!-- dataTables-->
+	<script src="<?php echo $url; ?>/App/web/js/plugins/dataTables/datatables.min.js"></script>
+	<script src="<?php echo $url; ?>/App/web/js/plugins/jeditable/jquery.jeditable.js"></script>
     <script type="text/javascript">
 	//////Set defaults settings
 		$.validator.setDefaults({
@@ -685,8 +751,6 @@ use \Core\Controller;
 		});
 	///DOM already loaded	
 		$(document).ready(function(){
-			//Obtenemos el valor total de filas contenidas actualmente en la tabla.
-        		var i=$('table tr').length;
 			//Ocultamos los inputs del daño incidental
 				var flag_incidentalDamage_j="<?php if(isset($ds_sod)){foreach($ds_sod as $dr_sod){	 echo trim($dr_sod["SODetailObs"]);}}?>";
 				
@@ -696,12 +760,22 @@ use \Core\Controller;
 				else{
 					$("#danoincidental").show();
 				}
+			//Ocultamos los inputs de los spares
+			$("#spares").hide();
     		//Habilitamos e inhabilitamos los inputs según si son visibles o no
 				var initial;
 				$('#danoincidental').is(":visible")? initial = true :	initial =false;
 				var fls_danoincidental_j = $("#fls_danoincidental_h");
 				var fls_danoincidentalInputs_j=fls_danoincidental_j.find("input").attr("disabled",initial);
 				$("#tta_SODObs_h").attr("disabled",initial);
+			//Habilitamos e inhabilitamos el input de serial number si es necesario
+				var ifSNApplies = $('#chk_ifSerialNumber_h');
+				ifSNInitial = ifSNApplies.is(":checked");
+				$("#txt_productSerialNumber_h").attr("disabled",!ifSNInitial);
+				ifSNApplies.click(function(){
+					$("#txt_productSerialNumber_h").attr("disabled",!this.checked);
+				});
+				
 			//cargamos los usuarios en el select2
 				$(".selectSearch").select2({	
 					placeholder: "Asignar a...",
@@ -733,7 +807,7 @@ use \Core\Controller;
 					allowClear: true,
 					language : "es"
 				});
-			//Mostrar y ocultar div daño incidental
+			//Mostrar y ocultar fielset daño incidental
 				$(function(){
 					$("#btn_showdanoincidental_h").on(
 						'click',function(){
@@ -745,6 +819,16 @@ use \Core\Controller;
 						}
 					);
 				});
+			//Mostrar y ocultar fielset spares
+					$("#btn_showSpares_h").on(
+						'click',function(){
+							if($('#spares').is(":visible")){
+								$("#spares").hide("slow");
+							}else{
+								$("#spares").show("slow");		
+							}
+						}
+					);
 			//Agregar fila a la tabla para el file input
 				$(".addmore").on('click',function(){
 					count=$('.tableAttach tr').length;
@@ -757,7 +841,7 @@ use \Core\Controller;
 					i++;
 				});
 			//Habilitamos y dehabilitamos tabs
-				/*$('#navli3').not('.active').addClass('disabled');
+				$('#navli3').not('.active').addClass('disabled');
 				$('#navli3').not('.active').find('a').removeAttr("data-toggle");
 				
 				$('#tab3').click(function(event){
@@ -772,7 +856,6 @@ use \Core\Controller;
 					$('.nav li.active').next('li').removeClass('disabled');
 					$('.nav li.active').next('li').find('a').attr("data-toggle","tab")
 				});
-				*/
 			//Upload files ajax
 			mostrarArchivos();
 			$("#btn_uploadFile_h").on('click', function() {
