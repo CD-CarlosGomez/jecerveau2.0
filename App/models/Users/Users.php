@@ -242,12 +242,7 @@ class Users implements iCrud{
             print "Error!: " . $e->getMessage();
         }
 	}
-	public static function getParcialSelect(){
-		 try {
-			$PDOcnn = Database::instance();
-			$PDOQuery=
-			"
-			SELECT 
+	/*SELECT 
 				`pkiBUser`,
 				`username`, 
 				`realname`,
@@ -258,7 +253,20 @@ class Users implements iCrud{
 					ON  u.pkiBUser=bohup.ibuser_pkiBUser
 				INNER JOIN ibuserprofile up
 					ON bohup.ibuserprofile_pkiBUserProfile=up.pkiBUserProfile
-			WHERE Active=1 or Active=2;";
+			WHERE Active=1 or Active=2;"
+	*/
+	public static function getParcialSelect(){
+		 try {
+			$PDOcnn = Database::instance();
+			$PDOQuery=
+			"
+			SELECT 
+				`pkiBUser`,
+				`username`, 
+				`realname`,
+				`email`
+			FROM `ibuser` u
+			WHERE Active=1 or Active=11;";
 			$PDOResultSet = $PDOcnn->query($PDOQuery);
 			return $PDOResultSet;
 		}

@@ -267,7 +267,7 @@ use \Core\Controller;
 															<div class="form-group">
 																<label class="col-md-4 control-label">Inicio de Folio:</label>
 																<div class="col-md-8">
-																	<input type="text" id="txt_folioStart_h" class="touchspin1 form-control required" value="" name="txt_folioStart_h">
+																	<input type="text" id="txt_folioStart_h" class="touchspin1 form-control" value="" name="txt_folioStart_h">
 																</div>
 															</div>
 															<div class="form-group">
@@ -411,6 +411,10 @@ use \Core\Controller;
 		});
 		//Touch spin numérico para los folios
 		$(".touchspin1").TouchSpin({
+                min : 0,
+                max : 1000000000,
+                stepinterval: 50,
+                maxboostedstep: 10000000,
                 buttondown_class: 'btn btn-white',
                 buttonup_class: 'btn btn-white'
         });

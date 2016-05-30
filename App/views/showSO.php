@@ -48,9 +48,9 @@ use \App\data\DataGridView as DGV;
 			//'ibSOrderObs' => array('header' => 'Observaciones'),
 			
 		))
-		->addColumnAfter('actions', 
+		/*->addColumnAfter('actions', 
 									'<a href="'.$url.'private/ServiceOrder/ViewSO/$pkSOrder$">Ver ASP\'s</a>',
-									'Actions', array('align' => 'center'))
+									'Actions', array('align' => 'center'))*/
 		//->addColumnBefore('counter', '%counter%.', 'Counter', array('align' => 'right'))
 		//->setStartingCounter(1)
 		//->setRowClass('')

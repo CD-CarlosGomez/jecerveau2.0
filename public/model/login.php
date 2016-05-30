@@ -60,7 +60,7 @@ class Login extends dal{
 			pwd
 		FROM ibuser u
 		WHERE username='".$this->_nombreUsuario."'
-			AND u.Active=1;
+			AND u.Active=1 or u.Active=11;
 		";
 		$mySQLiResultSet=parent::ejecutar($mySQLiQuery);
 		if($row = $mySQLiResultSet->fetch_array()){

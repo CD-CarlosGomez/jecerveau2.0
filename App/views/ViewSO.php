@@ -452,7 +452,7 @@ use \App\data\DataGridView as DGV;
 																			<label class="col-lg-4 control-label">Dian&oacute;stico:</label>
 																			<div class="col-lg-8">
 																				<textarea id="tta_SODDesc_h" class="form-control required" data-provide="markdown" rows="5" cols="80" name="tta_SODDesc_h"><?php 
-																					if ($tabActive==2){
+																					if ($tabActive==2 and !empty($ds_sod)){
 																						foreach($ds_sod as $dr_sod){	 
 																							if(isset($dr_sod["SODetailDesc"])){
 																								echo trim($dr_sod["SODetailDesc"]);
@@ -473,7 +473,7 @@ use \App\data\DataGridView as DGV;
 																					<label class="col-lg-4 control-label">Descripci&oacute;n del da&ntilde;o:</label>
 																					<div class="col-lg-8">
 																						<textarea id="tta_SODObs_h" class="form-control required " data-provide="markdown" rows="5" name="tta_SODObs_h"><?php 
-																							if ($tabActive==2){
+																							if ($tabActive==2 and !empty($ds_sod)){
 																								foreach($ds_sod as $dr_sod){	 echo trim(@$dr_sod["SODetailObs"]);}
 																							}
 																						?></textarea>
@@ -841,7 +841,7 @@ use \App\data\DataGridView as DGV;
 					i++;
 				});
 			//Habilitamos y dehabilitamos tabs
-				$('#navli3').not('.active').addClass('disabled');
+				/*$('#navli3').not('.active').addClass('disabled');
 				$('#navli3').not('.active').find('a').removeAttr("data-toggle");
 				
 				$('#tab3').click(function(event){
@@ -855,7 +855,7 @@ use \App\data\DataGridView as DGV;
 					//enable next tab//
 					$('.nav li.active').next('li').removeClass('disabled');
 					$('.nav li.active').next('li').find('a').attr("data-toggle","tab")
-				});
+				});*/
 			//Upload files ajax
 			mostrarArchivos();
 			$("#btn_uploadFile_h").on('click', function() {

@@ -276,7 +276,7 @@ class ServiceOrder extends Controller{
 			View::set("nextPKOSstatus"	,	$nextPKOSstatus);
 			View::set("ds_modificationCodes", $RS_modificationCodes);
 			View::set("ds_symptomAreas" , 	$RS_symptomAreas);
-			View::set("ds_products"		,	$ds_products);
+			View::set("ds_products"		,	@$ds_products);
 		#render
 			View::render("ViewSO");       
 		}

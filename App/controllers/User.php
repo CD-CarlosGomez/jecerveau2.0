@@ -23,13 +23,13 @@ use \App\data\Crud as Crud;
 		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
 		else{
 				echo "Esta pagina es solo para usuarios registrados.<br>";
-			echo "<a href='http://localhost:8012/ibrain2.0'>Login Here!</a>";
+			echo "<a href='" . $url ."'>Login Here!</a>";
 			exit;
 		}
 		$now = time(); 
 		if($now > $_SESSION['expire']){
 		session_destroy();
-		echo "Su sesion a terminado, <a href='http://localhost:8012/ibrain2.0'>
+		echo "Su sesion a terminado, <a href='". $url ."'>
 			  Necesita Hacer Login</a>";
 		exit;
 		}
@@ -272,15 +272,17 @@ private $_sesionpkiBUser;
 					
 					header("Location:" . Globales::$absoluteURL . "/private/User/showProfile");
 				}
+				 /*Revisar la inserción de esta tabla para crear el menú*/
+				@$functionDetails=$_POST['slt_pkiBFunctionDetail_h'];
+				
+				foreach ($functionDetails as $fd =>$fdItem){
+					$uphfd['iBUserProfile_pkiBUserProfile'] = $_POST['slt_pkiBUsers_h'];
+					$uphfd['ibFunctionDetail_pkibFunctionDetail'] = $fdItem;
+					Crud::insert($uphfd,'ibuserprofile_has_ibfunctiondetail');
+				}		
 			}
 			
-			@$functionDetails=$_POST['slt_pkiBFunctionDetail_h'];
-			foreach ($functionDetails as $fd){
-				$uphfd['iBUserProfile_pkiBUserProfile']=$bohup['ibuser_pkiBUser'];
-				$uphfd['ibFunctionDetail_pkibFunctionDetail']=$fd;
 				
-				Crud::insert($uphfd,'ibuserprofile_has_ibfunctiondetail');
-			}			
 		}
 	}
 
