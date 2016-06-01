@@ -159,6 +159,16 @@ class Crud{
 			print "Error!: " . $e->getMessage();
 		}
     }
+	public static function multiQuery($SQLQuery){
+		try {
+				$PDOcnn=Database::instance();
+				$PDOcnn->exec($SQLQuery);
+				return true;
+			}
+        catch (\PDOException $e) {
+    		echo 'Error insert ibuserprofile_has_ibfunctiondetail ',  $e->getMessage(), ".\n";
+		}
+	}
 	/*   
    * Método público para inserir os dados na tabla   
    * @param $arrayDados = Array de dados contendo colunas e valores   

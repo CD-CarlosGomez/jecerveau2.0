@@ -1,5 +1,4 @@
 <?php
-
 print_r($_POST);
 echo "<br><hr><br>"; 
 if($_FILES){

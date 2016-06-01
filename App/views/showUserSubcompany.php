@@ -9,13 +9,13 @@ use \App\data\DataGridView as DGV;
 		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
 		else{
 				echo "Esta pagina es solo para usuarios registrados.<br>";
-			echo "<a href='http://localhost:8012/ibrain2.0'>Login Here!</a>";
+			echo "<a href='" . $url ."'>Login Here!</a>";
 			exit;
 		}
 		$now = time(); 
 		if($now > $_SESSION['expire']){
 		session_destroy();
-		echo "Su sesion a terminado, <a href='http://localhost:8012/ibrain2.0'>
+		echo "Su sesion a terminado, <a href='" . $url . "'>
 			  Necesita Hacer Login</a>";
 		exit;
 		}
@@ -93,10 +93,10 @@ use \App\data\DataGridView as DGV;
 							<a href="<?php echo $url; ?>private/home">Inicio</a>
 						</li
 						><li>
-							<a href="<?php echo $url; ?>private/EnterpriseGroup/showCompany">Compa&ntilde;&iacute;as</a>
+							<a href="<?php echo $url; ?>private/EnterpriseGroup/showCompany">Cuentas maestras</a>
 						</li>
 						<li class="active">
-							<a href="<?php echo $url; ?>private/EnterpriseGroup/showSubcompany">Subcompa&ntilde;&iacute;as</a>
+							<a href="<?php echo $url; ?>private/EnterpriseGroup/showSubcompany">Sub cuentas maestras</a>
 						</li>
 						<li class="active">
 							<a href="<?php echo $url; ?>private/EnterpriseGroup/showBranchOffice">AASP</a>
@@ -125,7 +125,7 @@ use \App\data\DataGridView as DGV;
 								</div>
 								<div class="ibox-content">					
 								<div class="pull-right">
-									<a onclick="" href="<?php echo $url; ?>private/User/addUser" class="btn btn-primary btn-lg btn-block">Agregar nuevo usuario</a>
+									<a onclick="" href="<?php echo $url; ?>private/User/addUser" class="btn btn-primary btn-lg btn-block">Nuevo usuario</a>
 								</div>
 								<br />
 								<br />
@@ -192,27 +192,29 @@ use \App\data\DataGridView as DGV;
                                     .css('font-size', 'inherit');
                     }
                     }
-                ]
+                ],
+                language : {
+						buttons : {
+								copy : 'Copiar',
+								print : 'Imprimir'
+						}
+				},
+				"language" : {
+						"lengthMenu": "Mostrar _MENU_ registros por p&aacute;gina",
+						"zeroRecords": "No se encontraron registros.",
+						"info": "Mostrando p&aacute;gina _PAGE_ de _PAGES_",
+						"infoEmpty": "No registros disponibles",
+						"infoFiltered": "(filtrado desde _MAX_ registros totales)",
+						"search":         "Buscar:",
+						"paginate": {
+						"first":      "Primero",
+						"last":       "&Uacute;ltimo",
+						"next":       "Siguiente",
+						"previous":   "Anterior"
+						}
+				}
 
             });
-			
-			$.ajax({
-				url: '',
-				type: 'post',
-				data:{tag:'getCompany'},
-				dataType:'json',
-				succes: function (data){
-					if (data.succes){
-						$.each(data,function (index,record ){
-						})
-					}
-				}
-			});
-            
-			
-			
-			
-			
 			
 			/* Init DataTables */
             var oTable = $('#AddTD').DataTable();

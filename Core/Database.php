@@ -120,6 +120,13 @@ class Database{
 	public function fetch_assoc($query){
 		return $this->_cnn->$query->fetch(\PDO::FETCH_ASSOC);
 	}
+	/**
+     * 
+     * 
+     */
+	public function exec($SQLQuery){
+		return $this->_cnn->exec($SQLQuery);
+	}
 //MÉTODOS PRIVADOS###################################
 //EVENTOS############################################
 //CONTROLES##########################################

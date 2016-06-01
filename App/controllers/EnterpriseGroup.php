@@ -136,7 +136,7 @@ private $_sesionpkiBUser;
 		$dsCompanyGrid=Us::SelectKanbanCompanyNumber($pk);
 		while ($row =$dsCompanyGrid->fetch( \PDO::FETCH_ASSOC )){$dt_Company[] = $row;}
 	#set data variables
-		View::set("dt_Company",$dt_Company);
+		View::set("dt_Company",@$dt_Company);
         View::set("title", "Grupo Empresarial");
 	#Renderizar
 		View::render("showUserCompany");	
@@ -236,7 +236,7 @@ private $_sesionpkiBUser;
 		$dsCompanyGrid=Us::SelectKanbanBONumber($pk);
 		while ($row =$dsCompanyGrid->fetch( \PDO::FETCH_ASSOC )){$dt_Company[] = $row;}
 	#set data variables
-		View::set("dt_Company",$dt_Company);
+		View::set("dt_Company",@$dt_Company);
         View::set("title", "Grupo Empresarial");
 	#Renderizar
 		View::render("showUserBranchOffice");	

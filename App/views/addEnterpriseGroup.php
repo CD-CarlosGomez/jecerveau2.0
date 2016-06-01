@@ -267,7 +267,7 @@ use \Core\Controller;
 															<div class="form-group">
 																<label class="col-md-4 control-label">Inicio de Folio:</label>
 																<div class="col-md-8">
-																	<input type="text" id="txt_folioStart_h" class="touchspin1 form-control" value="" name="txt_folioStart_h">
+																	<input type="text" id="txt_folioStart_h" class="touchspin1 form-control required" value="" name="txt_folioStart_h">
 																</div>
 															</div>
 															<div class="form-group">
@@ -434,8 +434,18 @@ use \Core\Controller;
 		$("#frm_EG_h").validate(
 			{
 				rules: {
-					
-						txt_BOName_h : {
+					txt_legalName_h : {
+						required : true,
+						regex : true		
+					},
+					txt_commercialName_h : {
+						required : true,
+						regex : true
+					},
+					txt_subCompanyName_h : {
+						required : true						
+					},
+					txt_BOName_h : {
 						required : true,
 						regex : true
 					},
@@ -495,6 +505,13 @@ use \Core\Controller;
 						required : true,
 						regex : true
 					},
+					txt_folioSerie_h : {
+						required : true,
+						regex : true
+					},
+					txt_folioStart_h : {
+						required : true
+					},
 					slt_pkCountry_h : {
 						required : true
 					},
@@ -503,6 +520,13 @@ use \Core\Controller;
 					}
 				},
 				messages : {
+					txt_legalName_h : {
+						required : "Favor de escribir el nombre legal."
+					},
+					txt_commercialName_h : {
+						required : "Favor de escribir el nombre comercial."
+					},
+					txt_subCompanyName_h : "Por favor, introduce el nombre de una subcuenta.",
 					
 					txt_BOName_h : {
 						required : "Favor de escribir el nombre del AASP."
@@ -549,6 +573,12 @@ use \Core\Controller;
 					},
 					txt_shipTo_h : {
 						required : "Favor de escribir el shipTo."
+					},
+					txt_folioSerie_h : {
+						required : "Favor de escribir el folio de sa serie."
+					},
+					txt_folioStart_h : {
+						required : "Es importante que especifiques el N&uacute;mero de folio con la que se iniciarán las &oacute;rdenes de servicio."
 					},
 					slt_pkCountry_h : "Favor de seleccionar un pa&iacute;s",
 					slt_timeZone_h : "Favor de seleccionar una zona horaria"

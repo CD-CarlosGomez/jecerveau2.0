@@ -194,7 +194,7 @@ private $_sesionpkiBUser;
 				$mail->SMTPAuth = true;
 				$mail->Username = 'santi.notificaciones@gmail.com';
 				$mail->Password = 'envios2015';
-				$mail->setFrom($micorreo,"Carlos Gómez");
+				$mail->setFrom($micorreo,"iBrain info");
 				//$mail->AddReplyTo($micorreo,"G&oacute;mez 2");
 				$mail->AddAddress ("$destinatario","cgomez@consultoriadual");
 				$mail->Subject = "$asunto";
@@ -226,7 +226,7 @@ private $_sesionpkiBUser;
 	}
 	function CreateProfile(){
 		
-		$up['pkiBUserProfile']=Crud::getNextId('pkiBUserProfile','ibuserprofile');
+		$up['pkiBUserProfile'] = Crud::getNextId('pkiBUserProfile','ibuserprofile');
 		$up['Name']=$_POST['txt_profileName_h'];
 		
 		if($PDOCommand1=Crud::insert($up,'ibuserprofile')){
@@ -269,17 +269,25 @@ private $_sesionpkiBUser;
 					$wfhup['iBUserProfile_pkiBUserProfile']=$up['pkiBUserProfile'];
 					
 					Crud::insert($wfhup,'osworkflow_has_ibuserprofile');
-					
-					header("Location:" . Globales::$absoluteURL . "/private/User/showProfile");
 				}
-				 /*Revisar la inserción de esta tabla para crear el menú*/
+
 				@$functionDetails=$_POST['slt_pkiBFunctionDetail_h'];
 				
-				foreach ($functionDetails as $fd =>$fdItem){
-					$uphfd['iBUserProfile_pkiBUserProfile'] = $_POST['slt_pkiBUsers_h'];
-					$uphfd['ibFunctionDetail_pkibFunctionDetail'] = $fdItem;
-					Crud::insert($uphfd,'ibuserprofile_has_ibfunctiondetail');
-				}		
+				foreach ($functionDetails as $fd){
+					/*$uphfd['iBUserProfile_pkiBUserProfile'] = $_POST['slt_pkiBUsers_h'];
+					$uphfd['ibFunctionDetail_pkibFunctionDetail'] = $fd;*/
+					$valor = "('" . $up['pkiBUserProfile'] . "','" . $fd . "')";
+					$parameters[] = $valor;
+				}
+				
+				$valores = implode(', ',$parameters);
+				
+				$insert_uphfd = "INSERT INTO ibuserprofile_has_ibfunctiondetail VALUES " . $valores . ";";
+				
+				if(Crud::multiQuery($insert_uphfd)){
+					header("Location:" . Globales::$absoluteURL . "/private/User/showProfile");
+				}				
+				
 			}
 			
 				

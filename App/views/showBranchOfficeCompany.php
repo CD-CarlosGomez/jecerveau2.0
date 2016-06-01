@@ -94,10 +94,10 @@ use \App\data\DataGridView as DGV;
 							<a href="<?php echo $url; ?>private/home">Inicio</a>
 						</li
 						><li>
-							<a href="<?php echo $url; ?>private/EnterpriseGroup/showCompany">Compa&ntilde;&iacute;as</a>
+							<a href="<?php echo $url; ?>private/EnterpriseGroup/showCompany">Cuentas maestras</a>
 						</li>
 						<li class="active">
-							<a href="<?php echo $url; ?>private/EnterpriseGroup/showSubcompany">Subcompa&ntilde;&iacute;as</a>
+							<a href="<?php echo $url; ?>private/EnterpriseGroup/showSubcompany">Sub cuentas maestras</a>
 						</li>
 						<li class="active">
 							<strong> AASP </strong>
@@ -123,7 +123,7 @@ use \App\data\DataGridView as DGV;
 								</div>
 								<div class="ibox-content">					
 								<div class="pull-right">
-									<a onclick="" href="<?php echo $url; ?>private/EnterpriseGroup/addBranchOffice" class="btn btn-primary ">Agregar nuevo AASP</a>
+									<a onclick="" href="<?php echo $url; ?>private/EnterpriseGroup/addBranchOffice" class="btn btn-primary ">Nuevo AASP</a>
 								</div>
 								<br />
 								<br />
@@ -190,7 +190,27 @@ use \App\data\DataGridView as DGV;
                                     .css('font-size', 'inherit');
                     }
                     }
-                ]
+                ],
+                language : {
+						buttons : {
+								copy : 'Copiar',
+								print : 'Imprimir'
+						}
+				},
+				"language" : {
+						"lengthMenu": "Mostrar _MENU_ registros por p&aacute;gina",
+						"zeroRecords": "No se encontraron registros.",
+						"info": "Mostrando p&aacute;gina _PAGE_ de _PAGES_",
+						"infoEmpty": "No registros disponibles",
+						"infoFiltered": "(filtrado desde _MAX_ registros totales)",
+						"search":         "Buscar:",
+						"paginate": {
+						"first":      "Primero",
+						"last":       "&Uacute;ltimo",
+						"next":       "Siguiente",
+						"previous":   "Anterior"
+						}
+				}
 
             });
 			

@@ -982,7 +982,7 @@ use \App\data\DataGridView as DGV;
 							},
 						txt_contactProvince_h:"Por favor, introduzca una Provincia o Estado."
 					}
-		});
+				});
 		});
 		//Funciones
 		function subirArchivos() {

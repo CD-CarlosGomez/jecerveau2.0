@@ -22,14 +22,11 @@ use \App\data\DataGridView as DGV;
 		$outputTableCompany=DGV::getInstance($dt_Company)
 		->setGridAttributes(array('class' => 'table table-striped table-bordered table-hover dataTables-example'))
 		->enableSorting(false)
-		->removeColumn('pkCompany')
-		->removeColumn('pkSubCompany')
-		->removeColumn('pkBranchOffice')
 		->removeColumn('pkiBUser')
 		->removeColumn('pwd')
 		->removeColumn('pwdtmp')
 		->removeColumn('Active')
-		->removeColumn('Created')
+		//->removeColumn('Created')
 		->removeColumn('CreatedBy')
 		->removeColumn('Modified')
 		->removeColumn('ModifiedBy')
@@ -40,7 +37,7 @@ use \App\data\DataGridView as DGV;
 			'BOName' => array('header' => 'Sucursal'),
 			'Name' => array('header' => 'Perfil asignado'),
 			'email' => array('header' => 'Correo electronico'),
-			
+			'Created' => array ('header' => 'Fecha de creaci&oacute;n')
 		))
 		/*->addColumnAfter('Acciones', 
 									'<a href="'.$url.'private/User/showProfile">Ver Perfil</a>',

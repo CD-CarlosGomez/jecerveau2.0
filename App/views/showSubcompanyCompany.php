@@ -98,7 +98,7 @@ use \App\data\DataGridView as DGV;
 							<a href="<?php echo $url; ?>private/home">Inicio</a>
 						</li>
 						<li>
-							<a href="<?php echo $url; ?>private/EnterpriseGroup/showCompany">Compa&ntilde;&iacute;as</a>
+							<a href="<?php echo $url; ?>private/EnterpriseGroup/showCompany">Cuentas maestras:</a>
 						</li>
 						<li class="active">
 							<strong>Sub cuenta maestras</strong>

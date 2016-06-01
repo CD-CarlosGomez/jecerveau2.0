@@ -227,49 +227,12 @@ use \Core\Controller;
 						email : "Por favor, introduzca un email v&aacute;lido."
 					},
 					txt_password_h : {
-						required : "Favor de escribir el horario de atenci&oacute;n de la oficina."
+						required : "Favor de asignarle una contraseña al usuario."
 					}
 				}
 			}
 		);	
-		
-		
-            $("#Wzd_Customazing").steps({
-				headerTag: "h3",
-				bodyTag: "section",
-				enableAllSteps: true,
-				enablePagination: false,
-				transitionEffect: "slideLeft"
-			});
-			$("#formCompany").validate({
-				errorPlacement: function (error, element)
-                        {
-                            element.before(error);
-                        },
-                        rules: {
-                            confirm: {
-                                equalTo: "#password"
-                            }
-                        }
-			});
-			$(".select2").select2();
-			
-			$('#vertical-timeline').toggleClass('center-orientation');
-			
-			 $('.i-checks').iCheck({
-                    checkboxClass: 'icheckbox_square-green',
-                });
 		});
-		 var config = {
-                '.chosen-select'           : {},
-                '.chosen-select-deselect'  : {allow_single_deselect:true},
-                '.chosen-select-no-single' : {disable_search_threshold:10},
-                '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
-                '.chosen-select-width'     : {width:"95%"}
-                }
-            for (var selector in config) {
-                $(selector).chosen(config[selector]);
-            }
     </script>
 
 </body>
