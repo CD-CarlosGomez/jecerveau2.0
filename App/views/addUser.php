@@ -104,19 +104,19 @@ use \Core\Controller;
 														<div class="form-group">
 															<label class="col-md-4 control-label">Usuario:*</label>
 															<div class="col-lg-8">
-																<input id="txt_userName_h" class="form-control required" name="txt_userName_h" type="text">
+																<input type="text" id="txt_userName_h" class="form-control required" name="txt_userName_h" >
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">Nombre completo:*</label>
 															<div class="col-lg-8">
-																<input id="txt_realName_h" class="form-control required" name="txt_realName_h" type="text">
+																<input type="text" id="txt_realName_h" class="form-control required" name="txt_realName_h" >
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">Correo electr&oacute;nico:*</label>
 															<div class="col-md-8">
-																<input id="txt_email_h" class="form-control required" name="txt_email_h" type="text">
+																<input type="text" id="txt_newEmail_h" class="form-control required"  value="" name="txt_newEmail_h" >
 															</div>
 														</div>
 													</div>
@@ -125,13 +125,13 @@ use \Core\Controller;
 														<div class="form-group">
 															<label class="col-md-4 control-label">Contrase&ntilde;a:*</label>
 															<div class="col-md-8">
-																<input type="password" id="txt_password_h" class="form-control required" name="txt_password_h" >
+																<input type="password" id="txt_newPassword_h" class="form-control required" value="" name="txt_newPassword_h" >
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">P&aacute;gina de inicio:</label>
 															<div class="col-md-8">
-																<input id="txt_defaultFunction_h" class="form-control " name="txt_defaultFunction_h" type="text">
+																<input type="text" id="txt_defaultFunction_h" class="form-control " name="txt_defaultFunction_h">
 															</div>
 														</div>
 														<div class="col-md-4 pull-right">
@@ -205,11 +205,11 @@ use \Core\Controller;
 						required : true,
 						regex : true
 					},
-					txt_email_h : {
+					txt_newEmail_h : {
 						required : true,
 						email:true
 					},
-					txt_password_h : {
+					txt_newPassword_h : {
 						required : true,
 						//regex : true
 					}
@@ -222,11 +222,11 @@ use \Core\Controller;
 					txt_realName_h : {
 						required : "Favor de escribir nombre completo del usuario."
 					},
-					txt_serviceEmail_h : {
+					txt_newEmail_h : {
 						required : "Favor de escribir el correo electr&oacute;nico del usuario.",
 						email : "Por favor, introduzca un email v&aacute;lido."
 					},
-					txt_password_h : {
+					txt_newPassword_h : {
 						required : "Favor de asignarle una contraseña al usuario."
 					}
 				}
