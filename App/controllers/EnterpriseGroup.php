@@ -28,7 +28,7 @@ use \App\data\Crud as Crud;
 	if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
 		else{
 				echo "Esta pagina es solo para usuarios registrados.<br>";
-			echo "<a href='" . Globales::$absoluteURL. "'>Login Here!</a>";
+			echo "<a href='" . Globales::$absoluteURL . "'>Login Here!</a>";
 			exit;
 		}
 		$now = time(); 

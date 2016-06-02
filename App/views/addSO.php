@@ -54,6 +54,8 @@ use \Core\Controller;
 	<link href="<?php echo $url; ?>App/web/css/plugins/jqGrid/ui.jqgrid.css" rel="stylesheet">
 	
 	<link href="<?php echo $url; ?>App/web/css/plugins/jQueryUI/jquery-ui-1.10.4.custom.min.css">
+	<!-- Sweet Alert -->
+		<link href="<?php echo $url; ?>App/web/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
     <style>
         #alertmod_table_accessory{
             top: 900px !important;
@@ -105,6 +107,7 @@ use \Core\Controller;
 			<div class="wrapper wrapper-content">
 				<div class="container">
 					<form id="frm_SO_h" class="form-horizontal" action="<?php echo $url; ?>private/ServiceOrder"   method="POST" name="frm_SO_h">
+						<input type="hidden" id="hdn_url_h" class="" value="<?php echo $url ?>" name="hdn_url_h"/>
 						<div class="row">
 							<div class="col-lg-12">
 								<div class="ibox float-e-margins">
@@ -119,7 +122,7 @@ use \Core\Controller;
 													<div class="form-group">
 														<label class="col-md-4 control-label">Serie:*</label>
 														<div class="col-lg-8">
-															<input type="text" id="txt_gsxSerialNumber_h" class="form-control required" value="<?php echo $obj_gsx_p->{'serialNumber'}; ?>" name="txt_gsxSerialNumber_h"/>
+															<input type="text" id="txt_gsxSerialNumber_h" class="form-control required" value="<?php //echo $obj_gsx_p->{'serialNumber'}; ?>" name="txt_gsxSerialNumber_h"/>
 														</div>
 													</div>
 													<div class="form-group">
@@ -337,7 +340,6 @@ use \Core\Controller;
 													<div class="col-md-4 pull-right">
 														<div class="form-group">
 															<button type="submit" id="btn_command_h" class="btn btn-primary btn-md btn-block" value="AddSO" name="btn_command_h">Guardar</button>
-															<!--input type="hidden" id="hdn_devices_h" class="" value="" name="hdn_devices_h"/-->
 														</div>
 													</div>
 												</div>
@@ -386,7 +388,12 @@ use \Core\Controller;
     <script src="<?php echo $url; ?>App/web/js/plugins/peity/jquery.peity.min.js"></script>
 	<!-- Ajax Autocomplete -->
     <script src="<?php echo $url; ?>App/web/ajax/autocompleteAddSO.js"></script>
-	
+	<!-- Ajax GSX -->
+    <script src="<?php echo $url; ?>App/web/ajax/autocompleteGSX.js"></script>
+	<!-- jquery forms -->
+    <script src="<?php echo $url; ?>App/web/js/jquery.form.js"></script>
+	<!-- Sweet alert -->
+    <script src="<?php echo $url; ?>App/web/js/plugins/sweetalert/sweetalert.min.js"></script>
     <script type="text/javascript">
 		$.validator.setDefaults({
 				submitHandler: function(form) {

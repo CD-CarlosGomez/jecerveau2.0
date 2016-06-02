@@ -91,7 +91,7 @@ class ServiceOrder extends Controller{
         View::render("showSO");
 	}
 	public function addSO(){
-		$arr_gsx_p= array(
+		/*$arr_gsx_p= array(
 			"serialNumber"=>"C02L71R9FFT1",
 			"warrantyStatus"=>"Out Of Warranty (No Coverage)",
 			"daysRemaining"=>"0",
@@ -115,8 +115,8 @@ class ServiceOrder extends Controller{
 			"availableRepairStrategies"=> array(
 				"availableRepairStrategy"=>"Return Before Replace" 
 				)
-			);
-			
+			);*/
+			$arr_gsx_p= array();
 		#Objetos_e_Instancias;
 			$cu=new CU();
 			$cm=New CM();
