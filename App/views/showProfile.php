@@ -28,7 +28,8 @@ use \App\data\DataGridView as DGV;
 		->removeColumn('pkBranchOffice')
 		->removeColumn('pkOSworkflow')
 		->setup(array(
-			'realname' => array('header' => 'Usuario'),
+			'username' => array('header' => 'Usuario'),
+			'realname' => array('header' => 'Nombre'),
 			'BOName' => array ('header' =>'AASP'),
 			'Name' => array('header' => 'Perfil'),
 			'RE' => array('header' => 'RE'),

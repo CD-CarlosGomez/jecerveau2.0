@@ -166,9 +166,9 @@ class Users implements iCrud{
             $query->bindParam(4, self::$_pwdtmp, \PDO::PARAM_STR);
 			$query->bindParam(5, self::$_realname, \PDO::PARAM_STR);
 			$query->bindParam(6, self::$_email, \PDO::PARAM_STR);
-			$query->bindParam(7, self::$_active, \PDO::PARAM_STR);
-            $query->bindParam(8, self::$_defaultFunction, \PDO::PARAM_STR);
-			$query->bindParam(9, self::$_Created, \PDO::PARAM_STR);
+			$query->bindParam(7, self::$_defaultFunction, \PDO::PARAM_STR);
+			$query->bindParam(8, self::$_active, \PDO::PARAM_STR);
+            $query->bindParam(9, self::$_Created, \PDO::PARAM_STR);
 			$query->bindParam(10, self::$_CreatedBy, \PDO::PARAM_STR);
 			$query->bindParam(11, self::$_Modified, \PDO::PARAM_STR);
 			$query->bindParam(12, self::$_ModifiedBy, \PDO::PARAM_STR);

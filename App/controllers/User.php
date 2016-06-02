@@ -196,7 +196,7 @@ private $_sesionpkiBUser;
 		$u->setRealName($_POST['txt_realName_h']);
 		$u->setEmail($_POST['txt_newEmail_h']);
 		$u->setDefaultF($_POST['slt_defaultFunction_h']);//
-		$u->setActive("2");
+		$u->setActive("1");
 		$u->setCreated(date("Y-m-d"));
 		$u->setCreatedBy($_SESSION['pkiBUser_p']);
 		$u->setModified('null');

@@ -122,11 +122,11 @@ class Profiles implements iCrud{
 			$PDOQuery=
 			"
 			SELECT 
+				u.username,
 				u.realname,
 				pkBranchOffice, 
 				BOName,
 				Name,
-				
 				wf.*
 			FROM ibuser u
 				LEFT JOIN branchoffice_has_ibuserprofile bohup 
@@ -140,7 +140,7 @@ class Profiles implements iCrud{
 				LEFT JOIN osworkflow wf
 					ON wfhup.OSworkflow_pkOSworkflow=wf.pkOSworkflow
 			WHERE bo.Active=1
-			GROUP BY bo.pkBranchOffice
+			
 			";
 		
 			$resultSet=$PDOcnn->query($PDOQuery);
