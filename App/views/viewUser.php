@@ -21,6 +21,8 @@ use \Core\Controller;
 			  Necesita Hacer Login</a>";
 		exit;
 		}
+		
+		
 ?>
 <!DOCTYPE html>
 <html>
@@ -38,11 +40,14 @@ use \Core\Controller;
 		<link href="<?php echo $url; ?>App/web/css/style.css" rel="stylesheet">
 		<!-- chosen CSS -->
 		<link href="<?php echo $url; ?>App/web/css/plugins/chosen/chosen.css" rel="stylesheet">
-		<!-- Select 2 CSS -->
+		<!-- Select CSS -->
 		<link href="<?php echo $url; ?>App/web/css/plugins/select2/select2.min.css" rel="stylesheet">
 		<!-- Check CSS -->
 		<link href="<?php echo $url; ?>App/web/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
-
+		<!-- Select 2 CSS -->
+		<link href="<?php echo $url; ?>App/web/css/plugins/select2/select2.min.css" rel="stylesheet">
+		<!-- Sweet Alert -->
+		<link href="<?php echo $url; ?>App/web/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
 	</head>
 <body class="top-navigation">
     <div id="wrapper">
@@ -89,38 +94,38 @@ use \Core\Controller;
 						<div class="col-lg-12">
 							<div class="ibox float-e-margins">
 								<div class="ibox-title">
-									<h5>Nuevo usuario</h5>
+									<h5>Editar usuario</h5>
 								</div>
 								<div class="ibox-content" >
 									<fieldset>
-											<form id="frm_user_h" class="form-horizontal" action="<?php echo $url; ?>private/User" method="POST" role="form">
+											<form id="frm_user_h" class="form-horizontal" action="<?php echo $url; ?>private/User/cmdUpdateUser" method="POST" role="form">
+												<input type="hidden" id="" value="<?php echo $pkuser; ?>" name="hdn_pkuser_h">
 													<div class="col-lg-6">
 														
 														<div class="form-group">
 															<label class="col-md-4 control-label">Usuario:*</label>
 															<div class="col-lg-8">
-																<input type="text" id="txt_userName_h" class="form-control required" name="txt_userName_h" >
+																<input type="text" id="txt_userName_h" class="form-control required" value="<?php foreach($dt_user as $dr_field){ echo $dr_field['username'];} ?>" name="txt_userName_h" >
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">Nombre completo:*</label>
 															<div class="col-lg-8">
-																<input type="text" id="txt_realName_h" class="form-control required" name="txt_realName_h" >
+																<input type="text" id="txt_realName_h" class="form-control required" value="<?php foreach($dt_user as $dr_field){ echo $dr_field['realname'];} ?>" name="txt_realName_h" >
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">Correo electr&oacute;nico:*</label>
 															<div class="col-md-8">
-																<input type="text" id="txt_newEmail_h" class="form-control required"  value="" name="txt_newEmail_h" >
+																<input type="text" id="txt_newEmail_h" class="form-control required" value="<?php foreach($dt_user as $dr_field){ echo $dr_field['email'];} ?>" value="" name="txt_newEmail_h" >
 															</div>
 														</div>
 													</div>
 													<div class="col-md-6">
-														
 														<div class="form-group">
 															<label class="col-md-4 control-label">Contrase&ntilde;a:*</label>
 															<div class="col-md-8">
-																<input type="password" id="txt_newPassword_h" class="form-control required" value="" name="txt_newPassword_h" >
+																<input type="password" id="txt_newPassword_h" class="form-control required" value="<?php foreach($dt_user as $dr_field){ echo $dr_field['pwd'];} ?>" name="txt_newPassword_h" >
 															</div>
 														</div>
 														<div class="form-group">
@@ -128,15 +133,26 @@ use \Core\Controller;
 															<div class="col-md-8">
 																<select id="slt_defaultFunction_h" class="required" style="width:312px;" name="slt_defaultFunction_h">
 																	<option value=""></option>
-																	<?php  foreach($dt_fd as $dr_fd){?>
-																			<option value="<?php echo $dr_fd['pkibFunctionDetail'] ?>"><?php echo $dr_fd['ibfunctionDetailName'] ?></option>
-																	<?php }	?>
+																	<?php 
+																	foreach($dt_user as $dr_field){ $currentDF = $dr_field['ibfunctiondetail_pkibFunctionDetail'];}
+																	
+																	foreach($dt_fd as $dr_fd){
+																		if ($currentDF == $dr_fd['pkibFunctionDetail']){
+																	?>			
+																			<option selected="Selected" value="<?php echo $dr_fd['pkibFunctionDetail'] ?>"><?php echo $dr_fd['ibfunctionDetailName'] ?></option>
+																	<?php
+																		}
+																		else{
+																	?>
+																		<option value="<?php echo $dr_fd['pkibFunctionDetail'] ?>"><?php echo $dr_fd['ibfunctionDetailName'] ?></option>
+																	<?php }
+																	}	?>
 																</select>
 															</div>
 														</div>
 														<div class="col-md-4 pull-right">
 															<div class="form-group">
-																<button type="submit" id="" class="btn btn-primary btn-md btn-block" value="AddUser" name="btn_toDo_h">Guardar</button>
+																<button type="submit" id="" class="btn btn-primary btn-md btn-block" value="editUser" name="btn_toDo_h">Guardar</button>
 															</div>
 														</div>
 													</div>
@@ -181,13 +197,12 @@ use \Core\Controller;
 	<script src="<?php echo $url; ?>App/web/js/demo/peity-demo.js"></script>
 	<!-- iCheck -->
     <script src="<?php echo $url; ?>App/web/js/plugins/iCheck/icheck.min.js"></script>
-	
+	<!-- jquery forms -->
+    <script src="<?php echo $url; ?>App/web/js/jquery.form.js"></script>
+	<!-- Sweet alert -->
+    <script src="<?php echo $url; ?>App/web/js/plugins/sweetalert/sweetalert.min.js"></script>
 	<script>
-		$.validator.setDefaults({
-		submitHandler: function(form) {
-			form.submit();
-		}
-		});
+		$.validator.setDefaults({});
 		
 		$.validator.addMethod('regex', function (value,element) { 
     	return  this.optional(element)|| /^[A-Za-zñÑ0-9\-\s\.áéíóúÁÉÍÓÚ]*$/g.test(value); 
@@ -229,9 +244,31 @@ use \Core\Controller;
 					txt_newPassword_h : {
 						required : "Favor de asignarle una contraseña al usuario."
 					}
+				},
+				submitHandler: function(form) {
+					//form.submit();
+					$(form).ajaxSubmit({
+					dataType: 'JSON',
+					type: 'POST',
+					url: $(form).attr('action'),
+					success: function (r) {
+						// Mostrar mensaje
+						swal("Guardado",r.message,"success");
+						
+						// Ejecutar funciones
+						if (r.function != null) {
+							setTimeout(r.function, 0);
+						}
+						// Redireccionar
+						if (r.href != null) {
+							if (r.href == 'self') window.location.reload(true);
+							else redirect(r.href);
+						}
+					}
+				});
 				}
-			});
-		//cargamos los default functions
+			});	
+			//cargamos los default functions
 			$("#slt_defaultFunction_h").select2({	
 				placeholder: "Selecciona ...",
 				allowClear: true,

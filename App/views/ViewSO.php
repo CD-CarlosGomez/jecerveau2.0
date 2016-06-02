@@ -14,13 +14,13 @@ use \App\data\DataGridView as DGV;
 		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
 		else{
 				echo "Esta pagina es solo para usuarios registrados.<br>";
-			echo "<a href='http://localhost:8012/ibrain2.0'>Login Here!</a>";
+			echo "<a href='" . $url . "'>Login Here!</a>";
 			exit;
 		}
 		$now = time(); 
 		if($now > $_SESSION['expire']){
 		session_destroy();
-		echo "Su sesion a terminado, <a href='http://localhost:8012/ibrain2.0'>
+		echo "Su sesion a terminado, <a href='" . $url . "'>
 			  Necesita Hacer Login</a>";
 		exit;
 		}
@@ -250,7 +250,7 @@ use \App\data\DataGridView as DGV;
 																						<option value="-1">Seleccionar ...</option>
 																						<?php
 																							foreach($ds_so as $dr_so){
-																								$collectMethod=$dr_so["CollectMethod_pkCollectMethod"];
+																								$collectMethod = $dr_so["CollectMethod_pkCollectMethod"];
 																								}
 																							foreach ($ds_cm as $datarow) {
 																								if($datarow['pkCollectMethod']==$collectMethod ){

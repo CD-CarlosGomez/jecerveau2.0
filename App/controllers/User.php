@@ -53,9 +53,9 @@ private $_sesionpkiBUser;
     public function index(){
 		//$layout=new WithSiteMap(new WithTemplate(new WithMenu(new LayoutCSS())));
 		//$layout= Layouts::render();
-		self::showUser();
-		//View::set("foo",true);
-		//View::render("z_testPost");
+		//self::showUser();
+		View::set("foo",true);
+		View::render("z_testPost");
 	}
 	public function showUser(){
 	#Objetos_e_instancias
@@ -107,15 +107,38 @@ private $_sesionpkiBUser;
 	#set main variables
 		View::set("url", $url);
 		View::set("currentMainMenu", $currentMainMenu);
-		View::set("title", "Nuevo Usuario");
+		View::set("title", "Nuevo usuario");
 	#get data variables
-		$dsProfile=Profiles::getAllIbUserProfile();
 		$dsUser=Users::getParcialSelect();
+		$dsGFunction=Profiles::getSelectibfunctionDetail();
 	#set data variables
-		View::set("drowsP",$dsProfile);
 		View::set("drowsU",$dsUser);
+		View::set("dt_fd",$dsGFunction);
 	#Renderizar
 		View::render("addUser");       
+	}
+	public function editUser($pkuser){
+	#Objetos_e_instancias
+		$cu=CU::getInstance();
+	#get main variables
+		$url= Globales::$absoluteURL;
+		$currentMainMenu=$cu->getMainMenu2($this->_sesionpkiBUser);
+	#set main variables
+		View::set("url", $url);
+		View::set("currentMainMenu", $currentMainMenu);
+		View::set("title", "Editar usuario");
+		View::set("pkuser",$pkuser);
+	#get data variables
+	//Trae los datos del usuario especificado en el parámetro de éste método.
+		$dsUser=Crud::getById('ibuser','pkiBUser',$pkuser);
+		while ($row =$dsUser->fetch( \PDO::FETCH_ASSOC )){$dt_user[] = $row;}
+	//Obtiene la página de inicio por default para mostrar en el select.	
+		$dsGFunction=Profiles::getSelectibfunctionDetail();
+	#set data variables
+		View::set("dt_user",$dt_user);
+		View::set("dt_fd",$dsGFunction);
+	#Renderizar
+		View::render("viewUser");       
 	}
 	public function addProfile(){
 	#Objetos_e_instancias
@@ -140,6 +163,10 @@ private $_sesionpkiBUser;
 	#Renderizar Vista
 		View::render("addProfile");
 	}
+	public function cmdUpdateUser(){
+		View::set("currentUser",$this->_sesionpkiBUser);
+		View::render("updateUser");
+	}
 }
 //M�TODOS PRIVADOS###################################
 //EVENTOS############################################
@@ -159,11 +186,11 @@ private $_sesionpkiBUser;
 	function CreateUser(){
 		$u=new Users;
 		$u->setUserName($_POST['txt_userName_h']);
-		$u->setPWD($_POST['txt_password_h']);
-		$u->setPwdTmp($_POST['txt_password_h']);
+		$u->setPWD($_POST['txt_newPassword_h']);
+		$u->setPwdTmp($_POST['txt_newPassword_h']);
 		$u->setRealName($_POST['txt_realName_h']);
-		$u->setEmail($_POST['txt_email_h']);
-		$u->setDefaultF($_POST['txt_defaultFunction_h']);//
+		$u->setEmail($_POST['txt_newEmail_h']);
+		$u->setDefaultF($_POST['slt_defaultFunction_h']);//
 		$u->setActive("2");
 		$u->setCreated(date("Y-m-d"));
 		$u->setCreatedBy($_SESSION['pkiBUser_p']);
@@ -213,7 +240,7 @@ private $_sesionpkiBUser;
 				}
 				else{
 					$msg="<p>Tu informacion se recibio correctamente <br> Se ha enviado una confirmacion al correo <b>correo</b></p>";
-					header("Location:" . Globales::$absoluteURL . "/private/user");
+					header("Location:" . Globales::$absoluteURL . "private/user");
 				}
 			}
 			else{
@@ -285,7 +312,7 @@ private $_sesionpkiBUser;
 				$insert_uphfd = "INSERT INTO ibuserprofile_has_ibfunctiondetail VALUES " . $valores . ";";
 				
 				if(Crud::multiQuery($insert_uphfd)){
-					header("Location:" . Globales::$absoluteURL . "/private/User/showProfile");
+					header("Location:" . Globales::$absoluteURL . "private/User/showProfile");
 				}				
 				
 			}

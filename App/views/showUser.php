@@ -112,18 +112,10 @@ use \App\data\DataGridView as DGV;
 							<div class="ibox float-e-margins">
 								<div class="ibox-title">
 									<h5>Listado de usuarios</h5>
-									<div class="ibox-tools">
-										<a class="collapse-link">
-											<i class="fa fa-chevron-up"></i>
-										</a>
-										<a class="close-link">
-											<i class="fa fa-times"></i>
-										</a>
-									</div>
 								</div>
 								<div class="ibox-content">					
 								<div class="pull-right">
-									<a onclick="" href="<?php echo $url; ?>private/User/addUser" class="btn btn-primary btn-lg btn-block">Nuevo usuario</a>
+									<a onclick="" href="<?php echo $url; ?>private/User/addUser" class="btn btn-primary btn-block">Nuevo usuario</a>
 								</div>
 								<br />
 								<br />

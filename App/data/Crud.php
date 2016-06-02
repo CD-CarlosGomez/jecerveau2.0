@@ -204,14 +204,14 @@ class Crud{
    * @param $arrayCondicao = Array de dados contendo colunas e valores para condição WHERE - Exemplo array('$id='=>1)   
    * @return Retorna resultado booleano da instrução SQL   
    */   
-   public function update($arrayDados, $arrayCondicao){   
-      try {   
-    
+   public static function update($arrayDados, $arrayCondicao, $table){   
+      try {
+		$PDOcnn = Database::instance();
         // Atribui a instrução SQL construida no método   
-        $sql = $this->buildUpdate($arrayDados, $arrayCondicao);   
+        $sql = self::buildUpdate($arrayDados, $arrayCondicao,$table);   
     
         // Passa a instrução para o PDO   
-        $stm = $this->pdo->prepare($sql);   
+        $stm = $PDOcnn->prepare($sql);   
     
         // Loop para passar os dados como parâmetro   
         $cont = 1;   
@@ -231,7 +231,7 @@ class Crud{
     
         return $retorno;   
            
-      } catch (PDOException $e) {   
+      } catch (\PDOException $e) {   
         echo "Erro: " . $e->getMessage();   
       }   
    }   
@@ -346,9 +346,8 @@ class Crud{
    * @param $arrayCondicao = Array de dados contendo colunas e valores para condição WHERE   
    * @return String contendo instrução SQL   
    */    
-   private function buildUpdate($arrayDados, $arrayCondicao){   
-    
-       // Inicializa variáveis   
+   public static function buildUpdate($arrayDados, $arrayCondicao, $table){   
+      // Inicializa variáveis   
        $sql = "";   
        $valCampos = "";   
        $valCondicao = "";   
@@ -360,7 +359,7 @@ class Crud{
               
        // Loop para montar a condição WHERE   
        foreach($arrayCondicao as $chave => $valor):   
-          $valCondicao .= $chave . '? AND ';   
+          $valCondicao .= $chave . '=? AND ';   
        endforeach;   
               
        // Retira vírgula do final da string   
@@ -370,7 +369,7 @@ class Crud{
        $valCondicao = (substr($valCondicao, -4) == 'AND ') ? trim(substr($valCondicao, 0, (strlen($valCondicao) - 4))) : $valCondicao ;    
               
         // Concatena todas as variáveis e finaliza a instrução   
-        $sql .= "UPDATE {$this->tabla} SET " . $valCampos . " WHERE " . $valCondicao;   
+        $sql .= "UPDATE $table SET " . $valCampos . " WHERE " . $valCondicao;   
               
         // Retorna string com instrução SQL   
         return trim($sql);   
