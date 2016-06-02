@@ -41,6 +41,8 @@ use \Core\Controller;
 	<link href="<?php echo $url; ?>App/web/css/plugins/select2/select2.min.css" rel="stylesheet">
 	<!-- TouchSpin -->
 	<link href="<?php echo $url; ?>App/web/css/plugins/touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet">
+	<!-- Sweet Alert -->
+	<link href="<?php echo $url; ?>App/web/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
 </head>
 <body class="top-navigation">
     <div id="wrapper">
@@ -97,7 +99,8 @@ use \Core\Controller;
 								</div>
 								<div class="ibox-content" >
 									<fieldset>
-											<form id="frm_BO_h" class="form-horizontal" action="<?php echo $url; ?>private/EnterpriseGroup" method="POST">
+										<form id="frm_BO_h" class="form-horizontal" action="<?php echo $url; ?>private/EnterpriseGroup/cmdUpdateBO" method="POST">
+											<input type="hidden" id="" value="<?php echo $pkBO; ?>" name="hdn_pkBO_h">
 												<div class="col-lg-6">
 													<fieldset class="form-group grouper"><leyend class="grouper"><h3>Datos de facturaci&oacute;n</h3></leyend>
 													<hr>
@@ -106,58 +109,69 @@ use \Core\Controller;
 														<div class="col-lg-8">
 															<select id="" class="form-control m-b" name="slt_fkSubCompany_h">
 																<option value="-1">Selecciona una SubCuenta ...</option>
-															<?php foreach ($drows_Subcompany as $subcompanyOption) {?>
+															<?php 
+															foreach($dt_BO as $dr_BO){ $pkSC = $dr_BO['subcompany_pkSubCompany'];}
+															foreach ($drows_Subcompany as $subcompanyOption) {
+																if($pkSC == $subcompanyOption['pkSubCompany']){
+															?>
+																<option value="<?php echo $subcompanyOption['pkSubCompany'] ?>" selected="selected"><?php echo $subcompanyOption['subCompanyName'] ?></option>
+															<?php
+																}
+																else{
+															?>
 																	<option value="<?php echo $subcompanyOption['pkSubCompany'] ?>"><?php echo $subcompanyOption['subCompanyName'] ?></option>
-															<?php } ?>
+															<?php }
+															}
+															?>
 															</select>
 														</div>
 													</div>
 													<div class="form-group">
 															<label class="col-md-4 control-label">Sucursal:*</label>
 															<div class="col-lg-8">
-																<input id="txt_BOName_h" class="form-control required" name="txt_BOName_h" type="text">
+																<input id="txt_BOName_h" class="form-control required" value="<?php foreach($dt_BO as $dr_BO){ echo $dr_BO['BOName'];} ?>" name="txt_BOName_h" type="text">
 															</div>
 														</div>
 													<div class="form-group">
 														<label class="col-md-4 control-label">Calle:*</label>
 														<div class="col-md-8">
-															<input id="txt_BOStreet_h" class="form-control required" name="txt_BOStreet_h" type="text">
+															<input id="txt_BOStreet_h" class="form-control required" value="<?php foreach($dt_BO as $dr_BO){ echo $dr_BO['BOStreet'];} ?>" name="txt_BOStreet_h" type="text">
 														</div>
 													</div>
 													<div class="form-group">
 														<label class="col-md-4 control-label">N&uacute;mero exterior:*</label>
 														<div class="col-md-8">
-															<input id="txt_BOExtNumber_h" class="form-control required" name="txt_BOExtNumber_h" type="text">
+															<input id="txt_BOExtNumber_h" class="form-control required" value="<?php foreach($dt_BO as $dr_BO){ echo $dr_BO['BOExtNumber'];} ?>" name="txt_BOExtNumber_h" type="text">
 														</div>
 													</div>
 													<div class="form-group">
 														<label class="col-md-4 control-label">N&uacute;mero interior:*</label>
 														<div class="col-md-8">
-															<input id="txt_BOIntNumber_h" class="form-control required" name="txt_BOIntNumber_h" type="text">
+															<input id="txt_BOIntNumber_h" class="form-control required" value="<?php foreach($dt_BO as $dr_BO){ echo $dr_BO['BOIntNumber'];} ?>" name="txt_BOIntNumber_h" type="text">
 														</div>
 													</div>
 													<div class="form-group">
 															<label class="col-md-4 control-label">C&oacute;digo postal:*</label>
 															<div class="col-md-8">
-																<input  id="txt_BOZipCode_h" class="form-control required" name="txt_BOZipCode_h" type="text">
+																<input  id="txt_BOZipCode_h" class="form-control required" value="<?php foreach($dt_BO as $dr_BO){ echo $dr_BO['BOZipCode'];} ?>" name="txt_BOZipCode_h" type="text">
 															</div>
 													</div>
 													<div class="form-group">
 															<label class="col-md-4 control-label">Estado:*</label>
 															<div class="col-md-8">
-																<input  id="txt_BOProvince_h" class="form-control required" name="txt_BOProvince_h" type="text">
+																<input  id="txt_BOProvince_h" class="form-control required" value="<?php foreach($dt_BO as $dr_BO){ echo $dr_BO['BOProvince'];} ?>" name="txt_BOProvince_h" type="text">
 															</div>
 													</div>
 													<div class="form-group">
 														<label class="col-md-4 control-label">Regi&oacute;n:*</label>
 														<div class="col-md-8">
-															<input id="txt_BORegion_h" class="form-control required" name="txt_BORegion_h" type="text">
+															<input id="txt_BORegion_h" class="form-control required" value="<?php foreach($dt_BO as $dr_BO){ echo $dr_BO['BORegion'];} ?>" name="txt_BORegion_h" type="text">
 														</div>
 													</div>
 													<div class="form-group">
 														<label class="col-md-4 control-label">Zona:*</label>
 															<div class="col-md-8">
-																<input id="txt_BOZone_h" class="form-control required" name="txt_BOZone_h" type="text">
+																<input id="txt_BOZone_h" class="form-control required" value="<?php foreach($dt_BO as $dr_BO){ echo $dr_BO['BOZone'];} ?>" name="txt_BOZone_h" type="text">
 															</div>
 													</div>
 													<div class="form-group">
@@ -166,10 +180,24 @@ use \Core\Controller;
 																<select id="slt_pkCountry_h" class="required" style="width:310px;" name="slt_pkCountry_h">
 																	<option></option>
 																	<?php
+																		if(isset($dt_BOS) && !empty($dt_BOS)){ foreach($dt_BOS as $dr_BOS){ $AbbCountry = $dr_BOS['fkCountry'];}}
 																		foreach ($dt_country as $dr_country) {
+																			if(isset($AbbCountry)){
+																				if ($AbbCountry == $dr_country['CountryAb']){
+																	?>	
+																				<option selected="selected" value="<?php echo $dr_country['CountryAb'] ?>"><?php echo $dr_country['CountryName'] ?></option>
+																	<?php
+																				}
+																				else{
 																	?>
 																				<option value="<?php echo $dr_country['CountryAb'] ?>"><?php echo $dr_country['CountryName'] ?></option>
-																	<?php 
+																	<?php		}
+																			}
+																			else{
+																	?>
+																				<option value="<?php echo $dr_country['CountryAb'] ?>"><?php echo $dr_country['CountryName'] ?></option>
+																	<?php
+																			}
 																		}
 																	?>
 																</select>
@@ -193,25 +221,25 @@ use \Core\Controller;
 														<div class="form-group">
 															<label class="col-md-4 control-label">SoldTo:</label>
 															<div class="col-md-8">
-																<input type="text" id="txt_soldTo_h" class="form-control required" name="txt_soldTo_h">
+																<input type="password" id="txt_soldTo_h" class="form-control required" value="<?php if(isset($dt_BOS) && !empty($dt_BOS)) foreach($dt_BOS as $dr_BOS){ echo $dr_BOS['SoldTo'];} ?>" name="txt_soldTo_h">
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">ShipTo:</label>
 															<div class="col-md-8">
-																<input type="text" id="txt_shipTo_h" class="form-control required" name="txt_shipTo_h">
+																<input type="password" id="txt_shipTo_h" class="form-control required" value="<?php if(isset($dt_BOS) && !empty($dt_BOS)) foreach($dt_BOS as $dr_BOS){ echo $dr_BOS['shipTo'];} ?>" name="txt_shipTo_h">
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">Inicio de Folio:</label>
 															<div class="col-md-8">
-																<input type="text" id="txt_folioStart_h" class="touchspin1 form-control required" value="" name="txt_folioStart_h">
+																<input type="text" id="txt_folioStart_h" class="touchspin1 form-control required" value="<?php if(isset($dt_BOS) && !empty($dt_BOS)) foreach($dt_BOS as $dr_BOS){ echo $dr_BOS['folioStart'];} ?>" name="txt_folioStart_h">
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">Inicio de serie:</label>
 															<div class="col-md-8">
-																<input type="text" id="txt_folioSerie_h" class="form-control required" name="txt_folioSerie_h">
+																<input type="text" id="txt_folioSerie_h" class="form-control required"  value="<?php if(isset($dt_BOS) && !empty($dt_BOS)) foreach($dt_BOS as $dr_BOS){ echo $dr_BOS['folioSerie'];} ?>" name="txt_folioSerie_h">
 															</div>
 														</div>
 														<div class="form-group">
@@ -220,11 +248,25 @@ use \Core\Controller;
 																<select id="slt_timeZone_h" class="selectSearch required" style="width:310px;" name="slt_timeZone_h">
 																	<option></option>
 																	<?php
+																		if(isset($dt_BOS) && !empty($dt_BOS)){ foreach($dt_BOS as $dr_BOS){ $tz = $dr_BOS['fkTimeZone'];}}
 																		foreach ($dt_timezone as $dr_tz => $dr_tzItem) {
+																			if(isset($tz)){
+																				if ($tz == $dr_tz){
+																	?>
+																				<option selected="selected" value="<?php echo $dr_tz; ?>"><?php echo $dr_tzItem; ?></option>
+																	<?php		}
+																			else{
 																	?>
 																				<option value="<?php echo $dr_tz; ?>"><?php echo $dr_tzItem; ?></option>
 																	<?php 
+																			}
 																		}
+																		else{
+																	?>
+																			<option value="<?php echo $dr_tz; ?>"><?php echo $dr_tzItem; ?></option>
+																	<?php
+																		}
+																	}
 																	?>
 																</select>
 																</div>
@@ -235,38 +277,38 @@ use \Core\Controller;
 														<div class="form-group">
 															<label class="col-md-4 control-label">Gerente:</label>
 															<div class="col-md-8">
-																<input id="txt_serviceManager_h" class="form-control required" name="txt_serviceManager_h" type="text">
+																<input id="txt_serviceManager_h" class="form-control required" value="<?php foreach($dt_BO as $dr_BO){ echo $dr_BO['ServiceManager'];} ?>" name="txt_serviceManager_h" type="text">
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">Direcci&oacute;n de atenci&oacute;n</label>
 															<div class="col-md-8">
-																<input id="txt_serviceAddress_h" class="form-control required" name="txt_serviceAddress_h" type="text">
+																<input id="txt_serviceAddress_h" class="form-control required" value="<?php foreach($dt_BO as $dr_BO){ echo $dr_BO['ServiceAddress'];} ?>" name="txt_serviceAddress_h" type="text">
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">Tel&eacute;lefono de atenci&oacute;n:</label>
 															<div class="col-md-8">
-																<input id="txt_servicePhone_h" class="form-control required" name="txt_servicePhone_h" type="text">
+																<input id="txt_servicePhone_h" class="form-control required" value="<?php foreach($dt_BO as $dr_BO){ echo $dr_BO['ServicePhone'];} ?>" name="txt_servicePhone_h" type="text">
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">Correo electr&oacute;nico de atenci&oacute;n:</label>
 															<div class="col-md-8">
-																<input id="txt_serviceEmail_h" class="form-control required" name="txt_serviceEmail_h" type="text">
+																<input id="txt_serviceEmail_h" class="form-control required" value="<?php foreach($dt_BO as $dr_BO){ echo $dr_BO['ServiceEmail'];} ?>" name="txt_serviceEmail_h" type="text">
 															</div>
 														</div>													
 														<div class="form-group">
 															<label class="col-md-4 control-label">Horario de atenci&oacute;n:</label>
 															<div class="col-md-8">
-																<input id="txt_officeHour_h" class="form-control required" name="txt_officeHour_h" type="text">
+																<input id="txt_officeHour_h" class="form-control required" value="<?php foreach($dt_BO as $dr_BO){ echo $dr_BO['officeHour'];} ?>" name="txt_officeHour_h" type="text">
 															</div>
 														</div>
 													</fieldset>
 													<div class="form-group">
 														<div class="col-md-4 pull-right">
 														<div class="form-group">
-															<button type="" id="btn_command_h" class="btn btn-primary btn-md btn-block" value="AddBO" name="btn_command_h">Guardar</button>
+															<button type="" id="btn_command_h" class="btn btn-primary btn-md btn-block" value="editBO" name="btn_command_h">Guardar</button>
 														</div>
 														</div>
 													</div>
@@ -305,6 +347,10 @@ use \Core\Controller;
     <script src="<?php echo $url; ?>App/web/js/plugins/select2/select2.full.min.js"></script>
 	<!-- TouchSpin -->
     <script src="<?php echo $url; ?>App/web/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
+	<!-- jquery forms -->
+    <script src="<?php echo $url; ?>App/web/js/jquery.form.js"></script>
+	<!-- Sweet alert -->
+    <script src="<?php echo $url; ?>App/web/js/plugins/sweetalert/sweetalert.min.js"></script>
 	<script>
 	$.validator.setDefaults({
 		submitHandler: function(form) {
@@ -462,6 +508,28 @@ use \Core\Controller;
 					},
 					slt_pkCountry_h : "Favor de seleccionar un pa&iacute;s",
 					slt_timeZone_h : "Favor de seleccionar una zona horaria"
+				},
+				submitHandler: function(form) {
+					//form.submit();
+					$(form).ajaxSubmit({
+					dataType: 'JSON',
+					type: 'POST',
+					url: $(form).attr('action'),
+					success: function (r) {
+						// Mostrar mensaje
+						swal("Guardado",r.message,"success");
+						
+						// Ejecutar funciones
+						if (r.function != null) {
+							setTimeout(r.function, 0);
+						}
+						// Redireccionar
+						if (r.href != null) {
+							if (r.href == 'self') window.location.reload(true);
+							else redirect(r.href);
+						}
+					}
+				});
 				}
 			}
 		);	

@@ -39,9 +39,9 @@ use \App\data\DataGridView as DGV;
 			'BOStreet' => array('header' => 'Calle'),
 			'totalUsers' => array('header' => 'Usuarios','link'=>$url . 'private/EnterpriseGroup/showUserBranchOffice/','filterColumn'=>2)
 		))
-		/*->addColumnAfter('actions', 
-									'<a href="'.$url.'private/Company">Ver ASP\'s</a>',
-									'Actions', array('align' => 'center'))*/
+		->addColumnAfter('actions', 
+									'<a class="btn btn-success btn-xs btn-block" href="'.$url.'private/EnterpriseGroup/editBranchOffice/$pkBranchOffice$">Editar</a>',
+									'Actions', array('align' => 'center'));
 		//->addColumnBefore('counter', '%counter%.', 'Counter', array('align' => 'right'))
 		//->setStartingCounter(1)
 		//->setRowClass('')

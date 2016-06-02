@@ -19,23 +19,19 @@ if($_POST){
 	extract($_POST);
 	
 	
-	$pkuser['pkiBUser'] = $hdn_pkuser_h;
+	$cond['pkCompany'] = $hdn_pkCompany_h;
 	
-	$user['username'] = $txt_userName_h;
-	$user['pwd'] = $txt_newPassword_h;
-	$user['pwdtmp'] = $txt_newPassword_h;
-	$user['realname'] = $txt_realName_h;
-	$user['email'] = $txt_newEmail_h;
-	$user['ibfunctiondetail_pkibFunctionDetail'] = $slt_defaultFunction_h;
-	$user['Modified'] = date('Y-m-d');
-	$user['ModifiedBy'] = $currentUser;
+	$field['legalName'] = $txt_legalName_h;
+	$field['commercialName'] = $txt_commercialName_h;
+	$field['Modified'] = date('Y-m-d');
+	$field['ModifiedBy'] = $currentUser;
 		
-	$ctrlUpdateUser = Crud::update($user,$pkuser,'ibuser');
+	$ctrlUpdate = Crud::update($field,$cond,'company');
 	
-	if ($ctrlUpdateUser){
+	if ($ctrlUpdate){
 		$response = array(
 			'response' => true,
-			'message'  => 'El usuario se guardó correctamente.',
+			'message'  => 'La cuenta maestra se guardó correctamente.',
 			'href'     => null,
 			'function' => null //'string'
 			);
@@ -44,7 +40,7 @@ if($_POST){
 		else{
 			$response = array(
 			'response' => false,
-			'message'  => 'El usuario no se guardó correctamente.',
+			'message'  => 'La cuenta maestra no se guardó correctamente.',
 			'href'     => null,
 			'function' => null //'string'
 			);

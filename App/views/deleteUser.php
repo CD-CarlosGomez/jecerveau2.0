@@ -15,27 +15,22 @@ use \App\data\Crud as Crud;
 *                           ##########REQUEST##########                        *
 *                                                                              *
 *******************************************************************************/
-if($_POST){
-	extract($_POST);
+//if($_GET){
+	//extract($_GET);
 	
 	
-	$pkuser['pkiBUser'] = $hdn_pkuser_h;
+	$pkuser['pkiBUser'] = $pk;
 	
-	$user['username'] = $txt_userName_h;
-	$user['pwd'] = $txt_newPassword_h;
-	$user['pwdtmp'] = $txt_newPassword_h;
-	$user['realname'] = $txt_realName_h;
-	$user['email'] = $txt_newEmail_h;
-	$user['ibfunctiondetail_pkibFunctionDetail'] = $slt_defaultFunction_h;
+	$user['Active'] = 0;
 	$user['Modified'] = date('Y-m-d');
 	$user['ModifiedBy'] = $currentUser;
 		
 	$ctrlUpdateUser = Crud::update($user,$pkuser,'ibuser');
-	
+	//echo $ctrlUpdateUser = Crud::buildUpdate($user,$pkuser,'ibuser');
 	if ($ctrlUpdateUser){
 		$response = array(
 			'response' => true,
-			'message'  => 'El usuario se guardó correctamente.',
+			'message'  => 'El producto se guardó correctamente.',
 			'href'     => null,
 			'function' => null //'string'
 			);
@@ -44,13 +39,13 @@ if($_POST){
 		else{
 			$response = array(
 			'response' => false,
-			'message'  => 'El usuario no se guardó correctamente.',
+			'message'  => 'El producto no se guardó correctamente.',
 			'href'     => null,
 			'function' => null //'string'
 			);
 			echo json_encode($response);	
 		}		
-	}
+	//}
 /*******************************************************************************
 *                                                                              *
 *                        ##########CONSTANTES##########                        *

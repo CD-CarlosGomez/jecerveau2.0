@@ -73,7 +73,7 @@ class Users implements iCrud{
 	public static function getAll(){
         try {
 			$PDOcnn = Database::instance();
-			$PDOQuery = "SELECT * from ibuser;";
+			$PDOQuery = "SELECT * from ibuser Where Active<>0;";
 			$resultSet = $PDOcnn->query($PDOQuery);
 			return $resultSet;
 		}

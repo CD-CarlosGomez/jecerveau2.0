@@ -53,9 +53,9 @@ private $_sesionpkiBUser;
     public function index(){
 		//$layout=new WithSiteMap(new WithTemplate(new WithMenu(new LayoutCSS())));
 		//$layout= Layouts::render();
-		//self::showUser();
-		View::set("foo",true);
-		View::render("z_testPost");
+		self::showUser();
+		//View::set("foo",true);
+		//View::render("z_testPost");
 	}
 	public function showUser(){
 	#Objetos_e_instancias
@@ -166,6 +166,11 @@ private $_sesionpkiBUser;
 	public function cmdUpdateUser(){
 		View::set("currentUser",$this->_sesionpkiBUser);
 		View::render("updateUser");
+	}
+	public function cmdDeleteUser($pk){
+		View::set("currentUser",$this->_sesionpkiBUser);
+		View::set("pk",$pk);
+		View::render("deleteUser");
 	}
 }
 //M�TODOS PRIVADOS###################################

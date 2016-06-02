@@ -39,9 +39,11 @@ use \App\data\DataGridView as DGV;
 			'email' => array('header' => 'Correo electronico'),
 			'Created' => array ('header' => 'Fecha de creaci&oacute;n')
 		))
-		/*->addColumnAfter('Acciones', 
-									'<a href="'.$url.'private/User/showProfile">Ver Perfil</a>',
-									'Actions', array('align' => 'center'))*/
+		->addColumnAfter('Acciones', 
+									'<a class="btn btn-success btn-xs btn-block" href="'.$url.'private/User/editUser/$pkiBUser$">Editar</a>
+									<a class="btn btn-danger btn-xs btn-block delete" href="'.$url.'private/User/cmdDeleteUser/$pkiBUser$">Eliminar</a>
+									',
+									'Actions', array('align' => 'center'))
 		//->addColumnBefore('counter', '%counter%.', 'Counter', array('align' => 'right'))
 		//->setStartingCounter(1)
 		//->setRowClass('')
@@ -67,7 +69,8 @@ use \App\data\DataGridView as DGV;
     <link href="<?php echo $url; ?>App/web/css/plugins/steps/jquery.steps.css" rel="stylesheet">
 	<!-- dataTable CSS-->
     <link href="<?php echo $url; ?>App/web/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
-	
+	<!-- Sweet Alert -->
+	<link href="<?php echo $url; ?>App/web/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
 </head>
 <body class="top-navigation">
     <div id="wrapper">
@@ -139,8 +142,6 @@ use \App\data\DataGridView as DGV;
 		</div>
     </div>
 
-
-
     <!-- Mainly scripts -->
     <script src="<?php echo $url; ?>/App/web/js/jquery-2.1.1.js"></script>
     <script src="<?php echo $url; ?>/App/web/js/bootstrap.min.js"></script>
@@ -161,7 +162,10 @@ use \App\data\DataGridView as DGV;
 	<!-- dataTables-->
 	<script src="<?php echo $url; ?>/App/web/js/plugins/dataTables/datatables.min.js"></script>
 	<script src="<?php echo $url; ?>/App/web/js/plugins/jeditable/jquery.jeditable.js"></script>
-	
+	<!-- Sweet alert -->
+    <script src="<?php echo $url; ?>App/web/js/plugins/sweetalert/sweetalert.min.js"></script>
+	<!-- jquery forms -->
+    <script src="<?php echo $url; ?>App/web/js/jquery.form.js"></script>
    <script>
         $(document).ready(function(){
             $('.dataTables-example').DataTable({
@@ -205,57 +209,80 @@ use \App\data\DataGridView as DGV;
 				}
 
             });
-			
-			$.ajax({
-				url: '',
-				type: 'post',
-				data:{tag:'getCompany'},
-				dataType:'json',
-				succes: function (data){
-					if (data.succes){
-						$.each(data,function (index,record ){
-						})
-					}
-				}
+		
+		//	botones para "eliminar" usuario
+			$(".delete").on('click',function(){
+				//var url=(this).attr('href');
+				//confirmDelete(url);
+				swal({
+					title: "¿Desea realname eliminar a este usuario?",
+					text: "You will not be able to recover this imaginary file!",
+					type: "warning",
+					showCancelButton: true,
+					confirmButtonColor: "#DD6B55",
+					confirmButtonText: "Yes, delete it!",
+					closeOnConfirm: false
+				}, function (isConfirm) {
+					if (!isConfirm) return;
+					$.ajax({
+						url: url,
+						type: "GET",
+						/*data: {
+							"delete=" + true 
+						},*/
+						dataType: "JSON",
+						success: function () {
+							swal("Done!", "It was succesfully deleted!", "success");
+						},
+						error: function (xhr, ajaxOptions, thrownError) {
+							swal("Error deleting!", "Please try again", "error");
+						}
+					});
+					/*$.ajax({
+						type: "get",
+						url: "/admin/delete_order.php",
+						data: "orderid="+orderid,
+						success: function(data){
+						}
+					})
+					.done(function(data) {
+						swal("Canceled!", "Your order was successfully canceled!", "success");
+						$('#orders-history').load(document.URL +  ' #orders-history');
+					})
+					.error(function(data) {
+						swal("Oops", "We couldn't connect to the server!", "error");
+					});*/
+				});
 			});
-            
-			
-			
-			
-			
-			
-			/* Init DataTables */
-            var oTable = $('#AddTD').DataTable();
-
-            /* Apply the jEditable handlers to the table */
-            oTable.$('td').editable( '../example_ajax.php', {
-                "callback": function( sValue, y ) {
-                    var aPos = oTable.fnGetPosition( this );
-                    oTable.fnUpdate( sValue, aPos[0], aPos[1] );
-                },
-                "submitdata": function ( value, settings ) {
-                    return {
-                        "row_id": this.parentNode.getAttribute('id'),
-                        "column": oTable.fnGetPosition( this )[2]
-                    };
-                },
-
-                "width": "90%",
-                "height": "100%"
-            } );
-
-
         });
 
-        function fnClickAddRow() {
-            $('#editable').dataTable().fnAddData( [
-                "Custom row",
-                "New row",
-                "New row",
-                "New row",
-                "New row" ] );
-
-        }
+    function confirmDelete(url) {
+		swal({
+			title: "Are you sure?",
+			text: "You will not be able to recover this imaginary file!",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "Yes, delete it!",
+			closeOnConfirm: false
+		}, function (isConfirm) {
+			if (!isConfirm) return;
+			$.ajax({
+				url: url,
+				type: "POST",
+				data: {
+					id: 5
+				},
+				dataType: "html",
+				success: function () {
+					swal("Done!", "It was succesfully deleted!", "success");
+				},
+				error: function (xhr, ajaxOptions, thrownError) {
+					swal("Error deleting!", "Please try again", "error");
+				}
+			});
+		});
+	}
     </script>
 </body>
 </html>

@@ -18,24 +18,41 @@ use \App\data\Crud as Crud;
 if($_POST){
 	extract($_POST);
 	
+	$condBO['pkBranchOffice'] = $hdn_pkBO_h;
+	$condBOS['BranchOffice_pkBranchOffice'] = $hdn_pkBO_h;
 	
-	$pkuser['pkiBUser'] = $hdn_pkuser_h;
+	$bo['subcompany_pkSubCompany'] = $slt_fkSubCompany_h;
+	$bo['BOName'] = $txt_BOName_h; 
+	$bo['BOStreet'] = $txt_BOStreet_h; 
+	$bo['BOExtNumber'] = $txt_BOExtNumber_h; 
+	$bo['BOIntNumber'] = $txt_BOIntNumber_h; 
+	$bo['BORegion'] = $txt_BORegion_h; 
+	$bo['BOZone'] = $txt_BOZone_h; 
+	$bo['BOProvince'] = $txt_BOProvince_h;
+	$bo['BOZipCode'] = $txt_BOZipCode_h; 
+	$bo['ServiceAddress'] = $txt_serviceAddress_h;
+	$bo['ServiceManager'] = $txt_serviceManager_h; 
+	$bo['ServiceEmail'] = $txt_serviceEmail_h; 
+	$bo['officeHour'] = $txt_officeHour_h; 
+	$bo['ServicePhone'] = $txt_servicePhone_h;
+	$bo['Modified'] = date("Y-m-d");
+	$bo['ModifiedBy'] = $currentUser;
 	
-	$user['username'] = $txt_userName_h;
-	$user['pwd'] = $txt_newPassword_h;
-	$user['pwdtmp'] = $txt_newPassword_h;
-	$user['realname'] = $txt_realName_h;
-	$user['email'] = $txt_newEmail_h;
-	$user['ibfunctiondetail_pkibFunctionDetail'] = $slt_defaultFunction_h;
-	$user['Modified'] = date('Y-m-d');
-	$user['ModifiedBy'] = $currentUser;
+	$bos['fktimeZone'] = $slt_timeZone_h;
+	$bos['fkCountry'] = $slt_pkCountry_h;
+	$bos['fkAASPType'] = $slt_aaspType_h;
+	$bos['shipTo'] = $txt_shipTo_h;
+	$bos['soldTo'] = $txt_soldTo_h;
+	$bos['folioStart'] = $txt_folioStart_h;
+	$bos['folioSerie'] = $txt_folioSerie_h;
 		
-	$ctrlUpdateUser = Crud::update($user,$pkuser,'ibuser');
+	$ctrlUpdateBo  = Crud::update($bo,$condBO,'branchoffice');
+	$ctrlUpdateBos = Crud::update($bos,$condBOS,'branchofficesetting');
 	
-	if ($ctrlUpdateUser){
+	if ($ctrlUpdateBo and $ctrlUpdateBos){
 		$response = array(
 			'response' => true,
-			'message'  => 'El usuario se guardó correctamente.',
+			'message'  => 'El AASP se guardó correctamente.',
 			'href'     => null,
 			'function' => null //'string'
 			);
@@ -44,7 +61,7 @@ if($_POST){
 		else{
 			$response = array(
 			'response' => false,
-			'message'  => 'El usuario no se guardó correctamente.',
+			'message'  => 'El AASP no se guardó correctamente.',
 			'href'     => null,
 			'function' => null //'string'
 			);

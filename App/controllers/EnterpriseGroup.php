@@ -269,7 +269,6 @@ private $_sesionpkiBUser;
 		View::render("addEnterpriseGroup");        
 	}
 	public function addCompany(){
-		
 		#Objetos e instancias
 		$cu=CU::getInstance();
 		#get main variables
@@ -277,18 +276,10 @@ private $_sesionpkiBUser;
 		View::set("title", "AddCompany");
 		#set main variables
 		View::set("url", $url);
-		
 		#get data variables
 		$currentMainMenu=$cu->getMainMenu2($this->_sesionpkiBUser);
-		$dsSlcCompany=MA::getpknaSelect();
-		$dsCompanyGrid=MA::getParcialSelect();
-		while ($row =$dsCompanyGrid->fetch( \PDO::FETCH_ASSOC )){
-			$dt_Company[] = $row;
-		}
 		#set data variables
 		View::set("currentMainMenu", $currentMainMenu);
-		View::set("drows_Company",$dsSlcCompany);
-		View::set("dt_Company",$dt_Company);
 		#render
 		View::render("addCompany");        
 	}
@@ -337,6 +328,91 @@ private $_sesionpkiBUser;
 		
 		#render
 		View::render("addBO");
+	}
+	public function editCompany($pkCO){
+		#Objetos e instancias
+		$cu=CU::getInstance();
+		#get main variables
+		$url= Globales::$absoluteURL;
+		View::set("title", "Editar cuenta maestra");
+		#set main variables
+		View::set("url",$url);
+		View::set("pkCO",$pkCO);
+		#get data variables
+		$currentMainMenu=$cu->getMainMenu2($this->_sesionpkiBUser);
+		$dsCompany = Crud::getById('company','pkCompany',$pkCO);
+		while ($row =$dsCompany->fetch( \PDO::FETCH_ASSOC )){
+			$dt_Company[] = $row;
+		}
+		#set data variables
+		View::set("currentMainMenu", $currentMainMenu);
+		View::set("dt_Company",$dt_Company);
+		#render
+		View::render("viewCompany");        
+	}
+	public function editSubcompany($pkSC){
+		#Objetos e instancias
+		$cu=CU::getInstance();
+		#get main variables
+		$url= Globales::$absoluteURL;
+		View::set("title", "Editar Sub cuenta");
+		#set main variables
+		View::set("url", $url);
+		View::set("pkSC", $pkSC);
+		#get data variables
+		$currentMainMenu=$cu->getMainMenu2($this->_sesionpkiBUser);
+		$dsSlcCompany=MA::getParcialSelect();
+		$ds_subCompany = Crud::getById('subcompany','pkSubCompany',$pkSC);
+		while ($row =$ds_subCompany->fetch( \PDO::FETCH_ASSOC )){ $dt_subCompany[] = $row;}
+		#set data variables
+		View::set("currentMainMenu", $currentMainMenu);
+		View::set("drows_Company",$dsSlcCompany);
+		View::set("dt_subCompany",$dt_subCompany);
+		#render
+		View::render("viewSubcompany");        
+	}
+	public function editBranchOffice($pkBO){
+		#Objetos_e_instancias
+		$cu=CU::getInstance();
+		#get_main_variables
+		$url= Globales::$absoluteURL;
+		$timezone=Globales::timezone_list();
+		#set_main_variables
+		View::set("url", $url);
+		View::set("title", "AddCompany");
+		View::set("dt_timezone",$timezone);
+		View::set("pkBO",$pkBO);
+		#get_data_variables
+		$currentMainMenu=$cu->getMainMenu2($this->_sesionpkiBUser);
+		$dsSlcSubCompany=SC::getpknaSelect();
+		//Obtenemos los países
+		$ds_country=Crud::getAll("country");
+		//Obtenemos los datos del branchoffice
+		$ds_BO=Crud::getById('branchoffice','pkBranchOffice',$pkBO);
+		while ($row =$ds_BO->fetch( \PDO::FETCH_ASSOC )){ $dt_BO[] = $row;}
+		//Obtenemos los datos del BranchOfficeSetting
+		$ds_BOS=Crud::getById('branchofficesetting','BranchOffice_pkBranchOffice',$pkBO);
+		while ($row =$ds_BOS->fetch( \PDO::FETCH_ASSOC )){ $dt_BOS[] = $row;}
+		#set_data_variables
+		View::set("drows_Subcompany",$dsSlcSubCompany);
+		View::set("currentMainMenu", $currentMainMenu);
+		View::set("dt_country",$ds_country);
+		View::set("dt_BO",$dt_BO);
+		View::set("dt_BOS",@$dt_BOS);
+		#render
+		View::render("viewBO");
+	}
+	public function cmdUpdateCompany(){
+		View::set("currentUser",$this->_sesionpkiBUser);
+		View::render("updateCompany");
+	}
+	public function cmdUpdateSubcompany(){
+		View::set("currentUser",$this->_sesionpkiBUser);
+		View::render("updateSubcompany");
+	}
+	public function cmdUpdateBO(){
+		View::set("currentUser",$this->_sesionpkiBUser);
+		View::render("updateBO");
 	}
 //MÉTODOS PRIVADOS###################################
 //EVENTOS############################################

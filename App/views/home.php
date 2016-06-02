@@ -99,7 +99,7 @@ defined("APPPATH") OR die("Access denied");
 							</div>
 							<div class="footer">
 								<div>
-									<strong>Copyright</strong> Example Company &copy; 2014-2015
+									<strong>iBrain&#174;</strong> 2.0
 								</div>
 							</div>
 						</div>

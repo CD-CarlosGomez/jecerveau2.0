@@ -37,9 +37,9 @@ use \App\data\DataGridView as DGV;
 			'totalBO' => array('header' => 'Sucursales','link'=>$url . 'private/EnterpriseGroup/showBranchOfficeSubCompany/','filterColumn'=>1),
 			'totalUsers' => array('header' => 'Usuarios','link'=>$url . 'private/EnterpriseGroup/showUserSubCompany/','filterColumn'=>1)
 		))
-		//->addColumnAfter('actions', 
-			//						'<a href="'.$url.'private/EnterpriseGroup/showBranchOffice">Ver Subcompanie\'s</a>',
-			//						'Actions', array('align' => 'center'))
+		->addColumnAfter('actions', 
+									'<a class="btn btn-success btn-xs btn-block" href="'.$url.'private/EnterpriseGroup/editSubcompany/$pkSubCompany$">Editar</a>',
+									'Actions', array('align' => 'center'));
 		//->addColumnBefore('counter', '%counter%.', 'Counter', array('align' => 'right'))
 		//->setStartingCounter(1)
 		//->setRowClass('')

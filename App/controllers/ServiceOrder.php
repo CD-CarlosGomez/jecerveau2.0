@@ -278,7 +278,7 @@ class ServiceOrder extends Controller{
 			View::set("ds_symptomAreas" , 	$RS_symptomAreas);
 			View::set("ds_products"		,	@$ds_products);
 		#render
-			View::render("ViewSO");       
+			View::render("viewSO");       
 		}
 	public function AddAccessory(){
 		#get_main_variables

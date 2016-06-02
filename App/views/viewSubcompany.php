@@ -36,9 +36,10 @@ use \Core\Controller;
 		<link href="<?php echo $url; ?>App/web/css/plugins/iCheck/custom.css" rel="stylesheet">
 		<!-- steps CSS -->
 		<link href="<?php echo $url; ?>App/web/css/plugins/steps/jquery.steps.css" rel="stylesheet">
-		<!-- Mainly scripts -->
-		
-		<!-- Mainly scripts -->
+		<!-- Select 2 CSS -->
+		<link href="<?php echo $url; ?>App/web/css/plugins/select2/select2.min.css" rel="stylesheet">
+		<!-- Sweet Alert -->
+		<link href="<?php echo $url; ?>App/web/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
 	</head>
 <body class="top-navigation">
     <div id="wrapper">
@@ -92,17 +93,27 @@ use \Core\Controller;
 								</div>
 								<div class="ibox-content" >
 									<fieldset>
-										<form id="frm_subCompany_h" class="form-horizontal" action="<?php echo $url; ?>private/EnterpriseGroup" method="POST">
+										<form id="frm_subCompany_h" class="form-horizontal" action="<?php echo $url; ?>private/EnterpriseGroup/cmdUpdateSubcompany" method="POST">
+											<input type="hidden" id="" value="<?php echo $pkSC; ?>" name="hdn_pkSC_h">
 											<div class="col-lg-6">
 												<div class="form-group">&nbsp;</div>
 												<div class="form-group">
 														<label class="col-md-4 control-label">Cuenta maestra:*</label>
 														<div class="col-lg-8">
-															<select id="" class="form-control m-b" name="slt_fkCompany_h">
+															<select id="slt_fkCompany_h" class="form-control m-b" name="slt_fkCompany_h">
 																<option value="-1">Selecciona una cuenta maestra ...</option>
-															<?php foreach ($drows_Company as $companyOption) {?>
+															<?php 
+																foreach($dt_subCompany as $dr_sc){ $pkSC = $dr_sc['company_pkCompany'];}
+															foreach ($drows_Company as $companyOption) {
+																if($pkSC == $companyOption['pkCompany']){
+															?>
+																<option value="<?php echo $companyOption['pkCompany'] ?>" selected="selected"><?php echo $companyOption['legalName'] ?></option>
+															<?php }
+																else{
+															?>
 																	<option value="<?php echo $companyOption['pkCompany'] ?>"><?php echo $companyOption['legalName'] ?></option>
-															<?php } ?>
+															<?php }
+															} ?>
 															</select>
 														</div>
 												</div>												
@@ -112,13 +123,13 @@ use \Core\Controller;
 												<div class="form-group">
 													<label class="col-md-4 control-label">Subcuenta maestra:*</label>
 													<div class="col-lg-8">
-														<input id="txt_subCompanyName_h" class="form-control required" name="txt_subCompanyName_h" type="text">
+														<input id="txt_subCompanyName_h" class="form-control required" value="<?php foreach($dt_subCompany as $dr_sc){echo $dr_sc['subCompanyName'];}?>"name="txt_subCompanyName_h" type="text">
 													</div>
 												</div>
 										    <div class="form-group">&nbsp;</div>
 											<div class="col-md-4 pull-right">
 												<div class="form-group">
-													<button type="submit" id="btn_command_h" class="btn btn-primary btn-md btn-block" value="AddSubCompany" name="btn_command_h">Guardar</button>
+													<button type="submit" id="btn_command_h" class="btn btn-primary btn-md btn-block" value="editSubCompany" name="btn_command_h">Guardar</button>
 												</div>
 											</div>
 											</div>
@@ -148,6 +159,10 @@ use \Core\Controller;
     <script src="<?php echo $url; ?>App/web/js/plugins/pace/pace.min.js"></script>
 	<!-- Jquery Validate -->
     <script src="<?php echo $url; ?>App/web/js/plugins/validate/jquery.validate.min.js"></script>
+	<!-- jquery forms -->
+    <script src="<?php echo $url; ?>App/web/js/jquery.form.js"></script>
+	<!-- Sweet alert -->
+    <script src="<?php echo $url; ?>App/web/js/plugins/sweetalert/sweetalert.min.js"></script>
 	<script>
 	$.validator.addMethod('regex', function (value,element) { 
     	return  this.optional(element)|| /^[A-Za-zñÑ0-9\-\s\.áéíóúÁÉÍÓÚ]*$/g.test(value); 
@@ -169,6 +184,28 @@ use \Core\Controller;
 				messages:{
 					slt_fkCompany_h : "Por favor, selecciona una cuenta maestra.",
 					txt_subCompanyName_h : "Por favor, introduce el nombre de una subcuenta."
+				},
+				submitHandler: function(form) {
+					//form.submit();
+					$(form).ajaxSubmit({
+					dataType: 'JSON',
+					type: 'POST',
+					url: $(form).attr('action'),
+					success: function (r) {
+						// Mostrar mensaje
+						swal("Guardado",r.message,"success");
+						
+						// Ejecutar funciones
+						if (r.function != null) {
+							setTimeout(r.function, 0);
+						}
+						// Redireccionar
+						if (r.href != null) {
+							if (r.href == 'self') window.location.reload(true);
+							else redirect(r.href);
+						}
+					}
+				});
 				}
 			}
 			);	

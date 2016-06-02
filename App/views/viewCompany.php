@@ -5,19 +5,20 @@ defined("APPPATH") OR die("Access denied");
 
 use \Core\View;
 use \Core\Controller;
-		
+
+		if (strlen(session_id()) < 1){session_start();}
 		$_SESSION["nombreUsuario"];
 		$_SESSION['pkiBUser_p'];
 		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
 		else{
 				echo "Esta pagina es solo para usuarios registrados.<br>";
-			echo "<a href='" . $url . "'>Login Here!</a>";
+			echo "<a href='" . Globales::$absoluteURL. "'>Login Here!</a>";
 			exit;
 		}
 		$now = time(); 
 		if($now > $_SESSION['expire']){
 		session_destroy();
-		echo "Su sesion a terminado, <a href='" . $url . "'>
+		echo "Su sesion a terminado, <a href='" . Globales::$absoluteURL . "'>
 			  Necesita Hacer Login</a>";
 		exit;
 		}
@@ -30,15 +31,16 @@ use \Core\Controller;
 		<title>iBrain2.0</title>
 		   <!-- Mainly CSS -->
 		<link href="<?php echo $url; ?>App/web/css/bootstrap.min.css" rel="stylesheet">
-		<link href="<?php echo $url; ?>App/web/font-awesome/css/font-awesome.css" rel="stylesheet">		<link href="http://localhost:8012/iBrain2.0/App/web/css/animate.css" rel="stylesheet">
+		<link href="<?php echo $url; ?>App/web/font-awesome/css/font-awesome.css" rel="stylesheet">
+		<link href="<?php echo $url; ?>/App/web/css/animate.css" rel="stylesheet">
 		<link href="<?php echo $url; ?>App/web/css/style.css" rel="stylesheet">
 		<!-- iCheck CSS -->
 		<link href="<?php echo $url; ?>App/web/css/plugins/iCheck/custom.css" rel="stylesheet">
 		<!-- steps CSS -->
 		<link href="<?php echo $url; ?>App/web/css/plugins/steps/jquery.steps.css" rel="stylesheet">
-		<!-- Mainly scripts -->
+		<!-- Sweet Alert -->
+		<link href="<?php echo $url; ?>App/web/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
 		
-		<!-- Mainly scripts -->
 	</head>
 <body class="top-navigation">
     <div id="wrapper">
@@ -57,15 +59,15 @@ use \Core\Controller;
 						</ul>
 						<ul class="nav navbar-top-links navbar-right">
 							<li>
-								<a href="<?php echo $url; ?>private/logout">Salir</a>
+								<a href="<?php echo $url; ?>provate/logout">Salir</a>
 							</li>
 						</ul>
 					</div>
 				</nav>
 			</div>
             <div class="row wrapper border-bottom white-bg page-heading">
-                <div class="col-sm-8">
-                    <h2>Subcuenta maestra</h2>
+                <div class="col-sm-4">
+                    <h2>Cuenta maestra</h2>
                     <ol class="breadcrumb">
 						<li>
 							<a href="<?php echo $url; ?>private/home">Inicio</a>
@@ -73,11 +75,8 @@ use \Core\Controller;
 						<li>
 							<a href="<?php echo $url; ?>private/EnterpriseGroup/ShowCompany">Cuenta maestra</a>
 						</li>
-						<li>
-							<a href="<?php echo $url; ?>private/EnterpriseGroup/ShowSubcompany">Subcuenta maestra</a>
-						</li>
 						<li class="active">
-							<strong>Nueva Subcuenta maestra</strong>
+							<strong>Nueva Cuenta maestra</strong>
 						</li>
 					</ol>
                 </div>
@@ -88,42 +87,40 @@ use \Core\Controller;
 						<div class="col-lg-12">
 							<div class="ibox float-e-margins">
 								<div class="ibox-title">
-									<h5>Nueva Subcuenta maestra </h5>
+									<h5>Editar cuenta maestra </h5>
 								</div>
 								<div class="ibox-content" >
 									<fieldset>
-										<form id="frm_subCompany_h" class="form-horizontal" action="<?php echo $url; ?>private/EnterpriseGroup" method="POST">
-											<div class="col-lg-6">
+										<form id="frm_company_h" class="form-horizontal" action="<?php echo $url; ?>private/EnterpriseGroup/cmdUpdateCompany" method="POST">
+											<input type="hidden" id="" class="" value="<?php echo $pkCO;?>" name="hdn_pkCompany_h">
+											<div class="col-md-6">
 												<div class="form-group">&nbsp;</div>
 												<div class="form-group">
-														<label class="col-md-4 control-label">Cuenta maestra:*</label>
-														<div class="col-lg-8">
-															<select id="" class="form-control m-b" name="slt_fkCompany_h">
-																<option value="-1">Selecciona una cuenta maestra ...</option>
-															<?php foreach ($drows_Company as $companyOption) {?>
-																	<option value="<?php echo $companyOption['pkCompany'] ?>"><?php echo $companyOption['legalName'] ?></option>
-															<?php } ?>
-															</select>
-														</div>
-												</div>												
+													<label class="col-md-4 control-label">Nombre legal:*</label>
+													<div class="col-md-8">
+														<input type="text" id="txt_legalName_h" class="form-control required" value="<?php foreach ($dt_Company as $dr_Company){ echo $dr_Company['legalName']; } ?>" name="txt_legalName_h" >
+													</div>
+												</div>
+												
 											</div>
 											<div class="col-md-6">
 												<div class="form-group">&nbsp;</div>
 												<div class="form-group">
-													<label class="col-md-4 control-label">Subcuenta maestra:*</label>
-													<div class="col-lg-8">
-														<input id="txt_subCompanyName_h" class="form-control required" name="txt_subCompanyName_h" type="text">
+													<label class="col-md-4 control-label">Nombre comercial:*</label>
+													<div class="col-md-8">
+														<input id="txt_commercialName_h" class="form-control required" value="<?php foreach ($dt_Company as $dr_Company){ echo $dr_Company['commercialName']; } ?>" name="txt_commercialName_h" type="text">
 													</div>
 												</div>
-										    <div class="form-group">&nbsp;</div>
-											<div class="col-md-4 pull-right">
-												<div class="form-group">
-													<button type="submit" id="btn_command_h" class="btn btn-primary btn-md btn-block" value="AddSubCompany" name="btn_command_h">Guardar</button>
-												</div>
+												<div class="form-group">&nbsp;</div>
+													<div class="col-md-4 pull-right">
+														<div class="form-group">
+															<button type="" id="btn_command_h" class="btn btn-primary btn-md btn-block" value="updateCompany" name="btn_command_h">Guardar</button>
+														</div>
+													</div>
 											</div>
-											</div>
-										</form>
-									</fieldset>									
+											</form>
+										</fieldset>
+									
 								</div>
 							</div>
                         </div>
@@ -132,7 +129,7 @@ use \Core\Controller;
 			</div>
 			<div class="footer">
 				<div>
-					<strong>IBrain&#174; 2.0</strong>
+					<strong>iBrain&#174; 2.0</strong>
 				</div>
 			</div>
 		</div>
@@ -143,11 +140,15 @@ use \Core\Controller;
     <script src="<?php echo $url; ?>App/web/js/bootstrap.min.js"></script>
     <script src="<?php echo $url; ?>App/web/js/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="<?php echo $url; ?>App/web/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-	<!-- Custom and plugin javascript -->
+    <!-- Custom and plugin javascript -->
     <script src="<?php echo $url; ?>App/web/js/inspinia.js"></script>
     <script src="<?php echo $url; ?>App/web/js/plugins/pace/pace.min.js"></script>
 	<!-- Jquery Validate -->
     <script src="<?php echo $url; ?>App/web/js/plugins/validate/jquery.validate.min.js"></script>
+	<!-- jquery forms -->
+    <script src="<?php echo $url; ?>App/web/js/jquery.form.js"></script>
+	<!-- Sweet alert -->
+    <script src="<?php echo $url; ?>App/web/js/plugins/sweetalert/sweetalert.min.js"></script>
 	<script>
 	$.validator.addMethod('regex', function (value,element) { 
     	return  this.optional(element)|| /^[A-Za-zñÑ0-9\-\s\.áéíóúÁÉÍÓÚ]*$/g.test(value); 
@@ -155,27 +156,52 @@ use \Core\Controller;
 	
 	$(document).ready(
 		function(){
-			$("#frm_subCompany_h").validate(
-			{
-				rules: {
-					slt_fkCompany_h : {
-					  required: true,
-					  min: 0
+			$("#frm_company_h").validate(
+				{
+				rules:{
+					txt_legalName_h : {
+						required : true,
+						regex : true		
 					},
-					txt_subCompanyName_h : {
-						required : true						
+					txt_commercialName_h : {
+						required : true,
+						regex : true
+					}						
+				},
+				messages : {
+					txt_legalName_h : {
+						required : "Favor de escribir el nombre legal."
+					},
+					txt_commercialName_h : {
+						required : "Favor de escribir el nombre comercial."
 					}
 				},
-				messages:{
-					slt_fkCompany_h : "Por favor, selecciona una cuenta maestra.",
-					txt_subCompanyName_h : "Por favor, introduce el nombre de una subcuenta."
+				submitHandler: function(form) {
+					//form.submit();
+					$(form).ajaxSubmit({
+					dataType: 'JSON',
+					type: 'POST',
+					url: $(form).attr('action'),
+					success: function (r) {
+						// Mostrar mensaje
+						swal("Guardado",r.message,"success");
+						
+						// Ejecutar funciones
+						if (r.function != null) {
+							setTimeout(r.function, 0);
+						}
+						// Redireccionar
+						if (r.href != null) {
+							if (r.href == 'self') window.location.reload(true);
+							else redirect(r.href);
+						}
+					}
+				});
 				}
-			}
-			);	
+			}	
+		);	
     });
 	</script>
-
-
 </body>
 
 </html>
