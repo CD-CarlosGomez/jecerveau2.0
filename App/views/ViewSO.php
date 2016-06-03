@@ -97,7 +97,7 @@ use \App\data\DataGridView as DGV;
 	<!-- Sweet Alert -->
     <link href="<?php echo $url; ?>App/web/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
 	<!-- dataTable CSS-->
-    <link href="<?php echo $url; ?>/App/web/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+    <link href="<?php echo $url; ?>App/web/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
     <style>
         #alertmod_table_accessory{
             top: 900px !important;
@@ -738,8 +738,8 @@ use \App\data\DataGridView as DGV;
 	<!-- Sweet alert -->
     <script src="<?php echo $url; ?>App/web/js/plugins/sweetalert/sweetalert.min.js"></script>
 	<!-- dataTables-->
-	<script src="<?php echo $url; ?>/App/web/js/plugins/dataTables/datatables.min.js"></script>
-	<script src="<?php echo $url; ?>/App/web/js/plugins/jeditable/jquery.jeditable.js"></script>
+	<script src="<?php echo $url; ?>App/web/js/plugins/dataTables/datatables.min.js"></script>
+	<script src="<?php echo $url; ?>App/web/js/plugins/jeditable/jquery.jeditable.js"></script>
     <script type="text/javascript">
 	//////Set defaults settings
 		$.validator.setDefaults({
@@ -1032,7 +1032,7 @@ use \App\data\DataGridView as DGV;
             }
         function mostrarArchivos() {
                 $.ajax({
-                    url: '<?php echo $url; ?>/private/ServiceOrder/showAttachment',
+                    url: '<?php echo $url; ?>private/ServiceOrder/showAttachment',
                     dataType: 'JSON',
 					type: 'POST',
 					data : {

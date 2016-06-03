@@ -61,7 +61,6 @@ private $_sesionpkiBUser;
     public function showCompany(){
 		#Objetos e instancias
 		$cu=CU::getInstance();
-		
 		#get main variables
 		$directoryPath= Globales::$absoluteURL;
 		#set main variables
@@ -413,6 +412,10 @@ private $_sesionpkiBUser;
 	public function cmdUpdateBO(){
 		View::set("currentUser",$this->_sesionpkiBUser);
 		View::render("updateBO");
+	}
+	public function bussinessEG(){
+		View::set("currentUser",$this->_sesionpkiBUser);
+		View::render("bussinessEnterpriseGroup");
 	}
 //MÉTODOS PRIVADOS###################################
 //EVENTOS############################################

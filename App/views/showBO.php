@@ -40,7 +40,8 @@ use \App\data\DataGridView as DGV;
 			'totalUsers' => array('header' => 'Usuarios','link'=>$url . 'private/EnterpriseGroup/showUserBranchOffice/','filterColumn'=>2)
 		))
 		->addColumnAfter('actions', 
-									'<a class="btn btn-success btn-xs btn-block" href="'.$url.'private/EnterpriseGroup/editBranchOffice/$pkBranchOffice$">Editar</a>',
+									'<a class="btn btn-success btn-xs btn-block" href="'.$url.'private/EnterpriseGroup/editBranchOffice/$pkBranchOffice$">Editar</a>
+									<button id="" class="btn btn-danger btn-xs btn-block delete" value="$pkBranchOffice$" name="btn_pk$pkBranchOffice$_h">Eliminar</button>',
 									'Actions', array('align' => 'center'));
 		//->addColumnBefore('counter', '%counter%.', 'Counter', array('align' => 'right'))
 		//->setStartingCounter(1)
@@ -57,17 +58,18 @@ use \App\data\DataGridView as DGV;
 
     <title>iBrain 2.0</title>
 	<!-- Mainly CSS -->
-    <link href="<?php echo $url; ?>/App/web/css/bootstrap.min.css" rel="stylesheet">
-    <link href="<?php echo $url; ?>/App/web/font-awesome/css/font-awesome.css" rel="stylesheet">
-	<link href="<?php echo $url; ?>/App/web/css/animate.css" rel="stylesheet">
-    <link href="<?php echo $url; ?>/App/web/css/style.css" rel="stylesheet">
+    <link href="<?php echo $url; ?>App/web/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo $url; ?>App/web/font-awesome/css/font-awesome.css" rel="stylesheet">
+	<link href="<?php echo $url; ?>App/web/css/animate.css" rel="stylesheet">
+    <link href="<?php echo $url; ?>App/web/css/style.css" rel="stylesheet">
 	<!-- Custom CSS -->
-	<link href="<?php echo $url; ?>/App/web/css/plugins/iCheck/custom.css" rel="stylesheet">
+	<link href="<?php echo $url; ?>App/web/css/plugins/iCheck/custom.css" rel="stylesheet">
 	<!-- Wizard CSS -->
-    <link href="<?php echo $url; ?>/App/web/css/plugins/steps/jquery.steps.css" rel="stylesheet">
+    <link href="<?php echo $url; ?>App/web/css/plugins/steps/jquery.steps.css" rel="stylesheet">
 	<!-- dataTable CSS-->
-    <link href="<?php echo $url; ?>/App/web/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
-	
+    <link href="<?php echo $url; ?>App/web/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+	<!-- Sweet Alert -->
+	<link href="<?php echo $url; ?>App/web/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
 </head>
 <body class="top-navigation">
     <div id="wrapper">
@@ -148,26 +150,24 @@ use \App\data\DataGridView as DGV;
 
 
     <!-- Mainly scripts -->
-    <script src="<?php echo $url; ?>/App/web/js/jquery-2.1.1.js"></script>
-    <script src="<?php echo $url; ?>/App/web/js/bootstrap.min.js"></script>
-    <script src="<?php echo $url; ?>/App/web/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="<?php echo $url; ?>/App/web/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-	
-	
-    <!-- Custom and plugin javascript -->
-    <script src="<?php echo $url; ?>/App/web/js/inspinia.js"></script>
-    <script src="<?php echo $url; ?>/App/web/js/plugins/pace/pace.min.js"></script>
-
+    <script src="<?php echo $url; ?>App/web/js/jquery-2.1.1.js"></script>
+    <script src="<?php echo $url; ?>App/web/js/bootstrap.min.js"></script>
+    <script src="<?php echo $url; ?>App/web/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="<?php echo $url; ?>App/web/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+	<!-- Custom and plugin javascript -->
+    <script src="<?php echo $url; ?>App/web/js/inspinia.js"></script>
+    <script src="<?php echo $url; ?>App/web/js/plugins/pace/pace.min.js"></script>
     <!-- Steps -->
-    <script src="<?php echo $url; ?>/App/web/js/plugins/staps/jquery.steps.min.js"></script>
-
+    <script src="<?php echo $url; ?>App/web/js/plugins/staps/jquery.steps.min.js"></script>
     <!-- Jquery Validate -->
-    <script src="<?php echo $url; ?>/App/web/js/plugins/validate/jquery.validate.min.js"></script>
-
+    <script src="<?php echo $url; ?>App/web/js/plugins/validate/jquery.validate.min.js"></script>
 	<!-- dataTables-->
-	<script src="<?php echo $url; ?>/App/web/js/plugins/dataTables/datatables.min.js"></script>
-	<script src="<?php echo $url; ?>/App/web/js/plugins/jeditable/jquery.jeditable.js"></script>
-	
+	<script src="<?php echo $url; ?>App/web/js/plugins/dataTables/datatables.min.js"></script>
+	<script src="<?php echo $url; ?>App/web/js/plugins/jeditable/jquery.jeditable.js"></script>
+	<!-- jquery forms -->
+    <script src="<?php echo $url; ?>App/web/js/jquery.form.js"></script>
+	<!-- Sweet alert -->
+    <script src="<?php echo $url; ?>App/web/js/plugins/sweetalert/sweetalert.min.js"></script>
    <script>
         $(document).ready(function(){
             $('.dataTables-example').DataTable({
@@ -211,51 +211,47 @@ use \App\data\DataGridView as DGV;
 				}
             });
 			
-			$.ajax({
-				url: '',
-				type: 'post',
-				data:{tag:'getCompany'},
-				dataType:'json',
-				succes: function (data){
-					if (data.succes){
-						$.each(data,function (index,record ){
-						})
-					}
+			var btn_pk_j;
+			$('.delete').click(function () {
+				btn_pk_j = $(this);
+				swal({
+							title: "¿Desea realmente eliminar este usuario?",
+							text: "",
+							type: "warning",
+							showCancelButton: true,
+							confirmButtonColor: "#DD6B55",
+							confirmButtonText: "Si, ¡eliminar!",
+							cancelButtonText: "No, ¡cancelar!",
+							closeOnConfirm: false,
+				},
+				function (isConfirm) {
+					if (isConfirm) {
+						$.ajax({
+							url: '<?php echo $url; ?>private/EnterpriseGroup/bussinessEG',
+							type: "POST",
+							dataType: 'JSON',
+							data: {
+								id : btn_pk_j.val(),
+								cmd: "DeleteBO"
+							},
+							success: function(data){
+								swal("¡Eliminado!", data.message, "success");
+								
+								 Redireccionar
+								if (data.href != null) {
+									if (data.href == 'self') window.location.reload(true);
+									else redirect(data.href);
+								}
+							}
+						});
+						
+					} 
 				}
+				);
 			});
-            			
-			/* Init DataTables */
-            var oTable = $('#AddTD').DataTable();
-
-            /* Apply the jEditable handlers to the table */
-            oTable.$('td').editable( '../example_ajax.php', {
-                "callback": function( sValue, y ) {
-                    var aPos = oTable.fnGetPosition( this );
-                    oTable.fnUpdate( sValue, aPos[0], aPos[1] );
-                },
-                "submitdata": function ( value, settings ) {
-                    return {
-                        "row_id": this.parentNode.getAttribute('id'),
-                        "column": oTable.fnGetPosition( this )[2]
-                    };
-                },
-
-                "width": "90%",
-                "height": "100%"
-            } );
 
 
         });
-
-        function fnClickAddRow() {
-            $('#editable').dataTable().fnAddData( [
-                "Custom row",
-                "New row",
-                "New row",
-                "New row",
-                "New row" ] );
-
-        }
     </script>
 
 

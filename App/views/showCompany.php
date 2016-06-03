@@ -35,11 +35,12 @@ use \App\data\DataGridView as DGV;
 		->setup(array(
 			'legalName' => array('header' => 'Cuenta maestra'),
 			'commercialName' => array('header' => 'Nombre comercial'),
-			'totalSubCompany' => array('header' => 'SubCompa&ntilde;&iacute;as','link'=>$url . 'private/EnterpriseGroup/showSubcompanyCompany/','filterColumn'=>0 ),
+			'totalSubCompany' => array('header' => 'Sub Cuentas','link'=>$url . 'private/EnterpriseGroup/showSubcompanyCompany/','filterColumn'=>0 ),
 			'totalBO' => array('header' => 'AASPS','link'=>$url . 'private/EnterpriseGroup/showBranchOfficeCompany/','filterColumn'=>0),
 			'totalUsers' => array('header' => 'Usuarios','link'=>$url . 'private/EnterpriseGroup/showUserCompany/','filterColumn'=>0)
 		))
-		->addColumnAfter('actions', '<a class="btn btn-success btn-xs btn-block" href="'.$url.'private/EnterpriseGroup/editCompany/$pkCompany$">Editar</a>'
+		->addColumnAfter('actions', '<a class="btn btn-success btn-xs btn-block" href="'.$url.'private/EnterpriseGroup/editCompany/$pkCompany$">Editar</a>
+									<button id="" class="btn btn-danger btn-xs btn-block delete" value="$pkCompany$" name="btn_pkCO$pkCompany$_h">Eliminar</button>'
 			,'Actions', array('align' => 'center'));
 		//->addColumnBefore('counter', '%counter%.', 'Counter', array('align' => 'right'))
 		//->setStartingCounter(1)
@@ -56,17 +57,18 @@ use \App\data\DataGridView as DGV;
 
     <title>iBrain 2.0</title>
 	<!-- Mainly CSS -->
-    <link href="<?php echo $url; ?>/App/web/css/bootstrap.min.css" rel="stylesheet">
-    <link href="<?php echo $url; ?>/App/web/font-awesome/css/font-awesome.css" rel="stylesheet">
-	<link href="<?php echo $url; ?>/App/web/css/animate.css" rel="stylesheet">
-    <link href="<?php echo $url; ?>/App/web/css/style.css" rel="stylesheet">
+    <link href="<?php echo $url; ?>App/web/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo $url; ?>App/web/font-awesome/css/font-awesome.css" rel="stylesheet">
+	<link href="<?php echo $url; ?>App/web/css/animate.css" rel="stylesheet">
+    <link href="<?php echo $url; ?>App/web/css/style.css" rel="stylesheet">
 	<!-- Custom CSS -->
-	<link href="<?php echo $url; ?>/App/web/css/plugins/iCheck/custom.css" rel="stylesheet">
+	<link href="<?php echo $url; ?>App/web/css/plugins/iCheck/custom.css" rel="stylesheet">
 	<!-- Wizard CSS -->
-    <link href="<?php echo $url; ?>/App/web/css/plugins/steps/jquery.steps.css" rel="stylesheet">
+    <link href="<?php echo $url; ?>App/web/css/plugins/steps/jquery.steps.css" rel="stylesheet">
 	<!-- dataTable CSS-->
-    <link href="<?php echo $url; ?>/App/web/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
-	
+    <link href="<?php echo $url; ?>App/web/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+	<!-- Sweet Alert -->
+		<link href="<?php echo $url; ?>App/web/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
 </head>
 <body class="top-navigation">
     <div id="wrapper">
@@ -138,23 +140,24 @@ use \App\data\DataGridView as DGV;
 		</div>
     </div>
     <!-- Mainly scripts -->
-    <script src="<?php echo $url; ?>/App/web/js/jquery-2.1.1.js"></script>
-	<script src="<?php echo $url; ?>/App/web/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-	<script src="<?php echo $url; ?>/App/web/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-	<script src="<?php echo $url; ?>/App/web/js/bootstrap.min.js"></script>
+    <script src="<?php echo $url; ?>App/web/js/jquery-2.1.1.js"></script>
+	<script src="<?php echo $url; ?>App/web/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+	<script src="<?php echo $url; ?>App/web/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+	<script src="<?php echo $url; ?>App/web/js/bootstrap.min.js"></script>
 	<!-- dataTables-->
-	<script src="<?php echo $url; ?>/App/web/js/plugins/jeditable/jquery.jeditable.js"></script>
-	<script src="<?php echo $url; ?>/App/web/js/plugins/dataTables/datatables.min.js"></script>	
+	<script src="<?php echo $url; ?>App/web/js/plugins/jeditable/jquery.jeditable.js"></script>
+	<script src="<?php echo $url; ?>App/web/js/plugins/dataTables/datatables.min.js"></script>	
     <!-- Custom and plugin javascript -->
-    <script src="<?php echo $url; ?>/App/web/js/inspinia.js"></script>
-    <script src="<?php echo $url; ?>/App/web/js/plugins/pace/pace.min.js"></script>
-
+    <script src="<?php echo $url; ?>App/web/js/inspinia.js"></script>
+    <script src="<?php echo $url; ?>App/web/js/plugins/pace/pace.min.js"></script>
     <!-- Steps -->
-    <script src="<?php echo $url; ?>/App/web/js/plugins/staps/jquery.steps.min.js"></script>
-
+    <script src="<?php echo $url; ?>App/web/js/plugins/staps/jquery.steps.min.js"></script>
     <!-- Jquery Validate -->
-    <script src="<?php echo $url; ?>/App/web/js/plugins/validate/jquery.validate.min.js"></script>
-
+    <script src="<?php echo $url; ?>App/web/js/plugins/validate/jquery.validate.min.js"></script>
+	<!-- jquery forms -->
+    <script src="<?php echo $url; ?>App/web/js/jquery.form.js"></script>
+	<!-- Sweet alert -->
+    <script src="<?php echo $url; ?>App/web/js/plugins/sweetalert/sweetalert.min.js"></script>
 	
 	
    <script>
@@ -198,7 +201,48 @@ use \App\data\DataGridView as DGV;
 						"previous":   "Anterior"
 						}
 				}
-        });
+			});
+			//START botones para "eliminar" usuario
+			var btn_pkCO_j;
+			$('.delete').click(function () {
+				btn_pkCO_j = $(this);
+				swal({
+							title: "¿Desea realmente eliminar este usuario?",
+							text: "",
+							type: "warning",
+							showCancelButton: true,
+							confirmButtonColor: "#DD6B55",
+							confirmButtonText: "Si, ¡eliminar!",
+							cancelButtonText: "No, ¡cancelar!",
+							closeOnConfirm: false,
+				},
+				function (isConfirm) {
+					if (isConfirm) {
+						$.ajax({
+							url: '<?php echo $url; ?>private/EnterpriseGroup/bussinessEG',
+							type: "POST",
+							dataType: 'JSON',
+							data: {
+								id : btn_pkCO_j.val(),
+								btn: btn_pkCO_j.attr('name'),
+								cmd: "DeleteCompany"
+							},
+							success: function(data){
+								swal("¡Eliminado!", data.message, "success");
+								
+								// Redireccionar
+								//if (data.href != null) {
+									//if (data.href == 'self') window.location.reload(true);
+									//else redirect(data.href);
+								//}
+							}
+						});
+						
+					} 
+				}
+				);
+			});
+			//END 
 		});
     </script>
 

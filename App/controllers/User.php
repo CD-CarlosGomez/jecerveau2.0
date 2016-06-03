@@ -167,9 +167,8 @@ private $_sesionpkiBUser;
 		View::set("currentUser",$this->_sesionpkiBUser);
 		View::render("updateUser");
 	}
-	public function cmdDeleteUser($pk){
+	public function cmdDeleteUser(){
 		View::set("currentUser",$this->_sesionpkiBUser);
-		View::set("pk",$pk);
 		View::render("deleteUser");
 	}
 }

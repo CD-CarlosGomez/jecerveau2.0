@@ -41,7 +41,7 @@ use \App\data\DataGridView as DGV;
 		))
 		->addColumnAfter('Acciones', 
 									'<a class="btn btn-success btn-xs btn-block" href="'.$url.'private/User/editUser/$pkiBUser$">Editar</a>
-									<a class="btn btn-danger btn-xs btn-block delete" href="'.$url.'private/User/cmdDeleteUser/$pkiBUser$">Eliminar</a>
+									<button id="btn_pkU_h" class="btn btn-danger btn-xs btn-block delete" value="$pkiBUser$" name="btn_pk$pkiBUser$_h">Eliminar</button>
 									',
 									'Actions', array('align' => 'center'))
 		//->addColumnBefore('counter', '%counter%.', 'Counter', array('align' => 'right'))
@@ -143,25 +143,20 @@ use \App\data\DataGridView as DGV;
     </div>
 
     <!-- Mainly scripts -->
-    <script src="<?php echo $url; ?>/App/web/js/jquery-2.1.1.js"></script>
-    <script src="<?php echo $url; ?>/App/web/js/bootstrap.min.js"></script>
-    <script src="<?php echo $url; ?>/App/web/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="<?php echo $url; ?>/App/web/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-	
-	
-    <!-- Custom and plugin javascript -->
-    <script src="<?php echo $url; ?>/App/web/js/inspinia.js"></script>
-    <script src="<?php echo $url; ?>/App/web/js/plugins/pace/pace.min.js"></script>
-
+    <script src="<?php echo $url; ?>App/web/js/jquery-2.1.1.js"></script>
+    <script src="<?php echo $url; ?>App/web/js/bootstrap.min.js"></script>
+    <script src="<?php echo $url; ?>App/web/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="<?php echo $url; ?>App/web/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+	<!-- Custom and plugin javascript -->
+    <script src="<?php echo $url; ?>App/web/js/inspinia.js"></script>
+    <script src="<?php echo $url; ?>App/web/js/plugins/pace/pace.min.js"></script>
     <!-- Steps -->
-    <script src="<?php echo $url; ?>/App/web/js/plugins/staps/jquery.steps.min.js"></script>
-
+    <script src="<?php echo $url; ?>App/web/js/plugins/staps/jquery.steps.min.js"></script>
     <!-- Jquery Validate -->
-    <script src="<?php echo $url; ?>/App/web/js/plugins/validate/jquery.validate.min.js"></script>
-
+    <script src="<?php echo $url; ?>App/web/js/plugins/validate/jquery.validate.min.js"></script>
 	<!-- dataTables-->
-	<script src="<?php echo $url; ?>/App/web/js/plugins/dataTables/datatables.min.js"></script>
-	<script src="<?php echo $url; ?>/App/web/js/plugins/jeditable/jquery.jeditable.js"></script>
+	<script src="<?php echo $url; ?>App/web/js/plugins/dataTables/datatables.min.js"></script>
+	<script src="<?php echo $url; ?>App/web/js/plugins/jeditable/jquery.jeditable.js"></script>
 	<!-- Sweet alert -->
     <script src="<?php echo $url; ?>App/web/js/plugins/sweetalert/sweetalert.min.js"></script>
 	<!-- jquery forms -->
@@ -211,78 +206,46 @@ use \App\data\DataGridView as DGV;
             });
 		
 		//	botones para "eliminar" usuario
-			$(".delete").on('click',function(){
-				//var url=(this).attr('href');
-				//confirmDelete(url);
+			var btn_pk_j;
+			$('.delete').click(function () {
+				btn_pk_j = $(this);
 				swal({
-					title: "¿Desea realname eliminar a este usuario?",
-					text: "You will not be able to recover this imaginary file!",
-					type: "warning",
-					showCancelButton: true,
-					confirmButtonColor: "#DD6B55",
-					confirmButtonText: "Yes, delete it!",
-					closeOnConfirm: false
-				}, function (isConfirm) {
-					if (!isConfirm) return;
-					$.ajax({
-						url: url,
-						type: "GET",
-						/*data: {
-							"delete=" + true 
-						},*/
-						dataType: "JSON",
-						success: function () {
-							swal("Done!", "It was succesfully deleted!", "success");
-						},
-						error: function (xhr, ajaxOptions, thrownError) {
-							swal("Error deleting!", "Please try again", "error");
-						}
-					});
-					/*$.ajax({
-						type: "get",
-						url: "/admin/delete_order.php",
-						data: "orderid="+orderid,
-						success: function(data){
-						}
-					})
-					.done(function(data) {
-						swal("Canceled!", "Your order was successfully canceled!", "success");
-						$('#orders-history').load(document.URL +  ' #orders-history');
-					})
-					.error(function(data) {
-						swal("Oops", "We couldn't connect to the server!", "error");
-					});*/
-				});
-			});
-        });
-
-    function confirmDelete(url) {
-		swal({
-			title: "Are you sure?",
-			text: "You will not be able to recover this imaginary file!",
-			type: "warning",
-			showCancelButton: true,
-			confirmButtonColor: "#DD6B55",
-			confirmButtonText: "Yes, delete it!",
-			closeOnConfirm: false
-		}, function (isConfirm) {
-			if (!isConfirm) return;
-			$.ajax({
-				url: url,
-				type: "POST",
-				data: {
-					id: 5
+							title: "¿Desea realmente eliminar este usuario?",
+							text: "",
+							type: "warning",
+							showCancelButton: true,
+							confirmButtonColor: "#DD6B55",
+							confirmButtonText: "Si, ¡eliminar!",
+							cancelButtonText: "No, ¡cancelar!",
+							closeOnConfirm: false,
 				},
-				dataType: "html",
-				success: function () {
-					swal("Done!", "It was succesfully deleted!", "success");
-				},
-				error: function (xhr, ajaxOptions, thrownError) {
-					swal("Error deleting!", "Please try again", "error");
+				function (isConfirm) {
+					if (isConfirm) {
+						$.ajax({
+							url: '<?php echo $url; ?>private/User/cmdDeleteUser',
+							type: "POST",
+							dataType: 'JSON',
+							data: {
+								id : btn_pk_j.val(),
+								cmd: "DeleteUser"
+							},
+							success: function(data){
+								swal("¡Eliminado!", data.message, "success");
+								
+								// Redireccionar
+								if (data.href != null) {
+									if (data.href == 'self') window.location.reload(true);
+									else redirect(data.href);
+								}
+							}
+						});
+						
+					} 
 				}
+				);
 			});
-		});
-	}
+			
+        });
     </script>
 </body>
 </html>

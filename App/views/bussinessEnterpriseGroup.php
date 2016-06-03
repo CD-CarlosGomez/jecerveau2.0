@@ -5,6 +5,7 @@
 // | @Version 1.0
 // +-----------------------------------------------
 // +---------------------------Comentarios de versión
+//GLOBALS para hacer la funciones del switch
 namespace App\views;
 defined("APPPATH") OR die("Access denied");
 
@@ -17,35 +18,99 @@ use \App\data\Crud as Crud;
 *******************************************************************************/
 if($_POST){
 	extract($_POST);
-	
-	
-	$pkuser['pkiBUser'] = $id;
-	
-	$user['Active'] = 0;
-	$user['Modified'] = date('Y-m-d');
-	$user['ModifiedBy'] = $currentUser;
-		
-	$ctrlUpdateUser = Crud::update($user,$pkuser,'ibuser');
-	//echo $ctrlUpdateUser = Crud::buildUpdate($user,$pkuser,'ibuser');
-	if ($ctrlUpdateUser){
-		$response = array(
-			'response' => true,
-			'message'  => 'El usuario se eliminó correctamente.',
-			'href'     => 'self',
-			'function' => null //'string'
-			);
-			echo json_encode($response);
-		}
-		else{
-			$response = array(
-			'response' => false,
-			'message'  => 'El usuario no se eliminó correctamente.',
-			'href'     => null,
-			'function' => null //'string'
-			);
-			echo json_encode($response);	
-		}		
 }
+	switch(@$cmd){
+		case "addProfile":
+			CreateProfile();
+		break;
+		case "AddUser":
+			CreateUser();
+		break;
+		case "DeleteCompany":
+			//deleteCompany();
+			
+			
+			$set['Active'] = 0;
+			$set['Modified'] = date('Y-m-d');
+			$set['ModifiedBy'] = $currentUser;
+			$where['pkCompany'] = $id;
+			$ctrlUpdate = Crud::update($set,$where,'company');
+			
+			if ($ctrlUpdate){
+				$response = array(
+					'response' => true,
+					'message'  => 'La cuenta maestra se eliminó correctamente.',
+					'href'     => null,
+					'function' => null //'string'
+					);
+					echo json_encode($response);
+				}
+				else{
+					$response = array(
+					'response' => false,
+					'message'  => 'La cuenta maestra no se pudo eliminar.',
+					'href'     => null,
+					'function' => null //'string'
+					);
+					echo json_encode($response);	
+				}		
+		break;
+		case "DeleteBO":
+						
+			$set['Active'] = 0;
+			$set['Modified'] = date('Y-m-d');
+			$set['ModifiedBy'] = $currentUser;
+			$where['pkBranchOffice'] = $id;
+			$ctrlUpdate = Crud::update($set,$where,'branchoffice');
+			
+			if ($ctrlUpdate){
+				$response = array(
+					'response' => true,
+					'message'  => 'El AASP se eliminó correctamente.',
+					'href'     => 'self',
+					'function' => null //'string'
+					);
+					echo json_encode($response);
+				}
+				else{
+					$response = array(
+					'response' => false,
+					'message'  => 'EL AASP no se pudo eliminar.',
+					'href'     => null,
+					'function' => null //'string'
+					);
+					echo json_encode($response);	
+				}		
+		break;
+		case "DeleteSubcompany":
+						
+			$set['active'] = 0;
+			$set['modified'] = date('Y-m-d');
+			$set['modifiedBy'] = $currentUser;
+			$where['pkSubCompany'] = $id;
+			$ctrlUpdate = Crud::update($set,$where,'subcompany');
+			
+			if ($ctrlUpdate){
+				$response = array(
+					'response' => true,
+					'message'  => 'La subcuenta se eliminó correctamente.',
+					'href'     => 'self',
+					'function' => null //'string'
+					);
+					echo json_encode($response);
+				}
+				else{
+					$response = array(
+					'response' => false,
+					'message'  => 'La subcuenta no se pudo eliminar.',
+					'href'     => null,
+					'function' => null //'string'
+					);
+					echo json_encode($response);	
+				}		
+		break;
+ 	}
+
 /*******************************************************************************
 *                                                                              *
 *                        ##########CONSTANTES##########                        *
@@ -101,4 +166,35 @@ if($_POST){
 *                  ##########MAIN##########                                    *
 *                                                                              *
 *******************************************************************************/
+	/*function deleteCompany(){
+		
+		$where['pkCompany'] = $GLOBALS['id'];
+	
+		$set['Active'] = 0;
+		$set['Modified'] = date('Y-m-d');
+		$set['ModifiedBy'] = $GLOBALS['currentUser'];
+		
+		$ctrlUpdate = Crud::update($set,$where,'company');
+		
+		if ($ctrlUpdate){
+			$response = array(
+				'response' => true,
+				'message'  => 'La cuenta maestra se eliminó correctamente.',
+				'href'     => 'self',
+				'function' => null //'string'
+				);
+				echo json_encode($response);
+			}
+			else{
+				$response = array(
+				'response' => false,
+				'message'  => 'La cuenta maestra no se pudo eliminar.',
+				'href'     => null,
+				'function' => null //'string'
+				);
+				echo json_encode($response);	
+			}		
+
+	}*/
+
 ?>
