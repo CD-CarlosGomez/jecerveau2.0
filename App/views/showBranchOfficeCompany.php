@@ -28,7 +28,7 @@ use \App\data\DataGridView as DGV;
 		->removeColumn('pkCompany')
 		->removeColumn('pkSubCompany')
 		->setup(array(
-			'' => array('header' => 'Cuenta maestra'),
+			'Active' => array('header' => 'Estatus', 'cellTemplate' => '[[print_status:%data%]]'),
 			'BOName' => array('header' => 'AASP'),
 			'BOStreet' => array('header' => 'Calle'),
 			'totalUsers' => array('header' => 'Usuarios')

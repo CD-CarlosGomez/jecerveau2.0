@@ -32,9 +32,9 @@ use \App\data\DataGridView as DGV;
 			'BOName' => array('header' => 'Sucursal'),
 			'Name' => array('header' => 'Perfil asignado')
 		))
-		->addColumnAfter('actions', 
+		/*->addColumnAfter('actions', 
 									'<a href="'.$url.'private/User/showProfile">Ver Perfil</a>',
-									'Actions', array('align' => 'center'))
+									'Actions', array('align' => 'center'))*/
 		//->addColumnBefore('counter', '%counter%.', 'Counter', array('align' => 'right'))
 		//->setStartingCounter(1)
 		//->setRowClass('')

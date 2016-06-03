@@ -40,7 +40,7 @@ if($_POST){
 				$response = array(
 					'response' => true,
 					'message'  => 'La cuenta maestra se eliminó correctamente.',
-					'href'     => null,
+					'href'     => 'self',
 					'function' => null //'string'
 					);
 					echo json_encode($response);
@@ -49,7 +49,7 @@ if($_POST){
 					$response = array(
 					'response' => false,
 					'message'  => 'La cuenta maestra no se pudo eliminar.',
-					'href'     => null,
+					'href'     => 'self',
 					'function' => null //'string'
 					);
 					echo json_encode($response);	
@@ -76,7 +76,7 @@ if($_POST){
 					$response = array(
 					'response' => false,
 					'message'  => 'EL AASP no se pudo eliminar.',
-					'href'     => null,
+					'href'     => 'self',
 					'function' => null //'string'
 					);
 					echo json_encode($response);	
@@ -103,7 +103,7 @@ if($_POST){
 					$response = array(
 					'response' => false,
 					'message'  => 'La subcuenta no se pudo eliminar.',
-					'href'     => null,
+					'href'     => 'self',
 					'function' => null //'string'
 					);
 					echo json_encode($response);	

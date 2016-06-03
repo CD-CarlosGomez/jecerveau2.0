@@ -242,7 +242,7 @@ class DataGridView{
 
         return $this;
     }
-     public function getString(){
+    public function getString(){
         $sortField  = '';
         $sortOrder  = '';
         $data       = $this->_datarows;
@@ -320,7 +320,7 @@ class DataGridView{
 										} else {
 											$params = array();
 										}
-										$data = str_replace($match[0], call_user_func_array($match[1], $params), $data);
+										$data = str_replace($match[0], call_user_func_array(array($this,$match[1]), $params), $data);
 									}
 								}
 								if (!empty($link)) {
@@ -357,4 +357,24 @@ class DataGridView{
     public function toString(){
         return $this->getString();
     }
+	public static function print_status($st){
+			switch($st){
+				case '0':
+					$status = '<span class="label label-danger">Inactivo</span>';
+					return $status;
+				break;
+				case '10':
+					$status = '<span class="label label-warning">Suspendido</span>';
+					return $status;
+				break;
+				case '1':
+					$status = '<span class="label label-primary">Activo</span>';
+					return $status;
+				break;
+				case '11':
+					$status = '<span class="label label-primary">Activo</span>';
+					return $status;
+				break;
+			}
+		}
 }

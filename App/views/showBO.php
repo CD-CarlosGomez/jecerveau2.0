@@ -33,11 +33,12 @@ use \App\data\DataGridView as DGV;
 		->removeColumn(3)
 		->removeColumn(4)
 		->removeColumn(5)
+		->removeColumn(6)
 		->setup(array(
-			'' => array('header' => 'Cuenta maestra'),
+			'Active' => array('header' => 'Estatus', 'cellTemplate' => '[[print_status:%data%]]'),
 			'BOName' => array('header' => 'AASP'),
 			'BOStreet' => array('header' => 'Calle'),
-			'totalUsers' => array('header' => 'Usuarios','link'=>$url . 'private/EnterpriseGroup/showUserBranchOffice/','filterColumn'=>2)
+			'totalUsers' => array('header' => 'Usuarios','link'=>$url . 'private/EnterpriseGroup/showUserBranchOffice/','filterColumn'=>3)
 		))
 		->addColumnAfter('actions', 
 									'<a class="btn btn-success btn-xs btn-block" href="'.$url.'private/EnterpriseGroup/editBranchOffice/$pkBranchOffice$">Editar</a>
@@ -237,7 +238,7 @@ use \App\data\DataGridView as DGV;
 							success: function(data){
 								swal("¡Eliminado!", data.message, "success");
 								
-								 Redireccionar
+								//Redireccionar
 								if (data.href != null) {
 									if (data.href == 'self') window.location.reload(true);
 									else redirect(data.href);

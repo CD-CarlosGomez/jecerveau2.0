@@ -32,10 +32,12 @@ use \App\data\DataGridView as DGV;
 		->removeColumn(2)
 		->removeColumn(3)
 		->removeColumn(4)
+		->removeColumn(5)
 		->setup(array(
+			'active' => array('header' => 'Estatus', 'cellTemplate' => '[[print_status:%data%]]'),
 			'subCompanyName' => array('header' => 'Commercial_Name'),
-			'totalBO' => array('header' => 'Sucursales','link'=>$url . 'private/EnterpriseGroup/showBranchOfficeSubCompany/','filterColumn'=>1),
-			'totalUsers' => array('header' => 'Usuarios','link'=>$url . 'private/EnterpriseGroup/showUserSubCompany/','filterColumn'=>1)
+			'totalBO' => array('header' => 'Sucursales','link'=>$url . 'private/EnterpriseGroup/showBranchOfficeSubCompany/','filterColumn'=>2),
+			'totalUsers' => array('header' => 'Usuarios','link'=>$url . 'private/EnterpriseGroup/showUserSubCompany/','filterColumn'=>2)
 		))
 		//->addColumnAfter('actions', 
 		//							'<a href="'.$url.'private/EnterpriseGroup/showBranchOffice">Ver Subcompanie\'s</a>',

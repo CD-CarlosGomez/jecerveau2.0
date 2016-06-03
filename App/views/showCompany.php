@@ -22,6 +22,7 @@ use \App\data\DataGridView as DGV;
 		exit;
 
 		}
+		
 		$outputTableCompany=DGV::getInstance($dt_Company)
 		->setGridAttributes(array('class' => 'table table-striped table-bordered table-hover dataTables'))
 		->enableSorting(false)
@@ -32,12 +33,14 @@ use \App\data\DataGridView as DGV;
 		->removeColumn(3)//totalBO
 		->removeColumn(4)//totalSubCompany
 		->removeColumn(5)//totalUsers
+		->removeColumn(6)//totalUsers
 		->setup(array(
+			'Active' => array('header' => 'Estatus', 'cellTemplate' => '[[print_status:%data%]]'),
 			'legalName' => array('header' => 'Cuenta maestra'),
 			'commercialName' => array('header' => 'Nombre comercial'),
-			'totalSubCompany' => array('header' => 'Sub Cuentas','link'=>$url . 'private/EnterpriseGroup/showSubcompanyCompany/','filterColumn'=>0 ),
-			'totalBO' => array('header' => 'AASPS','link'=>$url . 'private/EnterpriseGroup/showBranchOfficeCompany/','filterColumn'=>0),
-			'totalUsers' => array('header' => 'Usuarios','link'=>$url . 'private/EnterpriseGroup/showUserCompany/','filterColumn'=>0)
+			'totalSubCompany' => array('header' => 'Sub Cuentas','link'=>$url . 'private/EnterpriseGroup/showSubcompanyCompany/','filterColumn'=>1 ),
+			'totalBO' => array('header' => 'AASPS','link'=>$url . 'private/EnterpriseGroup/showBranchOfficeCompany/','filterColumn'=>1),
+			'totalUsers' => array('header' => 'Usuarios','link'=>$url . 'private/EnterpriseGroup/showUserCompany/','filterColumn'=>1)
 		))
 		->addColumnAfter('actions', '<a class="btn btn-success btn-xs btn-block" href="'.$url.'private/EnterpriseGroup/editCompany/$pkCompany$">Editar</a>
 									<button id="" class="btn btn-danger btn-xs btn-block delete" value="$pkCompany$" name="btn_pkCO$pkCompany$_h">Eliminar</button>'
@@ -230,11 +233,11 @@ use \App\data\DataGridView as DGV;
 							success: function(data){
 								swal("¡Eliminado!", data.message, "success");
 								
-								// Redireccionar
-								//if (data.href != null) {
-									//if (data.href == 'self') window.location.reload(true);
-									//else redirect(data.href);
-								//}
+								 //Redireccionar
+								if (data.href != null) {
+									if (data.href == 'self') window.location.reload(true);
+									else redirect(data.href);
+								}
 							}
 						});
 						

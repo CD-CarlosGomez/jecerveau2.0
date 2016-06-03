@@ -33,8 +33,9 @@ use \App\data\DataGridView as DGV;
 		->removeColumn(3)
 		->removeColumn(4)
 		->removeColumn(5)
+		->removeColumn(6)
 		->setup(array(
-			'' => array('header' => 'Cuenta maestra'),
+			'Active' => array('header' => 'Estatus', 'cellTemplate' => '[[print_status:%data%]]'),
 			'BOName' => array('header' => 'AASP'),
 			'BOStreet' => array('header' => 'Calle'),
 			'totalUsers' => array('header' => 'Usuarios','link'=>$url . 'private/EnterpriseGroup/showUserBranchOffice/','filterColumn'=>2)

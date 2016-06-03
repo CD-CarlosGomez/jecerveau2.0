@@ -9,13 +9,13 @@ use \App\data\DataGridView as DGV;
 		if (isset($_SESSION['loggedin']) & $_SESSION['loggedin'] == true){}
 		else{
 				echo "Esta pagina es solo para usuarios registrados.<br>";
-			echo "<a href='http://localhost:8012/ibrain2.0'>Login Here!</a>";
+			echo "<a href='$url'>Login Here!</a>";
 			exit;
 		}
 		$now = time(); 
 		if($now > $_SESSION['expire']){
 		session_destroy();
-		echo "Su sesion a terminado, <a href='http://localhost:8012/ibrain2.0'>
+		echo "Su sesion a terminado, <a href='$url'>
 			  Necesita Hacer Login</a>";
 		exit;
 		}
@@ -32,9 +32,9 @@ use \App\data\DataGridView as DGV;
 			'BOName' => array('header' => 'Sucursal'),
 			'Name' => array('header' => 'Perfil asignado')
 		))
-		->addColumnAfter('actions', 
+		/*->addColumnAfter('actions', 
 									'<a href="'.$url.'private/User/showProfile">Ver Perfil</a>',
-									'Actions', array('align' => 'center'))
+									'Actions', array('align' => 'center'))*/
 		//->addColumnBefore('counter', '%counter%.', 'Counter', array('align' => 'right'))
 		//->setStartingCounter(1)
 		//->setRowClass('')

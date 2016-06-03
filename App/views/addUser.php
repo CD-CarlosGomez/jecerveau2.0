@@ -212,6 +212,9 @@ use \Core\Controller;
 					txt_newPassword_h : {
 						required : true,
 						//regex : true
+					},
+					slt_defaultFunction_h :{
+						required : true
 					}
 				},
 				messages : {
@@ -228,6 +231,9 @@ use \Core\Controller;
 					},
 					txt_newPassword_h : {
 						required : "Favor de asignarle una contraseña al usuario."
+					},
+					slt_defaultFunction_h :{
+						required : "Favor de seleccionar una p&aacute;gina de inicio"
 					}
 				}
 			});
