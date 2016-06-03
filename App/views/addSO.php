@@ -122,19 +122,19 @@ use \Core\Controller;
 													<div class="form-group">
 														<label class="col-md-4 control-label">Serie:*</label>
 														<div class="col-lg-8">
-															<input type="text" id="txt_gsxSerialNumber_h" class="form-control required" value="<?php //echo $obj_gsx_p->{'serialNumber'}; ?>" name="txt_gsxSerialNumber_h"/>
+															<input type="text" id="txt_gsxSerialNumber_h" class="form-control required" value="" name="txt_gsxSerialNumber_h"/>
 														</div>
 													</div>
 													<div class="form-group">
 														<label class="col-md-4 control-label">Modelo:</label>
 														<div class="col-lg-8">
-															<input type="text" id="txt_gsxModel_h" class="form-control required" value="<?php echo $obj_gsx_p->{'productDescription'};?>" readonly="readonly" name="txt_gsxModel_h"/>
+															<input type="text" id="txt_gsxModel_h" class="form-control required" value="" readonly="readonly" name="txt_gsxModel_h"/>
 														</div>
 													</div>
 													<div class="form-group">
 														<label class="col-md-4 control-label">Configuraci&oacute;n:</label>
 														<div class="col-md-8">
-															<input type="text" id="txt_gsxConfigDesc_h" class="form-control required" value="<?php echo $obj_gsx_p->{'configDescription'};?>" readonly="readonly" name="txt_gsxConfigDesc_h" />
+															<input type="text" id="txt_gsxConfigDesc_h" class="form-control required" value="" readonly="readonly" name="txt_gsxConfigDesc_h" />
 														</div>
 													</div>
 													</fieldset>
@@ -144,19 +144,19 @@ use \Core\Controller;
 														<div class="form-group">
 															<label class="col-md-4 control-label">Estado de la cobertura:</label>
 															<div class="col-md-8">
-																<input  type="text" id="txt_gsxWarrantyST_h" class="form-control required" value="<?php echo $obj_gsx_p->{'warrantyStatus'};?>" readonly="readonly" name="txt_gsxWarrantyST_h"/>
+																<input  type="text" id="txt_gsxWarrantyST_h" class="form-control required" value="" readonly="readonly" name="txt_gsxWarrantyST_h"/>
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">Fecha de compra:</label>
 															<div class="col-md-8">
-																<input  type="text" id="txt_gsxPurchaseDate_h" class="form-control required" value="<?php echo $obj_gsx_p->{'estimatedPurchaseDate'};?>" readonly="readonly" name="txt_gsxPurchaseDate_h"/>
+																<input  type="text" id="txt_gsxPurchaseDate_h" class="form-control required" value="" readonly="readonly" name="txt_gsxPurchaseDate_h"/>
 															</div>
 														</div>
 														<div class="form-group">
 															<label class="col-md-4 control-label">Comprado en:</label>
 															<div class="col-md-8">
-																<input type="text" id="txt_gsxPurchaseCountry_h" class="form-control required" value="<?php echo $obj_gsx_p->{'purchaseCountry'};?>" readonly="readonly" name="txt_gsxPurchaseCountry_h"/>
+																<input type="text" id="txt_gsxPurchaseCountry_h" class="form-control required" value="" readonly="readonly" name="txt_gsxPurchaseCountry_h"/>
 															</div>
 														</div>
 														<div class="form-group">
