@@ -2,6 +2,27 @@
 /* 
  * Copyright (c) 2009 Nguyen Duc Thuan <me@ndthuan.com>
  * All rights reserved.
+ 
+ADVANCED USAGES:
+
+- Variables that you can use within the cell template:
+%data%          This variable will be replaced by the cell data itself
+%counter%       This will be replaced by the row counter (the starting counter can be change by use setStartingCounter method)
+$some_column$   This will be replaced by the value of the column on that row. For example, in the array above, $name$ can be A, B or C; $id$ can be 1, 2 or 3
+[[someFunction:param1,param2,param3]] will be replaced by the value of someFunction('param1', 'param2', 'param3')
+
+- TO ENABLE SORTING:
+$grid->enableSorting(true);
+
+- TO REMOVE A COLUMN:
+$grid->removeColumn('id');
+
+- TO CHANGE ALTERNATIVE ROWS CSS CLASS:
+$grid->setAlterRowClass('someCssClass');
+
+- TO ADD A CUSTOM COLUMN AFTER DATA COLUMNS:
+$grid->addColumnAfter('column_name', 'cell template', 'column header', array_of_cell_attributes);
+ 
  */
 namespace App\data;
 defined("APPPATH") OR die("Access denied");
@@ -376,5 +397,9 @@ class DataGridView{
 					return $status;
 				break;
 			}
-		}
+	}
+	public static function setDateFormat($date2format){
+		$dateFormatted = new \DateTime($date2format);
+		return $dateFormatted->format('Y-m-d');
+	}
 }

@@ -32,14 +32,15 @@ use \App\data\DataGridView as DGV;
 		->removeColumn(4)
 		->removeColumn(5)
 		->setup(array(
-			'SONumber' => array('header' => 'N&uacute;mero de orden','link'=>$url . 'private/ServiceOrder/ViewSO/','filterColumn'=>0),
+			//'SONumber' => array('header' => 'N&uacute;mero de orden','link'=>$url . 'private/ServiceOrder/ViewSO/','filterColumn'=>0),
+			'SONumber' => array('header' => 'N&uacute;mero de orden'),
 			'Serie' => array('header' => 'Serie'),
 			'contactName' => array('header' => 'Nombre'),
 			'Modelo' => array('header' => 'Device'),
 			'Tipo' => array('header' => 'Tipo'),
 			'realname' => array('header' => 'Asignado a'),
 			'SOstatusName' => array('header' => 'Estatus'),
-			'SODate' => array('header' => 'Fecha'),
+			'SODate' => array('header' => 'Fecha', 'cellTemplate' => '[[setDateFormat:%data%]]'),
 			'DT' => array('header' => 'DT'),
 			'Due' => array('header' => 'Due'),
 			'Archivos' => array('header' => 'Arch'),
@@ -48,9 +49,10 @@ use \App\data\DataGridView as DGV;
 			//'ibSOrderObs' => array('header' => 'Observaciones'),
 			
 		))
-		/*->addColumnAfter('actions', 
-									'<a href="'.$url.'private/ServiceOrder/ViewSO/$pkSOrder$">Ver ASP\'s</a>',
-									'Actions', array('align' => 'center'))*/
+		->addColumnAfter('actions', 
+									'<a class="btn btn-success btn-xs btn-block" href="'.$url.'private/ServiceOrder/ViewSO/$pkSOrder$">Seguimiento</a>
+									<button id="" class="btn btn-danger btn-xs btn-block delete" value="$pkSOrder$" name="btn_pkSO$pkSOrder$_h">Cancelar</button>',
+									'Actions', array('align' => 'center'))
 		//->addColumnBefore('counter', '%counter%.', 'Counter', array('align' => 'right'))
 		//->setStartingCounter(1)
 		//->setRowClass('')
@@ -116,8 +118,8 @@ use \App\data\DataGridView as DGV;
 					</ol>
 				</div>
 			</div>	
-			<div class="wrapper wrapper-content">
-				<div class="container">
+			<div class="wrapper wrapper-content animated fadeInRight">
+				<!--div class="container"Eliminamos el container para más espacio-->
 					<div class="row">
 						<div class="col-lg-12">
 							<div class="ibox float-e-margins">
@@ -138,7 +140,7 @@ use \App\data\DataGridView as DGV;
 							</div>
 						</div>
 					</div>
-				</div>
+				<!--/div-->
 			</div>
 			<div class="footer">
 				<div class="pull-right">

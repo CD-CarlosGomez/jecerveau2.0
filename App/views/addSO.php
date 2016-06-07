@@ -25,8 +25,6 @@ use \Core\Controller;
 			  Necesita Hacer Login</a>";
 		exit;
 		}
-
-		$obj_gsx_p=json_decode($jsn_gsx_p);
 				
 ?>
 <!DOCTYPE html>

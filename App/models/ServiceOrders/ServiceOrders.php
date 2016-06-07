@@ -319,5 +319,4 @@ class ServiceOrders implements iCrud{
             print "Error!: " . $e->getMessage();
         }
 	}
-	
 }
