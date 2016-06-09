@@ -26,7 +26,6 @@ use \App\data\DataGridView as DGV;
 		->removeColumn('pwd')
 		->removeColumn('pwdtmp')
 		->removeColumn('Active')
-		//->removeColumn('Created')
 		->removeColumn('CreatedBy')
 		->removeColumn('Modified')
 		->removeColumn('ModifiedBy')
@@ -40,11 +39,12 @@ use \App\data\DataGridView as DGV;
 			'Created' => array ('header' => 'Fecha de creaci&oacute;n')
 		))
 		->addColumnAfter('Acciones', 
-									'<a class="btn btn-success btn-xs btn-block" href="'.$url.'private/User/editUser/$pkiBUser$">Editar</a>
-									<button id="btn_pkU_h" class="btn btn-danger btn-xs btn-block delete" value="$pkiBUser$" name="btn_pk$pkiBUser$_h">Eliminar</button>
+									'<a id="$pkiBUser$" class="btn btn-primary btn-xs btn-block col-lg-8" href="'.$url.'private/User/editUser/$pkiBUser$">Editar</a>
+									 <a id="$pkiBUser$" class="delete btn btn-primary col-lg-8 btn-xs btn-block" href="#">[[printActivaDesactiva:$Active$]]</a>							
 									',
 									'Actions', array('align' => 'center'))
-		//->addColumnBefore('counter', '%counter%.', 'Counter', array('align' => 'right'))
+		->addColumnBefore('ST', '[[print_status:$Active$]]', 'Estatus', array('align' => 'center'))
+	
 		//->setStartingCounter(1)
 		//->setRowClass('')
 		//->setAlterRowClass('alterRow');
@@ -206,16 +206,17 @@ use \App\data\DataGridView as DGV;
             });
 		
 		//	botones para "eliminar" usuario
-			var btn_pk_j;
-			$('.delete').click(function () {
-				btn_pk_j = $(this);
+			$(".delete").click(function() {
+				var btn_pk_j = $(this);
+				var pkDelete = btn_pk_j.attr("id");
+				var id = 'id=' + pkDelete + '&cmd=DeleteUser';
 				swal({
-							title: "¿Desea realmente eliminar este usuario?",
+							title: "Desea realmente cambiar el estatus de este usuario?",
 							text: "",
 							type: "warning",
 							showCancelButton: true,
 							confirmButtonColor: "#DD6B55",
-							confirmButtonText: "Si, ¡eliminar!",
+							confirmButtonText: "Si, ¡cambiar!",
 							cancelButtonText: "No, ¡cancelar!",
 							closeOnConfirm: false,
 				},
@@ -225,12 +226,9 @@ use \App\data\DataGridView as DGV;
 							url: '<?php echo $url; ?>private/User/cmdDeleteUser',
 							type: "POST",
 							dataType: 'JSON',
-							data: {
-								id : btn_pk_j.val(),
-								cmd: "DeleteUser"
-							},
+							data: id,
 							success: function(data){
-								swal("¡Eliminado!", data.message, "success");
+								swal("¡Desactivado!", data.message, "success");
 								
 								// Redireccionar
 								if (data.href != null) {
@@ -246,6 +244,7 @@ use \App\data\DataGridView as DGV;
 			});
 			
         });
+		
     </script>
 </body>
 </html>

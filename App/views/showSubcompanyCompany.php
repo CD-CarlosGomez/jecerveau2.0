@@ -35,7 +35,7 @@ use \App\data\DataGridView as DGV;
 		->removeColumn(5)
 		->setup(array(
 			'active' => array('header' => 'Estatus', 'cellTemplate' => '[[print_status:%data%]]'),
-			'subCompanyName' => array('header' => 'Commercial_Name'),
+			'subCompanyName' => array('header' => 'Sub cuenta'),
 			'totalBO' => array('header' => 'Sucursales','link'=>$url . 'private/EnterpriseGroup/showBranchOfficeSubCompany/','filterColumn'=>2),
 			'totalUsers' => array('header' => 'Usuarios','link'=>$url . 'private/EnterpriseGroup/showUserSubCompany/','filterColumn'=>2)
 		))

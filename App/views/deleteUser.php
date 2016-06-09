@@ -18,7 +18,6 @@ use \App\data\Crud as Crud;
 if($_POST){
 	extract($_POST);
 	
-	
 	$pkuser['pkiBUser'] = $id;
 	
 	$user['Active'] = 0;

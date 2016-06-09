@@ -84,7 +84,7 @@ defined("APPPATH") OR die("Access denied");
 								<div id="" class="form-group">
 									<select id="slt_AASP_h" class="form-control" required="" name="slt_AASP_h">
 										<option value=-1>Seleccion un AASP...</option>
-											<!--input type="hidden" value="1" name="vstr_username_j"/-->
+											<?php print_r($currentBO);?>
 									</select>
 								</div>
 							</div>
@@ -98,7 +98,11 @@ defined("APPPATH") OR die("Access denied");
 								</div>
 							</div>
 							<div class="footer">
+								<div class="pull-right">
+										Usuario: su@consultoriadual.com | Sucursal: Consultoria Dual | Hora: <?php echo date('Y-m-d h:s'); ?>
+								</div>
 								<div>
+								
 									<strong>iBrain&#174;</strong> 2.0
 								</div>
 							</div>

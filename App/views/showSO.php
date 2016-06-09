@@ -31,17 +31,18 @@ use \App\data\DataGridView as DGV;
 		->removeColumn(3)
 		->removeColumn(4)
 		->removeColumn(5)
+		->removeColumn(6)
 		->setup(array(
 			//'SONumber' => array('header' => 'N&uacute;mero de orden','link'=>$url . 'private/ServiceOrder/ViewSO/','filterColumn'=>0),
+			'lastst' => array('header' => 'Estatus', 'cellTemplate' => '[[printSOStatus:%data%]]'),
 			'SONumber' => array('header' => 'N&uacute;mero de orden'),
 			'Serie' => array('header' => 'Serie'),
 			'contactName' => array('header' => 'Nombre'),
 			'Modelo' => array('header' => 'Device'),
 			'Tipo' => array('header' => 'Tipo'),
 			'realname' => array('header' => 'Asignado a'),
-			'SOstatusName' => array('header' => 'Estatus'),
+			'deviceDesc' => array('header' => 'Modelo'),
 			'SODate' => array('header' => 'Fecha', 'cellTemplate' => '[[setDateFormat:%data%]]'),
-			'DT' => array('header' => 'DT'),
 			'Due' => array('header' => 'Due'),
 			'Archivos' => array('header' => 'Arch'),
 			'Documentos' => array('header' => 'Docs')
@@ -49,6 +50,7 @@ use \App\data\DataGridView as DGV;
 			//'ibSOrderObs' => array('header' => 'Observaciones'),
 			
 		))
+		->addColumnAfter('DT', '[[getDT:$SODate$]]', 'DT', array('align' => 'center'))
 		->addColumnAfter('actions', 
 									'<a class="btn btn-success btn-xs btn-block" href="'.$url.'private/ServiceOrder/ViewSO/$pkSOrder$">Seguimiento</a>
 									<button id="" class="btn btn-danger btn-xs btn-block delete" value="$pkSOrder$" name="btn_pkSO$pkSOrder$_h">Cancelar</button>',
@@ -68,18 +70,18 @@ use \App\data\DataGridView as DGV;
 
     <title>iBrain 2.0</title>
 	<!-- Mainly CSS -->
-    <link href="<?php echo $url; ?>/App/web/css/bootstrap.min.css" rel="stylesheet">
-    <link href="<?php echo $url; ?>/App/web/font-awesome/css/font-awesome.css" rel="stylesheet">
-	<link href="<?php echo $url; ?>/App/web/css/animate.css" rel="stylesheet">
-    <link href="<?php echo $url; ?>/App/web/css/style.css" rel="stylesheet">
+    <link href="<?php echo $url; ?>App/web/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo $url; ?>App/web/font-awesome/css/font-awesome.css" rel="stylesheet">
+	<link href="<?php echo $url; ?>App/web/css/animate.css" rel="stylesheet">
+    <link href="<?php echo $url; ?>App/web/css/style.css" rel="stylesheet">
 	<!-- Custom CSS -->
-	<link href="<?php echo $url; ?>/App/web/css/plugins/iCheck/custom.css" rel="stylesheet">
+	<link href="<?php echo $url; ?>App/web/css/plugins/iCheck/custom.css" rel="stylesheet">
 	<!-- Wizard CSS -->
-    <link href="<?php echo $url; ?>/App/web/css/plugins/steps/jquery.steps.css" rel="stylesheet">
+    <link href="<?php echo $url; ?>App/web/css/plugins/steps/jquery.steps.css" rel="stylesheet">
 	<!-- dataTable CSS-->
-    <link href="<?php echo $url; ?>/App/web/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+    <link href="<?php echo $url; ?>App/web/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
 	 <!-- Toastr style -->
-    <link href="<?php echo $url; ?>/App/web/css/plugins/toastr/toastr.min.css" rel="stylesheet">
+    <link href="<?php echo $url; ?>App/web/css/plugins/toastr/toastr.min.css" rel="stylesheet">
 	
 </head>
 <body class="top-navigation">
@@ -151,30 +153,28 @@ use \App\data\DataGridView as DGV;
 			</div>
 		</div>
 	</div>
-
-
-
     <!-- Mainly scripts -->
     <script src="<?php echo $url; ?>/App/web/js/jquery-2.1.1.js"></script>
     <script src="<?php echo $url; ?>/App/web/js/bootstrap.min.js"></script>
     <script src="<?php echo $url; ?>/App/web/js/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="<?php echo $url; ?>/App/web/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-	
-	
-    <!-- Custom and plugin javascript -->
-    <script src="<?php echo $url; ?>/App/web/js/inspinia.js"></script>
-    <script src="<?php echo $url; ?>/App/web/js/plugins/pace/pace.min.js"></script>
+	<!-- Custom and plugin javascript -->
+    <script src="<?php echo $url; ?>App/web/js/inspinia.js"></script>
+    <script src="<?php echo $url; ?>App/web/js/plugins/pace/pace.min.js"></script>
 
     <!-- Steps -->
-    <script src="<?php echo $url; ?>/App/web/js/plugins/staps/jquery.steps.min.js"></script>
+    <script src="<?php echo $url; ?>App/web/js/plugins/staps/jquery.steps.min.js"></script>
 
     <!-- Jquery Validate -->
-    <script src="<?php echo $url; ?>/App/web/js/plugins/validate/jquery.validate.min.js"></script>
+    <script src="<?php echo $url; ?>App/web/js/plugins/validate/jquery.validate.min.js"></script>
 
 	<!-- dataTables-->
-	<script src="<?php echo $url; ?>/App/web/js/plugins/dataTables/datatables.min.js"></script>
-	<script src="<?php echo $url; ?>/App/web/js/plugins/jeditable/jquery.jeditable.js"></script>
-	
+	<script src="<?php echo $url; ?>App/web/js/plugins/dataTables/datatables.min.js"></script>
+	<script src="<?php echo $url; ?>App/web/js/plugins/jeditable/jquery.jeditable.js"></script>
+	<!-- Peity -->
+    <script src="<?php echo $url; ?>App/web/js/plugins/peity/jquery.peity.min.js"></script>
+    <!-- Peity demo data -->
+    <script src="<?php echo $url; ?>App/web/js/demo/peity-demo.js"></script>
    <script>
         $(document).ready(function(){
             $('.dataTables-example').DataTable({
@@ -196,7 +196,7 @@ use \App\data\DataGridView as DGV;
                     }
                     }
                 ],
-				"order":[[2,"desc"]],
+				"order":[[4,"desc"]],
 				language : {
 						buttons : {
 								copy : 'Copiar',

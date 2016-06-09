@@ -175,7 +175,7 @@ use \App\data\DataGridView as DGV;
 															<div class="form-group">
 																<label class="col-md-4 control-label">Modelo:*</label>
 																<div class="col-lg-8">
-																	<input type="text" id="txt_gsxModel_h" class="form-control required" value="<?php foreach($ds_so as $dr_so){ echo $dr_so["deviceModel"];} ?>" readonly="readonly" name="txt_gsxModel_h"/>
+																	<input type="text" id="txt_gsxModel_h" class="form-control required" value="<?php foreach($ds_so as $dr_so){ echo $dr_so["deviceDesc"];} ?>" readonly="readonly" name="txt_gsxModel_h"/>
 																</div>
 															</div>
 															<div class="form-group">
@@ -209,9 +209,9 @@ use \App\data\DataGridView as DGV;
 															<div class="form-group">
 																<label class="col-md-4 control-label">Extensi&oacute;n de la cobertura:</label>
 																<div class="col-md-8 input-group">
-																	<input type="text" id="txt_contractStartDate_h" class="form-control" readonly="readonly" name="txt_contractStartDate_h">
+																	<input type="text" id="txt_contractStartDate_h" class="form-control" readonly="readonly" value="<?php foreach($ds_so as $dr_so){ echo $dr_so["contractStartDate"];} ?>" name="txt_contractStartDate_h">
 																	<span class="input-group-addon">a</span>
-																	<input type="text" id="txt_contractEndDate_h" class="form-control" readonly="readonly" name="txt_contractEndDate_h"/>
+																	<input type="text" id="txt_contractEndDate_h" class="form-control" readonly="readonly" value="<?php foreach($ds_so as $dr_so){ echo $dr_so["contractEndDate"];} ?>" name="txt_contractEndDate_h"/>
 																</div>
 															</div>
 														</fieldset>

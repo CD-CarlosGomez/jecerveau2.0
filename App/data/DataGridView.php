@@ -170,7 +170,7 @@ class DataGridView{
 		 $this->_cellLink[$field] = $link;
         return $this;
 	}
-		/**
+	/**
 	**/
 	public function &setFilterColumn($field,$filter){
 		 $this->_filterByColumn[$field] = $filter;
@@ -378,28 +378,135 @@ class DataGridView{
     public function toString(){
         return $this->getString();
     }
+	/**
+     * @param int $st
+     * @return str  $status
+	 *	Recibe el número del status y en base a eso  construye el satus que presentará en la tabla
+     */
 	public static function print_status($st){
 			switch($st){
 				case '0':
-					$status = '<span class="label label-danger">Inactivo</span>';
+					$status = '<span class="label col-md-8 label-danger">Inactivo</span>';
 					return $status;
 				break;
 				case '10':
-					$status = '<span class="label label-warning">Suspendido</span>';
+					$status = '<span class="label col-md-8 label-warning">Suspendido</span>';
 					return $status;
 				break;
 				case '1':
-					$status = '<span class="label label-primary">Activo</span>';
+					$status = '<span class="label col-md-8 label-success">Activo</span>';
 					return $status;
 				break;
 				case '11':
-					$status = '<span class="label label-primary">Activo</span>';
+					$status = '<span class="label col-md-8 label-primary">Entrar la primera vez</span>';
 					return $status;
 				break;
 			}
 	}
+	/**
+     * @param str<date> $date2format
+     * @return str  $dateFormatted
+	 *	Recibe una fecha en string y lo retorna con formato YYYY-mm-dd
+     */
 	public static function setDateFormat($date2format){
 		$dateFormatted = new \DateTime($date2format);
 		return $dateFormatted->format('Y-m-d');
+	}
+	/**
+     * @param int $st
+     * @return str  $status
+	 *	Recibe el número del status y en base a eso  construye el satus que presentará en la tabla de las órdenes de servicio
+     **/
+	public static function printSOStatus($st){
+			switch($st){
+				case '0':
+					$status = '<span class="label col-md-8 label-primary">Entrada</span>';
+					return $status;
+				break;
+				case '1':
+					$status = '<span class="label col-md-8 label-primary">Recolectada</span>';
+					return $status;
+				break;
+				case '2':
+					$status = '<span class="label col-md-8 label-primary">Asignada</span>';
+					return $status;
+				break;
+				case '3':
+					$status = '<span class="label col-md-8 label-primary">Diagn&oacute;sticada</span>';
+					return $status;
+				break;
+				case '4':
+					$status = '<span class="label col-md-8 label-primary">Por autorizar</span>';
+					return $status;
+				break;
+				case '5':
+					$status = '<span class="label col-md-8 label-primary">Por notificar</span>';
+					return $status;
+				break;
+				case '6':
+					$status = '<span class="label col-md-8 label-primary">Por autorizar del cliente</span>';
+					return $status;
+				break;
+				case '7':
+					$status = '<span class="label col-md-8 label-primary">En reparaci&oacute;n</span>';
+					return $status;
+				break;
+				case '8':
+					$status = '<span class="label col-md-8 label-primary">Reparada</span>';
+					return $status;
+				break;
+				case '9':
+					$status = '<span class="label col-md-8 label-primary">Por entregar</span>';
+					return $status;
+				break;
+				case '10':
+					$status = '<span class="label col-md-8 label-primary">Por saldar</span>';
+					return $status;
+				break;
+				case '11':
+					$status = '<span class="label col-md-8 label-success">Cerrada</span>';
+					return $status;
+				break;
+				case '12':
+					$status = '<span class="label col-md-8 label-danger">Cancelada</span>';
+					return $status;
+				break;
+			}
+	}
+	/**
+     * @param str $date
+     * @return str  $interval
+	 *	Recibe la fecha en la que se originó la orden y calcula los dias transcurridos.
+     **/
+	public static function getDT($date){
+		$today = new \DateTime(date('Y-m-d'));
+		$date = new \DateTime($date);
+		$interval = $today->diff($date);
+		return $interval->format('%R%a');
+	}
+	/**
+     * @param int $st
+     * @return str  $status
+	 *	Recibe el número del status y en base a eso  indica lo que se necesita hacer, activar o desactivar
+     */
+	 public static function printActivaDesactiva($st){
+			switch($st){
+				case '0':
+					$status = 'Activa';
+					return $status;
+				break;
+				case '10':
+					$status = 'Activa';
+					return $status;
+				break;
+				case '1':
+					$status = 'Inactiva';
+					return $status;
+				break;
+				case '11':
+					$status = 'Inactiva';
+					return $status;
+				break;
+			}
 	}
 }

@@ -77,7 +77,6 @@ class Home extends Controller{
      */
 	public function login(){	
 	}
-	
 	public function logout(){
 		View::set("foo",true);
 		View::render("logout");

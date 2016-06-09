@@ -207,24 +207,34 @@ class ServiceOrder extends Controller{
 					$nextPKOSstatus=6;
 						break;
 				case 6:
-					$nextST="Reparada";
+					$nextST="En reparaci&oacute;n";
 					$nextSTLabel="Esperando a ser $nextST";
 					$nextPKOSstatus=7;
 						break;
 				case 7:
-					$nextST="Entregada";
+					$nextST="Reparada";
 					$nextSTLabel="Esperando a ser $nextST";
 					$nextPKOSstatus=8;
 						break;
 				case 8:
-					$nextST="Saldada";
+					$nextST="Entregada";
 					$nextSTLabel="Esperando a ser $nextST";
 					$nextPKOSstatus=9;
 						break;
 				case 9:
-					$nextST="Cerrada";
+					$nextST="Saldada";
 					$nextSTLabel="Esperando a ser $nextST";
 					$nextPKOSstatus=10;
+						break;
+				case 10:
+					$nextST="Cerrada";
+					$nextSTLabel="Esperando a ser $nextST";
+					$nextPKOSstatus=11;
+						break;
+				case 11:
+					$nextST="Cerrada";
+					$nextSTLabel="Esperando a ser $nextST";
+					$nextPKOSstatus=11;
 						break;
 			}
 		//Traemos los modificationCodes

@@ -148,39 +148,31 @@ class ServiceOrders implements iCrud{
 			$PDOQuery=
 			"
 			SELECT 
-				so2.pkSOrder,
-				so2.SONumber,
-				so2.contactName,
-				so2.SODate,
-		        sos2.SOstatusName,
-				so2.realname
-			FROM sostatus sos2
-				JOIN (
-					SELECT 
-							so.pkSOrder,
-							so.SONumber,
-							cc.contactName,
-							so.SODate,
-			                sod2.lastst,
-							u.realname
-						FROM sorder so
-							INNER JOIN customercontact cc
-								ON so.CustomerContact_pkCustomerContact=cc.pkCustomerContact
-							LEFT JOIN sodetail sod
-								ON so.pkSorder=sod.fkSorder
-							LEFT JOIN ibuser u 
-								ON sod.fkiBUser=u.pkiBUser
-			                JOIN (SELECT 
-			                        pkSOrder, 
-			                        MAX(sod.fkOSstatus) as lastst
-			                    FROM sodetail sod 
-			                        LEFT JOIN sorder so 
-			                            ON pkSorder=sod.fkSorder
-			                    GROUP BY pkSorder) sod2 ON so.pkSorder=sod2.pkSorder
+					sod2.lastst,
+					so.pkSOrder,
+					so.SONumber,
+					cc.contactName,
+					de.deviceDesc,
+					so.SODate,
+					u.realname
+			FROM sorder so
+				LEFT JOIN ( customercontact cc 
+					CROSS JOIN sodetail sod 
+					CROSS JOIN ibuser u 
+					CROSS JOIN device de )
+						ON ( so.CustomerContact_pkCustomerContact=cc.pkCustomerContact
+							AND so.pkSorder=sod.fkSorder
+							AND so.pkSorder=de.sorder_pkSorder
+							AND sod.fkiBUser=u.pkiBUser)
+					JOIN (	SELECT 
+							pkSOrder, 
+							MAX(sod.fkOSstatus) as lastst
+						FROM sodetail sod 
+			                LEFT JOIN sorder so 
+			                    ON pkSorder=sod.fkSorder
+			            GROUP BY pkSorder) sod2 ON so.pkSorder=sod2.pkSorder
 						GROUP BY so.pkSorder 
 						ORDER BY so.SODate DESC
-					) so2 ON so2.lastst=sos2.pkOSstatus
-			ORDER BY so2.pkSorder
 			";
 			$PDOResultSet = $PDOcnn->query($PDOQuery);
 			return $PDOResultSet;
@@ -319,4 +311,5 @@ class ServiceOrders implements iCrud{
             print "Error!: " . $e->getMessage();
         }
 	}
+	
 }

@@ -207,23 +207,23 @@ class CurrentUser {
 				BOName,
 				Name
 			FROM ibuser u
-				LEFT JOIN branchoffice_has_ibuserprofile bohup 
-					ON u.pkiBUser=bohup.ibuser_pkiBUser
-				LEFT JOIN branchoffice bo
-					ON bohup.branchoffice_pkBranchOffice=bo.pkBranchOffice
-				LEFT JOIN ibuserprofile up
-					ON bohup.ibuserprofile_pkiBUserProfile=up.pkiBUserProfile
+				LEFT JOIN  ( 
+					branchoffice_has_ibuserprofile bohup 
+					CROSS JOIN branchoffice bo
+					CROSS JOIN ibuserprofile up)
+						ON ( u.pkiBUser=bohup.ibuser_pkiBUser
+							AND bohup.branchoffice_pkBranchOffice=bo.pkBranchOffice
+							AND bohup.ibuserprofile_pkiBUserProfile=up.pkiBUserProfile
+						
+						) 
 			WHERE u.pkiBUser=$pkiBUser
-				AND bo.Active=1;
+			AND bo.Active=1;
 			";
 			
 			foreach ($PDOcnn->query($PDOQuery) as $resultSet) {
-				$output  ="<li>";
-				$output .=	"<a href='#'>";
+				$output  ="<option value='" . $resultSet['pkBranchOffice'] . "'>";
 				$output .= 		$resultSet['BOName'];
-				$output .= 	"</a>";
-				$output .="</li>";
-				
+				$output .= 	"</option>";	
 			}
 			return $output;
 			
