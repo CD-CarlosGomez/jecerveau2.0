@@ -42,8 +42,8 @@ use \App\data\DataGridView as DGV;
 			'totalBO' => array('header' => 'AASPS','link'=>$url . 'private/EnterpriseGroup/showBranchOfficeCompany/','filterColumn'=>1),
 			'totalUsers' => array('header' => 'Usuarios','link'=>$url . 'private/EnterpriseGroup/showUserCompany/','filterColumn'=>1)
 		))
-		->addColumnAfter('actions', '<a class="btn btn-success btn-xs btn-block" href="'.$url.'private/EnterpriseGroup/editCompany/$pkCompany$">Editar</a>
-									<button id="" class="btn btn-danger btn-xs btn-block delete" value="$pkCompany$" name="btn_pkCO$pkCompany$_h">Eliminar</button>'
+		->addColumnAfter('actions', '<a class="btn btn-primary btn-xs btn-block" href="'.$url.'private/EnterpriseGroup/editCompany/$pkCompany$">Editar</a>
+									<a id="$pkCompany$" class="btn btn-primary btn-xs btn-block clDel" href="#">[[printActivaDesactiva:$Active$]]</a>'
 			,'Actions', array('align' => 'center'));
 		//->addColumnBefore('counter', '%counter%.', 'Counter', array('align' => 'right'))
 		//->setStartingCounter(1)
@@ -71,7 +71,7 @@ use \App\data\DataGridView as DGV;
 	<!-- dataTable CSS-->
     <link href="<?php echo $url; ?>App/web/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
 	<!-- Sweet Alert -->
-		<link href="<?php echo $url; ?>App/web/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+	<link href="<?php echo $url; ?>App/web/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
 </head>
 <body class="top-navigation">
     <div id="wrapper">
@@ -205,33 +205,32 @@ use \App\data\DataGridView as DGV;
 						}
 				}
 			});
-			//START botones para "eliminar" usuario
-			var btn_pkCO_j;
-			$('.delete').click(function () {
-				btn_pkCO_j = $(this);
+			//START botones para cambiar estatus
+			$('.table').on("click","a.clDel",function () {
+				var btn_pkCO_j = $(this);
+				var pkDelete = btn_pkCO_j.attr("id");
 				swal({
-							title: "¿Desea realmente eliminar este usuario?",
+							title: "¿Desea realmente cambiar el status de esta cuenta maestra?",
 							text: "",
 							type: "warning",
 							showCancelButton: true,
 							confirmButtonColor: "#DD6B55",
-							confirmButtonText: "Si, ¡eliminar!",
+							confirmButtonText: "Si, ¡cambiar!",
 							cancelButtonText: "No, ¡cancelar!",
 							closeOnConfirm: false,
 				},
 				function (isConfirm) {
 					if (isConfirm) {
 						$.ajax({
-							url: '<?php echo $url; ?>private/EnterpriseGroup/bussinessEG',
+							url: '<?php echo $url; ?>private/EnterpriseGroup/businessEG',
 							type: "POST",
 							dataType: 'JSON',
 							data: {
-								id : btn_pkCO_j.val(),
-								btn: btn_pkCO_j.attr('name'),
+								id : pkDelete,
 								cmd: "DeleteCompany"
 							},
 							success: function(data){
-								swal("¡Eliminado!", data.message, "success");
+								swal("¡Guardado!", data.message, "success");
 								
 								 //Redireccionar
 								if (data.href != null) {

@@ -17,6 +17,7 @@ use \App\data\Crud as Crud;
 *                                                                              *
 *******************************************************************************/
 if($_POST){
+	//Obtenemos el $id que se asignó en el extract($_POST);
 	extract($_POST);
 }
 	switch(@$cmd){
@@ -27,19 +28,22 @@ if($_POST){
 			CreateUser();
 		break;
 		case "DeleteCompany":
-			//deleteCompany();
-			
-			
-			$set['Active'] = 0;
+			//Obtenemos el status actual usuario para cambiarlo al contrario: Activo-Inactivo-Activo
+			$ds_currentST = Crud::getByQuery("SELECT Active FROM company WHERE pkCompany=$id");
+			foreach($ds_currentST as $dt_currentST){ $dr_currentST = $dt_currentST['Active']; }
+			//Asignamos el valor al active para alternarlo, si ibuser.Active=1 (activo), entonces le asigna 0 para inactivarlo, y si es viceversa, asigna 1 para activarlo.
+			$set['Active'] = (1 == $dr_currentST)? 0 : 1 ;
+		
 			$set['Modified'] = date('Y-m-d');
 			$set['ModifiedBy'] = $currentUser;
+			//El valor del $id lo asignamos a un array asociativo para poder hacer el UPDATE del Crud.
 			$where['pkCompany'] = $id;
 			$ctrlUpdate = Crud::update($set,$where,'company');
 			
 			if ($ctrlUpdate){
 				$response = array(
 					'response' => true,
-					'message'  => 'La cuenta maestra se eliminó correctamente.',
+					'message'  => 'El estatus de la cuenta maestra se cambió correctamente.',
 					'href'     => 'self',
 					'function' => null //'string'
 					);
@@ -48,7 +52,7 @@ if($_POST){
 				else{
 					$response = array(
 					'response' => false,
-					'message'  => 'La cuenta maestra no se pudo eliminar.',
+					'message'  => 'El estatus de la cuenta maestra no se cambió.',
 					'href'     => 'self',
 					'function' => null //'string'
 					);
@@ -56,8 +60,12 @@ if($_POST){
 				}		
 		break;
 		case "DeleteBO":
-						
-			$set['Active'] = 0;
+			//Obtenemos el status actual usuario para cambiarlo al contrario: Activo-Inactivo-Activo
+			$ds_currentST = Crud::getByQuery("SELECT Active FROM subcompany WHERE pkSubCompany=$id");
+			foreach($ds_currentST as $dt_currentST){ $dr_currentST = $dt_currentST['Active']; }
+			//Asignamos el valor al active para alternarlo, si ibuser.Active=1 (activo), entonces le asigna 0 para inactivarlo, y si es viceversa, asigna 1 para activarlo.
+			$set['Active'] = (1 == $dr_currentST)? 0 : 1 ;
+			
 			$set['Modified'] = date('Y-m-d');
 			$set['ModifiedBy'] = $currentUser;
 			$where['pkBranchOffice'] = $id;
@@ -66,7 +74,7 @@ if($_POST){
 			if ($ctrlUpdate){
 				$response = array(
 					'response' => true,
-					'message'  => 'El AASP se eliminó correctamente.',
+					'message'  => 'El estatus del AASP se cambió correctamente.',
 					'href'     => 'self',
 					'function' => null //'string'
 					);
@@ -75,7 +83,7 @@ if($_POST){
 				else{
 					$response = array(
 					'response' => false,
-					'message'  => 'EL AASP no se pudo eliminar.',
+					'message'  => 'EL estatus del AASP no se cambió.',
 					'href'     => 'self',
 					'function' => null //'string'
 					);
@@ -83,8 +91,12 @@ if($_POST){
 				}		
 		break;
 		case "DeleteSubcompany":
-						
-			$set['active'] = 0;
+			//Obtenemos el status actual usuario para cambiarlo al contrario: Activo-Inactivo-Activo
+			$ds_currentST = Crud::getByQuery("SELECT active FROM subcompany WHERE pkSubCompany=$id");
+			foreach($ds_currentST as $dt_currentST){ $dr_currentST = $dt_currentST['active']; }
+			//Asignamos el valor al active para alternarlo, si ibuser.Active=1 (activo), entonces le asigna 0 para inactivarlo, y si es viceversa, asigna 1 para activarlo.
+			$set['active'] = (1 == $dr_currentST)? 0 : 1 ;
+			
 			$set['modified'] = date('Y-m-d');
 			$set['modifiedBy'] = $currentUser;
 			$where['pkSubCompany'] = $id;
@@ -93,7 +105,7 @@ if($_POST){
 			if ($ctrlUpdate){
 				$response = array(
 					'response' => true,
-					'message'  => 'La subcuenta se eliminó correctamente.',
+					'message'  => 'El estatus de la subcuenta se cambió correctamente.',
 					'href'     => 'self',
 					'function' => null //'string'
 					);
@@ -102,7 +114,7 @@ if($_POST){
 				else{
 					$response = array(
 					'response' => false,
-					'message'  => 'La subcuenta no se pudo eliminar.',
+					'message'  => 'El estatus de la subcuenta no se cambió.',
 					'href'     => 'self',
 					'function' => null //'string'
 					);
@@ -110,7 +122,6 @@ if($_POST){
 				}		
 		break;
  	}
-
 /*******************************************************************************
 *                                                                              *
 *                        ##########CONSTANTES##########                        *

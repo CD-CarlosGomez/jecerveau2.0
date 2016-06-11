@@ -163,13 +163,9 @@ private $_sesionpkiBUser;
 	#Renderizar Vista
 		View::render("addProfile");
 	}
-	public function cmdUpdateUser(){
+	public function businessUser(){
 		View::set("currentUser",$this->_sesionpkiBUser);
-		View::render("updateUser");
-	}
-	public function cmdDeleteUser(){
-		View::set("currentUser",$this->_sesionpkiBUser);
-		View::render("deleteUser");
+		View::render("businessUser");
 	}
 }
 //M�TODOS PRIVADOS###################################
@@ -177,14 +173,12 @@ private $_sesionpkiBUser;
 //CONTROLES##########################################
 //MAIN###############################################
 	switch(@$_POST['btn_toDo_h']){
+		
 		case "addProfile":
 			CreateProfile();
 		break;
 		case "AddUser":
 			CreateUser();
-		break;
-		case "Eliminar":
-			Delete();
 		break;
  	}
 	function CreateUser(){
@@ -319,9 +313,7 @@ private $_sesionpkiBUser;
 					header("Location:" . Globales::$absoluteURL . "private/User/showProfile");
 				}				
 				
-			}
-			
-				
+			}	
 		}
 	}
 

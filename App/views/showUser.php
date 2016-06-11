@@ -40,11 +40,10 @@ use \App\data\DataGridView as DGV;
 		))
 		->addColumnAfter('Acciones', 
 									'<a id="$pkiBUser$" class="btn btn-primary btn-xs btn-block col-lg-8" href="'.$url.'private/User/editUser/$pkiBUser$">Editar</a>
-									 <a id="$pkiBUser$" class="delete btn btn-primary col-lg-8 btn-xs btn-block" href="#">[[printActivaDesactiva:$Active$]]</a>							
+									 <a id="$pkiBUser$" class="clDel btn btn-primary col-lg-8 btn-xs btn-block" href="#">[[printActivaDesactiva:$Active$]]</a>							
 									',
 									'Actions', array('align' => 'center'))
 		->addColumnBefore('ST', '[[print_status:$Active$]]', 'Estatus', array('align' => 'center'))
-	
 		//->setStartingCounter(1)
 		//->setRowClass('')
 		//->setAlterRowClass('alterRow');
@@ -206,7 +205,7 @@ use \App\data\DataGridView as DGV;
             });
 		
 		//	botones para "eliminar" usuario
-			$(".delete").click(function() {
+			$('.table').on("click","a.clDel",function() {
 				var btn_pk_j = $(this);
 				var pkDelete = btn_pk_j.attr("id");
 				var id = 'id=' + pkDelete + '&cmd=DeleteUser';
@@ -223,7 +222,7 @@ use \App\data\DataGridView as DGV;
 				function (isConfirm) {
 					if (isConfirm) {
 						$.ajax({
-							url: '<?php echo $url; ?>private/User/cmdDeleteUser',
+							url: '<?php echo $url; ?>private/User/businessUser',
 							type: "POST",
 							dataType: 'JSON',
 							data: id,

@@ -41,8 +41,8 @@ use \App\data\DataGridView as DGV;
 			'totalUsers' => array('header' => 'Usuarios','link'=>$url . 'private/EnterpriseGroup/showUserBranchOffice/','filterColumn'=>3)
 		))
 		->addColumnAfter('actions', 
-									'<a class="btn btn-success btn-xs btn-block" href="'.$url.'private/EnterpriseGroup/editBranchOffice/$pkBranchOffice$">Editar</a>
-									<button id="" class="btn btn-danger btn-xs btn-block delete" value="$pkBranchOffice$" name="btn_pk$pkBranchOffice$_h">Eliminar</button>',
+									'<a class="btn btn-primary btn-xs btn-block" href="'.$url.'private/EnterpriseGroup/editBranchOffice/$pkBranchOffice$">Editar</a>
+									 <a id="$pkBranchOffice$" class="btn btn-primary btn-xs btn-block clDel" href="#">[[printActivaDesactiva:$Active$]]</a>',
 									'Actions', array('align' => 'center'));
 		//->addColumnBefore('counter', '%counter%.', 'Counter', array('align' => 'right'))
 		//->setStartingCounter(1)
@@ -211,34 +211,34 @@ use \App\data\DataGridView as DGV;
 						}
 				}
             });
-			
-			var btn_pk_j;
-			$('.delete').click(function () {
-				btn_pk_j = $(this);
+			//START botones para cambiar estatus
+			$('.table').on("click","a.clDel",function () {
+				var btn_pk_j = $(this);
+				var pkDelete = btn_pk_j.attr("id");
 				swal({
-							title: "¿Desea realmente eliminar este usuario?",
+							title: "¿Desea realmente cambiar el status de esta cuenta maestra?",
 							text: "",
 							type: "warning",
 							showCancelButton: true,
 							confirmButtonColor: "#DD6B55",
-							confirmButtonText: "Si, ¡eliminar!",
+							confirmButtonText: "Si, ¡cambiar!",
 							cancelButtonText: "No, ¡cancelar!",
 							closeOnConfirm: false,
 				},
 				function (isConfirm) {
 					if (isConfirm) {
 						$.ajax({
-							url: '<?php echo $url; ?>private/EnterpriseGroup/bussinessEG',
+							url: '<?php echo $url; ?>private/EnterpriseGroup/businessEG',
 							type: "POST",
 							dataType: 'JSON',
 							data: {
-								id : btn_pk_j.val(),
+								id : pkDelete,
 								cmd: "DeleteBO"
 							},
 							success: function(data){
-								swal("¡Eliminado!", data.message, "success");
+								swal("¡Guardado!", data.message, "success");
 								
-								//Redireccionar
+								 //Redireccionar
 								if (data.href != null) {
 									if (data.href == 'self') window.location.reload(true);
 									else redirect(data.href);
@@ -250,8 +250,7 @@ use \App\data\DataGridView as DGV;
 				}
 				);
 			});
-
-
+			//END
         });
     </script>
 

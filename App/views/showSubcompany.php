@@ -40,8 +40,8 @@ use \App\data\DataGridView as DGV;
 			'totalUsers' => array('header' => 'Usuarios','link'=>$url . 'private/EnterpriseGroup/showUserSubCompany/','filterColumn'=>2)
 		))
 		->addColumnAfter('actions', 
-									'<a class="btn btn-success btn-xs btn-block" href="'.$url.'private/EnterpriseGroup/editSubcompany/$pkSubCompany$">Editar</a>
-									<button id="" class="btn btn-danger btn-xs btn-block delete" value="$pkSubCompany$" name="btn_pk$pkSubCompany$_h">Eliminar</button>',
+									'<a class="btn btn-primary btn-xs btn-block" href="'.$url.'private/EnterpriseGroup/editSubcompany/$pkSubCompany$">Editar</a>
+									<a id="$pkSubCompany$" class="btn btn-primary btn-xs btn-block clDel" href="#">[[printActivaDesactiva:$active$]]</button>',
 									'Actions', array('align' => 'center'));
 		//->addColumnBefore('counter', '%counter%.', 'Counter', array('align' => 'right'))
 		//->setStartingCounter(1)
@@ -206,31 +206,31 @@ use \App\data\DataGridView as DGV;
 
             });
 			//START botones para "eliminar" usuario
-			var btn_pk_j;
-			$('.delete').click(function () {
-				btn_pk_j = $(this);
+			$('.table').on("click","a.clDel",function () {
+				var btn_pk_j = $(this);
+				var pkDelete = btn_pk_j.attr("id");
 				swal({
-							title: "¿Desea realmente eliminar este usuario?",
+							title: "Desea realmente cambiar el status de esta subcuenta?",
 							text: "",
 							type: "warning",
 							showCancelButton: true,
 							confirmButtonColor: "#DD6B55",
-							confirmButtonText: "Si, ¡eliminar!",
-							cancelButtonText: "No, ¡cancelar!",
+							confirmButtonText: "Si, cambiar!",
+							cancelButtonText: "No, cancelar!",
 							closeOnConfirm: false,
 				},
 				function (isConfirm) {
 					if (isConfirm) {
 						$.ajax({
-							url: '<?php echo $url; ?>private/EnterpriseGroup/bussinessEG',
+							url: '<?php echo $url; ?>private/EnterpriseGroup/businessEG',
 							type: "POST",
 							dataType: 'JSON',
 							data: {
-								id : btn_pk_j.val(),
+								id : pkDelete,
 								cmd: "DeleteSubcompany"
 							},
 							success: function(data){
-								swal("¡Eliminado!", data.message, "success");
+								swal("Guardado!", data.message, "success");
 								
 								// Redireccionar
 								if (data.href != null) {

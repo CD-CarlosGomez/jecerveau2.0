@@ -413,9 +413,9 @@ private $_sesionpkiBUser;
 		View::set("currentUser",$this->_sesionpkiBUser);
 		View::render("updateBO");
 	}
-	public function bussinessEG(){
+	public function businessEG(){
 		View::set("currentUser",$this->_sesionpkiBUser);
-		View::render("bussinessEnterpriseGroup");
+		View::render("businessEnterpriseGroup");
 	}
 //MÉTODOS PRIVADOS###################################
 //EVENTOS############################################

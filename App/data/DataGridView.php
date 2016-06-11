@@ -117,7 +117,7 @@ class DataGridView{
      *
      * @param string $name
      * @param string $value
-     * @return Fete_ViewControl_DataGrid
+     * @return DataGrid
      */
     public function &setGridAttribute($name, $value){
         $this->_gridAttributes[$name] = $value;
@@ -492,19 +492,19 @@ class DataGridView{
 	 public static function printActivaDesactiva($st){
 			switch($st){
 				case '0':
-					$status = 'Activa';
+					$status = 'Activar';
 					return $status;
 				break;
 				case '10':
-					$status = 'Activa';
+					$status = 'Activar';
 					return $status;
 				break;
 				case '1':
-					$status = 'Inactiva';
+					$status = 'Desactivar';
 					return $status;
 				break;
 				case '11':
-					$status = 'Inactiva';
+					$status = 'Desactivar';
 					return $status;
 				break;
 			}

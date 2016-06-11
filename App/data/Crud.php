@@ -166,7 +166,7 @@ class Crud{
 				return true;
 			}
         catch (\PDOException $e) {
-    		echo 'Error insert ibuserprofile_has_ibfunctiondetail ',  $e->getMessage(), ".\n";
+    		echo 'Error al momento de hacer la consulta: ' . $SQLQuery,  $e->getMessage(), ".\n";
 		}
 	}
 	/*   

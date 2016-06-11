@@ -98,7 +98,7 @@ use \Core\Controller;
 								</div>
 								<div class="ibox-content" >
 									<fieldset>
-											<form id="frm_user_h" class="form-horizontal" action="<?php echo $url; ?>private/User/cmdUpdateUser" method="POST" role="form">
+											<form id="frm_user_h" class="form-horizontal" action="<?php echo $url; ?>private/User/businessUser" method="POST" role="form">
 												<input type="hidden" id="" value="<?php echo $pkuser; ?>" name="hdn_pkuser_h">
 													<div class="col-lg-6">
 														
@@ -152,7 +152,7 @@ use \Core\Controller;
 														</div>
 														<div class="col-md-4 pull-right">
 															<div class="form-group">
-																<button type="submit" id="" class="btn btn-primary btn-md btn-block" value="editUser" name="btn_toDo_h">Guardar</button>
+																<button type="submit" id="" class="btn btn-primary btn-md btn-block" value="UpdateUser" name="cmd">Guardar</button>
 															</div>
 														</div>
 													</div>
