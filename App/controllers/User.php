@@ -167,6 +167,20 @@ private $_sesionpkiBUser;
 		View::set("currentUser",$this->_sesionpkiBUser);
 		View::render("businessUser");
 	}
+	public function importUser(){
+		#Objetos_e_instancias
+		$cu=CU::getInstance();
+	#get main variables
+		$url= Globales::$absoluteURL;
+		$currentMainMenu=$cu->getMainMenu2($this->_sesionpkiBUser);
+	#set main variables
+		View::set("url", $url);
+		View::set("currentMainMenu", $currentMainMenu);
+		View::set("title", "Editar usuario");
+		View::set("currentUser",$this->_sesionpkiBUser);
+	#Renderizar
+		View::render("importUser");
+	}
 }
 //M�TODOS PRIVADOS###################################
 //EVENTOS############################################

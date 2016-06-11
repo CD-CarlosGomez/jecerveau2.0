@@ -417,6 +417,7 @@ private $_sesionpkiBUser;
 		View::set("currentUser",$this->_sesionpkiBUser);
 		View::render("businessEnterpriseGroup");
 	}
+
 //MÉTODOS PRIVADOS###################################
 //EVENTOS############################################
 //CONTROLES##########################################

@@ -1,5 +1,5 @@
 <?php
-#Agregar los select de las llaves for�neas
+#Agregar los select de las llaves foráneas
 
 namespace App\View\EnterpriseGroup;
 defined("APPPATH") OR die("Access denied");
